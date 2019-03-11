@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +31,26 @@ public class GlobalExceptionHandler {
         ApiResponseEnum apiResponseEnum = e instanceof BusinessException ? ((BusinessException) e).getApiResponseEnum() : null;
         ApiResponseEnum responseEnum = apiResponseEnum == null ? ApiResponseEnum.INTERNAL_ERROR : apiResponseEnum;
         ApiResponse apiResponse = ApiResponse.returnFail(responseEnum);
+        return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler({BindException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ResponseEntity<?> exceptionHandler(BindException e) {
+        logger.error("internalExceptionHandler: stacktrace={}", e);
+        ApiResponse apiResponse;
+        BindingResult bindingResult = e.getBindingResult();
+        if (bindingResult != null && bindingResult.hasFieldErrors()) {
+            FieldError fieldError = bindingResult.getFieldError();
+            String fieldName = fieldError.getField();
+            String errorMsg = "[" + fieldName + "]" + fieldError.getDefaultMessage();
+            apiResponse = ApiResponse.returnFail(ApiResponseEnum.PARAMETER_INVALID, errorMsg);
+        } else {
+            apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR, e.getMessage());
+        }
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }
