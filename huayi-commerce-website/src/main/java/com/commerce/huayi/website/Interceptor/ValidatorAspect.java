@@ -21,9 +21,9 @@ import java.util.Set;
  */
 @Component
 @Aspect
-public class ParameterInvalidInterceptor {
+public class ValidatorAspect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParameterInvalidInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidatorAspect.class);
 
     @Autowired
     private Validator validator;
