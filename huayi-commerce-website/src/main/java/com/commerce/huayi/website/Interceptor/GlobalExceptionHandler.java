@@ -28,9 +28,13 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> internalExceptionHandler(Exception e) {
         logger.error("internalExceptionHandler: stacktrace={}", e);
-        ApiResponseEnum apiResponseEnum = e instanceof BusinessException ? ((BusinessException) e).getApiResponseEnum() : null;
-        ApiResponseEnum responseEnum = apiResponseEnum == null ? ApiResponseEnum.INTERNAL_ERROR : apiResponseEnum;
-        ApiResponse apiResponse = ApiResponse.returnFail(responseEnum);
+        if(e instanceof BusinessException) {
+            BusinessException businessException = (BusinessException) e;
+            ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
+            Object errorData = businessException.getErrorData();
+            return new ResponseEntity(ApiResponse.returnFail(errorData,apiResponseEnum), HttpStatus.BAD_REQUEST);
+        }
+        ApiResponse apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }
