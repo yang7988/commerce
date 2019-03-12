@@ -11,6 +11,13 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.sql.DataSource;
 import javax.validation.Validation;
@@ -21,6 +28,7 @@ import javax.validation.ValidatorFactory;
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.commerce.huayi.website","com.commerce.huayi.cache"})
 @MapperScan(basePackages = "com.commerce.huayi.website.mapper")
+@EnableSwagger2
 public class Application {
 
     public static void main(String[] args) {
@@ -43,5 +51,25 @@ public class Application {
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().failFast(true)
                 .buildValidatorFactory();
         return validatorFactory.getValidator();
+    }
+
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.commerce.huayi.website.controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("huayi-commerce文档RESTful-APIs")
+                .description("")
+                .termsOfServiceUrl("https://github.com/yang7988/huayi-commerce.git")
+                .contact("上官小文")
+                .version("1.0")
+                .build();
     }
 }
