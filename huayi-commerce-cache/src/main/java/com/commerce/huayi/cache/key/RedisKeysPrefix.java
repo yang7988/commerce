@@ -1,9 +1,8 @@
 package com.commerce.huayi.cache.key;
 
 public enum RedisKeysPrefix {
-    PAY_KEY("pay:", "pay 模块 redis key 前缀"),
-    USER_KEY("user:", "user 模块 redis key 前缀"),
-    TASK_KEY("task:", "task 模块 redis key 前缀");
+    USER_KEY("user:", "用户模块 redis key 前缀"),
+    PRODUCT_KEY("product:", "商品模块 redis key 前缀");
 
     private String prefix;
     private String info;

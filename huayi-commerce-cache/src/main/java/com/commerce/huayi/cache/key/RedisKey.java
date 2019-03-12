@@ -29,7 +29,7 @@ public class RedisKey {
         this.key = key;
     }
 
-    public String makeString() {
+    private String makeString() {
         return this.redisKeysPrefix.getPrefix().concat(this.key);
     }
 }
