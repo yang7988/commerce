@@ -68,7 +68,7 @@ public class Application {
                 .title("huayi-commerce文档RESTful-APIs")
                 .description("")
                 .termsOfServiceUrl("https://github.com/yang7988/huayi-commerce.git")
-                .contact("上官小文")
+                .contact("徐阳、上官小文")
                 .version("1.0")
                 .build();
     }
