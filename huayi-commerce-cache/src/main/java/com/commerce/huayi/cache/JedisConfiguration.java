@@ -17,6 +17,8 @@ public class JedisConfiguration {
     private String host;
     @Value("${redis.port}")
     private Integer port;
+    @Value("${redis.password}")
+    private String password;
     @Value("${redis.timeout}")
     private String timeout;
     @Value("${redis.maxIdle}")
@@ -50,7 +52,7 @@ public class JedisConfiguration {
 
     @Bean
     public JedisPool jedisPool(@Qualifier("jedisPoolConfig") JedisPoolConfig jedisPoolConfig) {
-        return new JedisPool(jedisPoolConfig, host, port, Integer.parseInt(timeout));
+        return new JedisPool(jedisPoolConfig, host, port, Integer.parseInt(timeout),password);
     }
 
 }

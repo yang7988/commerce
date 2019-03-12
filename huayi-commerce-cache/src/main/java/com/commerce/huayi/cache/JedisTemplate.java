@@ -91,5 +91,22 @@ public class JedisTemplate {
         return t;
     }
 
-
+    public JedisStatus delete(RedisKey key) {
+        JedisStatus jedisStatus;
+        Jedis jedis = null;
+        try {
+            jedis = this.getJedis();
+            jedis.del(key.getRedisKey().getBytes(Charset.defaultCharset()));
+            jedisStatus = JedisStatus.OK;
+        } catch (Exception e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("JedisTemplate delete({}) method called error {}"
+                        , key.getRedisKey(), ExceptionUtils.getStackTrace(e));
+            }
+            jedisStatus = JedisStatus.FAILD;
+        } finally {
+            this.closeJedis(jedis);
+        }
+        return jedisStatus;
+    }
 }
