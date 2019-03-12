@@ -25,7 +25,7 @@ public class ApplicationTests {
 
     @Test
     public void testRedis() throws Exception {
-        RedisKey redisKey = new RedisKey(RedisKeysPrefix.TASK_KEY, "userid:1");
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, "userid:1");
         User user = jedisTemplate.get(redisKey, User.class);
         if(user == null) {
             user = new User();

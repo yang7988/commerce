@@ -26,9 +26,13 @@ public class JedisTemplate {
     private JedisPool jedisPool;
 
     private void closeJedis(Jedis jedis) {
-        if (jedis == null) return;
-        jedis.close();
-
+        if (jedis != null) {
+            try {
+                jedis.close();
+            } catch (Exception e) {
+                LOGGER.error("jedis colse error", e);
+            }
+        }
     }
 
     private Jedis getJedis() {
