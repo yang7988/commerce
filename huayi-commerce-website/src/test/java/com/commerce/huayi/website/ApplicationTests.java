@@ -36,6 +36,7 @@ public class ApplicationTests {
             user.setCreateDate(new Date());
             user.setUpdateDate(new Date());
             user.setIsDelete((byte)1);
+            jedisTemplate.set(redisKey, user);
         }
         jedisTemplate.delete(redisKey);
         User user1 = jedisTemplate.get(redisKey, User.class);
