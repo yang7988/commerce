@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.controller;
 
 import com.commerce.huayi.api.ApiResponse;
-import com.commerce.huayi.website.entity.request.UserLoginReq;
+import com.commerce.huayi.entity.request.UserLoginReq;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;

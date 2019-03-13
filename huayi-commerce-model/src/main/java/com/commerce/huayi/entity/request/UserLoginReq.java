@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.entity.request;
+package com.commerce.huayi.entity.request;
 
 import javax.validation.constraints.NotNull;
 
