@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.mapper;
 
-import com.commerce.huayi.website.entity.db.GoodsSpu;
-import com.commerce.huayi.website.entity.db.GoodsSpuExample;
+import com.commerce.huayi.entity.db.GoodsSpu;
+import com.commerce.huayi.entity.db.GoodsSpuExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.commerce.huayi.website.mapper.GoodsSkuMapper" >
-  <resultMap id="BaseResultMap" type="com.commerce.huayi.website.entity.db.GoodsSku" >
+  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSku" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="sku_no" property="skuNo" jdbcType="VARCHAR" />
     <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     id, sku_no, sku_name, price, stock, spu_id, create_date, update_date, is_delete
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.website.entity.db.GoodsSkuExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.entity.db.GoodsSkuExample" >
     select
     <if test="distinct" >
       distinct
@@ -111,13 +111,13 @@
     delete from tb_goods_sku
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.commerce.huayi.website.entity.db.GoodsSkuExample" >
+  <delete id="deleteByExample" parameterType="com.commerce.huayi.entity.db.GoodsSkuExample" >
     delete from tb_goods_sku
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.commerce.huayi.website.entity.db.GoodsSku" keyProperty="id" useGeneratedKeys="true" >
+  <insert id="insert" parameterType="com.commerce.huayi.entity.db.GoodsSku" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_sku (id, sku_no, sku_name, 
       price, stock, spu_id, 
       create_date, update_date, is_delete
@@ -127,7 +127,7 @@
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.commerce.huayi.website.entity.db.GoodsSku" keyProperty="id" useGeneratedKeys="true" >
+  <insert id="insertSelective" parameterType="com.commerce.huayi.entity.db.GoodsSku" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_sku
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -188,7 +188,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.commerce.huayi.website.entity.db.GoodsSkuExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.commerce.huayi.entity.db.GoodsSkuExample" resultType="java.lang.Integer" >
     select count(*) from tb_goods_sku
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -244,7 +244,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.website.entity.db.GoodsSku" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodsSku" >
     update tb_goods_sku
     <set >
       <if test="skuNo != null" >
@@ -274,7 +274,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.commerce.huayi.website.entity.db.GoodsSku" >
+  <update id="updateByPrimaryKey" parameterType="com.commerce.huayi.entity.db.GoodsSku" >
     update tb_goods_sku
     set sku_no = #{skuNo,jdbcType=VARCHAR},
       sku_name = #{skuName,jdbcType=VARCHAR},

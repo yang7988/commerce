@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.entity.db;
+package com.commerce.huayi.entity.db;
 
 import com.commerce.huayi.pagination.Limit;
 import com.commerce.huayi.pagination.Page;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class GoodsSpecValueExample {
+public class GoodsSpecExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -21,7 +21,7 @@ public class GoodsSpecValueExample {
 
     protected Page page;
 
-    public GoodsSpecValueExample() {
+    public GoodsSpecExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -207,6 +207,66 @@ public class GoodsSpecValueExample {
             return (Criteria) this;
         }
 
+        public Criteria andSpuIdIsNull() {
+            addCriterion("spu_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdIsNotNull() {
+            addCriterion("spu_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdEqualTo(Long value) {
+            addCriterion("spu_id =", value, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdNotEqualTo(Long value) {
+            addCriterion("spu_id <>", value, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdGreaterThan(Long value) {
+            addCriterion("spu_id >", value, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("spu_id >=", value, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdLessThan(Long value) {
+            addCriterion("spu_id <", value, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdLessThanOrEqualTo(Long value) {
+            addCriterion("spu_id <=", value, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdIn(List<Long> values) {
+            addCriterion("spu_id in", values, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdNotIn(List<Long> values) {
+            addCriterion("spu_id not in", values, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdBetween(Long value1, Long value2) {
+            addCriterion("spu_id between", value1, value2, "spuId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpuIdNotBetween(Long value1, Long value2) {
+            addCriterion("spu_id not between", value1, value2, "spuId");
+            return (Criteria) this;
+        }
+
         public Criteria andSpecIdIsNull() {
             addCriterion("spec_id is null");
             return (Criteria) this;
@@ -264,76 +324,6 @@ public class GoodsSpecValueExample {
 
         public Criteria andSpecIdNotBetween(Long value1, Long value2) {
             addCriterion("spec_id not between", value1, value2, "specId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueIsNull() {
-            addCriterion("spec_value is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueIsNotNull() {
-            addCriterion("spec_value is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueEqualTo(String value) {
-            addCriterion("spec_value =", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueNotEqualTo(String value) {
-            addCriterion("spec_value <>", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueGreaterThan(String value) {
-            addCriterion("spec_value >", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueGreaterThanOrEqualTo(String value) {
-            addCriterion("spec_value >=", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueLessThan(String value) {
-            addCriterion("spec_value <", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueLessThanOrEqualTo(String value) {
-            addCriterion("spec_value <=", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueLike(String value) {
-            addCriterion("spec_value like", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueNotLike(String value) {
-            addCriterion("spec_value not like", value, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueIn(List<String> values) {
-            addCriterion("spec_value in", values, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueNotIn(List<String> values) {
-            addCriterion("spec_value not in", values, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueBetween(String value1, String value2) {
-            addCriterion("spec_value between", value1, value2, "specValue");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecValueNotBetween(String value1, String value2) {
-            addCriterion("spec_value not between", value1, value2, "specValue");
             return (Criteria) this;
         }
 

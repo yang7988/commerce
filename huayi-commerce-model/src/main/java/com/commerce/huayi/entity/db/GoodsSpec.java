@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.entity.db;
+package com.commerce.huayi.entity.db;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,14 +7,11 @@ public class GoodsSpec implements Serializable {
     //主键id
     private Long id;
 
-    //规格编号
-    private String specNo;
+    //spu_id
+    private Long spuId;
 
-    //规格名称
-    private String specName;
-
-    //规格描述
-    private String specDescription;
+    //spec_id
+    private Long specId;
 
     //创建时间
     private Date createDate;
@@ -35,28 +32,20 @@ public class GoodsSpec implements Serializable {
         this.id = id;
     }
 
-    public String getSpecNo() {
-        return specNo;
+    public Long getSpuId() {
+        return spuId;
     }
 
-    public void setSpecNo(String specNo) {
-        this.specNo = specNo;
+    public void setSpuId(Long spuId) {
+        this.spuId = spuId;
     }
 
-    public String getSpecName() {
-        return specName;
+    public Long getSpecId() {
+        return specId;
     }
 
-    public void setSpecName(String specName) {
-        this.specName = specName;
-    }
-
-    public String getSpecDescription() {
-        return specDescription;
-    }
-
-    public void setSpecDescription(String specDescription) {
-        this.specDescription = specDescription;
+    public void setSpecId(Long specId) {
+        this.specId = specId;
     }
 
     public Date getCreateDate() {

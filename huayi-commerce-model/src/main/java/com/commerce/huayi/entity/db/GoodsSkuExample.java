@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.entity.db;
+package com.commerce.huayi.entity.db;
 
 import com.commerce.huayi.pagination.Limit;
 import com.commerce.huayi.pagination.Page;

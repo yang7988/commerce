@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.entity.db;
+package com.commerce.huayi.entity.db;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

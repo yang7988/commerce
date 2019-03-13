@@ -16,7 +16,7 @@
         <module>huayi-commerce-common</module>
         <module>huayi-commerce-api</module>
         <module>huayi-commerce-cache</module>
-        <module>huayi-commerce-gen</module>
+        <module>huayi-commerce-model</module>
     </modules>
     <packaging>pom</packaging>
     <description>commerce project for Spring Boot</description>
