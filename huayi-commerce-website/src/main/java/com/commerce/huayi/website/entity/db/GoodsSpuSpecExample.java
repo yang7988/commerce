@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.entity.db;
 
-import com.commerce.huayi.pagination.Limit;
-import com.commerce.huayi.pagination.Page;
+import com.rayvision.common.plugin.Limit;
+import com.rayvision.common.plugin.Page;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -444,6 +444,66 @@ public class GoodsSpuSpecExample {
 
         public Criteria andUpdateDateNotBetween(Date value1, Date value2) {
             addCriterion("update_date not between", value1, value2, "updateDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Byte value) {
+            addCriterion("is_delete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Byte value) {
+            addCriterion("is_delete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Byte value) {
+            addCriterion("is_delete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_delete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Byte value) {
+            addCriterion("is_delete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Byte value) {
+            addCriterion("is_delete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Byte> values) {
+            addCriterion("is_delete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Byte> values) {
+            addCriterion("is_delete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Byte value1, Byte value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
     }

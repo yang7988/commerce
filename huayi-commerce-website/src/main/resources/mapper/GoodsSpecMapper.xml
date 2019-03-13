@@ -5,8 +5,10 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="spec_no" property="specNo" jdbcType="VARCHAR" />
     <result column="spec_name" property="specName" jdbcType="VARCHAR" />
+    <result column="spec_description" property="specDescription" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, spec_no, spec_name, create_date, update_date
+    id, spec_no, spec_name, spec_description, create_date, update_date, is_delete
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.website.entity.db.GoodsSpecExample" >
     select
@@ -115,9 +117,11 @@
   </delete>
   <insert id="insert" parameterType="com.commerce.huayi.website.entity.db.GoodsSpec" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_spec (id, spec_no, spec_name, 
-      create_date, update_date)
+      spec_description, create_date, update_date, 
+      is_delete)
     values (#{id,jdbcType=BIGINT}, #{specNo,jdbcType=VARCHAR}, #{specName,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+      #{specDescription,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.commerce.huayi.website.entity.db.GoodsSpec" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_spec
@@ -131,11 +135,17 @@
       <if test="specName != null" >
         spec_name,
       </if>
+      <if test="specDescription != null" >
+        spec_description,
+      </if>
       <if test="createDate != null" >
         create_date,
       </if>
       <if test="updateDate != null" >
         update_date,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -148,11 +158,17 @@
       <if test="specName != null" >
         #{specName,jdbcType=VARCHAR},
       </if>
+      <if test="specDescription != null" >
+        #{specDescription,jdbcType=VARCHAR},
+      </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null" >
         #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -174,11 +190,17 @@
       <if test="record.specName != null" >
         spec_name = #{record.specName,jdbcType=VARCHAR},
       </if>
+      <if test="record.specDescription != null" >
+        spec_description = #{record.specDescription,jdbcType=VARCHAR},
+      </if>
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateDate != null" >
         update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -190,8 +212,10 @@
     set id = #{record.id,jdbcType=BIGINT},
       spec_no = #{record.specNo,jdbcType=VARCHAR},
       spec_name = #{record.specName,jdbcType=VARCHAR},
+      spec_description = #{record.specDescription,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,11 +229,17 @@
       <if test="specName != null" >
         spec_name = #{specName,jdbcType=VARCHAR},
       </if>
+      <if test="specDescription != null" >
+        spec_description = #{specDescription,jdbcType=VARCHAR},
+      </if>
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null" >
         update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -218,8 +248,10 @@
     update tb_goods_spec
     set spec_no = #{specNo,jdbcType=VARCHAR},
       spec_name = #{specName,jdbcType=VARCHAR},
+      spec_description = #{specDescription,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP}
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

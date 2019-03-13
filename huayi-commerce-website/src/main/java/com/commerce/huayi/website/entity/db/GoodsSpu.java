@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * 产品单元
- */
 public class GoodsSpu implements Serializable {
     //主键id
     private Long id;
@@ -16,6 +13,9 @@ public class GoodsSpu implements Serializable {
 
     //商品名称
     private String goodsName;
+
+    //商品描述
+    private String goodsDescription;
 
     //最低售价
     private BigDecimal lowPrice;
@@ -31,6 +31,9 @@ public class GoodsSpu implements Serializable {
 
     //更新时间
     private Date updateDate;
+
+    //是否删除(0未删除1已删除)
+    private Byte isDelete;
 
     static final long serialVersionUID = 1L;
 
@@ -56,6 +59,14 @@ public class GoodsSpu implements Serializable {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getGoodsDescription() {
+        return goodsDescription;
+    }
+
+    public void setGoodsDescription(String goodsDescription) {
+        this.goodsDescription = goodsDescription;
     }
 
     public BigDecimal getLowPrice() {
@@ -96,5 +107,13 @@ public class GoodsSpu implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

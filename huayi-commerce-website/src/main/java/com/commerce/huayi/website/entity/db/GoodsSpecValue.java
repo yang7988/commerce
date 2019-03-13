@@ -3,11 +3,8 @@ package com.commerce.huayi.website.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 产品规规格属性值
- */
 public class GoodsSpecValue implements Serializable {
-    //逐渐id
+    //主键id
     private Long id;
 
     //规格id
@@ -21,6 +18,9 @@ public class GoodsSpecValue implements Serializable {
 
     //更新时间
     private Date updateDate;
+
+    //是否删除(0未删除1已删除)
+    private Byte isDelete;
 
     static final long serialVersionUID = 1L;
 
@@ -62,5 +62,13 @@ public class GoodsSpecValue implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

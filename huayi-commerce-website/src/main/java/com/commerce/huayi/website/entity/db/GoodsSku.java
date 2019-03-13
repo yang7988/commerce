@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * 产品库存单元SKU
- */
 public class GoodsSku implements Serializable {
     //主键id
     private Long id;
@@ -31,6 +28,9 @@ public class GoodsSku implements Serializable {
 
     //更新时间
     private Date updateDate;
+
+    //是否删除(0未删除1已删除)
+    private Byte isDelete;
 
     static final long serialVersionUID = 1L;
 
@@ -96,5 +96,13 @@ public class GoodsSku implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }
