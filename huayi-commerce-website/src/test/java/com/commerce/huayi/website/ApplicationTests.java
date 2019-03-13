@@ -1,5 +1,6 @@
 package com.commerce.huayi.website;
 
+import com.commerce.huayi.Application;
 import com.commerce.huayi.cache.JedisTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;

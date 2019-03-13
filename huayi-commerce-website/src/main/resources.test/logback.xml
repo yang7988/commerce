@@ -30,7 +30,7 @@
 
     </appender>
 
-    <logger name="com.commerce.huayi.website.mapper" level="DEBUG">
+    <logger name="com.commerce.huayi.mapper" level="DEBUG">
         <appender-ref ref="STDOUT"/>
     </logger>
 

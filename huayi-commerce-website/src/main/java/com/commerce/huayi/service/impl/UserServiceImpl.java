@@ -1,6 +1,6 @@
-package com.commerce.huayi.website.service.impl;
+package com.commerce.huayi.service.impl;
 
-import com.commerce.huayi.website.service.UserService;
+import com.commerce.huayi.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service

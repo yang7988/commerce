@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.Interceptor;
+package com.commerce.huayi.Interceptor;
 
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
@@ -28,7 +28,7 @@ public class ValidatorAspect {
     @Autowired
     private Validator validator;
 
-    @Pointcut("execution(* com.commerce.huayi.website.controller.*Controller.*(..))")
+    @Pointcut("execution(* com.commerce.huayi..controller.*Controller.*(..))")
     public void controller() {
     }
 

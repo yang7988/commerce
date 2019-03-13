@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.mapper;
+package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.GoodsSkuSpecValue;
 import com.commerce.huayi.entity.db.GoodsSkuSpecValueExample;

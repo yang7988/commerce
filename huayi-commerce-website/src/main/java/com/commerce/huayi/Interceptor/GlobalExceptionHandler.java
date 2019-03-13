@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.Interceptor;
+package com.commerce.huayi.Interceptor;
 
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;

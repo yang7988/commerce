@@ -1,4 +1,4 @@
-package com.commerce.huayi.website;
+package com.commerce.huayi;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -26,8 +26,8 @@ import javax.validation.ValidatorFactory;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"com.commerce.huayi.website","com.commerce.huayi.cache"})
-@MapperScan(basePackages = "com.commerce.huayi.website.mapper")
+@ComponentScan(basePackages = {"com.commerce.huayi"})
+@MapperScan(basePackages = "com.commerce.huayi.mapper")
 @EnableSwagger2
 public class Application {
 

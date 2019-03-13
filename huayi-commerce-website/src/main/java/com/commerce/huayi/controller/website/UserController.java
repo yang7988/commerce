@@ -1,4 +1,4 @@
-package com.commerce.huayi.website.controller;
+package com.commerce.huayi.controller.website;
 
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.UserLoginReq;

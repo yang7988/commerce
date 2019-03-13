@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.commerce.huayi.website.mapper.GoodsSpecValueMapper" >
+<mapper namespace="com.commerce.huayi.mapper.GoodsSpecValueMapper" >
   <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSpecValue" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="spec_id" property="specId" jdbcType="BIGINT" />
