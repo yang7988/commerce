@@ -28,7 +28,7 @@ public class ValidatorAspect {
     @Autowired
     private Validator validator;
 
-    @Pointcut("execution(* com.commerce.huayi..controller.*Controller.*(..))")
+    @Pointcut("execution(* com.commerce.huayi.controller..*Controller.*(..))")
     public void controller() {
     }
 
