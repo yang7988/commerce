@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.entity.db;
 
-import com.rayvision.common.plugin.Limit;
-import com.rayvision.common.plugin.Page;
+import com.commerce.huayi.pagination.Limit;
+import com.commerce.huayi.pagination.Page;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -404,6 +404,76 @@ public class GoodsCategoryExample {
 
         public Criteria andCategoryDescriptionNotBetween(String value1, String value2) {
             addCriterion("category_description not between", value1, value2, "categoryDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyIsNull() {
+            addCriterion("category_image_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyIsNotNull() {
+            addCriterion("category_image_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyEqualTo(String value) {
+            addCriterion("category_image_key =", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyNotEqualTo(String value) {
+            addCriterion("category_image_key <>", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyGreaterThan(String value) {
+            addCriterion("category_image_key >", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("category_image_key >=", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyLessThan(String value) {
+            addCriterion("category_image_key <", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyLessThanOrEqualTo(String value) {
+            addCriterion("category_image_key <=", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyLike(String value) {
+            addCriterion("category_image_key like", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyNotLike(String value) {
+            addCriterion("category_image_key not like", value, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyIn(List<String> values) {
+            addCriterion("category_image_key in", values, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyNotIn(List<String> values) {
+            addCriterion("category_image_key not in", values, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyBetween(String value1, String value2) {
+            addCriterion("category_image_key between", value1, value2, "categoryImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImageKeyNotBetween(String value1, String value2) {
+            addCriterion("category_image_key not between", value1, value2, "categoryImageKey");
             return (Criteria) this;
         }
 

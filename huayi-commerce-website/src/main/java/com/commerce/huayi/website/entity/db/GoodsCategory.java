@@ -16,6 +16,9 @@ public class GoodsCategory implements Serializable {
     //分类描述
     private String categoryDescription;
 
+    //产品分类的图片地址
+    private String categoryImageKey;
+
     //创建时间
     private Date createDate;
 
@@ -57,6 +60,14 @@ public class GoodsCategory implements Serializable {
 
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
+    }
+
+    public String getCategoryImageKey() {
+        return categoryImageKey;
+    }
+
+    public void setCategoryImageKey(String categoryImageKey) {
+        this.categoryImageKey = categoryImageKey;
     }
 
     public Date getCreateDate() {

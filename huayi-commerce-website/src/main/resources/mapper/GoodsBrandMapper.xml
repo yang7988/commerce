@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
     <result column="brand_description" property="brandDescription" jdbcType="VARCHAR" />
+    <result column="brand_logo_key" property="brandLogoKey" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, brand_name, brand_description, create_date, update_date, is_delete
+    id, brand_name, brand_description, brand_logo_key, create_date, update_date, is_delete
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.website.entity.db.GoodsBrandExample" >
     select
@@ -116,11 +117,11 @@
   </delete>
   <insert id="insert" parameterType="com.commerce.huayi.website.entity.db.GoodsBrand" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_brand (id, brand_name, brand_description, 
-      create_date, update_date, is_delete
-      )
+      brand_logo_key, create_date, update_date, 
+      is_delete)
     values (#{id,jdbcType=BIGINT}, #{brandName,jdbcType=VARCHAR}, #{brandDescription,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}
-      )
+      #{brandLogoKey,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.commerce.huayi.website.entity.db.GoodsBrand" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_brand
@@ -133,6 +134,9 @@
       </if>
       <if test="brandDescription != null" >
         brand_description,
+      </if>
+      <if test="brandLogoKey != null" >
+        brand_logo_key,
       </if>
       <if test="createDate != null" >
         create_date,
@@ -153,6 +157,9 @@
       </if>
       <if test="brandDescription != null" >
         #{brandDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="brandLogoKey != null" >
+        #{brandLogoKey,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
@@ -183,6 +190,9 @@
       <if test="record.brandDescription != null" >
         brand_description = #{record.brandDescription,jdbcType=VARCHAR},
       </if>
+      <if test="record.brandLogoKey != null" >
+        brand_logo_key = #{record.brandLogoKey,jdbcType=VARCHAR},
+      </if>
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
@@ -202,6 +212,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       brand_name = #{record.brandName,jdbcType=VARCHAR},
       brand_description = #{record.brandDescription,jdbcType=VARCHAR},
+      brand_logo_key = #{record.brandLogoKey,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       is_delete = #{record.isDelete,jdbcType=TINYINT}
@@ -217,6 +228,9 @@
       </if>
       <if test="brandDescription != null" >
         brand_description = #{brandDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="brandLogoKey != null" >
+        brand_logo_key = #{brandLogoKey,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -234,6 +248,7 @@
     update tb_goods_brand
     set brand_name = #{brandName,jdbcType=VARCHAR},
       brand_description = #{brandDescription,jdbcType=VARCHAR},
+      brand_logo_key = #{brandLogoKey,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=TINYINT}

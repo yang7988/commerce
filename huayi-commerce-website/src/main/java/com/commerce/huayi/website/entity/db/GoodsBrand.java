@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class GoodsBrand implements Serializable {
-    //逐渐id
+    //主键id
     private Long id;
 
     //品牌名称
@@ -12,6 +12,9 @@ public class GoodsBrand implements Serializable {
 
     //品牌描述
     private String brandDescription;
+
+    //品牌商标的图片地址
+    private String brandLogoKey;
 
     //创建时间
     private Date createDate;
@@ -46,6 +49,14 @@ public class GoodsBrand implements Serializable {
 
     public void setBrandDescription(String brandDescription) {
         this.brandDescription = brandDescription;
+    }
+
+    public String getBrandLogoKey() {
+        return brandLogoKey;
+    }
+
+    public void setBrandLogoKey(String brandLogoKey) {
+        this.brandLogoKey = brandLogoKey;
     }
 
     public Date getCreateDate() {

@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.entity.db;
 
-import com.rayvision.common.plugin.Limit;
-import com.rayvision.common.plugin.Page;
+import com.commerce.huayi.pagination.Limit;
+import com.commerce.huayi.pagination.Page;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -415,6 +415,76 @@ public class GoodsSpuExample {
 
         public Criteria andGoodsDescriptionNotBetween(String value1, String value2) {
             addCriterion("goods_description not between", value1, value2, "goodsDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyIsNull() {
+            addCriterion("goods_image_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyIsNotNull() {
+            addCriterion("goods_image_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyEqualTo(String value) {
+            addCriterion("goods_image_key =", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyNotEqualTo(String value) {
+            addCriterion("goods_image_key <>", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyGreaterThan(String value) {
+            addCriterion("goods_image_key >", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("goods_image_key >=", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyLessThan(String value) {
+            addCriterion("goods_image_key <", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyLessThanOrEqualTo(String value) {
+            addCriterion("goods_image_key <=", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyLike(String value) {
+            addCriterion("goods_image_key like", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyNotLike(String value) {
+            addCriterion("goods_image_key not like", value, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyIn(List<String> values) {
+            addCriterion("goods_image_key in", values, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyNotIn(List<String> values) {
+            addCriterion("goods_image_key not in", values, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyBetween(String value1, String value2) {
+            addCriterion("goods_image_key between", value1, value2, "goodsImageKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoodsImageKeyNotBetween(String value1, String value2) {
+            addCriterion("goods_image_key not between", value1, value2, "goodsImageKey");
             return (Criteria) this;
         }
 

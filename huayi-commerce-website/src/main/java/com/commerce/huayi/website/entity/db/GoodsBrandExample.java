@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.entity.db;
 
-import com.rayvision.common.plugin.Limit;
-import com.rayvision.common.plugin.Page;
+import com.commerce.huayi.pagination.Limit;
+import com.commerce.huayi.pagination.Page;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -344,6 +344,76 @@ public class GoodsBrandExample {
 
         public Criteria andBrandDescriptionNotBetween(String value1, String value2) {
             addCriterion("brand_description not between", value1, value2, "brandDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyIsNull() {
+            addCriterion("brand_logo_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyIsNotNull() {
+            addCriterion("brand_logo_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyEqualTo(String value) {
+            addCriterion("brand_logo_key =", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyNotEqualTo(String value) {
+            addCriterion("brand_logo_key <>", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyGreaterThan(String value) {
+            addCriterion("brand_logo_key >", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("brand_logo_key >=", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyLessThan(String value) {
+            addCriterion("brand_logo_key <", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyLessThanOrEqualTo(String value) {
+            addCriterion("brand_logo_key <=", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyLike(String value) {
+            addCriterion("brand_logo_key like", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyNotLike(String value) {
+            addCriterion("brand_logo_key not like", value, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyIn(List<String> values) {
+            addCriterion("brand_logo_key in", values, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyNotIn(List<String> values) {
+            addCriterion("brand_logo_key not in", values, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyBetween(String value1, String value2) {
+            addCriterion("brand_logo_key between", value1, value2, "brandLogoKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandLogoKeyNotBetween(String value1, String value2) {
+            addCriterion("brand_logo_key not between", value1, value2, "brandLogoKey");
             return (Criteria) this;
         }
 

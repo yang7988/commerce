@@ -17,6 +17,9 @@ public class GoodsSpu implements Serializable {
     //商品描述
     private String goodsDescription;
 
+    //商品的图片地址
+    private String goodsImageKey;
+
     //最低售价
     private BigDecimal lowPrice;
 
@@ -67,6 +70,14 @@ public class GoodsSpu implements Serializable {
 
     public void setGoodsDescription(String goodsDescription) {
         this.goodsDescription = goodsDescription;
+    }
+
+    public String getGoodsImageKey() {
+        return goodsImageKey;
+    }
+
+    public void setGoodsImageKey(String goodsImageKey) {
+        this.goodsImageKey = goodsImageKey;
     }
 
     public BigDecimal getLowPrice() {

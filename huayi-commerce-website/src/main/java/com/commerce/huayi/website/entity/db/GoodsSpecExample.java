@@ -1,7 +1,7 @@
 package com.commerce.huayi.website.entity.db;
 
-import com.rayvision.common.plugin.Limit;
-import com.rayvision.common.plugin.Page;
+import com.commerce.huayi.pagination.Limit;
+import com.commerce.huayi.pagination.Page;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
