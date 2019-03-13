@@ -3,6 +3,9 @@ package com.commerce.huayi.website.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * sku规格
+ */
 public class GoodsSkuSpecValue implements Serializable {
     //主键id
     private Long id;

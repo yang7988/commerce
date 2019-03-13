@@ -3,6 +3,9 @@ package com.commerce.huayi.website.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 关联spu与产品规格
+ */
 public class GoodsSpuSpec implements Serializable {
     //主键id
     private Long id;

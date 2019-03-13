@@ -3,6 +3,9 @@ package com.commerce.huayi.website.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 产品分类
+ */
 public class GoodsCategory implements Serializable {
     //主键id
     private Long id;

@@ -3,6 +3,9 @@ package com.commerce.huayi.website.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 产品规规格属性值
+ */
 public class GoodsSpecValue implements Serializable {
     //逐渐id
     private Long id;

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 产品单元
+ */
 public class GoodsSpu implements Serializable {
     //主键id
     private Long id;

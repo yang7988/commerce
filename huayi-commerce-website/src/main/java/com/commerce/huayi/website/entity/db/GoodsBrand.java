@@ -3,7 +3,11 @@ package com.commerce.huayi.website.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 产品品牌
+ */
 public class GoodsBrand implements Serializable {
+    //主键id
     private Long id;
 
     //品牌名称
