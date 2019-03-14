@@ -1,4 +1,10 @@
 # huayi-commerce
-阿里云服务器用户名密码:root/Huayi@123456
-mysql用户名密码:root/Huayi@123456
-redis密码:Huayi@123456
+
+### Guides
+以下是官网服务器基础中间件配置密钥:
+
+* [阿里云服务器用户名密码](root/Huayi@123456)
+* [mysql用户名密码](root/Huayi@123456)
+* [redis密码](Huayi@123456)
+
+
