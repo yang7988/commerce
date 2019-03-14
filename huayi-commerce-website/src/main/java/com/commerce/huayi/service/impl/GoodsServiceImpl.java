@@ -10,6 +10,8 @@ import com.commerce.huayi.mapper.GoodsCategoryMapper;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +21,18 @@ import java.util.List;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GoodsServiceImpl.class);
 
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
 
     @Override
     public ApiResponse getCategories(Long parentId) throws BusinessException {
+        LOGGER.warn("getGoodsCategory========parentId====" + parentId);
         GoodsCategoryExample example = new GoodsCategoryExample();
         example.createCriteria().andParentIdEqualTo(parentId);
         List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(goodsCategories)) {
+        if (CollectionUtils.isEmpty(goodsCategories)) {
             return ApiResponse.returnSuccess();
         }
         List<CategoryVo> categoryVos = BeanCopyUtil.copy(CategoryVo.class, goodsCategories);
@@ -45,7 +49,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setCategoryImageKey("");
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
-        goodsCategory.setIsDelete((byte)0);
+        goodsCategory.setIsDelete((byte) 0);
         GoodsCategory goodsCategory1 = new GoodsCategory();
         goodsCategory1.setId(2L);
         goodsCategory1.setParentId(0L);
@@ -54,7 +58,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory1.setCategoryImageKey("");
         goodsCategory1.setCreateDate(new Date());
         goodsCategory1.setUpdateDate(new Date());
-        goodsCategory1.setIsDelete((byte)0);
+        goodsCategory1.setIsDelete((byte) 0);
         List<GoodsCategory> goodsCategories = Arrays.asList(goodsCategory, goodsCategory1);
         List<CategoryVo> categoryVos = BeanCopyUtil.copy(CategoryVo.class, goodsCategories);
         System.out.println(JSON.toJSONString(categoryVos));
