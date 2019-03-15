@@ -17,6 +17,6 @@ public interface GoodsService {
      * @return 返回ApiResponse接口响应对象
      * @throws BusinessException 抛出业务异常
      */
-    List<CategoryVo> getCategories(Long parentId, LanguageEnum languageEnum) throws BusinessException;
+    List<CategoryVo> getCategories(Long parentId) throws BusinessException;
 
 }

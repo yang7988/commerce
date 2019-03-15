@@ -26,7 +26,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Translate
-    public List<CategoryVo> getCategories(Long parentId, LanguageEnum languageEnum) throws BusinessException {
+    public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
         LOGGER.warn("getGoodsCategory========parentId====" + parentId);
         GoodsCategoryExample example = new GoodsCategoryExample();
         example.createCriteria().andParentIdEqualTo(parentId);

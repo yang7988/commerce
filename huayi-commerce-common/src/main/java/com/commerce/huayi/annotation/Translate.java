@@ -9,5 +9,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Translate {
-
+    String refTable() default "";
+    String refColumn() default "";
 }

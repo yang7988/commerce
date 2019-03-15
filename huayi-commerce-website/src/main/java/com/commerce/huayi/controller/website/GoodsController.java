@@ -30,7 +30,7 @@ public class GoodsController {
 
     public ApiResponse categories(@Valid @RequestBody GetCategoryReq categoryReq, BindingResult bindingResult) {
         Long parentId = categoryReq.getId() == null ? 0L : categoryReq.getId();
-        List<CategoryVo> categories = goodsService.getCategories(parentId, ServletUtils.language());
+        List<CategoryVo> categories = goodsService.getCategories(parentId);
         return ApiResponse.returnSuccess(categories);
     }
 

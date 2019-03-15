@@ -2,8 +2,8 @@ package com.commerce.huayi.constant;
 
 public enum LanguageEnum {
 
-    ZH_CN("cn"),
-    EN_US("en");
+    ZH_CN("chinese"),
+    EN_US("english");
 
     private String language;
 

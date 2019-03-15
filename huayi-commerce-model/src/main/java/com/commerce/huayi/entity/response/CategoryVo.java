@@ -11,8 +11,12 @@ public class CategoryVo {
     private Long parentId;
 
     //分类名称
-    @Translate
+    @Translate(refTable = "tb_goods_category",refColumn = "category_name")
     private String categoryName;
+
+    //分类描述
+    @Translate(refTable = "tb_goods_category",refColumn = "category_description")
+    private String categoryDescription;
 
     public Long getId() {
         return id;
@@ -36,5 +40,13 @@ public class CategoryVo {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 }

@@ -29,4 +29,8 @@ public class ApplicationTests {
 
     }
 
+    @Test
+    public void testI18n() throws Exception {
+        System.out.println(JSON.toJSON(goodsService.getCategories(0L)));
+    }
 }

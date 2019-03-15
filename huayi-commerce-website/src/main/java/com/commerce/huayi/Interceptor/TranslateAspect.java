@@ -3,13 +3,19 @@ package com.commerce.huayi.Interceptor;
 import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.TranslateDict;
+import com.commerce.huayi.entity.db.TranslateEntity;
+import com.commerce.huayi.entity.db.TranslateEntityExample;
+import com.commerce.huayi.mapper.TranslateMapper;
+import com.commerce.huayi.utils.ServletUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -27,6 +33,9 @@ public class TranslateAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidatorAspect.class);
 
+    @Autowired
+    private TranslateMapper translateMapper;
+
     @Pointcut("execution(* com.commerce.huayi.service.*Service.*(..)) && @annotation(com.commerce.huayi.annotation.Translate)")
     public void service() {
     }
@@ -34,8 +43,7 @@ public class TranslateAspect {
     @Around(value = "service()")
     public Object validate(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
-        Object[] args = joinPoint.getArgs();
-        LanguageEnum language = getLanguage(args);
+        LanguageEnum language = ServletUtils.language();
         Object retVl;
         try {
             retVl = joinPoint.proceed();
@@ -83,6 +91,14 @@ public class TranslateAspect {
 
     //获取翻译文本，反射覆盖java bean的属性
     private void translateField(LanguageEnum language, Object object, Class<?> clazz, Field translateField) throws Exception{
+        Translate annotation = translateField.getAnnotation(Translate.class);
+        String referenceTableName = annotation.refTable();
+        String referenceColumnName = annotation.refColumn();
+        if(StringUtils.isBlank(referenceTableName) || StringUtils.isBlank(referenceColumnName)) {
+            return;
+        }
+        String translateTableName = referenceTableName.concat("_").concat(language.getLanguage());
+        String translateColumnName = referenceColumnName.concat("_translate");
         //  字段名首字母大写
         String fieldName = toUpperCaseFirstOne(translateField.getName());
         //  java bean getter属性
@@ -94,11 +110,18 @@ public class TranslateAspect {
         //  setter 方法
         Method setterMethod = clazz.getMethod(setterMethodName, translateField.getType());
         //  反射获得java bean 的名称 例如 categoryName -> big_bluetooth_earphone
-        Object invoke = getterMethod.invoke(object);
+        Object getterReturn = getterMethod.invoke(object);
+        String translateKey = (String) getterReturn;
         //  根据字典获取翻译后的文本字符串
-        String translateResult = TranslateDict.categoryDist.get(language.name()).get(invoke);
+        TranslateEntityExample translateEntityExample = new TranslateEntityExample(translateTableName, translateColumnName,
+                referenceColumnName, translateKey);
+        TranslateEntity translateEntity = translateMapper.selectByKey(translateEntityExample);
+        if(translateEntity == null || StringUtils.isBlank(translateEntity.getTranslateResult())) {
+            return;
+        }
+//        String translateResult = TranslateDict.categoryDist.get(language.name()).get(invoke);
         //  将翻译后的文本覆盖原 java的字段
-        setterMethod.invoke(object, translateResult);
+        setterMethod.invoke(object, translateEntity.getTranslateResult());
     }
 
 
