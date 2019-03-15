@@ -1,5 +1,6 @@
 package com.commerce.huayi.Interceptor;
 
+import com.alibaba.fastjson.JSON;
 import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.TranslateEntity;
@@ -117,7 +118,12 @@ public class TranslateAspect {
         //  根据字典获取翻译后的文本字符串
         TranslateEntityExample translateEntityExample = new TranslateEntityExample(translateTableName, translateColumnName,
                 referenceColumnName, translateKey);
-        TranslateEntity translateEntity = translateMapper.selectByKey(translateEntityExample);
+        TranslateEntity translateEntity = null;
+        try {
+            translateEntity = translateMapper.selectByKey(translateEntityExample);
+        } catch (Exception e) {
+            LOGGER.error("TranslateMapper===selectByKey===error===" + JSON.toJSONString(translateEntityExample), e);
+        }
         if(translateEntity == null || StringUtils.isBlank(translateEntity.getTranslateResult())) {
             return;
         }
