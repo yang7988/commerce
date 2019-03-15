@@ -267,6 +267,76 @@ public class GoodsSpecValueExample {
             return (Criteria) this;
         }
 
+        public Criteria andSpecKeyIsNull() {
+            addCriterion("spec_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyIsNotNull() {
+            addCriterion("spec_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyEqualTo(String value) {
+            addCriterion("spec_key =", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyNotEqualTo(String value) {
+            addCriterion("spec_key <>", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyGreaterThan(String value) {
+            addCriterion("spec_key >", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("spec_key >=", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyLessThan(String value) {
+            addCriterion("spec_key <", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyLessThanOrEqualTo(String value) {
+            addCriterion("spec_key <=", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyLike(String value) {
+            addCriterion("spec_key like", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyNotLike(String value) {
+            addCriterion("spec_key not like", value, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyIn(List<String> values) {
+            addCriterion("spec_key in", values, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyNotIn(List<String> values) {
+            addCriterion("spec_key not in", values, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyBetween(String value1, String value2) {
+            addCriterion("spec_key between", value1, value2, "specKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecKeyNotBetween(String value1, String value2) {
+            addCriterion("spec_key not between", value1, value2, "specKey");
+            return (Criteria) this;
+        }
+
         public Criteria andSpecValueIsNull() {
             addCriterion("spec_value is null");
             return (Criteria) this;

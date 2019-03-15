@@ -10,6 +10,9 @@ public class GoodsSpecValue implements Serializable {
     //规格id
     private Long specId;
 
+    //属性key值
+    private String specKey;
+
     //规格值
     private String specValue;
 
@@ -38,6 +41,14 @@ public class GoodsSpecValue implements Serializable {
 
     public void setSpecId(Long specId) {
         this.specId = specId;
+    }
+
+    public String getSpecKey() {
+        return specKey;
+    }
+
+    public void setSpecKey(String specKey) {
+        this.specKey = specKey;
     }
 
     public String getSpecValue() {

@@ -10,6 +10,9 @@ public class GoodsCategory implements Serializable {
     //父级分类id
     private Long parentId;
 
+    //国际化翻译的key
+    private String translateKey;
+
     //分类名称
     private String categoryName;
 
@@ -44,6 +47,14 @@ public class GoodsCategory implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public String getTranslateKey() {
+        return translateKey;
+    }
+
+    public void setTranslateKey(String translateKey) {
+        this.translateKey = translateKey;
     }
 
     public String getCategoryName() {

@@ -1,7 +1,9 @@
 package com.commerce.huayi.entity.db;
 
+
 import com.commerce.huayi.pagination.Limit;
 import com.commerce.huayi.pagination.Page;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -264,6 +266,76 @@ public class GoodsCategoryExample {
 
         public Criteria andParentIdNotBetween(Long value1, Long value2) {
             addCriterion("parent_id not between", value1, value2, "parentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyIsNull() {
+            addCriterion("translate_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyIsNotNull() {
+            addCriterion("translate_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyEqualTo(String value) {
+            addCriterion("translate_key =", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyNotEqualTo(String value) {
+            addCriterion("translate_key <>", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyGreaterThan(String value) {
+            addCriterion("translate_key >", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyGreaterThanOrEqualTo(String value) {
+            addCriterion("translate_key >=", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyLessThan(String value) {
+            addCriterion("translate_key <", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyLessThanOrEqualTo(String value) {
+            addCriterion("translate_key <=", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyLike(String value) {
+            addCriterion("translate_key like", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyNotLike(String value) {
+            addCriterion("translate_key not like", value, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyIn(List<String> values) {
+            addCriterion("translate_key in", values, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyNotIn(List<String> values) {
+            addCriterion("translate_key not in", values, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyBetween(String value1, String value2) {
+            addCriterion("translate_key between", value1, value2, "translateKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andTranslateKeyNotBetween(String value1, String value2) {
+            addCriterion("translate_key not between", value1, value2, "translateKey");
             return (Criteria) this;
         }
 

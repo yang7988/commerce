@@ -1,21 +1,18 @@
 package com.commerce.huayi.entity.response;
 
-import java.util.List;
-
 public class CategoryVo {
 
+    //主键id
     private Long id;
 
     //父级分类id
     private Long parentId;
 
+    //国际化翻译的key
+    private String translateKey;
+
     //分类名称
     private String categoryName;
-
-    //分类描述
-    private String categoryDescription;
-
-    private List<CategoryVo> subCategories;
 
     public Long getId() {
         return id;
@@ -33,27 +30,19 @@ public class CategoryVo {
         this.parentId = parentId;
     }
 
+    public String getTranslateKey() {
+        return translateKey;
+    }
+
+    public void setTranslateKey(String translateKey) {
+        this.translateKey = translateKey;
+    }
+
     public String getCategoryName() {
         return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-    }
-
-    public String getCategoryDescription() {
-        return categoryDescription;
-    }
-
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
-
-    public List<CategoryVo> getSubCategories() {
-        return subCategories;
-    }
-
-    public void setSubCategories(List<CategoryVo> subCategories) {
-        this.subCategories = subCategories;
     }
 }

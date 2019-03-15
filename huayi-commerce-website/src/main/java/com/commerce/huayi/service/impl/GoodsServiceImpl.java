@@ -1,6 +1,8 @@
 package com.commerce.huayi.service.impl;
 
+import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.GoodsCategory;
 import com.commerce.huayi.entity.db.GoodsCategoryExample;
 import com.commerce.huayi.entity.response.CategoryVo;
@@ -23,7 +25,8 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsCategoryMapper goodsCategoryMapper;
 
     @Override
-    public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
+    @Translate
+    public List<CategoryVo> getCategories(Long parentId, LanguageEnum languageEnum) throws BusinessException {
         LOGGER.warn("getGoodsCategory========parentId====" + parentId);
         GoodsCategoryExample example = new GoodsCategoryExample();
         example.createCriteria().andParentIdEqualTo(parentId);
@@ -35,11 +38,5 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
 
-    @Override
-    public List<CategoryVo> getAllCategories() {
-        List<CategoryVo> categories = this.getCategories(0L);
-        categories.forEach(category -> category.setSubCategories(getCategories(category.getId())));
-        return categories;
-    }
 
 }

@@ -6,5 +6,6 @@
 * [阿里云服务器用户名密码](root/Huayi@123456)
 * [mysql用户名密码](root/Huayi@123456)
 * [redis密码](Huayi@123456)
-
+* [老版本官网,原有功能都要保留](http://www.huayigz.cn/products.html) 
+* [参考交互式官网](https://www.beatsbydre.com/c) 
 
