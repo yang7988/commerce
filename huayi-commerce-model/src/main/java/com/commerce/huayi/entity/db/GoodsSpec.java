@@ -7,11 +7,14 @@ public class GoodsSpec implements Serializable {
     //主键id
     private Long id;
 
-    //spu_id
-    private Long spuId;
+    //规格编号
+    private String specNo;
 
-    //spec_id
-    private Long specId;
+    //规格名称
+    private String specName;
+
+    //规格描述
+    private String specDescription;
 
     //创建时间
     private Date createDate;
@@ -32,20 +35,28 @@ public class GoodsSpec implements Serializable {
         this.id = id;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public String getSpecNo() {
+        return specNo;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setSpecNo(String specNo) {
+        this.specNo = specNo;
     }
 
-    public Long getSpecId() {
-        return specId;
+    public String getSpecName() {
+        return specName;
     }
 
-    public void setSpecId(Long specId) {
-        this.specId = specId;
+    public void setSpecName(String specName) {
+        this.specName = specName;
+    }
+
+    public String getSpecDescription() {
+        return specDescription;
+    }
+
+    public void setSpecDescription(String specDescription) {
+        this.specDescription = specDescription;
     }
 
     public Date getCreateDate() {

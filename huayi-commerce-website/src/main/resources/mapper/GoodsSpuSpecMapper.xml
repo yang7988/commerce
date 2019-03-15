@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.commerce.huayi.mapper.GoodsSkuSpecValueMapper" >
-  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSkuSpecValue" >
+<mapper namespace="com.commerce.huayi.mapper.GoodsSpuSpecMapper" >
+  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSpuSpec" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="spu_id" property="spuId" jdbcType="BIGINT" />
-    <result column="spec_value_id" property="specValueId" jdbcType="BIGINT" />
+    <result column="spec_id" property="specId" jdbcType="BIGINT" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
@@ -68,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, spu_id, spec_value_id, create_date, update_date, is_delete
+    id, spu_id, spec_id, create_date, update_date, is_delete
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValueExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpecExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_goods_sku_spec_value
+    from tb_goods_spu_spec
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -101,29 +101,29 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from tb_goods_sku_spec_value
+    from tb_goods_spu_spec
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from tb_goods_sku_spec_value
+    delete from tb_goods_spu_spec
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValueExample" >
-    delete from tb_goods_sku_spec_value
+  <delete id="deleteByExample" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpecExample" >
+    delete from tb_goods_spu_spec
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValue" keyProperty="id" useGeneratedKeys="true" >
-    insert into tb_goods_sku_spec_value (id, spu_id, spec_value_id, 
+  <insert id="insert" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpec" keyProperty="id" useGeneratedKeys="true" >
+    insert into tb_goods_spu_spec (id, spu_id, spec_id, 
       create_date, update_date, is_delete
       )
-    values (#{id,jdbcType=BIGINT}, #{spuId,jdbcType=BIGINT}, #{specValueId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{spuId,jdbcType=BIGINT}, #{specId,jdbcType=BIGINT}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValue" keyProperty="id" useGeneratedKeys="true" >
-    insert into tb_goods_sku_spec_value
+  <insert id="insertSelective" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpec" keyProperty="id" useGeneratedKeys="true" >
+    insert into tb_goods_spu_spec
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -131,8 +131,8 @@
       <if test="spuId != null" >
         spu_id,
       </if>
-      <if test="specValueId != null" >
-        spec_value_id,
+      <if test="specId != null" >
+        spec_id,
       </if>
       <if test="createDate != null" >
         create_date,
@@ -151,8 +151,8 @@
       <if test="spuId != null" >
         #{spuId,jdbcType=BIGINT},
       </if>
-      <if test="specValueId != null" >
-        #{specValueId,jdbcType=BIGINT},
+      <if test="specId != null" >
+        #{specId,jdbcType=BIGINT},
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
@@ -165,14 +165,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValueExample" resultType="java.lang.Integer" >
-    select count(*) from tb_goods_sku_spec_value
+  <select id="countByExample" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpecExample" resultType="java.lang.Integer" >
+    select count(*) from tb_goods_spu_spec
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_goods_sku_spec_value
+    update tb_goods_spu_spec
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
@@ -180,8 +180,8 @@
       <if test="record.spuId != null" >
         spu_id = #{record.spuId,jdbcType=BIGINT},
       </if>
-      <if test="record.specValueId != null" >
-        spec_value_id = #{record.specValueId,jdbcType=BIGINT},
+      <if test="record.specId != null" >
+        spec_id = #{record.specId,jdbcType=BIGINT},
       </if>
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -198,10 +198,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_goods_sku_spec_value
+    update tb_goods_spu_spec
     set id = #{record.id,jdbcType=BIGINT},
       spu_id = #{record.spuId,jdbcType=BIGINT},
-      spec_value_id = #{record.specValueId,jdbcType=BIGINT},
+      spec_id = #{record.specId,jdbcType=BIGINT},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       is_delete = #{record.isDelete,jdbcType=TINYINT}
@@ -209,14 +209,14 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValue" >
-    update tb_goods_sku_spec_value
+  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpec" >
+    update tb_goods_spu_spec
     <set >
       <if test="spuId != null" >
         spu_id = #{spuId,jdbcType=BIGINT},
       </if>
-      <if test="specValueId != null" >
-        spec_value_id = #{specValueId,jdbcType=BIGINT},
+      <if test="specId != null" >
+        spec_id = #{specId,jdbcType=BIGINT},
       </if>
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -230,10 +230,10 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.commerce.huayi.entity.db.GoodsSkuSpecValue" >
-    update tb_goods_sku_spec_value
+  <update id="updateByPrimaryKey" parameterType="com.commerce.huayi.entity.db.GoodsSpuSpec" >
+    update tb_goods_spu_spec
     set spu_id = #{spuId,jdbcType=BIGINT},
-      spec_value_id = #{specValueId,jdbcType=BIGINT},
+      spec_id = #{specId,jdbcType=BIGINT},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=TINYINT}
