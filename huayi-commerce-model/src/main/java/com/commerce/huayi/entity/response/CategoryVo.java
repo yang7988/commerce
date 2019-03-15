@@ -1,5 +1,7 @@
 package com.commerce.huayi.entity.response;
 
+import com.commerce.huayi.annotation.Translate;
+
 public class CategoryVo {
 
     //主键id
@@ -8,10 +10,8 @@ public class CategoryVo {
     //父级分类id
     private Long parentId;
 
-    //国际化翻译的key
-    private String translateKey;
-
     //分类名称
+    @Translate
     private String categoryName;
 
     public Long getId() {
@@ -28,14 +28,6 @@ public class CategoryVo {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
-    }
-
-    public String getTranslateKey() {
-        return translateKey;
-    }
-
-    public void setTranslateKey(String translateKey) {
-        this.translateKey = translateKey;
     }
 
     public String getCategoryName() {

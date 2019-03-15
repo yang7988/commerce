@@ -2,12 +2,9 @@ package com.commerce.huayi.annotation;
 
 import java.lang.annotation.*;
 
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ElementType.METHOD,ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Translate {
 
-    boolean required() default true;
-
-    String key() default "";
 }

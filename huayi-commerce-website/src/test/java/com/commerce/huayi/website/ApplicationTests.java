@@ -29,8 +29,4 @@ public class ApplicationTests {
 
     }
 
-    @Test
-    public void testCategories() throws Exception {
-        System.out.println(JSON.toJSONString(goodsService.getAllCategories()));
-    }
 }

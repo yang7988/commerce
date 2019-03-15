@@ -52,7 +52,7 @@ public class GenericFilter implements Filter {
             request.setAttribute("language",language);
         }
         String contentType = request.getHeader("Content-Type");
-        if (StringUtils.isBlank(contentType) || contentType.startsWith("application/json")) {
+        if (StringUtils.isBlank(contentType) || !contentType.startsWith("application/json")) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======Content-type:===" + contentType + "is not application/json");
             return ApiResponseEnum.CONTENT_TYPE_ILLEGAL;
         }

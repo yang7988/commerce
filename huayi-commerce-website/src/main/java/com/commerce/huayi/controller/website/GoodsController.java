@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,7 +25,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    @RequestMapping(value = "/categories/{id}")
+    @PostMapping(value = "/categories")
     @ApiOperation(value = "产品分类管理",notes = "获取产品分类")
 
     public ApiResponse categories(@Valid @RequestBody GetCategoryReq categoryReq, BindingResult bindingResult) {
