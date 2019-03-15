@@ -2,8 +2,9 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.GoodsCategory;
 import com.commerce.huayi.entity.db.GoodsCategoryExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface GoodsCategoryMapper {
     int countByExample(GoodsCategoryExample example);

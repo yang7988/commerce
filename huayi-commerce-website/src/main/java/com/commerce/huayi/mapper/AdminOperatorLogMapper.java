@@ -2,8 +2,9 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.AdminOperatorLog;
 import com.commerce.huayi.entity.db.AdminOperatorLogExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AdminOperatorLogMapper {
     int countByExample(AdminOperatorLogExample example);

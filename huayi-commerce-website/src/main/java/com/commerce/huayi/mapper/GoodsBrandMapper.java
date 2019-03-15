@@ -2,8 +2,9 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.GoodsBrand;
 import com.commerce.huayi.entity.db.GoodsBrandExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface GoodsBrandMapper {
     int countByExample(GoodsBrandExample example);

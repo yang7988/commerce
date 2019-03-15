@@ -2,8 +2,9 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.Administrator;
 import com.commerce.huayi.entity.db.AdministratorExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AdministratorMapper {
     int countByExample(AdministratorExample example);

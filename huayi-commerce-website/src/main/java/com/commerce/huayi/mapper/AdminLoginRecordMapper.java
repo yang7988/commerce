@@ -2,8 +2,9 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.AdminLoginRecord;
 import com.commerce.huayi.entity.db.AdminLoginRecordExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AdminLoginRecordMapper {
     int countByExample(AdminLoginRecordExample example);

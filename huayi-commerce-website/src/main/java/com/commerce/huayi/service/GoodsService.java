@@ -1,7 +1,6 @@
 package com.commerce.huayi.service;
 
 import com.commerce.huayi.api.BusinessException;
-import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.response.CategoryVo;
 
 import java.util.List;

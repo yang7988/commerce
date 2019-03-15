@@ -2,7 +2,6 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.api.BusinessException;
-import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.GoodsCategory;
 import com.commerce.huayi.entity.db.GoodsCategoryExample;
 import com.commerce.huayi.entity.response.CategoryVo;

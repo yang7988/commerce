@@ -2,8 +2,9 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.UserBrowseLog;
 import com.commerce.huayi.entity.db.UserBrowseLogExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserBrowseLogMapper {
     int countByExample(UserBrowseLogExample example);
