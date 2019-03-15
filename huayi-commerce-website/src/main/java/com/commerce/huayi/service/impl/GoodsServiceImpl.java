@@ -27,40 +27,23 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsCategoryMapper goodsCategoryMapper;
 
     @Override
-    public ApiResponse getCategories(Long parentId) throws BusinessException {
+    public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
         LOGGER.warn("getGoodsCategory========parentId====" + parentId);
         GoodsCategoryExample example = new GoodsCategoryExample();
         example.createCriteria().andParentIdEqualTo(parentId);
         List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(goodsCategories)) {
-            return ApiResponse.returnSuccess();
+            return null;
         }
-        List<CategoryVo> categoryVos = BeanCopyUtil.copy(CategoryVo.class, goodsCategories);
-        return ApiResponse.returnSuccess(categoryVos);
+        return BeanCopyUtil.copy(CategoryVo.class, goodsCategories);
     }
 
 
-    public static void main(String[] args) {
-        GoodsCategory goodsCategory = new GoodsCategory();
-        goodsCategory.setId(1L);
-        goodsCategory.setParentId(0L);
-        goodsCategory.setCategoryName("头戴式耳机");
-        goodsCategory.setCategoryDescription("用于头戴式耳机");
-        goodsCategory.setCategoryImageKey("");
-        goodsCategory.setCreateDate(new Date());
-        goodsCategory.setUpdateDate(new Date());
-        goodsCategory.setIsDelete((byte) 0);
-        GoodsCategory goodsCategory1 = new GoodsCategory();
-        goodsCategory1.setId(2L);
-        goodsCategory1.setParentId(0L);
-        goodsCategory1.setCategoryName("入耳式耳机");
-        goodsCategory1.setCategoryDescription("用于入耳式耳机");
-        goodsCategory1.setCategoryImageKey("");
-        goodsCategory1.setCreateDate(new Date());
-        goodsCategory1.setUpdateDate(new Date());
-        goodsCategory1.setIsDelete((byte) 0);
-        List<GoodsCategory> goodsCategories = Arrays.asList(goodsCategory, goodsCategory1);
-        List<CategoryVo> categoryVos = BeanCopyUtil.copy(CategoryVo.class, goodsCategories);
-        System.out.println(JSON.toJSONString(categoryVos));
+    @Override
+    public List<CategoryVo> getAllCategories() {
+        List<CategoryVo> categories = this.getCategories(0L);
+        categories.forEach(category -> category.setSubCategories(getCategories(category.getId())));
+        return categories;
     }
+
 }

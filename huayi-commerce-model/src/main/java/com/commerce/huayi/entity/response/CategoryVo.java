@@ -1,5 +1,7 @@
 package com.commerce.huayi.entity.response;
 
+import java.util.List;
+
 public class CategoryVo {
 
     private Long id;
@@ -12,6 +14,8 @@ public class CategoryVo {
 
     //分类描述
     private String categoryDescription;
+
+    private List<CategoryVo> subCategories;
 
     public Long getId() {
         return id;
@@ -43,5 +47,13 @@ public class CategoryVo {
 
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
+    }
+
+    public List<CategoryVo> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<CategoryVo> subCategories) {
+        this.subCategories = subCategories;
     }
 }
