@@ -69,26 +69,40 @@ public class TranslateAspect {
     private void translateObject(LanguageEnum language, Object object) throws Exception {
         Class<?> clazz = object.getClass();
         Field[] declaredFields = clazz.getDeclaredFields();
+        //获取翻译字段
         List<Field> translateFields = getTranslateFields(declaredFields);
+        //如果字段不存在@Translate注解，不予翻译
         if (CollectionUtils.isEmpty(translateFields)) {
             return;
         }
+        //依次翻译所需的字段
         for (Field translateField : translateFields) {
             translateField(language, object, clazz, translateField);
         }
     }
 
+    //获取翻译文本，反射覆盖java bean的属性
     private void translateField(LanguageEnum language, Object object, Class<?> clazz, Field translateField) throws Exception{
+        //  字段名首字母大写
         String fieldName = toUpperCaseFirstOne(translateField.getName());
+        //  java bean getter属性
         String getterMethodName = "get" + fieldName;
+        //  java bean setter属性
         String setterMethodName = "set" + fieldName;
+        //  getter方法
         Method getterMethod = clazz.getMethod(getterMethodName);
+        //  setter 方法
         Method setterMethod = clazz.getMethod(setterMethodName, translateField.getType());
+        //  反射获得java bean 的名称 例如 categoryName -> big_bluetooth_earphone
         Object invoke = getterMethod.invoke(object);
+        //  根据字典获取翻译后的文本字符串
         String translateResult = TranslateDict.categoryDist.get(language.name()).get(invoke);
+        //  将翻译后的文本覆盖原 java的字段
         setterMethod.invoke(object, translateResult);
     }
 
+
+    //获取添加了@Translate注解的字段，如果字段存在该注解表此字段需要被翻译
     private List<Field> getTranslateFields(Field[] fields) {
         if (fields.length == 0) {
             return null;
@@ -98,6 +112,7 @@ public class TranslateAspect {
 
     }
 
+    //获取需要翻译的方法的语言
     private LanguageEnum getLanguage(Object[] args) {
         Optional<Object> optional = Stream.of(args).filter(obj -> obj instanceof LanguageEnum).findFirst();
         Object object = optional.orElse(null);
