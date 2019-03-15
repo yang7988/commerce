@@ -2,7 +2,6 @@ package com.commerce.huayi.Interceptor;
 
 import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.constant.LanguageEnum;
-import com.commerce.huayi.constant.TranslateDict;
 import com.commerce.huayi.entity.db.TranslateEntity;
 import com.commerce.huayi.entity.db.TranslateEntityExample;
 import com.commerce.huayi.mapper.TranslateMapper;
