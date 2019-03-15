@@ -58,6 +58,9 @@ public class TranslateAspect {
     }
 
     private void startTranslate(LanguageEnum language, Object retVl) throws Exception{
+        if(language == null) {
+            return;
+        }
         if (Collection.class.isAssignableFrom(retVl.getClass())) {
             Collection collection = (Collection) retVl;
             for (Object object : collection) {
