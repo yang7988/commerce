@@ -1,0 +1,32 @@
+package com.commerce.huayi.entity.request;
+
+
+/**
+ * 招聘信息
+ * @date 2019-03-16
+ * */
+public class RecruitmentInfoReq {
+
+    private String title;
+
+    private String content;
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+
+}
