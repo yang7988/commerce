@@ -3,11 +3,30 @@
 <mapper namespace="com.commerce.huayi.mapper.CustomerMessageMapper" >
 
     <select id="getCustomerMessages" resultType="com.commerce.huayi.entity.db.CustomerMessage">
-
+        select id as id,
+             name as name,
+             company as company,
+             mobile_phone as mobilePhone,
+             mail_address as mailAddress,
+             fax as fax,
+             postal_code as postalCode,
+             address as address,
+             opinion as opinion,
+             access_purpose as accessPurpose,
+             purpose_flag as purposeFlag,
+             deal_flag as dealFlag,
+             document_quality as documentQuality,
+             create_date as createDate
+        from tb_customer_message
     </select>
 
     <insert id="addCustomerMessage">
-
+        insert into tb_customer_message (name,company,mobile_phone,mail_address,fax,
+            postal_code,address,opinion,access_purpose,purpose_flag,
+            deal_flag,document_quality,create_date) values
+        (#{customerMessage.name, jdbcType=VARCHAR},#{customerMessage.company, jdbcType=VARCHAR},#{customerMessage.mobilePhone, jdbcType=VARCHAR},#{customerMessage.mailAddress, jdbcType=VARCHAR},#{customerMessage.fax, jdbcType=VARCHAR},
+        #{customerMessage.postalCode, jdbcType=VARCHAR},#{customerMessage.address, jdbcType=VARCHAR},#{customerMessage.opinion, jdbcType=VARCHAR},#{customerMessage.accessPurpose, jdbcType=VARCHAR},#{customerMessage.purposeFlag, jdbcType=VARCHAR},
+        #{customerMessage.dealFlag, jdbcType=VARCHAR},#{customerMessage.documentQuality, jdbcType=VARCHAR},#{customerMessage.createDate, jdbcType=VARCHAR})
     </insert>
 
 

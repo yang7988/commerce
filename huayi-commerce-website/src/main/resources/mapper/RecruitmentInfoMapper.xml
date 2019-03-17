@@ -3,15 +3,23 @@
 <mapper namespace="com.commerce.huayi.mapper.RecruitmentInfoMapper" >
 
     <select id="getRecruitmentInfos" resultType="com.commerce.huayi.entity.db.RecruitmentInfo">
-
+        select id as id,
+             title as title,
+             content as content,
+             del_flag as delFlag,
+             create_date as createDate,
+             update_date as updateDate
+        from tb_recruitment_info
+        where del_flag = '0'
     </select>
 
     <insert id="addRecruitmentInfo">
-
+        insert into tb_recruitment_info (title, content, del_flag, create_date) values
+            (#{recruitmentInfo.title, jdbcType=VARCHAR},#{recruitmentInfo.content, jdbcType=VARCHAR},#{recruitmentInfo.delFlag, jdbcType=VARCHAR},#{recruitmentInfo.createDate, jdbcType=INTEGER})
     </insert>
 
     <update id="delRecruitmentInfo">
-
+        update tb_recruitment_info set del_flag = '1',update_date = now() where id = #{id, jdbcType=INTEGER}
     </update>
 
 </mapper>

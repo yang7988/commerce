@@ -3,15 +3,22 @@
 <mapper namespace="com.commerce.huayi.mapper.CompanyInfoMapper" >
 
     <select id="getCompanyInfo" resultType="com.commerce.huayi.entity.db.CompanyInfo">
-
+        select id as id,
+             content as content,
+             del_flag as delFlag,
+             create_date as createDate,
+             update_date as updateDate
+        from tb_company_info
+        where del_flag = '0'
     </select>
 
     <insert id="addCompanyInfo">
-
+        insert into tb_company_info (content,del_flag,create_date) values
+            (#{companyInfo.content, jdbcType=VARCHAR},#{companyInfo.delFlag, jdbcType=VARCHAR},#{companyInfo.createDate, jdbcType=INTEGER})
     </insert>
 
     <update id="delCompanyInfo">
-
+        update tb_company_info set del_flag = '1',update_date = now() where id = #{id, jdbcType=INTEGER}
     </update>
 
 </mapper>

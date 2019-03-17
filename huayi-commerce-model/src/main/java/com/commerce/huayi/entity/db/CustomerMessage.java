@@ -16,22 +16,31 @@ public class CustomerMessage {
 
     private String mobilePhone;
 
+    // 邮箱
     private String mailAddress;
 
+    // 传真
     private String fax;
 
+    // 邮政编码
     private String postalCode;
 
+    // 地址
     private String address;
 
+    // 意见
     private String opinion;
 
+    // 访问目的
     private String accessPurpose;
 
+    // 目的是否达到（否 0 ，是 1，一部分 2，仅浏览 3）
     private String purposeFlag;
 
+    // 是否提交服务解决问题 (是 1  否 0)
     private String dealFlag;
 
+    // 文档质量（非常好 3，好 2，平均 1，差 0）
     private String documentQuality;
 
     private Date createDate;
