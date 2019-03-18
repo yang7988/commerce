@@ -1,6 +1,6 @@
 package com.commerce.huayi.Interceptor;
 
-import com.commerce.huayi.service.TranslateService;
+import com.commerce.huayi.strategy.TranslateStrategy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,13 +15,10 @@ import org.springframework.stereotype.Component;
 public class TranslateAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidatorAspect.class);
-    //原表中需要翻译的字段对应的翻译表中的翻译字段名后缀 例如category_name -> category_name_translate
-    private static final String TRANSLATE_FIELD_SUFFIX = "_translate";
-    private static final String TRANSLATE_API_RESPONSE_TABLE_PREFIX = "tb_api_response";
-    private static final String TRANSLATE_API_RESPONSE_COLUMN = "code";
+
 
     @Autowired
-    private TranslateService translateService;
+    private TranslateStrategy translateStrategy;
 
 
     @Pointcut("execution(* com.commerce.huayi.controller..*Controller.*(..))")
@@ -35,7 +32,7 @@ public class TranslateAspect {
         Object retVl;
         try {
             //开始翻译
-            retVl = translateService.translate(joinPoint.proceed());
+            retVl = translateStrategy.translate(joinPoint.proceed());
         } catch (Throwable throwable) {
             throw throwable;
         } finally {

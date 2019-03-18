@@ -3,7 +3,10 @@ package com.commerce.huayi.constant;
 public enum LanguageEnum {
 
     ZH_CN("chinese"),
-    EN_US("english");
+    EN_US("english"),
+    DE_DE("german"),
+    FR_FR("french"),
+    JP_JP("japanese");
 
     private String language;
 

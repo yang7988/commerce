@@ -8,5 +8,7 @@
     select ${translateCloumn} as translateResult from ${tableName} where ${whereCloumn} = #{key,jdbcType=VARCHAR}
   </select>
 
-
+  <select id="selectDict" resultType="java.util.Map" parameterType="com.commerce.huayi.entity.db.TranslateEntityExample">
+    select ${translateCloumn} as translateResult from ${tableName}
+  </select>
 </mapper>

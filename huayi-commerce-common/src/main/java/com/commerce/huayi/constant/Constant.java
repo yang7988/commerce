@@ -9,4 +9,8 @@ public class Constant {
     //未删除标识常量
     public static final byte NODELETE = 0;
 
+    public static final String TRANSLATE_FIELD_SUFFIX = "_translate";
+    public static final String TRANSLATE_API_RESPONSE_TABLE_PREFIX = "tb_api_response";
+    public static final String TRANSLATE_API_RESPONSE_COLUMN = "code";
+
 }
