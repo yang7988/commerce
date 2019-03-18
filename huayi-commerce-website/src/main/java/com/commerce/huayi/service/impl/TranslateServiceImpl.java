@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,7 +41,8 @@ public class TranslateServiceImpl implements TranslateService {
 
     public Object translate(Object requiredObject) {
         LanguageEnum language = ServletUtils.language();
-        if (language == null || !(requiredObject instanceof ApiResponse)) {
+        LanguageEnum definLanguage = language == null ? LanguageEnum.ZH_CN : language;
+        if (!(requiredObject instanceof ApiResponse)) {
             return requiredObject;
         }
         //翻译ApiResponse
@@ -51,7 +53,7 @@ public class TranslateServiceImpl implements TranslateService {
         try {
             Field translateField = apiResponseClass.getDeclaredField("message");
             //翻译message字段
-            translateField(language, apiResponse, apiResponseClass, translateField,
+            translateField(definLanguage, apiResponse, apiResponseClass, translateField,
                     TRANSLATE_API_RESPONSE_TABLE_PREFIX, TRANSLATE_API_RESPONSE_COLUMN);
         } catch (Exception e) {
             LOGGER.error("TranslateService===translate===ApiResponse===error", e);
@@ -61,7 +63,7 @@ public class TranslateServiceImpl implements TranslateService {
             return requiredObject;
         }
         try {
-            this.translateByType(language, data);
+            this.translateByType(definLanguage, data);
         } catch (Exception e) {
             LOGGER.error("TranslateService===translate===error", e);
         }

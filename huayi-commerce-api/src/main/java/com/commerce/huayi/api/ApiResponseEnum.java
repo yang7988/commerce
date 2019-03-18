@@ -11,6 +11,7 @@ public enum ApiResponseEnum implements Serializable {
     PARAMETER_INVALID(601, "PARAMETER_INVALID", "非法参数", false),
     ABSENCE_LANGUAGE_PARAM(602, "ABSENCE_LANGUAGE_PARAM", "缺少language请求头部参数", false),
     CONTENT_TYPE_ILLEGAL(603, "CONTENT_TYPE_ILLEGAL", "Content-Type必须为application/json", false),
+    LANGUAGE_PARAM_ILLEGAL(604, "LANGUAGE_PARAM_ILLEGAL", "language请求头部参数必须是chinese/english/japanese/french/german语系中一种", false),
     DO_NOT_HAVE_ANY_MORE_RECORD(700, "DO_NOT_HAVE_ANY_MORE_RECORD", "没有更多记录", false);
 
     protected int id;

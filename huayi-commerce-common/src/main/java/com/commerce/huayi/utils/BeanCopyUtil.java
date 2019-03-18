@@ -53,15 +53,17 @@ public class BeanCopyUtil {
         if (CollectionUtils.isEmpty(origins)) {
             return null;
         }
-        List<T> dests = new ArrayList<>(origins.size());
+        List<T> dests;
         Constructor<T> constructor;
         try {
             constructor = destClazz.getConstructor();
+            dests = new ArrayList<>(origins.size());
         } catch (NoSuchMethodException e) {
             LOGGER.error("BeanCopyUtil destClazz NoSuchMethodException", e);
             return null;
         }
-        origins.forEach(obj -> dests.add(copyReflectInstance(constructor, obj)));
+        List<T> finalDests = dests;
+        origins.forEach(obj -> finalDests.add(copyReflectInstance(constructor, obj)));
         return dests;
     }
 
@@ -73,7 +75,7 @@ public class BeanCopyUtil {
      * @return 返回目标对象实例
      */
     private static <T> T copyReflectInstance(Constructor<T> constructor, Object origin) {
-        if(constructor == null) {
+        if(constructor == null || origin == null) {
             return null;
         }
         T t = null;

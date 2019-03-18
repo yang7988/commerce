@@ -3,6 +3,7 @@ package com.commerce.huayi.filter;
 import com.alibaba.fastjson.JSON;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.RequestHeaderEnum;
 import com.commerce.huayi.service.TranslateService;
 import org.apache.commons.lang3.StringUtils;
@@ -53,8 +54,10 @@ public class GenericFilter implements Filter {
         if (StringUtils.isBlank(language)) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======缺少请求头部参数language");
             return ApiResponseEnum.ABSENCE_LANGUAGE_PARAM;
-        }else {
-            request.setAttribute("language",language);
+        } else if (LanguageEnum.enums(language) == null) {
+            return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
+        } else {
+            request.setAttribute("language", language);
         }
         String contentType = request.getHeader("Content-Type");
         if (StringUtils.isBlank(contentType) || !contentType.startsWith("application/json")) {
