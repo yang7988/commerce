@@ -113,4 +113,43 @@ public class JedisTemplate {
         }
         return jedisStatus;
     }
+
+    public JedisStatus hset(RedisKey key, String hashKey, Object value) {
+        JedisStatus jedisStatus;
+        Jedis jedis = null;
+        try {
+            Charset charset = Charset.defaultCharset();
+            jedis = this.getJedis();
+            jedis.hset(key.getRedisKey().getBytes(Charset.defaultCharset()), hashKey.getBytes(charset), serializer.serializer(value));
+            jedisStatus = JedisStatus.OK;
+        } catch (Exception e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("JedisTemplate hset({},{},{},{}) method called error {}"
+                        , key.getRedisKey(), hashKey, value, ExceptionUtils.getStackTrace(e));
+            }
+            jedisStatus = JedisStatus.FAILD;
+        } finally {
+            this.closeJedis(jedis);
+        }
+        return jedisStatus;
+    }
+
+    public <T> T hget(RedisKey key, String hashKey, Class<T> clazz) {
+        T t = null;
+        Jedis jedis = null;
+        try {
+            Charset charset = Charset.defaultCharset();
+            jedis = this.getJedis();
+            byte[] bytes = jedis.hget(key.getRedisKey().getBytes(charset),hashKey.getBytes(charset));
+            t = serializer.deserializer(bytes, clazz);
+        } catch (Exception e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("JedisTemplate hget({},{},{}) method called error {}"
+                        , key.getRedisKey(), hashKey,clazz.getName(), ExceptionUtils.getStackTrace(e));
+            }
+        } finally {
+            this.closeJedis(jedis);
+        }
+        return t;
+    }
 }

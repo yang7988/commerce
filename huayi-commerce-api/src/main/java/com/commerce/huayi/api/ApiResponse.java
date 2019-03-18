@@ -73,7 +73,7 @@ public class ApiResponse<T> implements Serializable {
     public static <T> ApiResponse<T> returnFail(ApiResponseEnum result) {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.result = false;
-        apiResponse.message = result.getLabel();
+        apiResponse.message = result.getCode();
         apiResponse.code = result.getId();
         return apiResponse;
     }
@@ -143,10 +143,14 @@ public class ApiResponse<T> implements Serializable {
         return this.code;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public void setApiResponseEnum(ApiResponseEnum apiResponseEnum) {
         this.result = apiResponseEnum.success();
         this.code = apiResponseEnum.getId();
-        this.message = apiResponseEnum.getLabel();
+        this.message = apiResponseEnum.getCode();
         this.serverTime = Long.valueOf(new Date().getTime());
     }
 

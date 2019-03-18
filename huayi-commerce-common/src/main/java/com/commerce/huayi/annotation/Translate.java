@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 自定义注解，用于接口动态翻译
  */
-@Target({ElementType.METHOD,ElementType.FIELD})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Translate {

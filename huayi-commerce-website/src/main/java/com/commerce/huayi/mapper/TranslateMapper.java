@@ -4,6 +4,8 @@ package com.commerce.huayi.mapper;
 import com.commerce.huayi.entity.db.TranslateEntity;
 import com.commerce.huayi.entity.db.TranslateEntityExample;
 
+import java.util.List;
+
 public interface TranslateMapper {
-    TranslateEntity selectByKey(TranslateEntityExample entityExample);
+    List<TranslateEntity> selectByKey(TranslateEntityExample entityExample);
 }

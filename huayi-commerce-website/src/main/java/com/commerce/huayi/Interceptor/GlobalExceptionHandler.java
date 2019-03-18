@@ -3,8 +3,10 @@ package com.commerce.huayi.Interceptor;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.service.TranslateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class GlobalExceptionHandler {
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @Autowired
+    private TranslateService translateService;
+
     public GlobalExceptionHandler() {
     }
 
@@ -32,9 +37,11 @@ public class GlobalExceptionHandler {
             BusinessException businessException = (BusinessException) e;
             ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
             Object errorData = businessException.getErrorData();
-            return new ResponseEntity(ApiResponse.returnFail(errorData,apiResponseEnum), HttpStatus.BAD_REQUEST);
+            Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
+            return new ResponseEntity(retVl, HttpStatus.BAD_REQUEST);
         }
         ApiResponse apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR);
+        Object retVl = translateService.translate(apiResponse);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }

@@ -1,6 +1,5 @@
 package com.commerce.huayi.service.impl;
 
-import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.entity.db.GoodsCategory;
 import com.commerce.huayi.entity.db.GoodsCategoryExample;
@@ -24,7 +23,6 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsCategoryMapper goodsCategoryMapper;
 
     @Override
-    @Translate
     public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
         LOGGER.warn("getGoodsCategory========parentId====" + parentId);
         GoodsCategoryExample example = new GoodsCategoryExample();
