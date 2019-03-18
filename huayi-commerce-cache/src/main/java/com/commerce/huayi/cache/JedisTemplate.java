@@ -3,10 +3,12 @@ package com.commerce.huayi.cache;
 
 import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
+import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.cache.serializer.Serializer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
@@ -15,7 +17,7 @@ import redis.clients.jedis.JedisPool;
 import java.nio.charset.Charset;
 
 @Component
-public class JedisTemplate {
+public class JedisTemplate implements InitializingBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JedisTemplate.class);
 
@@ -151,5 +153,21 @@ public class JedisTemplate {
             this.closeJedis(jedis);
         }
         return t;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        JedisStatus jedisStatus;
+        Jedis jedis = null;
+        try {
+            jedis = this.getJedis();
+            jedis.flushDB();
+        } catch (Exception e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("JedisTemplate flushDB method called error {}", ExceptionUtils.getStackTrace(e));
+            }
+        } finally {
+            this.closeJedis(jedis);
+        }
     }
 }
