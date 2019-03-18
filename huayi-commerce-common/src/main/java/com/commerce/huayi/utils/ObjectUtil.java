@@ -17,23 +17,26 @@ import java.util.Map;
 
 public class ObjectUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(ObjectUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtil.class);
 
     public static Map<String, Object> objectToMap(Object obj) {
         if (obj == null) {
             return null;
         }
-        Map<String, Object> map = new HashMap<>();
         BeanInfo beanInfo = null;
         try {
             beanInfo = Introspector.getBeanInfo(obj.getClass());
         } catch (IntrospectionException e) {
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         if (beanInfo == null) {
             return null;
         }
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+        if(propertyDescriptors.length == 0) {
+            return null;
+        }
+        Map<String, Object> map = new HashMap<>(propertyDescriptors.length);
         for (PropertyDescriptor property : propertyDescriptors) {
             objectToMap(obj, map, property);
         }
@@ -50,7 +53,7 @@ public class ObjectUtil {
             value = getter.invoke(obj);
         } catch (IllegalAccessException | InvocationTargetException e) {
             value = null;
-            logger.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(),e);
         }
         map.put(key, value);
     }
