@@ -1,8 +1,8 @@
 package com.commerce.huayi.Interceptor;
 
 import com.commerce.huayi.service.TranslateService;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
@@ -25,20 +25,11 @@ public class TranslateAspect {
     public void controller() {
     }
 
-
-    @Around(value = "controller()")
-    public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+    @AfterReturning(value = "controller()",returning = "retVal")
+    public void translateExecute(JoinPoint joinPoint, Object retVal) {
         long startTime = System.currentTimeMillis();
-        Object retVl;
-        try {
-            //开始翻译
-            retVl = translateService.translate(joinPoint.proceed());
-        } catch (Throwable throwable) {
-            throw throwable;
-        } finally {
-            long consumerTime = System.currentTimeMillis() - startTime;
-            LOGGER.warn("翻译拦截器翻译耗时=====" + consumerTime + "/ms");
-        }
-        return retVl;
+        translateService.translate(retVal);
+        LOGGER.warn("=========国际化翻译耗时======" + (System.currentTimeMillis() - startTime) + "/ms");
     }
+
 }
