@@ -3,7 +3,6 @@ package com.commerce.huayi.cache;
 
 import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
-import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.cache.serializer.Serializer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
