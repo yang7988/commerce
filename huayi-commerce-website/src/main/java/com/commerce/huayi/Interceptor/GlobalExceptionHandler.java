@@ -62,6 +62,7 @@ public class GlobalExceptionHandler {
         } else {
             apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR, e.getMessage());
         }
+        translateService.translate(apiResponse);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }
