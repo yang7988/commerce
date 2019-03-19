@@ -123,7 +123,7 @@ public class TranslateServiceImpl implements TranslateService, InitializingBean 
         if (CollectionUtils.isEmpty(translateAnnotations)) {
             return false;
         }
-        Set<String> refTables = translateAnnotations.stream().filter(annotation -> StringUtils.isNotBlank(annotation.refTable())).map(p -> p.refTable())
+        Set<String> refTables = translateAnnotations.stream().filter(annotation -> StringUtils.isNotBlank(annotation.refTable())).map(Translate::refTable)
                 .collect(Collectors.toSet());
         if (CollectionUtils.isEmpty(refTables)) {
             return false;
