@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -123,24 +122,17 @@ public class MiniatureTranslateServiceImpl implements TranslateService {
                                 String referenceTableName, String referenceColumnName) throws Exception {
         String translateTableName = referenceTableName.concat("_").concat(language.getLanguage());
         String translateColumnName = referenceColumnName.concat(Constant.TRANSLATE_FIELD_SUFFIX);
-        //  字段名首字母大写
-        String fieldName = this.toUpperCaseFirstOne(translateField.getName());
-        //  java bean getter属性
-        String getterMethodName = "get" + fieldName;
-        //  java bean setter属性
-        String setterMethodName = "set" + fieldName;
-        //  getter方法
-        Method getterMethod = clazz.getMethod(getterMethodName);
-        //  setter 方法
-        Method setterMethod = clazz.getMethod(setterMethodName, translateField.getType());
-        //  反射获得java bean 的名称 例如 categoryName -> big_bluetooth_earphone
-        Object getterReturn = getterMethod.invoke(object);
-        String translateKey = (String) getterReturn;
+        translateField.setAccessible(true);
+        Object requiredFieldValue = translateField.get(object);
+        if(!(requiredFieldValue instanceof String)) {
+            return;
+        }
+        String translateKey = (String) requiredFieldValue;
         //  根据字典查询翻译的值
         String translatedVal = getDictTranslate(translateTableName, translateColumnName, translateKey, referenceColumnName);
         //  将翻译后的文本覆盖原 java的字段
         if (StringUtils.isNotBlank(translatedVal)) {
-            setterMethod.invoke(object, translatedVal);
+            translateField.set(object, translatedVal);
         }
     }
 
@@ -197,10 +189,10 @@ public class MiniatureTranslateServiceImpl implements TranslateService {
 
     }
 
-    private String toUpperCaseFirstOne(String content) {
+    /*private String toUpperCaseFirstOne(String content) {
         if (Character.isUpperCase(content.charAt(0))) {
             return content;
         }
         return String.valueOf(Character.toUpperCase(content.charAt(0))) + content.substring(1);
-    }
+    }*/
 }
