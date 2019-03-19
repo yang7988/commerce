@@ -9,6 +9,10 @@
   </select>
 
   <select id="selectDict" resultType="java.util.Map" parameterType="com.commerce.huayi.entity.db.TranslateEntityExample">
-    select ${translateCloumn} as translateResult from ${tableName}
+    select * from ${tableName}
+  </select>
+
+  <select id="selectAllTables" resultType="com.commerce.huayi.entity.db.TranslateEntity" parameterType="java.lang.String">
+    select table_name as tableName from information_schema.tables where table_schema=#{tableSchema} and table_type='base table';
   </select>
 </mapper>

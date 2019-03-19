@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class TranslateEntity implements Serializable {
 
+    private String tableName;
+
     private String translateResult;
 
     public String getTranslateResult() {
@@ -13,5 +15,13 @@ public class TranslateEntity implements Serializable {
 
     public void setTranslateResult(String translateResult) {
         this.translateResult = translateResult;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }
