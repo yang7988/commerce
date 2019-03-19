@@ -157,11 +157,11 @@ public class JedisTemplate implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        JedisStatus jedisStatus;
         Jedis jedis = null;
         try {
             jedis = this.getJedis();
             jedis.flushDB();
+            LOGGER.warn("=========项目启动并清空redis缓存=======");
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
                 LOGGER.error("JedisTemplate flushDB method called error {}", ExceptionUtils.getStackTrace(e));
