@@ -2,7 +2,6 @@ package com.commerce.huayi.entity.response;
 
 import com.commerce.huayi.annotation.Translate;
 
-@Translate(refTable = "tb_goods_category")
 public class CategoryVo {
 
     //主键id

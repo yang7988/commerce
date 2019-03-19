@@ -1,6 +1,6 @@
 package com.commerce.huayi.Interceptor;
 
-import com.commerce.huayi.strategy.TranslateStrategy;
+import com.commerce.huayi.service.TranslateService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +18,7 @@ public class TranslateAspect {
 
 
     @Autowired
-    private TranslateStrategy translateStrategy;
+    private TranslateService translateService;
 
 
     @Pointcut("execution(* com.commerce.huayi.controller..*Controller.*(..))")
@@ -32,7 +32,7 @@ public class TranslateAspect {
         Object retVl;
         try {
             //开始翻译
-            retVl = translateStrategy.translate(joinPoint.proceed());
+            retVl = translateService.translate(joinPoint.proceed());
         } catch (Throwable throwable) {
             throw throwable;
         } finally {

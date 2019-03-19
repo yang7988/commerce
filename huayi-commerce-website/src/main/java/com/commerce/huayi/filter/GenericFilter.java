@@ -5,7 +5,7 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.RequestHeaderEnum;
-import com.commerce.huayi.strategy.TranslateStrategy;
+import com.commerce.huayi.service.TranslateService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class GenericFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericFilter.class);
 
     @Autowired
-    private TranslateStrategy translateStrategy;
+    private TranslateService translateService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -70,7 +70,7 @@ public class GenericFilter implements Filter {
     private void responseError(ApiResponseEnum apiResponseEnum, ServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         ApiResponse apiResponse = ApiResponse.returnFail(apiResponseEnum);
-        Object translate = translateStrategy.translate(apiResponse);
+        Object translate = translateService.translate(apiResponse);
         response.getWriter().write(JSON.toJSONString(translate));
     }
 }

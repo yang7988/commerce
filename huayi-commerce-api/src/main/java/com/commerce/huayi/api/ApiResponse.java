@@ -7,11 +7,10 @@ import com.commerce.huayi.constant.Constant;
 import java.io.Serializable;
 import java.util.Date;
 
-@Translate(refTable = Constant.TRANSLATE_API_RESPONSE_TABLE_PREFIX )
 public class ApiResponse<T> implements Serializable {
     private final String version = "1.0.0";
     private boolean result;
-    @Translate(refColumn = Constant.TRANSLATE_API_RESPONSE_COLUMN)
+    @Translate(refTable = Constant.TRANSLATE_API_RESPONSE_TABLE_PREFIX,refColumn = Constant.TRANSLATE_API_RESPONSE_COLUMN)
     private String message = "";
     private int code;
     private T data;

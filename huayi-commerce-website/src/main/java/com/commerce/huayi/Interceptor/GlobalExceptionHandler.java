@@ -3,7 +3,7 @@ package com.commerce.huayi.Interceptor;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
-import com.commerce.huayi.strategy.TranslateStrategy;
+import com.commerce.huayi.service.TranslateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @Autowired
-    private TranslateStrategy translateStrategy;
+    private TranslateService translateService;
 
     public GlobalExceptionHandler() {
     }
@@ -37,11 +37,11 @@ public class GlobalExceptionHandler {
             BusinessException businessException = (BusinessException) e;
             ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
             Object errorData = businessException.getErrorData();
-            Object retVl = translateStrategy.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
+            Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
             return new ResponseEntity(retVl, HttpStatus.BAD_REQUEST);
         }
         ApiResponse apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR);
-        Object retVl = translateStrategy.translate(apiResponse);
+        Object retVl = translateService.translate(apiResponse);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }
