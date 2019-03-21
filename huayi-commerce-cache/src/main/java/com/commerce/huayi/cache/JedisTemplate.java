@@ -44,8 +44,12 @@ public class JedisTemplate implements InitializingBean {
         JedisStatus jedisStatus;
         Jedis jedis = null;
         try {
+            byte[] serializedVal = this.serializer.serializer(value);
+            if(serializedVal == null) {
+                return JedisStatus.SERIALIZE_FAILD;
+            }
             jedis = this.getJedis();
-            jedis.set(key.getRedisKey().getBytes(Charset.defaultCharset()), serializer.serializer(value));
+            jedis.set(key.getRedisKey().getBytes(Charset.defaultCharset()), serializedVal);
             jedisStatus = JedisStatus.OK;
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
@@ -63,8 +67,12 @@ public class JedisTemplate implements InitializingBean {
         JedisStatus jedisStatus;
         Jedis jedis = null;
         try {
+            byte[] serializedVal = this.serializer.serializer(value);
+            if(null == serializedVal) {
+                return JedisStatus.SERIALIZE_FAILD;
+            }
             jedis = this.getJedis();
-            jedis.setex(key.getRedisKey().getBytes(Charset.defaultCharset()), expire, serializer.serializer(value));
+            jedis.setex(key.getRedisKey().getBytes(Charset.defaultCharset()), expire, serializedVal);
             jedisStatus = JedisStatus.OK;
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
@@ -120,8 +128,12 @@ public class JedisTemplate implements InitializingBean {
         Jedis jedis = null;
         try {
             Charset charset = Charset.defaultCharset();
+            byte[] serializedVal = this.serializer.serializer(value);
+            if(null == serializedVal) {
+                return JedisStatus.SERIALIZE_FAILD;
+            }
             jedis = this.getJedis();
-            jedis.hset(key.getRedisKey().getBytes(Charset.defaultCharset()), hashKey.getBytes(charset), serializer.serializer(value));
+            jedis.hset(key.getRedisKey().getBytes(Charset.defaultCharset()), hashKey.getBytes(charset), serializedVal);
             jedisStatus = JedisStatus.OK;
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
