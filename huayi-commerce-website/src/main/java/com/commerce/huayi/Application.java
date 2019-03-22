@@ -58,7 +58,7 @@ public class Application {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.commerce.huayi.website.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.commerce.huayi.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

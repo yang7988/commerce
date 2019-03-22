@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/goods")
-@Api(value = "产品管理")
+@Api(value = "商品及分类管理")
 public class GoodsController {
 
     @Autowired

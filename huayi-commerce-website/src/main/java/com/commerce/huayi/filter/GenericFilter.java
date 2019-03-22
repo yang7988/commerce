@@ -50,6 +50,9 @@ public class GenericFilter implements Filter {
     }
 
     private ApiResponseEnum validate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(!request.getRequestURI().startsWith("/api")) {
+            return ApiResponseEnum.SUCCESS;
+        }
         String language = request.getHeader(RequestHeaderEnum.language.name());
         if (StringUtils.isBlank(language)) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======缺少请求头部参数language");
