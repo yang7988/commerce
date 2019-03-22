@@ -10,6 +10,9 @@ public class GoodsCategory implements Serializable {
     //父级分类id
     private Long parentId;
 
+    //是否可以展开0不能展开1能展开
+    private Byte isOpen;
+
     //分类名称
     private String categoryName;
 
@@ -44,6 +47,14 @@ public class GoodsCategory implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Byte getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Byte isOpen) {
+        this.isOpen = isOpen;
     }
 
     public String getCategoryName() {

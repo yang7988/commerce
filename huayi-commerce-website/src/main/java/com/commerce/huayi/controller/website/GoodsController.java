@@ -3,6 +3,7 @@ package com.commerce.huayi.controller.website;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.GetCategoryReq;
 import com.commerce.huayi.entity.response.CategoryVo;
+import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,4 +34,9 @@ public class GoodsController {
         return ApiResponse.returnSuccess(categories);
     }
 
+    @PostMapping(value = "/categoryGoods")
+    @ApiOperation(value = "获取分类的产品",notes = "获取分类下面的所有产品单元")
+    public ApiResponse categoryGoods(@Valid @RequestBody GetCategoryReq categoryReq, BindingResult bindingResult){
+        return ApiResponse.returnSuccess(goodsService.categoryGoods(categoryReq.getId()));
+    }
 }

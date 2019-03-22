@@ -2,9 +2,8 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.GoodsSpecValue;
 import com.commerce.huayi.entity.db.GoodsSpecValueExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface GoodsSpecValueMapper {
     int countByExample(GoodsSpecValueExample example);

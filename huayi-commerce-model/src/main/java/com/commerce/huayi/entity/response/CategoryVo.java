@@ -9,7 +9,8 @@ public class CategoryVo {
 
     //父级分类id
     private Long parentId;
-
+    //能否展开
+    private Byte isOpen;
     //分类名称
     @Translate(refTable = "tb_goods_category",refColumn = "category_name")
     private String categoryName;
@@ -48,5 +49,13 @@ public class CategoryVo {
 
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
+    }
+
+    public Byte getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Byte isOpen) {
+        this.isOpen = isOpen;
     }
 }

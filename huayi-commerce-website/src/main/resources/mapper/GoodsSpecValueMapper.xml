@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSpecValue" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="spec_id" property="specId" jdbcType="BIGINT" />
-    <result column="spec_key" property="specKey" jdbcType="VARCHAR" />
     <result column="spec_value" property="specValue" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, spec_id, spec_key, spec_value, create_date, update_date, is_delete
+    id, spec_id, spec_value, create_date, update_date, is_delete
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.commerce.huayi.entity.db.GoodsSpecValueExample" >
     select
@@ -116,12 +115,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.commerce.huayi.entity.db.GoodsSpecValue" keyProperty="id" useGeneratedKeys="true" >
-    insert into tb_goods_spec_value (id, spec_id, spec_key, 
-      spec_value, create_date, update_date, 
-      is_delete)
-    values (#{id,jdbcType=BIGINT}, #{specId,jdbcType=BIGINT}, #{specKey,jdbcType=VARCHAR}, 
-      #{specValue,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{isDelete,jdbcType=TINYINT})
+    insert into tb_goods_spec_value (id, spec_id, spec_value, 
+      create_date, update_date, is_delete
+      )
+    values (#{id,jdbcType=BIGINT}, #{specId,jdbcType=BIGINT}, #{specValue,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.commerce.huayi.entity.db.GoodsSpecValue" keyProperty="id" useGeneratedKeys="true" >
     insert into tb_goods_spec_value
@@ -131,9 +130,6 @@
       </if>
       <if test="specId != null" >
         spec_id,
-      </if>
-      <if test="specKey != null" >
-        spec_key,
       </if>
       <if test="specValue != null" >
         spec_value,
@@ -154,9 +150,6 @@
       </if>
       <if test="specId != null" >
         #{specId,jdbcType=BIGINT},
-      </if>
-      <if test="specKey != null" >
-        #{specKey,jdbcType=VARCHAR},
       </if>
       <if test="specValue != null" >
         #{specValue,jdbcType=VARCHAR},
@@ -187,9 +180,6 @@
       <if test="record.specId != null" >
         spec_id = #{record.specId,jdbcType=BIGINT},
       </if>
-      <if test="record.specKey != null" >
-        spec_key = #{record.specKey,jdbcType=VARCHAR},
-      </if>
       <if test="record.specValue != null" >
         spec_value = #{record.specValue,jdbcType=VARCHAR},
       </if>
@@ -211,7 +201,6 @@
     update tb_goods_spec_value
     set id = #{record.id,jdbcType=BIGINT},
       spec_id = #{record.specId,jdbcType=BIGINT},
-      spec_key = #{record.specKey,jdbcType=VARCHAR},
       spec_value = #{record.specValue,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
@@ -225,9 +214,6 @@
     <set >
       <if test="specId != null" >
         spec_id = #{specId,jdbcType=BIGINT},
-      </if>
-      <if test="specKey != null" >
-        spec_key = #{specKey,jdbcType=VARCHAR},
       </if>
       <if test="specValue != null" >
         spec_value = #{specValue,jdbcType=VARCHAR},
@@ -247,7 +233,6 @@
   <update id="updateByPrimaryKey" parameterType="com.commerce.huayi.entity.db.GoodsSpecValue" >
     update tb_goods_spec_value
     set spec_id = #{specId,jdbcType=BIGINT},
-      spec_key = #{specKey,jdbcType=VARCHAR},
       spec_value = #{specValue,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},

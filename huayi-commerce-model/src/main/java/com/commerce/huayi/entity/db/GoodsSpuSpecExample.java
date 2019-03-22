@@ -267,63 +267,63 @@ public class GoodsSpuSpecExample {
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdIsNull() {
-            addCriterion("spec_id is null");
+        public Criteria andSpecValueIdIsNull() {
+            addCriterion("spec_value_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdIsNotNull() {
-            addCriterion("spec_id is not null");
+        public Criteria andSpecValueIdIsNotNull() {
+            addCriterion("spec_value_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdEqualTo(Long value) {
-            addCriterion("spec_id =", value, "specId");
+        public Criteria andSpecValueIdEqualTo(Long value) {
+            addCriterion("spec_value_id =", value, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdNotEqualTo(Long value) {
-            addCriterion("spec_id <>", value, "specId");
+        public Criteria andSpecValueIdNotEqualTo(Long value) {
+            addCriterion("spec_value_id <>", value, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdGreaterThan(Long value) {
-            addCriterion("spec_id >", value, "specId");
+        public Criteria andSpecValueIdGreaterThan(Long value) {
+            addCriterion("spec_value_id >", value, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("spec_id >=", value, "specId");
+        public Criteria andSpecValueIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("spec_value_id >=", value, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdLessThan(Long value) {
-            addCriterion("spec_id <", value, "specId");
+        public Criteria andSpecValueIdLessThan(Long value) {
+            addCriterion("spec_value_id <", value, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdLessThanOrEqualTo(Long value) {
-            addCriterion("spec_id <=", value, "specId");
+        public Criteria andSpecValueIdLessThanOrEqualTo(Long value) {
+            addCriterion("spec_value_id <=", value, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdIn(List<Long> values) {
-            addCriterion("spec_id in", values, "specId");
+        public Criteria andSpecValueIdIn(List<Long> values) {
+            addCriterion("spec_value_id in", values, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdNotIn(List<Long> values) {
-            addCriterion("spec_id not in", values, "specId");
+        public Criteria andSpecValueIdNotIn(List<Long> values) {
+            addCriterion("spec_value_id not in", values, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdBetween(Long value1, Long value2) {
-            addCriterion("spec_id between", value1, value2, "specId");
+        public Criteria andSpecValueIdBetween(Long value1, Long value2) {
+            addCriterion("spec_value_id between", value1, value2, "specValueId");
             return (Criteria) this;
         }
 
-        public Criteria andSpecIdNotBetween(Long value1, Long value2) {
-            addCriterion("spec_id not between", value1, value2, "specId");
+        public Criteria andSpecValueIdNotBetween(Long value1, Long value2) {
+            addCriterion("spec_value_id not between", value1, value2, "specValueId");
             return (Criteria) this;
         }
 

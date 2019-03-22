@@ -3,24 +3,27 @@ package com.commerce.huayi.entity.db;
 import java.io.Serializable;
 import java.util.Date;
 
-public class GoodsSpuSpec implements Serializable {
+public class GoodsCategorySpec implements Serializable {
     //主键id
     private Long id;
 
-    //spu_id
-    private Long spuId;
+    //商品分类id
+    private Long categoryId;
 
-    //spec_id
+    //规格id
+    private Long specId;
+
+    //规格值id
     private Long specValueId;
+
+    //是否删除0未删除1已删除
+    private Byte isDelete;
 
     //创建时间
     private Date createDate;
 
     //更新时间
     private Date updateDate;
-
-    //是否删除(0未删除1已删除)
-    private Byte isDelete;
 
     static final long serialVersionUID = 1L;
 
@@ -32,12 +35,20 @@ public class GoodsSpuSpec implements Serializable {
         this.id = id;
     }
 
-    public Long getSpuId() {
-        return spuId;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setSpuId(Long spuId) {
-        this.spuId = spuId;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getSpecId() {
+        return specId;
+    }
+
+    public void setSpecId(Long specId) {
+        this.specId = specId;
     }
 
     public Long getSpecValueId() {
@@ -46,6 +57,14 @@ public class GoodsSpuSpec implements Serializable {
 
     public void setSpecValueId(Long specValueId) {
         this.specValueId = specValueId;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Date getCreateDate() {
@@ -62,13 +81,5 @@ public class GoodsSpuSpec implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    public Byte getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
     }
 }

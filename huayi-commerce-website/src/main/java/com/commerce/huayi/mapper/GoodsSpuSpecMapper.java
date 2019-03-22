@@ -2,9 +2,8 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.GoodsSpuSpec;
 import com.commerce.huayi.entity.db.GoodsSpuSpecExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface GoodsSpuSpecMapper {
     int countByExample(GoodsSpuSpecExample example);
