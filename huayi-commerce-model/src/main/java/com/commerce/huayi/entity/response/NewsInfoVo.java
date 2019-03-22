@@ -1,7 +1,5 @@
 package com.commerce.huayi.entity.response;
 
-import java.util.Date;
-
 /**
  * 新闻中心
  * @date 2019-03-16

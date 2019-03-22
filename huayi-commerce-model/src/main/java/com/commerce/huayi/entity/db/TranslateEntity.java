@@ -1,7 +1,6 @@
 package com.commerce.huayi.entity.db;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class TranslateEntity implements Serializable {
 

@@ -18,7 +18,6 @@ import javax.validation.Valid;
 public class AdminController {
 
     @PostMapping(value = "/login")
-    @RequestMapping()
     @ApiOperation(value = "管理员登陆",notes = "管理员登陆")
     public ApiResponse login(@Valid @RequestBody UserLoginReq userLoginReq, BindingResult bindingResult) {
         return ApiResponse.returnSuccess();

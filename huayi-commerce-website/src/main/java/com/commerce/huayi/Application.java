@@ -2,6 +2,7 @@ package com.commerce.huayi;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
+import com.google.common.collect.Sets;
 import org.hibernate.validator.HibernateValidator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -56,6 +57,9 @@ public class Application {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .produces(Sets.newHashSet("application/json"))
+                .consumes(Sets.newHashSet("application/json"))
+                .protocols(Sets.newHashSet("http", "https"))
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.commerce.huayi.controller"))

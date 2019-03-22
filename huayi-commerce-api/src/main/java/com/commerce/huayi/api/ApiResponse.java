@@ -3,17 +3,31 @@ package com.commerce.huayi.api;
 import com.alibaba.fastjson.JSON;
 import com.commerce.huayi.annotation.Translate;
 import com.commerce.huayi.constant.Constant;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
-
+@ApiModel(value = "接口返回的json对象")
 public class ApiResponse<T> implements Serializable {
+
+    @ApiModelProperty(value = "版本号",required = true)
     private final String version = "1.0.0";
+
+    @ApiModelProperty(value = "成功或失败标识",required = true)
     private boolean result;
+
     @Translate(refTable = Constant.TRANSLATE_API_RESPONSE_TABLE_PREFIX,refColumn = Constant.TRANSLATE_API_RESPONSE_COLUMN)
+    @ApiModelProperty(value = "状态码描述",required = true)
     private String message = "";
+
+    @ApiModelProperty(value = "状态码",required = true)
     private int code;
+
+    @ApiModelProperty(value = "服务端返回数据",required = true)
     private T data;
+
+    @ApiModelProperty(value = "服务端响应时间戳",required = true)
     private Long serverTime;
 
     public ApiResponse() {

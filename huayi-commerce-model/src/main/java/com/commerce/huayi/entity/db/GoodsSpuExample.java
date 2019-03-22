@@ -2,6 +2,7 @@ package com.commerce.huayi.entity.db;
 
 import com.commerce.huayi.pagination.Limit;
 import com.commerce.huayi.pagination.Page;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
