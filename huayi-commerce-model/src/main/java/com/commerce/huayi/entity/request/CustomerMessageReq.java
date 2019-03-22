@@ -1,34 +1,50 @@
 package com.commerce.huayi.entity.request;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 客户留言
  * @date 2019-03-16
  * */
+@ApiModel(value = "客户留言信息请求json对象")
 public class CustomerMessageReq {
 
+    @ApiModelProperty(value = "姓名name",example = "张三",dataType = "String")
     private String name;
 
+    @ApiModelProperty(value = "公司company",example = "HuaYi公司",dataType = "String")
     private String company;
 
+    @ApiModelProperty(value = "手机号mobilePhone",example = "18987655432",dataType = "String")
     private String mobilePhone;
 
+    @ApiModelProperty(value = "邮箱地址mailAddress",example = "nidebidb@163.com",dataType = "String")
     private String mailAddress;
 
+    @ApiModelProperty(value = "传真fax",example = "456789099",dataType = "String")
     private String fax;
 
+    @ApiModelProperty(value = "邮编postalCode",example = "580000",dataType = "String")
     private String postalCode;
 
+    @ApiModelProperty(value = "地址address",example = "广东省深圳市",dataType = "String")
     private String address;
 
+    @ApiModelProperty(value = "意见opinion",example = "十分完美，没有意见",dataType = "String")
     private String opinion;
 
+    @ApiModelProperty(value = "访问目的accessPurpose",example = "HuaYi公司",dataType = "String")
     private String accessPurpose;
 
+    @ApiModelProperty(value = "目的是否达到（否 0 ，是 1，一部分 2，仅浏览 3）purposeFlag",example = "2",dataType = "String")
     private String purposeFlag;
 
+    @ApiModelProperty(value = "是否提交服务解决问题 (是 1  否 0)dealFlag",example = "1",dataType = "String")
     private String dealFlag;
 
+    @ApiModelProperty(value = "文档质量（非常好 3，好 2，平均 1，差 0）documentQuality",example = "3",dataType = "String")
     private String documentQuality;
 
 
