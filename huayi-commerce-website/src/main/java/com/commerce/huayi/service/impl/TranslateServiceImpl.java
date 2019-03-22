@@ -21,7 +21,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,6 +39,9 @@ public class TranslateServiceImpl implements TranslateService, InitializingBean 
 
     @Autowired
     private TranslateMapper translateMapper;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Autowired
     private JedisTemplate jedisTemplate;
@@ -298,7 +304,15 @@ public class TranslateServiceImpl implements TranslateService, InitializingBean 
      * @return 返回字典表名
      */
     private Set<String> getAllDictTables() {
-        List<TranslateEntity> translateEntities = translateMapper.selectAllTables(Constant.TRANSLATE_TABLE_SCHEMA);
+        String tableSchema = null;
+        try (Connection connection = dataSource.getConnection()) {
+            tableSchema = connection.getCatalog();
+        } catch (SQLException e) {
+            LOGGER.error("========获取数据库schema===出错", e);
+        }
+        tableSchema = tableSchema == null ? Constant.TRANSLATE_TABLE_SCHEMA : tableSchema;
+        LOGGER.warn("=====获取数据库字典翻译表=====tableSchema=={}",tableSchema);
+        List<TranslateEntity> translateEntities = translateMapper.selectAllTables(tableSchema);
         if (CollectionUtils.isEmpty(translateEntities)) {
             return null;
         }
