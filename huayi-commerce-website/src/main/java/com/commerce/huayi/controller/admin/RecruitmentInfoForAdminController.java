@@ -1,6 +1,7 @@
 package com.commerce.huayi.controller.admin;
 
 import com.commerce.huayi.api.ApiResponse;
+import com.commerce.huayi.entity.request.DelDataReq;
 import com.commerce.huayi.entity.request.RecruitmentInfoReq;
 import com.commerce.huayi.service.RecruitmentInfoService;
 import io.swagger.annotations.Api;
@@ -32,8 +33,8 @@ public class RecruitmentInfoForAdminController {
 
     @PostMapping(value = "/delRecruitmentInfo")
     @ApiOperation(value = "人才中心管理",notes = "删除人才中心数据")
-    public ApiResponse delRecruitmentInfo(@RequestBody Map<String, String> param) {
-        recruitmentInfoService.delRecruitmentInfo(param.get("id"));
+    public ApiResponse delRecruitmentInfo(@RequestBody DelDataReq param) {
+        recruitmentInfoService.delRecruitmentInfo(param.getId());
         return ApiResponse.returnSuccess();
     }
 

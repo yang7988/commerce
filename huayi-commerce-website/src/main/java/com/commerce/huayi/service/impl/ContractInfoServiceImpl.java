@@ -45,7 +45,7 @@ public class ContractInfoServiceImpl implements ContractInfoService {
     }
 
     @Override
-    public void delContractInfo(String id) {
+    public void delContractInfo(int id) {
         LOGGER.info("ContractInfoServiceImpl->delContractInfo id:{}",id);
         contractInfoMapper.delContractInfo(id);
     }

@@ -1,6 +1,7 @@
 package com.commerce.huayi.controller.admin;
 
 import com.commerce.huayi.api.ApiResponse;
+import com.commerce.huayi.entity.request.DelDataReq;
 import com.commerce.huayi.entity.request.NewsInfoReq;
 import com.commerce.huayi.service.NewsInfoService;
 import io.swagger.annotations.Api;
@@ -32,8 +33,8 @@ public class NewsInfoForAdminController {
 
     @PostMapping(value = "/delNewsInfo")
     @ApiOperation(value = "新闻管理",notes = "删除新闻")
-    public ApiResponse delNewsInfo(@RequestBody Map<String, String> param) {
-        newsInfoService.delNewsInfo(param.get("id"));
+    public ApiResponse delNewsInfo(@RequestBody DelDataReq param) {
+        newsInfoService.delNewsInfo(param.getId());
         return ApiResponse.returnSuccess();
     }
 

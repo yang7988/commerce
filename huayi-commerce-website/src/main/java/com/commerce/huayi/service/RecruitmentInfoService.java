@@ -15,6 +15,6 @@ public interface RecruitmentInfoService {
 
     void addRecruitmentInfo(RecruitmentInfoReq recruitmentInfoReq);
 
-    void delRecruitmentInfo(String id);
+    void delRecruitmentInfo(int id);
 
 }

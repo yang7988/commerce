@@ -46,7 +46,7 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
     }
 
     @Override
-    public void delRecruitmentInfo(String id) {
+    public void delRecruitmentInfo(int id) {
         LOGGER.info("RecruitmentInfoServiceImpl->delRecruitmentInfo id:{}",id);
         recruitmentInfoMapper.delRecruitmentInfo(id);
     }

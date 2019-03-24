@@ -47,7 +47,7 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     }
 
     @Override
-    public void delNewsInfo(String id) {
+    public void delNewsInfo(int id) {
         LOGGER.info("NewsInfoServiceImpl->delNewsInfo id:{}",id);
         newsInfoMapper.delNewsInfo(id);
     }

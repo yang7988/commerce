@@ -43,7 +43,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     }
 
     @Override
-    public void delCompanyInfo(String id) {
+    public void delCompanyInfo(int id) {
         LOGGER.info("CompanyInfoServiceImpl->delCompanyInfo id:{}",id);
         companyInfoMapper.delCompanyInfo(id);
     }

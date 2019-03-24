@@ -2,6 +2,7 @@ package com.commerce.huayi.controller.admin;
 
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.ContractInfoReq;
+import com.commerce.huayi.entity.request.DelDataReq;
 import com.commerce.huayi.service.ContractInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,8 +33,8 @@ public class ContractInfoForAdminController {
 
     @PostMapping(value = "/delContractInfo")
     @ApiOperation(value = "联系我们信息管理",notes = "删除联系我们数据")
-    public ApiResponse delContractInfo(@RequestBody Map<String, String> param) {
-        contractInfoService.delContractInfo(param.get("id"));
+    public ApiResponse delContractInfo(@RequestBody DelDataReq param) {
+        contractInfoService.delContractInfo(param.getId());
         return ApiResponse.returnSuccess();
     }
 

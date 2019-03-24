@@ -11,6 +11,6 @@ public interface ContractInfoMapper {
 
     void addContractInfo(@Param("contractInfo") ContractInfo contractInfo);
 
-    void delContractInfo(@Param("id") String id);
+    void delContractInfo(@Param("id") int id);
 
 }

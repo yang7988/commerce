@@ -11,6 +11,6 @@ public interface NewsInfoMapper {
 
     void addNewsInfo(@Param("newsInfo") NewsInfo newsInfo);
 
-    void delNewsInfo(@Param("id") String id);
+    void delNewsInfo(@Param("id") int id);
 
 }

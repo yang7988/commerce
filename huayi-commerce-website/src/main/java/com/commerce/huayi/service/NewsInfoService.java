@@ -15,6 +15,6 @@ public interface NewsInfoService {
 
     void addNewsInfo(NewsInfoReq newsInfoReq);
 
-    void delNewsInfo(String id);
+    void delNewsInfo(int id);
 
 }
