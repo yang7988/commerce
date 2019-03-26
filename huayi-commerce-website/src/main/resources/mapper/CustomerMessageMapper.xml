@@ -18,6 +18,13 @@
              document_quality as documentQuality,
              create_date as createDate
         from tb_customer_message
+        order by id
+        limit #{startLine, jdbcType=INTEGER},#{pageMaxSize, jdbcType=INTEGER}
+    </select>
+
+    <select id="getCustomerMessagesTotalCount" resultType="int">
+        select count(*)
+        from tb_customer_message
     </select>
 
     <insert id="addCustomerMessage">

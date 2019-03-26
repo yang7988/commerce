@@ -2,10 +2,13 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.entity.db.CustomerMessage;
 import com.commerce.huayi.entity.request.CustomerMessageReq;
+import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.response.CustomerMessagePageVo;
 import com.commerce.huayi.entity.response.CustomerMessageVo;
 import com.commerce.huayi.mapper.CustomerMessageMapper;
 import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.utils.BeanCopyUtil;
+import com.commerce.huayi.utils.PageUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +26,27 @@ public class CustomerMessageServiceImpl implements CustomerMessageService {
     private CustomerMessageMapper customerMessageMapper;
 
     @Override
-    public List<CustomerMessageVo> getCustomerMessages() {
+    public CustomerMessagePageVo getCustomerMessages(PageReq pageReq) {
 
-        List<CustomerMessage> customerMessageList = customerMessageMapper.getCustomerMessages();
+        CustomerMessagePageVo customerMessagePageVo = new CustomerMessagePageVo();
+
+        int pageMaxSzie = pageReq.getPageMaxSize();
+        if(pageMaxSzie <= 0) {
+            pageMaxSzie = 10;
+        }
+        int pageIndex = pageReq.getPageIndex();
+
+        int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
+
+        List<CustomerMessage> customerMessageList = customerMessageMapper.getCustomerMessages(startLine, pageMaxSzie);
         if(CollectionUtils.isEmpty(customerMessageList)) {
             return null;
         }
+        customerMessagePageVo.setCustomerMessageVoList(BeanCopyUtil.copy(CustomerMessageVo.class, customerMessageList));
+        customerMessagePageVo.setTotalCount(customerMessageMapper.getCustomerMessagesTotalCount());
 
-        return BeanCopyUtil.copy(CustomerMessageVo.class, customerMessageList);
+        return customerMessagePageVo;
+
     }
 
     @Override

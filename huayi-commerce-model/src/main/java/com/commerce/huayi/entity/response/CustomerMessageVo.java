@@ -9,7 +9,7 @@ import java.util.Date;
  * 客户留言
  * @date 2019-03-16
  * */
-@ApiModel(value = "客户留言信息response body")
+@ApiModel(value = "客户留言信息明细response body")
 public class CustomerMessageVo {
 
     @ApiModelProperty(value = "主键id",required = true)

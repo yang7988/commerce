@@ -1,6 +1,8 @@
 package com.commerce.huayi.service;
 
 import com.commerce.huayi.entity.request.CustomerMessageReq;
+import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.response.CustomerMessagePageVo;
 import com.commerce.huayi.entity.response.CustomerMessageVo;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  * */
 public interface CustomerMessageService {
 
-    List<CustomerMessageVo> getCustomerMessages();
+    CustomerMessagePageVo getCustomerMessages(PageReq pageReq);
 
     void addCustomerMessage(CustomerMessageReq customerMessageReq);
 

@@ -22,4 +22,7 @@ public class AdminController {
     public ApiResponse login(@Valid @RequestBody UserLoginReq userLoginReq, BindingResult bindingResult) {
         return ApiResponse.returnSuccess();
     }
+
+
+
 }

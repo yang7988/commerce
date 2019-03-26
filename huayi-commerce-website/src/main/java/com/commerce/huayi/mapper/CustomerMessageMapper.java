@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface CustomerMessageMapper {
 
-    List<CustomerMessage> getCustomerMessages();
+    List<CustomerMessage> getCustomerMessages(@Param("startLine") int startLine, @Param("pageMaxSize") int endLine);
+
+    int getCustomerMessagesTotalCount();
 
     void addCustomerMessage(@Param("customerMessage") CustomerMessage customerMessage);
 
