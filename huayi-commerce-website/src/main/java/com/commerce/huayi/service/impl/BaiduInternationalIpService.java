@@ -18,8 +18,6 @@ import java.nio.charset.StandardCharsets;
 @Service("baiduIpService")
 public class BaiduInternationalIpService implements InternationalIpService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaiduInternationalIpService.class);
-    //百度获取ip地址详情接口
-    private static String httpUrl = "http://apis.baidu.com/apistore/iplookup/iplookup_paid?ip=";
     //接口密钥
     private static final String apiKey = "a152c631b149ab6420e37d25fb1faafa";
 
@@ -28,6 +26,8 @@ public class BaiduInternationalIpService implements InternationalIpService {
         BufferedReader reader = null;
         String result = null;
         StringBuffer sbf;
+        //百度获取ip地址详情接口
+        String httpUrl = "http://apis.baidu.com/apistore/iplookup/iplookup_paid?ip=";
         String urlHttp = httpUrl + ip;
         urlHttp.replace(" ", "");
         URL url;

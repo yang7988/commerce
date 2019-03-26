@@ -3,7 +3,8 @@ package com.commerce.huayi.cache.key;
 public enum RedisKeysPrefix {
     USER_KEY("user:", "用户模块 redis key 前缀"),
     PRODUCT_KEY("product:", "商品模块 redis key 前缀"),
-    I18N_KEY("i18n:","国际化翻译的字典 redis key 前缀");
+    I18N_KEY("i18n:","国际化翻译的字典 redis key 前缀"),
+    IMAGE_KEY("product:image:","国际化翻译的字典 redis key 前缀");
 
     private String prefix;
     private String info;

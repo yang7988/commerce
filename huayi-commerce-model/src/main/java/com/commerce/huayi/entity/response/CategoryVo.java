@@ -28,6 +28,10 @@ public class CategoryVo {
     @ApiModelProperty(value = "分类描述",required = true)
     private String categoryDescription;
 
+    //商品分类的base64
+    @ApiModelProperty(value = "商品分类的base64图片",required = true)
+    private String imageBase64;
+
     public Long getId() {
         return id;
     }
@@ -66,5 +70,13 @@ public class CategoryVo {
 
     public void setIsOpen(Byte isOpen) {
         this.isOpen = isOpen;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
     }
 }

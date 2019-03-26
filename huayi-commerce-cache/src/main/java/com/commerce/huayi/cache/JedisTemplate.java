@@ -3,7 +3,9 @@ package com.commerce.huayi.cache;
 
 import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
+import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.cache.serializer.Serializer;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import java.nio.charset.Charset;
+import java.util.Set;
 
 @Component
 public class JedisTemplate implements InitializingBean {
@@ -171,8 +174,14 @@ public class JedisTemplate implements InitializingBean {
         Jedis jedis = null;
         try {
             jedis = this.getJedis();
-            jedis.flushDB();
-            LOGGER.warn("=========项目启动并清空redis缓存=======");
+            Set<String> keys = jedis.keys(RedisKeysPrefix.I18N_KEY.getPrefix() + "*");
+            if(CollectionUtils.isEmpty(keys)) {
+                return;
+            }
+            String[] keysArray = new String[keys.size()];
+            keys.toArray(keysArray);
+            jedis.del(keysArray);
+            LOGGER.warn("=========项目启动并清空国际化I18n缓存=======");
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
                 LOGGER.error("JedisTemplate flushDB method called error {}", ExceptionUtils.getStackTrace(e));
