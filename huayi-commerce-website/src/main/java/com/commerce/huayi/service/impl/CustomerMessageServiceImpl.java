@@ -42,8 +42,8 @@ public class CustomerMessageServiceImpl implements CustomerMessageService {
         if(CollectionUtils.isEmpty(customerMessageList)) {
             return null;
         }
-        customerMessagePageVo.setCustomerMessageVoList(BeanCopyUtil.copy(CustomerMessageVo.class, customerMessageList));
-        customerMessagePageVo.setTotalCount(customerMessageMapper.getCustomerMessagesTotalCount());
+        customerMessagePageVo.setList(BeanCopyUtil.copy(CustomerMessageVo.class, customerMessageList));
+        customerMessagePageVo.setCount(customerMessageMapper.getCustomerMessagesTotalCount());
 
         return customerMessagePageVo;
 

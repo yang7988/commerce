@@ -13,26 +13,25 @@ import java.util.List;
 @ApiModel(value = "客户留言信息response body")
 public class CustomerMessagePageVo {
 
-    @ApiModelProperty(value = "数据总条数totalCount",required = true)
-    private int totalCount;
+    @ApiModelProperty(value = "数据总条数count",required = true)
+    private int count;
 
-    @ApiModelProperty(value = "留言明细列表customerMessageVoList",required = true)
-    private List<CustomerMessageVo> customerMessageVoList;
+    @ApiModelProperty(value = "留言明细列表list",required = true)
+    private List<CustomerMessageVo> list;
 
-
-    public int getTotalCount() {
-        return totalCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public List<CustomerMessageVo> getCustomerMessageVoList() {
-        return customerMessageVoList;
+    public List<CustomerMessageVo> getList() {
+        return list;
     }
 
-    public void setCustomerMessageVoList(List<CustomerMessageVo> customerMessageVoList) {
-        this.customerMessageVoList = customerMessageVoList;
+    public void setList(List<CustomerMessageVo> list) {
+        this.list = list;
     }
 }
