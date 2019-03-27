@@ -1,7 +1,9 @@
 package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.constant.Constant;
 import com.commerce.huayi.entity.db.*;
+import com.commerce.huayi.entity.request.CategoryReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,5 +87,22 @@ public class GoodsServiceImpl implements GoodsService {
         GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(goodsSpecValue.getSpecId());
         BeanCopyUtil.copy(goodsSpuDetailsVo, goodsSpec);
         return goodsSpuDetailsVo;
+    }
+
+    @Override
+    public Integer addCategory(CategoryReq categoryReq) {
+        GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
+        goodsCategory.setIsDelete(Constant.NODELETE);
+        goodsCategory.setCreateDate(new Date());
+        goodsCategory.setUpdateDate(new Date());
+        return goodsCategoryMapper.insertSelective(goodsCategory);
+    }
+
+    @Override
+    public Integer deleteCategory(CategoryReq categoryReq) {
+        GoodsCategory goodsCategory = new GoodsCategory();
+        goodsCategory.setIsDelete(Constant.DELETED);
+        goodsCategory.setId(categoryReq.getId());
+        return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
 }

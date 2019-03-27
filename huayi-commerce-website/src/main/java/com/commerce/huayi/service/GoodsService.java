@@ -1,6 +1,7 @@
 package com.commerce.huayi.service;
 
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.entity.request.CategoryReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 
@@ -20,4 +21,8 @@ public interface GoodsService {
     List<CategoryVo> getCategories(Long parentId) throws BusinessException;
 
     List<GoodsSpuDetailsVo> categoryGoods(Long id)  throws BusinessException;
+
+    Integer addCategory(CategoryReq categoryReq);
+
+    Integer deleteCategory(CategoryReq categoryReq);
 }
