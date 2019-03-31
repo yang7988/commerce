@@ -48,4 +48,13 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         companyInfoMapper.delCompanyInfo(id);
     }
 
+    @Override
+    public void updateCompanyInfo(CompanyInfoReq companyInfoReq) {
+        LOGGER.info("CompanyInfoServiceImpl->updateCompanyInfo companyInfoReq:{}",companyInfoReq);
+        CompanyInfo companyInfo = new CompanyInfo();
+        companyInfo.setId(companyInfoReq.getId());
+        companyInfo.setContent(companyInfoReq.getContent());
+        companyInfoMapper.updateCompanyInfo(companyInfo);
+    }
+
 }

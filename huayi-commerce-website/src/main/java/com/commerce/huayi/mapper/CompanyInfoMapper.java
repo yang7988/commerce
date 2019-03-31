@@ -13,4 +13,6 @@ public interface CompanyInfoMapper {
 
     void delCompanyInfo(@Param("id") int id);
 
+    void updateCompanyInfo(@Param("companyInfo") CompanyInfo companyInfo);
+
 }

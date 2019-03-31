@@ -4,6 +4,8 @@ package com.commerce.huayi.entity.response;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * 招聘信息
  * @date 2019-03-16
@@ -19,6 +21,9 @@ public class RecruitmentInfoVo {
 
     @ApiModelProperty(value = "明细内容content",required = true)
     private String content;
+
+    @ApiModelProperty(value = "创建时间createDate",required = true)
+    private Date createDate;
 
     public int getId() {
         return id;
@@ -42,6 +47,14 @@ public class RecruitmentInfoVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
 }

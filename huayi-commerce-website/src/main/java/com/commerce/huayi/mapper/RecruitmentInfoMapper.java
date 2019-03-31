@@ -13,4 +13,8 @@ public interface RecruitmentInfoMapper {
 
     void delRecruitmentInfo(@Param("id") int id);
 
+    RecruitmentInfo getRecruitmentInfo(@Param("id") int id);
+
+    void updateRecruitmentInfo(@Param("recruitmentInfo") RecruitmentInfo recruitmentInfo);
+
 }

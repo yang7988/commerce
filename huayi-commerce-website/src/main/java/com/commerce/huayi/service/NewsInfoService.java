@@ -13,8 +13,12 @@ public interface NewsInfoService {
 
     List<NewsInfoVo> getNewsInfos();
 
+    NewsInfoVo getNewsInfo(int id);
+
     void addNewsInfo(NewsInfoReq newsInfoReq);
 
     void delNewsInfo(int id);
+
+    void updateNewsInfo(NewsInfoReq newsInfoReq);
 
 }

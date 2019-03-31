@@ -17,4 +17,6 @@ public interface ContractInfoService {
 
     void delContractInfo(int id);
 
+    void updateContractInfo(ContractInfoReq contractInfoReq);
+
 }

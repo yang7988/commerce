@@ -1,31 +1,20 @@
 package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.Administrator;
-import com.commerce.huayi.entity.db.AdministratorExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface AdministratorMapper {
-    int countByExample(AdministratorExample example);
 
-    int deleteByExample(AdministratorExample example);
+    void delAdmin(@Param("id") int id);
 
-    int deleteByPrimaryKey(Integer id);
+    void addAdmin(@Param("administrator")Administrator administrator);
 
-    int insert(Administrator record);
+    List<Administrator> getAdmin();
 
-    int insertSelective(Administrator record);
+    int loginNameIsUsed(@Param("loginName") String loginName);
 
-    List<Administrator> selectByExample(AdministratorExample example);
+    Administrator getAdminByLoginName(@Param("loginName") String loginName);
 
-    Administrator selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") Administrator record, @Param("example") AdministratorExample example);
-
-    int updateByExample(@Param("record") Administrator record, @Param("example") AdministratorExample example);
-
-    int updateByPrimaryKeySelective(Administrator record);
-
-    int updateByPrimaryKey(Administrator record);
 }

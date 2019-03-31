@@ -21,4 +21,11 @@
         update tb_company_info set del_flag = '1',update_date = now() where id = #{id, jdbcType=INTEGER}
     </update>
 
+    <update id="updateCompanyInfo">
+        update tb_company_info
+        set content = #{companyInfo.content, jdbcType=VARCHAR},
+           update_date = now()
+        where id = #{companyInfo.id, jdbcType=INTEGER}
+    </update>
+
 </mapper>

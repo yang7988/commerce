@@ -11,6 +11,9 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "招聘信息请求json对象")
 public class RecruitmentInfoReq {
 
+    @ApiModelProperty(value = "主键id",example = "1",dataType = "int")
+    private int id;
+
     @ApiModelProperty(value = "招聘信息标题title",example = "HuaYi公司招贤纳士",dataType = "String")
     private String title;
 
@@ -34,5 +37,12 @@ public class RecruitmentInfoReq {
         this.content = content;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }

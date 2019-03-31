@@ -17,4 +17,6 @@ public interface CompanyInfoService {
 
     void delCompanyInfo(int id);
 
+    void updateCompanyInfo(CompanyInfoReq companyInfoReq);
+
 }

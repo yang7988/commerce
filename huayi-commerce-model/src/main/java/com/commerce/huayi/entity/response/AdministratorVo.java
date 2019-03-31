@@ -1,41 +1,56 @@
-package com.commerce.huayi.entity.db;
+package com.commerce.huayi.entity.response;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Administrator implements Serializable {
+@ApiModel(value = "管理员信息response body")
+public class AdministratorVo implements Serializable {
     //主键
+    @ApiModelProperty(value = "主键id",required = true)
     private Integer id;
 
     //登录名
+    @ApiModelProperty(value = "登录名loginName",required = true)
     private String loginName;
 
     //用户名
+    @ApiModelProperty(value = "用户名name",required = true)
     private String name;
 
     //用户手机号
+    @ApiModelProperty(value = "用户手机号mobilePhone",required = true)
     private String mobilePhone;
 
-    //登录密码
-    private String password;
-
     //用户状态(0:锁定 1:正常)
+    @ApiModelProperty(value = "用户状态(0:锁定 1:正常)status",required = true)
     private String status;
 
     //创建人
+    @ApiModelProperty(value = "创建人createBy",required = true)
     private String createBy;
 
     //创建时间
+    @ApiModelProperty(value = "创建时间createDate",required = true)
     private Date createDate;
 
     //更新时间
+    @ApiModelProperty(value = "更新时间updateDate",required = false)
     private Date updateDate;
 
     //删除标识(0未删除1已删除)
+    @ApiModelProperty(value = "删除标识(0未删除1已删除)isDelete",required = true)
     private Byte isDelete;
 
     //更新人
+    @ApiModelProperty(value = "更新人updateBy",required = false)
     private String updateBy;
+
+    // 登录成功对应token
+    @ApiModelProperty(value = "登录成功对应token",required = false)
+    private String token;
 
     static final long serialVersionUID = 1L;
 
@@ -69,14 +84,6 @@ public class Administrator implements Serializable {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getStatus() {
@@ -126,4 +133,13 @@ public class Administrator implements Serializable {
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }

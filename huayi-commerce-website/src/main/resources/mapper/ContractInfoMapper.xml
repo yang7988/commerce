@@ -13,13 +13,20 @@
     </select>
 
     <insert id="addContractInfo">
-        insert into tb_company_info (content,del_flag,create_date) values
+        insert into tb_contract_info (content,del_flag,create_date) values
             (#{contractInfo.content, jdbcType=VARCHAR},#{contractInfo.delFlag, jdbcType=VARCHAR},#{contractInfo.createDate, jdbcType=INTEGER})
     </insert>
 
     <update id="delContractInfo">
-        update tb_company_info set del_flag = '1',update_date = now() where id = #{id, jdbcType=INTEGER}
+        update tb_contract_info
+        set del_flag = '1',update_date = now()
+        where id = #{id, jdbcType=INTEGER}
     </update>
 
+    <update id="updateContractInfo">
+        update tb_contract_info
+        set content = #{contractInfo.content, jdbcType=VARCHAR}, update_date = now()
+        where id = #{contractInfo.id, jdbcType=INTEGER}
+    </update>
 
 </mapper>

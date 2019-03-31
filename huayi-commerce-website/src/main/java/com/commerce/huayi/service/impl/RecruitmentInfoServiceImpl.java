@@ -51,4 +51,29 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
         recruitmentInfoMapper.delRecruitmentInfo(id);
     }
 
+    @Override
+    public RecruitmentInfoVo getRecruitmentInfo(int id) {
+        LOGGER.info("RecruitmentInfoServiceImpl->getRecruitmentInfo id:{}",id);
+        RecruitmentInfo recruitmentInfo = recruitmentInfoMapper.getRecruitmentInfo(id);
+        if(null == recruitmentInfo) {
+            return null;
+        }
+        RecruitmentInfoVo recruitmentInfoVo = new RecruitmentInfoVo();
+        recruitmentInfoVo.setId(recruitmentInfo.getId());
+        recruitmentInfoVo.setTitle(recruitmentInfo.getTitle());
+        recruitmentInfoVo.setContent(recruitmentInfo.getContent());
+        recruitmentInfoVo.setCreateDate(recruitmentInfo.getCreateDate());
+        return recruitmentInfoVo;
+    }
+
+    @Override
+    public void updateRecruitmentInfo(RecruitmentInfoReq recruitmentInfoReq) {
+        LOGGER.info("RecruitmentInfoServiceImpl->updateRecruitmentInfo recruitmentInfoReq:{}",recruitmentInfoReq);
+        RecruitmentInfo recruitmentInfo = new RecruitmentInfo();
+        recruitmentInfo.setId(recruitmentInfoReq.getId());
+        recruitmentInfo.setTitle(recruitmentInfoReq.getTitle());
+        recruitmentInfo.setContent(recruitmentInfoReq.getContent());
+        recruitmentInfoMapper.updateRecruitmentInfo(recruitmentInfo);
+    }
+
 }

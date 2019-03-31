@@ -13,4 +13,6 @@ public interface ContractInfoMapper {
 
     void delContractInfo(@Param("id") int id);
 
+    void updateContractInfo(@Param("contractInfo") ContractInfo contractInfo);
+
 }

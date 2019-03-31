@@ -50,4 +50,13 @@ public class ContractInfoServiceImpl implements ContractInfoService {
         contractInfoMapper.delContractInfo(id);
     }
 
+    @Override
+    public void updateContractInfo(ContractInfoReq contractInfoReq) {
+        LOGGER.info("ContractInfoServiceImpl->updateContractInfo contractInfoReq:{}",contractInfoReq);
+        ContractInfo contractInfo = new ContractInfo();
+        contractInfo.setId(contractInfoReq.getId());
+        contractInfo.setContent(contractInfoReq.getContent());
+        contractInfoMapper.updateContractInfo(contractInfo);
+    }
+
 }

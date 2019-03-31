@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "公司介绍信息请求json对象")
 public class CompanyInfoReq {
 
+    @ApiModelProperty(value = "主键id",example = "1",dataType = "int")
+    private int id;
+
     @ApiModelProperty(value = "介绍内容content",example = "HuaYi公司，最牛的耳机公司",dataType = "String")
     private String content;
 
@@ -24,5 +27,12 @@ public class CompanyInfoReq {
         this.content = content;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }

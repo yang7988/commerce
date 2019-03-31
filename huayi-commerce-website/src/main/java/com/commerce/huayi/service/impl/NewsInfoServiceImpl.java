@@ -35,6 +35,21 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     }
 
     @Override
+    public NewsInfoVo getNewsInfo(int id) {
+        LOGGER.info("NewsInfoServiceImpl->getNewsInfo id:{}",id);
+        NewsInfo newsInfo =  newsInfoMapper.getNewsInfo(id);
+        if(null == newsInfo) {
+            return null;
+        }
+        NewsInfoVo newsInfoVo = new NewsInfoVo();
+        newsInfoVo.setId(newsInfo.getId());
+        newsInfoVo.setTitle(newsInfo.getTitle());
+        newsInfoVo.setContent(newsInfo.getContent());
+        newsInfoVo.setCreateDate(newsInfo.getCreateDate());
+        return newsInfoVo;
+    }
+
+    @Override
     public void addNewsInfo(NewsInfoReq newsInfoReq) {
         LOGGER.info("NewsInfoServiceImpl->addNewsInfo newsInfoReq:{}",newsInfoReq);
         NewsInfo newsInfo = new NewsInfo();
@@ -42,7 +57,7 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         newsInfo.setCreateDate(new Date());
         newsInfo.setTitle(newsInfoReq.getTitle());
         newsInfo.setContent(newsInfoReq.getContent());
-        newsInfo.setEffectDate(newsInfoReq.getEffectDate());
+        newsInfo.setEffectDate(new Date());
         newsInfoMapper.addNewsInfo(newsInfo);
     }
 
@@ -50,6 +65,17 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     public void delNewsInfo(int id) {
         LOGGER.info("NewsInfoServiceImpl->delNewsInfo id:{}",id);
         newsInfoMapper.delNewsInfo(id);
+    }
+
+    @Override
+    public void updateNewsInfo(NewsInfoReq newsInfoReq) {
+        LOGGER.info("NewsInfoServiceImpl->updateNewsInfo newsInfoReq:{}",newsInfoReq);
+        NewsInfo newsInfo = new NewsInfo();
+        newsInfo.setDelFlag("0");
+        newsInfo.setId(newsInfoReq.getId());
+        newsInfo.setTitle(newsInfoReq.getTitle());
+        newsInfo.setContent(newsInfoReq.getContent());
+        newsInfoMapper.updateNewsInfo(newsInfo);
     }
 
 }

@@ -12,6 +12,9 @@ import java.util.Date;
 @ApiModel(value = "新闻中心信息请求json对象")
 public class NewsInfoReq {
 
+    @ApiModelProperty(value = "主键id",example = "1",dataType = "int")
+    private int id;
+
     @ApiModelProperty(value = "新闻标题title",example = "HuaYi公司耳机大卖",dataType = "String")
     private String title;
 
@@ -46,5 +49,11 @@ public class NewsInfoReq {
         this.effectDate = effectDate;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }

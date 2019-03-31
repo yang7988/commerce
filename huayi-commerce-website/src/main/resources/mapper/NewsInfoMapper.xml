@@ -16,11 +16,31 @@
 
     <insert id="addNewsInfo">
         insert into tb_news_info (title, content, effect_date, del_flag, create_date) values
-            (#{contractInfo.title, jdbcType=VARCHAR},#{contractInfo.content, jdbcType=VARCHAR},#{contractInfo.effectDate, jdbcType=VARCHAR},#{contractInfo.delFlag, jdbcType=VARCHAR},#{contractInfo.createDate, jdbcType=VARCHAR})
+            (#{newsInfo.title, jdbcType=VARCHAR},#{newsInfo.content, jdbcType=VARCHAR},#{newsInfo.effectDate, jdbcType=VARCHAR},#{newsInfo.delFlag, jdbcType=VARCHAR},#{newsInfo.createDate, jdbcType=VARCHAR})
     </insert>
 
     <update id="delNewsInfo">
         update tb_news_info set del_flag = '1',update_date = now() where id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <select id="getNewsInfo" resultType="com.commerce.huayi.entity.db.NewsInfo">
+        select id as id,
+             title as title,
+             content as content,
+             effect_date as effectDate,
+             del_flag as delFlag,
+             create_date as createDate,
+             update_date as updateDate
+        from tb_news_info
+        where del_flag = '0'
+        and id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <update id="updateNewsInfo">
+        update tb_news_info
+        set title = #{newsInfo.title, jdbcType=VARCHAR},
+            content = #{newsInfo.content, jdbcType=VARCHAR}
+        where id = #{newsInfo.id, jdbcType=INTEGER}
     </update>
 
 </mapper>
