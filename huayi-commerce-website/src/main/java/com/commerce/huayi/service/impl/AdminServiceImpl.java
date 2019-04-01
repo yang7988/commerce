@@ -1,5 +1,6 @@
 package com.commerce.huayi.service.impl;
 
+import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.entity.db.Administrator;
 import com.commerce.huayi.entity.request.AdministratorReq;
@@ -10,6 +11,7 @@ import com.commerce.huayi.service.AdminService;
 import com.commerce.huayi.utils.BeanCopyUtil;
 import com.commerce.huayi.utils.MD5Tools;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,27 +28,25 @@ public class AdminServiceImpl implements AdminService {
     public AdministratorVo login(String userName, String password) throws BusinessException {
 
         Administrator administrator = administratorMapper.getAdminByLoginName(userName);
-        if(null != administrator) {
-            if(administrator.getPassword().equals(password)) {
-                AdministratorVo administratorVo = new AdministratorVo();
-                String token = getUserLoginToken(userName);
-                administratorVo.setToken(token);
-                administratorVo.setLoginName(userName);
-                administratorVo.setMobilePhone(administrator.getMobilePhone());
-                administratorVo.setName(administrator.getName());
-                administratorVo.setId(administrator.getId());
-                administratorVo.setIsDelete(administrator.getIsDelete());
-                administratorVo.setStatus(administrator.getStatus());
-                return administratorVo;
-            } else {
-                // 密码错误
-                throw new BusinessException("用户名密码错误");
-            }
-        } else {
-            // 查找无此有效用户
-            throw new BusinessException("用户名密码错误");
+        if (administrator != null) {
+            throw new BusinessException(ApiResponseEnum.USER_NOT_FOUND);
         }
-
+        if (StringUtils.isBlank(administrator.getPassword())) {
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
+        }
+        if (!password.equals(administrator.getPassword())) {
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
+        }
+        AdministratorVo administratorVo = new AdministratorVo();
+        String token = getUserLoginToken(userName);
+        administratorVo.setToken(token);
+        administratorVo.setLoginName(userName);
+        administratorVo.setMobilePhone(administrator.getMobilePhone());
+        administratorVo.setName(administrator.getName());
+        administratorVo.setId(administrator.getId());
+        administratorVo.setIsDelete(administrator.getIsDelete());
+        administratorVo.setStatus(administrator.getStatus());
+        return administratorVo;
     }
 
     @Override

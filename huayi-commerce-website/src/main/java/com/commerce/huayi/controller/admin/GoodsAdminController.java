@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/admin/goodsCategory")
 @Api(value = "后台产品分类管理")
-public class GoodsCategoryAdminController {
+public class GoodsAdminController {
 
     @Autowired
     private GoodsService goodsService;
@@ -34,5 +34,24 @@ public class GoodsCategoryAdminController {
     public ApiResponse deleteCategory(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult) {
         Integer result = goodsService.deleteCategory(categoryReq);
         return ApiResponse.returnSuccess();
+    }
+
+    @PostMapping(value = "/updateCategory")
+    @ApiOperation(value = "更新分类",notes = "更新产品分类")
+    public ApiResponse updateCategory(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult) {
+        Integer result = goodsService.updateCategory(categoryReq);
+        return ApiResponse.returnSuccess();
+    }
+
+    public ApiResponse addProduct() {
+        return null;
+    }
+
+    public ApiResponse deleteProduct() {
+        return null;
+    }
+
+    public ApiResponse updateProduct() {
+        return null;
     }
 }

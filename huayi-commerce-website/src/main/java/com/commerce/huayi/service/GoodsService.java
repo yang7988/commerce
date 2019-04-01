@@ -25,4 +25,6 @@ public interface GoodsService {
     Integer addCategory(CategoryReq categoryReq);
 
     Integer deleteCategory(CategoryReq categoryReq);
+
+    Integer updateCategory(CategoryReq categoryReq);
 }
