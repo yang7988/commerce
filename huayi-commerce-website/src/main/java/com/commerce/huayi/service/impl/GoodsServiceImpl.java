@@ -105,4 +105,11 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setId(categoryReq.getId());
         return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
+
+    @Override
+    public Integer updateCategory(CategoryReq categoryReq) {
+        GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
+        goodsCategory.setUpdateDate(new Date());
+        return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+    }
 }

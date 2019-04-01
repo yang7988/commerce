@@ -12,7 +12,8 @@ public enum ApiResponseEnum implements Serializable {
     ABSENCE_LANGUAGE_PARAM(602, "ABSENCE_LANGUAGE_PARAM", "缺少language请求头部参数", false),
     CONTENT_TYPE_ILLEGAL(603, "CONTENT_TYPE_ILLEGAL", "Content-Type必须为application/json", false),
     LANGUAGE_PARAM_ILLEGAL(604, "LANGUAGE_PARAM_ILLEGAL", "language请求头部参数必须是chinese/english/japanese/french/german语系中一种", false),
-    USERNAME_PASSWORD_ERROR(605, "USERNAME_PASSWORD_ERROR", "用户名密码错误", false),
+    USERNAME_PASSWORD_ERROR(605, "USERNAME_PASSWORD_ERROR", "用户名或密码错误", false),
+    USER_NOT_FOUND(606, "USER_NOT_FOUND", "不存在此用户", false),
     DO_NOT_HAVE_ANY_MORE_RECORD(700, "DO_NOT_HAVE_ANY_MORE_RECORD", "没有更多记录", false);
 
     protected int id;

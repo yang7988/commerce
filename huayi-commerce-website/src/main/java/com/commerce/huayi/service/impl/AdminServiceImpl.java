@@ -11,6 +11,7 @@ import com.commerce.huayi.service.AdminService;
 import com.commerce.huayi.utils.BeanCopyUtil;
 import com.commerce.huayi.utils.MD5Tools;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class AdminServiceImpl implements AdminService {
     public AdministratorVo login(String userName, String password) throws BusinessException {
 
         Administrator administrator = administratorMapper.getAdminByLoginName(userName);
+
         if(null != administrator) {
             if(administrator.getPassword().equals(password)) {
                 AdministratorVo administratorVo = new AdministratorVo();
@@ -45,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
             }
         } else {
             // 查找无此有效用户
-            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
+            throw new BusinessException(ApiResponseEnum.USER_NOT_FOUND);
         }
 
     }
