@@ -1,9 +1,9 @@
 package com.commerce.huayi.service;
 
 import com.commerce.huayi.entity.request.NewsInfoReq;
+import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.response.NewsInfoPageVo;
 import com.commerce.huayi.entity.response.NewsInfoVo;
-
-import java.util.List;
 
 /**
  * 新闻中心服务类
@@ -11,7 +11,7 @@ import java.util.List;
  * */
 public interface NewsInfoService {
 
-    List<NewsInfoVo> getNewsInfos();
+    NewsInfoPageVo getNewsInfos(PageReq pageReq);
 
     NewsInfoVo getNewsInfo(int id);
 

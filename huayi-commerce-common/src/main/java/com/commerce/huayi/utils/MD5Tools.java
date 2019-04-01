@@ -38,13 +38,7 @@ public class MD5Tools {
 
     public static void main(String []args) {
 
-        String result = "";
-        StringBuffer token = new StringBuffer();
-        String uuid = UUID.randomUUID().toString();
-        String timeStamp = String.valueOf(System.currentTimeMillis());
-        token = token.append("huaYi123@123").append(timeStamp).append(uuid);
-        result = MD5Tools.encryptUpperCase(token.toString());
-        System.out.println(result);
+        System.out.println(MD5Tools.encryptUpperCase("huaYi123@123"));
 
     }
 

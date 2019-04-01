@@ -2,10 +2,13 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.entity.db.NewsInfo;
 import com.commerce.huayi.entity.request.NewsInfoReq;
+import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.response.NewsInfoPageVo;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 import com.commerce.huayi.mapper.NewsInfoMapper;
 import com.commerce.huayi.service.NewsInfoService;
 import com.commerce.huayi.utils.BeanCopyUtil;
+import com.commerce.huayi.utils.PageUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,14 +27,24 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     private NewsInfoMapper newsInfoMapper;
 
     @Override
-    public List<NewsInfoVo> getNewsInfos() {
+    public NewsInfoPageVo getNewsInfos(PageReq pageReq) {
 
-        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos();
+        NewsInfoPageVo newsInfoPageVo = new NewsInfoPageVo();
+        int pageMaxSzie = pageReq.getPageMaxSize();
+        if(pageMaxSzie <= 0) {
+            pageMaxSzie = 10;
+        }
+        int pageIndex = pageReq.getPageIndex();
+        int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
+
+        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(startLine, pageMaxSzie);
         if(CollectionUtils.isEmpty(newsInfoList)) {
             return null;
         }
+        newsInfoPageVo.setCount(newsInfoMapper.getNewsInfoTotalCount());
+        newsInfoPageVo.setList(BeanCopyUtil.copy(NewsInfoVo.class, newsInfoList));
 
-        return BeanCopyUtil.copy(NewsInfoVo.class, newsInfoList);
+        return newsInfoPageVo;
     }
 
     @Override

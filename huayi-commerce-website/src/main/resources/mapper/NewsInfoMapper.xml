@@ -12,6 +12,12 @@
              update_date as updateDate
         from tb_news_info
         where del_flag = '0'
+        order by id
+        limit #{startLine, jdbcType=INTEGER},#{pageMaxSize, jdbcType=INTEGER}
+    </select>
+
+    <select id="getNewsInfoTotalCount" resultType="int">
+        select count(*) from tb_news_info where del_flag = '0'
     </select>
 
     <insert id="addNewsInfo">

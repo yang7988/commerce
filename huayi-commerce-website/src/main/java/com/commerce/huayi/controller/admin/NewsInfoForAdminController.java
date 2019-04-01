@@ -3,6 +3,8 @@ package com.commerce.huayi.controller.admin;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.DelDataReq;
 import com.commerce.huayi.entity.request.NewsInfoReq;
+import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.response.NewsInfoPageVo;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 import com.commerce.huayi.service.NewsInfoService;
 import io.swagger.annotations.Api;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/newsInfo")
@@ -27,8 +28,8 @@ public class NewsInfoForAdminController {
 
     @PostMapping(value = "/getNewsInfos")
     @ApiOperation(value = "新闻中心管理",notes = "获取新闻列表")
-    public ApiResponse<List<NewsInfoVo>> getNewsInfos() {
-        return ApiResponse.returnSuccess(newsInfoService.getNewsInfos());
+    public ApiResponse<NewsInfoPageVo> getNewsInfos(@Valid @RequestBody PageReq pageReq, BindingResult bindingResult) {
+        return ApiResponse.returnSuccess(newsInfoService.getNewsInfos(pageReq));
     }
 
     @PostMapping(value = "/getNewsInfo")

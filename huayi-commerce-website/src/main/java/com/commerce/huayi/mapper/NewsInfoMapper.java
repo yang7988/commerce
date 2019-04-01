@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface NewsInfoMapper {
 
-    List<NewsInfo> getNewsInfos();
+    List<NewsInfo> getNewsInfos(@Param("startLine") int startLine, @Param("pageMaxSize") int endLine);
+
+    int getNewsInfoTotalCount();
 
     void addNewsInfo(@Param("newsInfo") NewsInfo newsInfo);
 

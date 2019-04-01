@@ -9,7 +9,7 @@ import java.util.Date;
  * 新闻中心
  * @date 2019-03-16
  * */
-@ApiModel(value = "新闻中心信息response body")
+@ApiModel(value = "新闻中心信息明细response body")
 public class NewsInfoVo {
 
     @ApiModelProperty(value = "主键id",required = true)

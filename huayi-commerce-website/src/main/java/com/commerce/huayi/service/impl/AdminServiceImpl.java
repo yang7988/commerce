@@ -1,5 +1,6 @@
 package com.commerce.huayi.service.impl;
 
+import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.entity.db.Administrator;
 import com.commerce.huayi.entity.request.AdministratorReq;
@@ -40,11 +41,11 @@ public class AdminServiceImpl implements AdminService {
                 return administratorVo;
             } else {
                 // 密码错误
-                throw new BusinessException("用户名密码错误");
+                throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
             }
         } else {
             // 查找无此有效用户
-            throw new BusinessException("用户名密码错误");
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
         }
 
     }
