@@ -3,6 +3,9 @@ package com.commerce.huayi.website;
 import com.alibaba.fastjson.JSON;
 import com.commerce.huayi.Application;
 import com.commerce.huayi.cache.JedisTemplate;
+import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.response.CustomerMessagePageVo;
+import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.service.GoodsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +32,16 @@ public class ApplicationTests {
 
     }
 
+    @Autowired
+    private CustomerMessageService customerMessageService;
+
     @Test
     public void testI18n() throws Exception {
-        System.out.println(JSON.toJSON(goodsService.getCategories(0L)));
+        PageReq pageReq = new PageReq();
+        pageReq.setPageIndex(1);
+        pageReq.setPageMaxSize(10);
+        CustomerMessagePageVo customerMessages = customerMessageService.getCustomerMessages(pageReq);
+        System.out.println(customerMessages);
+
     }
 }
