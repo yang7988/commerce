@@ -10,7 +10,7 @@ import java.util.Map;
 public interface TranslateMapper {
     List<TranslateEntity> selectByKey(TranslateEntityExample entityExample);
 
-    List<Map<String,String>> selectDict(TranslateEntityExample entityExample);
+    List<Map<String, String>> selectDict(TranslateEntityExample entityExample);
 
     List<TranslateEntity> selectAllTables(String tableSchema);
 }
