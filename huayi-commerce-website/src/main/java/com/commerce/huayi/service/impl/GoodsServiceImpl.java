@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,8 +46,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
         LOGGER.warn("getGoodsCategory========parentId====" + parentId);
-        GoodsCategoryExample example = new GoodsCategoryExample();
-        example.createCriteria().andParentIdEqualTo(parentId);
+        Example example = new Example(GoodsCategory.class);
+        example.createCriteria().andEqualTo("parentId", parentId);
         List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(goodsCategories)) {
             return null;
@@ -60,15 +61,15 @@ public class GoodsServiceImpl implements GoodsService {
         if (goodsCategory == null) {
             return null;
         }
-        GoodsCategorySpecExample goodsCategorySpecExample = new GoodsCategorySpecExample();
-        goodsCategorySpecExample.createCriteria().andCategoryIdEqualTo(goodsCategory.getId());
+        Example goodsCategorySpecExample = new Example(GoodsCategorySpec.class);
+        goodsCategorySpecExample.createCriteria().andEqualTo("id", id);
         List<GoodsCategorySpec> goodsCategorySpecs = goodsCategorySpecMapper.selectByExample(goodsCategorySpecExample);
         if(CollectionUtils.isEmpty(goodsCategorySpecs)) {
             return null;
         }
         List<Long> specValueIds = goodsCategorySpecs.stream().map(GoodsCategorySpec::getSpecValueId).collect(Collectors.toList());
-        GoodsSpuSpecExample goodsSpuSpecExample = new GoodsSpuSpecExample();
-        goodsSpuSpecExample.createCriteria().andSpecValueIdIn(specValueIds);
+        Example goodsSpuSpecExample = new Example(GoodsSpuSpec.class);
+        goodsSpuSpecExample.createCriteria().andIn("specValueId", specValueIds);
         List<GoodsSpuSpec> goodsSpuSpecs = goodsSpuSpecMapper.selectByExample(goodsSpuSpecExample);
 
         List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
