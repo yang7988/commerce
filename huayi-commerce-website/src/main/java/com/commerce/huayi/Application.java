@@ -19,11 +19,13 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 import javax.sql.DataSource;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.Properties;
 
 @Configuration
 @EnableAutoConfiguration
@@ -75,5 +77,18 @@ public class Application {
                 .contact("徐阳、上官小文")
                 .version("1.0")
                 .build();
+    }
+
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer() {
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
+        mapperScannerConfigurer.setBasePackage("com.blueskykong.mybatis.dao");//扫描该路径下的dao
+        Properties properties = new Properties();
+        properties.setProperty("mappers", "tk.mybatis.mapper.common.Mapper");//通用dao
+        properties.setProperty("notEmpty", "false");
+        properties.setProperty("IDENTITY", "MYSQL");
+        mapperScannerConfigurer.setProperties(properties);
+        return mapperScannerConfigurer;
     }
 }
