@@ -27,4 +27,6 @@ public interface GoodsService {
     Integer deleteCategory(CategoryReq categoryReq);
 
     Integer updateCategory(CategoryReq categoryReq);
+
+    byte[] getGoodsImage(String category,String imageKey);
 }

@@ -1,8 +1,11 @@
 package com.commerce.huayi.entity.db;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "tb_goods_category_spec")
 public class GoodsCategorySpec implements Serializable {

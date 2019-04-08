@@ -1,8 +1,11 @@
 package com.commerce.huayi.entity.db;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "tb_customer_message")
 public class CustomerMessage implements Serializable {

@@ -1,7 +1,11 @@
 package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.cache.JedisTemplate;
+import com.commerce.huayi.cache.key.RedisKey;
+import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.*;
 import com.commerce.huayi.entity.request.CategoryReq;
 import com.commerce.huayi.entity.response.CategoryVo;
@@ -10,16 +14,17 @@ import com.commerce.huayi.mapper.*;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -42,6 +47,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private GoodsSpecValueMapper goodsSpecValueMapper;
+
+    @Autowired
+    private TranslateMapper translateMapper;
+
+    @Autowired
+    private JedisTemplate jedisTemplate;
 
     @Override
     public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
@@ -91,7 +102,12 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @Transactional
     public Integer addCategory(CategoryReq categoryReq) {
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(categoryReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> translateMapper.insertTranslateDict(map));
         GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
         goodsCategory.setIsDelete(Constant.NODELETE);
         goodsCategory.setCreateDate(new Date());
@@ -113,4 +129,16 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setUpdateDate(new Date());
         return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
+
+    @Override
+    public byte[] getGoodsImage(String category,String imageKey) {
+        if(StringUtils.isBlank(category) || StringUtils.isBlank(imageKey)) {
+            return null;
+        }
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, category);
+        byte[] bytes = jedisTemplate.hget(redisKey, imageKey);
+        return bytes;
+    }
+
+
 }

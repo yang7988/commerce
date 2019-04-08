@@ -8,13 +8,12 @@ import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -38,5 +37,12 @@ public class GoodsController {
     @ApiOperation(value = "获取分类的产品",notes = "获取分类下面的所有产品单元")
     public ApiResponse<List<GoodsSpuDetailsVo>> categoryGoods(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult){
         return ApiResponse.returnSuccess(goodsService.categoryGoods(categoryReq.getId()));
+    }
+
+    @RequestMapping(value = { "/image/{category}/{imageKey}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
+    @ResponseBody
+    @ApiOperation(value = "获取产品图片",notes = "获取产品单元图片GET请求")
+    public byte[] getImg(@PathVariable String category, @PathVariable String imageKey) throws IOException {
+        return goodsService.getGoodsImage(category, imageKey);
     }
 }

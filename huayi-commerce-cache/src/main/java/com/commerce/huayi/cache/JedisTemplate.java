@@ -150,6 +150,25 @@ public class JedisTemplate implements InitializingBean {
         return jedisStatus;
     }
 
+    public JedisStatus hset(RedisKey key, String hashKey, byte[] value) {
+        JedisStatus jedisStatus;
+        Jedis jedis = null;
+        try {
+            Charset charset = Charset.defaultCharset();
+            jedis = this.getJedis();
+            jedis.hset(key.getRedisKey().getBytes(Charset.defaultCharset()), hashKey.getBytes(charset), value);
+            jedisStatus = JedisStatus.OK;
+        } catch (Exception e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error(e.getMessage(),e);
+            }
+            jedisStatus = JedisStatus.FAILD;
+        } finally {
+            this.closeJedis(jedis);
+        }
+        return jedisStatus;
+    }
+
     public <T> T hget(RedisKey key, String hashKey, Class<T> clazz) {
         T t = null;
         Jedis jedis = null;
@@ -167,6 +186,24 @@ public class JedisTemplate implements InitializingBean {
             this.closeJedis(jedis);
         }
         return t;
+    }
+
+    public byte[] hget(RedisKey key, String hashKey) {
+        Jedis jedis = null;
+        byte[] bytes = null;
+        try {
+            Charset charset = Charset.defaultCharset();
+            jedis = this.getJedis();
+            bytes = jedis.hget(key.getRedisKey().getBytes(charset), hashKey.getBytes(charset));
+        } catch (Exception e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("JedisTemplate hget({},{}) method called error {}"
+                        , key.getRedisKey(), hashKey, ExceptionUtils.getStackTrace(e));
+            }
+        } finally {
+            this.closeJedis(jedis);
+        }
+        return bytes;
     }
 
     @Override

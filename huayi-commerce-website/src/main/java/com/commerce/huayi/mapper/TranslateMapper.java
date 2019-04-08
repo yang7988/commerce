@@ -13,4 +13,6 @@ public interface TranslateMapper {
     List<Map<String, String>> selectDict(TranslateEntityExample entityExample);
 
     List<TranslateEntity> selectAllTables(String tableSchema);
+
+    int insertTranslateDict(Map<String,String> map);
 }

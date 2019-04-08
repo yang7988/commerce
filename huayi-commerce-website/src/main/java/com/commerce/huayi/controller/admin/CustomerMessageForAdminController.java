@@ -3,7 +3,6 @@ package com.commerce.huayi.controller.admin;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.PageReq;
 import com.commerce.huayi.entity.response.CustomerMessagePageVo;
-import com.commerce.huayi.entity.response.CustomerMessageVo;
 import com.commerce.huayi.service.CustomerMessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @ApiModel(value = "管理员信息请求json对象")
 public class AdministratorReq implements Serializable {
