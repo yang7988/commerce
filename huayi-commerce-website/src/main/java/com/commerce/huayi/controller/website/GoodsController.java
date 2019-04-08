@@ -29,7 +29,7 @@ public class GoodsController {
     @ApiOperation(value = "产品分类管理",notes = "获取产品分类")
 
     public ApiResponse<List<CategoryVo>> categories(@Valid @RequestBody PrimaryKeyReq req, BindingResult bindingResult) {
-        Long parentId = req.getId() == null ? 0L : req.getId();
+        Long parentId = req.getId();
         List<CategoryVo> categories = goodsService.getCategories(parentId);
         return ApiResponse.returnSuccess(categories);
     }
