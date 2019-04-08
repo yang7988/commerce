@@ -60,6 +60,10 @@ public class GoodsSpuDetailsVo {
     @ApiModelProperty(value = "产品的规格描述",required = true)
     private String specDescription;
 
+    //商品的规格值id
+    @ApiModelProperty(value = "产品的规格值id",required = true)
+    private Long specValueId;
+
     //规格值
     @Translate(refTable = "tb_goods_spec_value",refColumn = "spec_value")
     @ApiModelProperty(value = "产品的规格具体值",required = true)
@@ -167,5 +171,13 @@ public class GoodsSpuDetailsVo {
 
     public void setSpecValue(String specValue) {
         this.specValue = specValue;
+    }
+
+    public Long getSpecValueId() {
+        return specValueId;
+    }
+
+    public void setSpecValueId(Long specValueId) {
+        this.specValueId = specValueId;
     }
 }

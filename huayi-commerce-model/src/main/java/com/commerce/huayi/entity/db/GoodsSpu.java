@@ -1,9 +1,12 @@
 package com.commerce.huayi.entity.db;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "tb_goods_spu")
 public class GoodsSpu implements Serializable {

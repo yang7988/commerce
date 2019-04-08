@@ -21,7 +21,6 @@ public class AddGoodsReq {
     @ApiModelProperty(value = "产品描述",required = true)
     private String goodsDescription;
 
-
     //最低售价
     @ApiModelProperty(value = "产品价格",required = true)
     private BigDecimal price;

@@ -96,6 +96,8 @@ public class GoodsServiceImpl implements GoodsService {
         BeanCopyUtil.copy(goodsSpuDetailsVo, goodsSpecValue);
         GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(goodsSpecValue.getSpecId());
         BeanCopyUtil.copy(goodsSpuDetailsVo, goodsSpec);
+        goodsSpuDetailsVo.setSpecId(goodsSpec.getId());
+        goodsSpuDetailsVo.setSpecValueId(goodsSpecValue.getId());
         return goodsSpuDetailsVo;
     }
 
@@ -129,12 +131,14 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public byte[] getGoodsImage(String category,String imageKey) {
-        if(StringUtils.isBlank(category) || StringUtils.isBlank(imageKey)) {
+    public byte[] getGoodsImage(Long goodsId) {
+        if(goodsId == null) {
             return null;
         }
-        RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, category);
-        return jedisTemplate.hget(redisKey, imageKey);
+        GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodsId);
+        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goodsSpu.getCategoryId());
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, goodsCategory.getCategoryName());
+        return jedisTemplate.hget(redisKey, goodsSpu.getGoodsImageKey());
     }
 
     @Override
@@ -248,4 +252,6 @@ public class GoodsServiceImpl implements GoodsService {
         jedisTemplate.hset(redisKey, imageKey, bytes);
         return ApiResponseEnum.SUCCESS;
     }
+
+
 }

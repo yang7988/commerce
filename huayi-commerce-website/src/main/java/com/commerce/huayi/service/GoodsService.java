@@ -30,11 +30,12 @@ public interface GoodsService {
 
     Integer updateCategory(CategoryReq categoryReq);
 
-    byte[] getGoodsImage(String category,String imageKey);
+    byte[] getGoodsImage(Long goodsId);
 
     ApiResponseEnum addGoods(AddGoodsReq addGoodsReq);
 
     ApiResponseEnum deleteGoods(AddGoodsReq addGoodsReq);
 
     ApiResponseEnum addGoodsImage(Long categoryId, Long goodsId,byte[] bytes);
+
 }
