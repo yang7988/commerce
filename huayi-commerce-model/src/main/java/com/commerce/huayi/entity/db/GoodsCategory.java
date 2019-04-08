@@ -1,11 +1,8 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "tb_goods_category")
 public class GoodsCategory implements Serializable {
@@ -40,12 +37,6 @@ public class GoodsCategory implements Serializable {
      */
     @Column(name = "category_description")
     private String categoryDescription;
-
-    /**
-     * 产品分类的图片地址
-     */
-    @Column(name = "category_image_key")
-    private String categoryImageKey;
 
     /**
      * 创建时间
@@ -158,24 +149,6 @@ public class GoodsCategory implements Serializable {
     }
 
     /**
-     * 获取产品分类的图片地址
-     *
-     * @return category_image_key - 产品分类的图片地址
-     */
-    public String getCategoryImageKey() {
-        return categoryImageKey;
-    }
-
-    /**
-     * 设置产品分类的图片地址
-     *
-     * @param categoryImageKey 产品分类的图片地址
-     */
-    public void setCategoryImageKey(String categoryImageKey) {
-        this.categoryImageKey = categoryImageKey;
-    }
-
-    /**
      * 获取创建时间
      *
      * @return create_date - 创建时间
@@ -240,7 +213,6 @@ public class GoodsCategory implements Serializable {
         sb.append(", isOpen=").append(isOpen);
         sb.append(", categoryName=").append(categoryName);
         sb.append(", categoryDescription=").append(categoryDescription);
-        sb.append(", categoryImageKey=").append(categoryImageKey);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", isDelete=").append(isDelete);
@@ -265,7 +237,6 @@ public class GoodsCategory implements Serializable {
             && (this.getIsOpen() == null ? other.getIsOpen() == null : this.getIsOpen().equals(other.getIsOpen()))
             && (this.getCategoryName() == null ? other.getCategoryName() == null : this.getCategoryName().equals(other.getCategoryName()))
             && (this.getCategoryDescription() == null ? other.getCategoryDescription() == null : this.getCategoryDescription().equals(other.getCategoryDescription()))
-            && (this.getCategoryImageKey() == null ? other.getCategoryImageKey() == null : this.getCategoryImageKey().equals(other.getCategoryImageKey()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
@@ -280,7 +251,6 @@ public class GoodsCategory implements Serializable {
         result = prime * result + ((getIsOpen() == null) ? 0 : getIsOpen().hashCode());
         result = prime * result + ((getCategoryName() == null) ? 0 : getCategoryName().hashCode());
         result = prime * result + ((getCategoryDescription() == null) ? 0 : getCategoryDescription().hashCode());
-        result = prime * result + ((getCategoryImageKey() == null) ? 0 : getCategoryImageKey().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());

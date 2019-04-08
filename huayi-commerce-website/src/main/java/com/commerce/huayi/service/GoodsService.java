@@ -1,6 +1,8 @@
 package com.commerce.huayi.service;
 
+import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.entity.request.AddGoodsReq;
 import com.commerce.huayi.entity.request.CategoryReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
@@ -29,4 +31,8 @@ public interface GoodsService {
     Integer updateCategory(CategoryReq categoryReq);
 
     byte[] getGoodsImage(String category,String imageKey);
+
+    ApiResponseEnum addGoods(AddGoodsReq addGoodsReq);
+
+    ApiResponseEnum deleteGoods(AddGoodsReq addGoodsReq);
 }

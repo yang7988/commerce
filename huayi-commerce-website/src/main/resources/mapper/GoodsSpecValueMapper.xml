@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.commerce.huayi.mapper.GoodsSpecValueMapper">
   <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSpecValue">
-    <!--@mbg.generated generated on Wed Apr 03 14:31:44 CST 2019.-->
+    <!--@mbg.generated generated on Mon Apr 08 15:02:26 CST 2019.-->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="spec_id" jdbcType="BIGINT" property="specId" />
     <result column="spec_value" jdbcType="VARCHAR" property="specValue" />
@@ -11,7 +11,7 @@
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--@mbg.generated generated on Wed Apr 03 14:31:44 CST 2019.-->
+    <!--@mbg.generated generated on Mon Apr 08 15:02:26 CST 2019.-->
     id, spec_id, spec_value, create_date, update_date, is_delete
   </sql>
 </mapper>

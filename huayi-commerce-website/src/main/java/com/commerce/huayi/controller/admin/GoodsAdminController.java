@@ -1,6 +1,8 @@
 package com.commerce.huayi.controller.admin;
 
 import com.commerce.huayi.api.ApiResponse;
+import com.commerce.huayi.api.ApiResponseEnum;
+import com.commerce.huayi.entity.request.AddGoodsReq;
 import com.commerce.huayi.entity.request.CategoryReq;
 import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
@@ -43,15 +45,29 @@ public class GoodsAdminController {
         return ApiResponse.returnSuccess();
     }
 
-    public ApiResponse addProduct() {
+    @PostMapping(value = "/addGoods")
+    @ApiOperation(value = "添加产品单元",notes = "添加产品单元")
+    public ApiResponse addGoods(@Valid @RequestBody AddGoodsReq addGoodsReq, BindingResult bindingResult) {
+        ApiResponseEnum responseEnum = goodsService.addGoods(addGoodsReq);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
+
+    @PostMapping(value = "/deleteGoods")
+    @ApiOperation(value = "删除产品单元",notes = "删除产品单元")
+    public ApiResponse deleteGoods(@Valid @RequestBody AddGoodsReq addGoodsReq, BindingResult bindingResult) {
+        ApiResponseEnum responseEnum = goodsService.deleteGoods(addGoodsReq);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
+
+    public ApiResponse updateGoods() {
         return null;
     }
 
-    public ApiResponse deleteProduct() {
-        return null;
-    }
 
-    public ApiResponse updateProduct() {
-        return null;
-    }
 }
