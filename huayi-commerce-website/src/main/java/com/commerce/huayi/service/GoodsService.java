@@ -35,4 +35,6 @@ public interface GoodsService {
     ApiResponseEnum addGoods(AddGoodsReq addGoodsReq);
 
     ApiResponseEnum deleteGoods(AddGoodsReq addGoodsReq);
+
+    ApiResponseEnum addGoodsImage(Long categoryId, Long goodsId,byte[] bytes);
 }

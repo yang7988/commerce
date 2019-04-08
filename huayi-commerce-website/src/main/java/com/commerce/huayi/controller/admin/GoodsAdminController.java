@@ -9,12 +9,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/api/admin/goodsCategory")
@@ -70,4 +69,23 @@ public class GoodsAdminController {
     }
 
 
+    @PostMapping(value = "/image/addGoodsImage")
+    @ApiOperation(value = "删除产品单元",notes = "删除产品单元")
+    public ApiResponse addGoodsImage(AddGoodsReq addGoodsReq,
+                                     @RequestParam(value = "goodsImage",required = false) MultipartFile goodsImage) {
+        if(addGoodsReq.getGoodsId() == null || addGoodsReq.getCategoryId() == null) {
+            return ApiResponse.returnFail(ApiResponseEnum.PARAMETER_CANT_BE_EMPTY);
+        }
+        byte[] bytes;
+        try {
+            bytes = goodsImage.getBytes();
+        } catch (IOException e) {
+            bytes = null;
+        }
+        ApiResponseEnum responseEnum = goodsService.addGoodsImage(addGoodsReq.getCategoryId(),addGoodsReq.getGoodsId(),bytes);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
 }

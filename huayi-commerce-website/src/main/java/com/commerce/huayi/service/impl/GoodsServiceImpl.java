@@ -140,6 +140,17 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum addGoods(AddGoodsReq addGoodsReq) {
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> map.forEach((key, value) -> {
+            Map<String, String> sqlMap = new HashMap<>(1);
+            sqlMap.put("sqlStatement", value);
+            translateMapper.insertTranslateDict(sqlMap);
+        }));
+        if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
+            return ApiResponseEnum.PARAMETER_CANT_BE_EMPTY;
+        }
         Example spuExample = new Example(GoodsSpu.class);
         spuExample.createCriteria().andEqualTo("goodsName", addGoodsReq.getGoodsName());
         int count = goodsSpuMapper.selectCountByExample(spuExample);
@@ -154,10 +165,13 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
+
+        if(StringUtils.isBlank(addGoodsReq.getSpecName())) {
+          return ApiResponseEnum.SUCCESS;
+        }
         //添加产品规格
         Example specExample = new Example(GoodsSpec.class);
         specExample.createCriteria().andEqualTo("specName", addGoodsReq.getSpecName());
-
         int specCount = goodsSpecMapper.selectCountByExample(spuExample);
         GoodsSpec goodsSpec;
         if (specCount > 0) {
@@ -171,7 +185,9 @@ public class GoodsServiceImpl implements GoodsService {
             goodsSpec.setIsDelete(Constant.NODELETE);
             goodsSpecMapper.insertSelective(goodsSpec);
         }
-
+        if(StringUtils.isBlank(addGoodsReq.getSpecValue())) {
+            return ApiResponseEnum.SUCCESS;
+        }
         Example specValueExample = new Example(GoodsSpecValue.class);
         specExample.createCriteria().andEqualTo("specValue", addGoodsReq.getSpecValue())
                 .andEqualTo("specId", goodsSpec.getId());
@@ -203,14 +219,6 @@ public class GoodsServiceImpl implements GoodsService {
             goodsSpuSpec.setIsDelete(Constant.NODELETE);
             goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
         }
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> map.forEach((key, value) -> {
-            Map<String, String> sqlMap = new HashMap<>(1);
-            sqlMap.put("sqlStatement", value);
-            translateMapper.insertTranslateDict(sqlMap);
-        }));
         return ApiResponseEnum.SUCCESS;
     }
 
@@ -220,6 +228,24 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setId(addGoodsReq.getGoodsId());
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.DELETED);
+        return ApiResponseEnum.SUCCESS;
+    }
+
+    @Override
+    public ApiResponseEnum addGoodsImage(Long categoryId, Long goodsId,byte[] bytes) {
+        if(bytes == null) {
+            return ApiResponseEnum.FAIL;
+        }
+        GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodsId);
+        if(goodsSpu == null) {
+           return ApiResponseEnum.GOODS_NOT_EXISTS;
+        }
+        String imageKey = goodsSpu.getSpuNo().concat(":").concat(goodsSpu.getGoodsName());
+        goodsSpu.setGoodsImageKey(imageKey);
+
+        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(categoryId);
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, goodsCategory.getCategoryName());
+        jedisTemplate.hset(redisKey, imageKey, bytes);
         return ApiResponseEnum.SUCCESS;
     }
 }
