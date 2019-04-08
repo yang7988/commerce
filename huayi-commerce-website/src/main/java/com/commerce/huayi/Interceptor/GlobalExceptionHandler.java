@@ -4,6 +4,7 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.service.TranslateService;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseEntity<?> internalExceptionHandler(Exception e) {
-        logger.error("internalExceptionHandler: stacktrace={}", e);
+        logger.error("internalExceptionHandler: stacktrace={}", ExceptionUtils.getStackTrace(e));
         if(e instanceof BusinessException) {
             BusinessException businessException = (BusinessException) e;
             ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
@@ -51,7 +52,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseEntity<?> exceptionHandler(BindException e) {
-        logger.error("internalExceptionHandler: stacktrace={}", e);
+        logger.error("internalExceptionHandler: stacktrace={}", ExceptionUtils.getStackTrace(e));
         ApiResponse apiResponse;
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult != null && bindingResult.hasFieldErrors()) {

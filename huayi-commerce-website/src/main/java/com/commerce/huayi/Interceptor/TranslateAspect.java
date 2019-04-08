@@ -29,7 +29,9 @@ public class TranslateAspect {
     public void translateExecute(JoinPoint joinPoint, Object retVal) {
         long startTime = System.currentTimeMillis();
         translateService.translate(retVal);
-        LOGGER.warn("国际化翻译耗时======{}===={}", (System.currentTimeMillis() - startTime) + "/ms", joinPoint.toString());
+        if(LOGGER.isWarnEnabled()) {
+            LOGGER.warn("国际化翻译耗时======{}===={}", (System.currentTimeMillis() - startTime) + "/ms", joinPoint.toString());
+        }
     }
 
 }
