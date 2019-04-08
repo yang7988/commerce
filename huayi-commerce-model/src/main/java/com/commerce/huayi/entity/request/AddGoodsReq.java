@@ -3,6 +3,7 @@ package com.commerce.huayi.entity.request;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,48 +11,42 @@ import java.util.Map;
 public class AddGoodsReq {
 
     //商品名称
-    @ApiModelProperty(value = "产品id")
-    private Long goodsId;
-
-    //商品名称
     @ApiModelProperty(value = "产品名称",required = true)
+    @NotNull
     private String goodsName;
 
     //商品描述
     @ApiModelProperty(value = "产品描述",required = true)
+    @NotNull
     private String goodsDescription;
 
     //最低售价
-    @ApiModelProperty(value = "产品价格",required = true)
+    @ApiModelProperty(value = "产品价格")
     private BigDecimal price;
 
     //分类id
     @ApiModelProperty(value = "产品所属分类id",required = true)
+    @NotNull
     private Long categoryId;
 
     //规格名称
     @ApiModelProperty(value = "产品的规格名称",required = true)
+    @NotNull
     private String specName;
 
     //规格描述
     @ApiModelProperty(value = "产品的规格描述",required = true)
+    @NotNull
     private String specDescription;
 
     //规格值
     @ApiModelProperty(value = "产品的规格具体值",required = true)
+    @NotNull
     private String specValue;
 
     //产品名称及规格的翻译可选字段
     @ApiModelProperty(value = "产品名称及规格的翻译可选字段",dataType = "String")
     private Map<String,String> optionals;
-
-    public Long getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
-    }
 
     public String getGoodsName() {
         return goodsName;

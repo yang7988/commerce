@@ -2,6 +2,7 @@ package com.commerce.huayi.controller.website;
 
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.CategoryReq;
+import com.commerce.huayi.entity.request.PrimaryKeyReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.service.GoodsService;
@@ -27,16 +28,16 @@ public class GoodsController {
     @PostMapping(value = "/categories")
     @ApiOperation(value = "产品分类管理",notes = "获取产品分类")
 
-    public ApiResponse<List<CategoryVo>> categories(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult) {
-        Long parentId = categoryReq.getId() == null ? 0L : categoryReq.getId();
+    public ApiResponse<List<CategoryVo>> categories(@Valid @RequestBody PrimaryKeyReq req, BindingResult bindingResult) {
+        Long parentId = req.getId() == null ? 0L : req.getId();
         List<CategoryVo> categories = goodsService.getCategories(parentId);
         return ApiResponse.returnSuccess(categories);
     }
 
     @PostMapping(value = "/categoryGoods")
     @ApiOperation(value = "获取分类的产品",notes = "获取分类下面的所有产品单元")
-    public ApiResponse<List<GoodsSpuDetailsVo>> categoryGoods(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult){
-        return ApiResponse.returnSuccess(goodsService.categoryGoods(categoryReq.getId()));
+    public ApiResponse<List<GoodsSpuDetailsVo>> categoryGoods(@Valid @RequestBody PrimaryKeyReq req, BindingResult bindingResult){
+        return ApiResponse.returnSuccess(goodsService.categoryGoods(req.getId()));
     }
 
     @RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )

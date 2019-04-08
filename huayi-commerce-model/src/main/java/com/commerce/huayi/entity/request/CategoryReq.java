@@ -4,38 +4,31 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
 @ApiModel(value = "商品分类的请求json对象")
 public class CategoryReq {
 
-    @ApiModelProperty(value = "分类id",dataType = "int")
-    private Long id;
-
     //父级分类id
     @ApiModelProperty(value = "分类父id",dataType = "String")
+    @NotNull
     private Long parentId;
 
     //分类名称
     @ApiModelProperty(value = "分类名",dataType = "String")
+    @NotNull
     private String categoryName;
 
     //分类描述
     @ApiModelProperty(value = "分类描述",dataType = "String")
+    @NotNull
     private String categoryDescription;
 
     //分类名称及描述的翻译可选字段
     @ApiModelProperty(value = "分类名称及描述的翻译可选字段",dataType = "String")
     private Map<String,String> optionals;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getParentId() {
         return parentId;

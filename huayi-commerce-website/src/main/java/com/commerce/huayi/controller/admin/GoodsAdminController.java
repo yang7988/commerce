@@ -4,6 +4,8 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.entity.request.AddGoodsReq;
 import com.commerce.huayi.entity.request.CategoryReq;
+import com.commerce.huayi.entity.request.PrimaryKeyReq;
+import com.commerce.huayi.entity.request.UpdateCategoryReq;
 import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,15 +34,15 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/deleteCategory")
     @ApiOperation(value = "删除分类",notes = "删除产品分类")
-    public ApiResponse deleteCategory(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult) {
-        Integer result = goodsService.deleteCategory(categoryReq);
+    public ApiResponse deleteCategory(@Valid @RequestBody PrimaryKeyReq req, BindingResult bindingResult) {
+        Integer result = goodsService.deleteCategory(req.getId());
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/updateCategory")
     @ApiOperation(value = "更新分类",notes = "更新产品分类")
-    public ApiResponse updateCategory(@Valid @RequestBody CategoryReq categoryReq, BindingResult bindingResult) {
-        Integer result = goodsService.updateCategory(categoryReq);
+    public ApiResponse updateCategory(@Valid @RequestBody UpdateCategoryReq req, BindingResult bindingResult) {
+        Integer result = goodsService.updateCategory(req);
         return ApiResponse.returnSuccess();
     }
 
@@ -56,8 +58,8 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/deleteGoods")
     @ApiOperation(value = "删除产品单元",notes = "删除产品单元")
-    public ApiResponse deleteGoods(@Valid @RequestBody AddGoodsReq addGoodsReq, BindingResult bindingResult) {
-        ApiResponseEnum responseEnum = goodsService.deleteGoods(addGoodsReq);
+    public ApiResponse deleteGoods(@Valid @RequestBody PrimaryKeyReq req, BindingResult bindingResult) {
+        ApiResponseEnum responseEnum = goodsService.deleteGoods(req.getId());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
@@ -70,19 +72,16 @@ public class GoodsAdminController {
 
 
     @PostMapping(value = "/image/addGoodsImage")
-    @ApiOperation(value = "删除产品单元",notes = "删除产品单元")
-    public ApiResponse addGoodsImage(AddGoodsReq addGoodsReq,
+    @ApiOperation(value = "添加产品图片",notes = "添加产品单元图片")
+    public ApiResponse addGoodsImage(PrimaryKeyReq req,
                                      @RequestParam(value = "goodsImage",required = false) MultipartFile goodsImage) {
-        if(addGoodsReq.getGoodsId() == null || addGoodsReq.getCategoryId() == null) {
-            return ApiResponse.returnFail(ApiResponseEnum.PARAMETER_CANT_BE_EMPTY);
-        }
         byte[] bytes;
         try {
             bytes = goodsImage.getBytes();
         } catch (IOException e) {
             bytes = null;
         }
-        ApiResponseEnum responseEnum = goodsService.addGoodsImage(addGoodsReq.getCategoryId(),addGoodsReq.getGoodsId(),bytes);
+        ApiResponseEnum responseEnum = goodsService.addGoodsImage(req.getId(),bytes);
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }

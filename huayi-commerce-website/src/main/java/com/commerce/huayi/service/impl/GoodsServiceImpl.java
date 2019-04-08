@@ -3,6 +3,7 @@ package com.commerce.huayi.service.impl;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.cache.JedisTemplate;
+import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
@@ -10,6 +11,7 @@ import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.*;
 import com.commerce.huayi.entity.request.AddGoodsReq;
 import com.commerce.huayi.entity.request.CategoryReq;
+import com.commerce.huayi.entity.request.UpdateCategoryReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
@@ -116,16 +118,16 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Integer deleteCategory(CategoryReq categoryReq) {
+    public Integer deleteCategory(Long id) {
         GoodsCategory goodsCategory = new GoodsCategory();
         goodsCategory.setIsDelete(Constant.DELETED);
-        goodsCategory.setId(categoryReq.getId());
+        goodsCategory.setId(id);
         return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
 
     @Override
-    public Integer updateCategory(CategoryReq categoryReq) {
-        GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
+    public Integer updateCategory(UpdateCategoryReq req) {
+        GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, req);
         goodsCategory.setUpdateDate(new Date());
         return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
     }
@@ -227,18 +229,19 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public ApiResponseEnum deleteGoods(AddGoodsReq addGoodsReq) {
+    public ApiResponseEnum deleteGoods(Long goodsId) {
         GoodsSpu goodsSpu = new GoodsSpu();
-        goodsSpu.setId(addGoodsReq.getGoodsId());
+        goodsSpu.setId(goodsId);
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.DELETED);
         return ApiResponseEnum.SUCCESS;
     }
 
     @Override
-    public ApiResponseEnum addGoodsImage(Long categoryId, Long goodsId,byte[] bytes) {
+    @Transactional
+    public ApiResponseEnum addGoodsImage(Long goodsId,byte[] bytes) {
         if(bytes == null) {
-            return ApiResponseEnum.FAIL;
+            return ApiResponseEnum.GOODS_IMAGE_ABSENCE;
         }
         GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodsId);
         if(goodsSpu == null) {
@@ -246,10 +249,13 @@ public class GoodsServiceImpl implements GoodsService {
         }
         String imageKey = goodsSpu.getSpuNo().concat(":").concat(goodsSpu.getGoodsName());
         goodsSpu.setGoodsImageKey(imageKey);
-
-        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(categoryId);
+        //jedis保存产品单元图片
+        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goodsSpu.getCategoryId());
         RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, goodsCategory.getCategoryName());
-        jedisTemplate.hset(redisKey, imageKey, bytes);
+        JedisStatus jedisStatus = jedisTemplate.hset(redisKey, imageKey, bytes);
+        if(JedisStatus.OK == jedisStatus) {
+            goodsSpuMapper.updateByPrimaryKeySelective(goodsSpu);
+        }
         return ApiResponseEnum.SUCCESS;
     }
 
