@@ -8,13 +8,11 @@ import com.commerce.huayi.service.CompanyInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +31,7 @@ public class CompanyInfoForAdminController {
 
     @PostMapping(value = "/addCompanyInfo")
     @ApiOperation(value = "公司介绍管理",notes = "添加公司介绍信息")
-    public ApiResponse addCompanyInfo(@Valid @RequestBody CompanyInfoReq companyInfoReq, BindingResult bindingResult) {
+    public ApiResponse addCompanyInfo(@RequestBody CompanyInfoReq companyInfoReq) {
         companyInfoService.addCompanyInfo(companyInfoReq);
         return ApiResponse.returnSuccess();
     }
@@ -47,7 +45,7 @@ public class CompanyInfoForAdminController {
 
     @PostMapping(value = "/updateCompanyInfo")
     @ApiOperation(value = "公司介绍管理",notes = "更新公司介绍信息")
-    public ApiResponse updateCompanyInfo(@Valid @RequestBody CompanyInfoReq companyInfoReq, BindingResult bindingResult) {
+    public ApiResponse updateCompanyInfo(@RequestBody CompanyInfoReq companyInfoReq) {
         companyInfoService.updateCompanyInfo(companyInfoReq);
         return ApiResponse.returnSuccess();
     }

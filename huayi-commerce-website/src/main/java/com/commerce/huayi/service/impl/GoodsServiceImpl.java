@@ -9,14 +9,12 @@ import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.*;
-import com.commerce.huayi.entity.request.AddGoodsReq;
-import com.commerce.huayi.entity.request.CategoryReq;
-import com.commerce.huayi.entity.request.UpdateCategoryReq;
-import com.commerce.huayi.entity.response.CategoryVo;
-import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
+import com.commerce.huayi.entity.request.*;
+import com.commerce.huayi.entity.response.*;
 import com.commerce.huayi.mapper.*;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
+import com.commerce.huayi.utils.PageUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -260,4 +258,63 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
 
+    @Override
+    @Transactional
+    public ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(addSpuSpecReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> map.forEach((key, value) -> {
+            Map<String, String> sqlMap = new HashMap<>(1);
+            sqlMap.put("sqlStatement", value);
+            translateMapper.insertTranslateDict(sqlMap);
+        }));
+        Example example = new Example(GoodsSpec.class);
+        example.createCriteria().andEqualTo("specName", addSpuSpecReq.getSpecName());
+        int count = goodsSpecMapper.selectCountByExample(example);
+        GoodsSpec goodsSpec;
+        if (count > 0) {
+            goodsSpec = goodsSpecMapper.selectByExample(example).get(0);
+        } else {
+            goodsSpec = BeanCopyUtil.copy(GoodsSpec.class, addSpuSpecReq);
+            goodsSpec.setSpecNo(DigestUtils.md5Hex(addSpuSpecReq.getSpecName().concat(UUID.randomUUID().toString())));
+            goodsSpec.setCreateDate(new Date());
+            goodsSpec.setUpdateDate(new Date());
+            goodsSpec.setIsDelete(Constant.NODELETE);
+            goodsSpecMapper.insertSelective(goodsSpec);
+        }
+        Example specValexample = new Example(GoodsSpecValue.class);
+        specValexample.createCriteria().andEqualTo("specId", goodsSpec.getId());
+        int countByExample = goodsSpecValueMapper.selectCountByExample(specValexample);
+        if (countByExample > 0) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        GoodsSpecValue goodsSpecValue = new GoodsSpecValue();
+        goodsSpecValue.setSpecId(goodsSpec.getId());
+        goodsSpecValue.setSpecValue(addSpuSpecReq.getSpecValue());
+        goodsSpecValue.setCreateDate(new Date());
+        goodsSpecValue.setUpdateDate(new Date());
+        goodsSpecValue.setIsDelete(Constant.NODELETE);
+        goodsSpecValueMapper.insertSelective(goodsSpecValue);
+        return ApiResponseEnum.SUCCESS;
+    }
+
+    @Override
+    public GoodsSpecValuePageVo getSpecInfoList(PageReq pageReq) {
+        GoodsSpecValuePageVo pageVo = new GoodsSpecValuePageVo();
+        int pageMaxSzie = pageReq.getPageMaxSize();
+        if (pageMaxSzie <= 0) {
+            pageMaxSzie = 10;
+        }
+        int pageIndex = pageReq.getPageIndex();
+        int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
+
+        List<GoodsSpecValueVo> goodsSpecValueVos = goodsSpecMapper.getSpecInfos(startLine, pageMaxSzie);
+        if (CollectionUtils.isEmpty(goodsSpecValueVos)) {
+            return null;
+        }
+        pageVo.setCount(goodsSpecMapper.getSpecInfoCount());
+        pageVo.setList(goodsSpecValueVos);
+        return pageVo;
+    }
 }

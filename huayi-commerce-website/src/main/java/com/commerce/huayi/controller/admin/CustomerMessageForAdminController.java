@@ -7,13 +7,10 @@ import com.commerce.huayi.service.CustomerMessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/admin/customerMessage")
@@ -25,7 +22,7 @@ public class CustomerMessageForAdminController {
 
     @PostMapping(value = "/getCustomerMessages")
     @ApiOperation(value = "客户留言管理",notes = "获取客户留言")
-    public ApiResponse<CustomerMessagePageVo> getCustomerMessages(@Valid @RequestBody PageReq pageReq, BindingResult bindingResult) {
+    public ApiResponse<CustomerMessagePageVo> getCustomerMessages(@RequestBody PageReq pageReq) {
         return ApiResponse.returnSuccess(customerMessageService.getCustomerMessages(pageReq));
     }
 

@@ -10,13 +10,10 @@ import com.commerce.huayi.service.NewsInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/admin/newsInfo")
@@ -28,7 +25,7 @@ public class NewsInfoForAdminController {
 
     @PostMapping(value = "/getNewsInfos")
     @ApiOperation(value = "新闻中心管理",notes = "获取新闻列表")
-    public ApiResponse<NewsInfoPageVo> getNewsInfos(@Valid @RequestBody PageReq pageReq, BindingResult bindingResult) {
+    public ApiResponse<NewsInfoPageVo> getNewsInfos(@RequestBody PageReq pageReq) {
         return ApiResponse.returnSuccess(newsInfoService.getNewsInfos(pageReq));
     }
 
@@ -40,7 +37,7 @@ public class NewsInfoForAdminController {
 
     @PostMapping(value = "/addNewsInfo")
     @ApiOperation(value = "新闻中心管理",notes = "添加新闻")
-    public ApiResponse addNewsInfo(@Valid @RequestBody NewsInfoReq newsInfoReq, BindingResult bindingResult) {
+    public ApiResponse addNewsInfo(@RequestBody NewsInfoReq newsInfoReq) {
         newsInfoService.addNewsInfo(newsInfoReq);
         return ApiResponse.returnSuccess();
     }
@@ -54,7 +51,7 @@ public class NewsInfoForAdminController {
 
     @PostMapping(value = "/updateNewsInfo")
     @ApiOperation(value = "新闻中心管理",notes = "更新新闻明细")
-    public ApiResponse updateNewsInfo(@Valid @RequestBody NewsInfoReq newsInfoReq, BindingResult bindingResult) {
+    public ApiResponse updateNewsInfo(@RequestBody NewsInfoReq newsInfoReq) {
         newsInfoService.updateNewsInfo(newsInfoReq);
         return ApiResponse.returnSuccess();
     }

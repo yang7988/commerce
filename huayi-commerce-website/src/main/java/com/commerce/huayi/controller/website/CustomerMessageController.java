@@ -6,13 +6,10 @@ import com.commerce.huayi.service.CustomerMessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/customerMessage")
@@ -24,7 +21,7 @@ public class CustomerMessageController {
 
     @PostMapping(value = "/addCustomerMessage")
     @ApiOperation(value = "客户留言",notes = "添加客户留言")
-    public ApiResponse addCustomerMessage(@Valid @RequestBody CustomerMessageReq customerMessageReq, BindingResult bindingResult) {
+    public ApiResponse addCustomerMessage(@RequestBody CustomerMessageReq customerMessageReq) {
         customerMessageService.addCustomerMessage(customerMessageReq);
         return ApiResponse.returnSuccess();
     }

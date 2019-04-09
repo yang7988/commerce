@@ -8,13 +8,11 @@ import com.commerce.huayi.service.RecruitmentInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,7 +37,7 @@ public class RecruitmentInfoForAdminController {
 
     @PostMapping(value = "/addRecruitmentInfo")
     @ApiOperation(value = "人才中心管理",notes = "添加人才中心数据")
-    public ApiResponse addRecruitmentInfo(@Valid @RequestBody RecruitmentInfoReq recruitmentInfoReq, BindingResult bindingResult) {
+    public ApiResponse addRecruitmentInfo(@RequestBody RecruitmentInfoReq recruitmentInfoReq) {
         recruitmentInfoService.addRecruitmentInfo(recruitmentInfoReq);
         return ApiResponse.returnSuccess();
     }
@@ -53,7 +51,7 @@ public class RecruitmentInfoForAdminController {
 
     @PostMapping(value = "/updateRecruitmentInfo")
     @ApiOperation(value = "人才中心管理",notes = "更新人才中心数据")
-    public ApiResponse updateRecruitmentInfo(@Valid @RequestBody RecruitmentInfoReq recruitmentInfoReq, BindingResult bindingResult) {
+    public ApiResponse updateRecruitmentInfo(@RequestBody RecruitmentInfoReq recruitmentInfoReq) {
         recruitmentInfoService.updateRecruitmentInfo(recruitmentInfoReq);
         return ApiResponse.returnSuccess();
     }

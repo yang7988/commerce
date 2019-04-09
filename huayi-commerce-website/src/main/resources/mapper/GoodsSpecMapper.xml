@@ -15,4 +15,28 @@
     <!--@mbg.generated generated on Mon Apr 08 15:02:17 CST 2019.-->
     id, spec_no, spec_name, spec_description, create_date, update_date, is_delete
   </sql>
+
+  <select id="getSpecInfos" resultType="com.commerce.huayi.entity.response.GoodsSpecValueVo">
+    select tgc.id               as specId,
+           tgc.spec_name        as specName,
+           tgc.spec_description as specDescription,
+           tgcv.spec_value      as specValue,
+           tgcv.id              as specValueId
+    from tb_goods_spec tgc
+           join tb_goods_spec_value tgcv
+    where tgc.id = tgcv.spec_id
+      and tgc.is_delete = 0
+      and tgcv.is_delete = 0
+    order by tgc.id
+    limit #{startLine, jdbcType=INTEGER},#{pageMaxSize, jdbcType=INTEGER}
+  </select>
+
+  <select id="getSpecInfoCount" resultType="int">
+    select count(tgc.id)
+    from tb_goods_spec tgc
+           join tb_goods_spec_value tgcv
+    where tgc.id = tgcv.spec_id
+      and tgc.is_delete = 0
+      and tgcv.is_delete = 0
+  </select>
 </mapper>

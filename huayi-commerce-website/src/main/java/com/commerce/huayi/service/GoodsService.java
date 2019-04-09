@@ -2,10 +2,10 @@ package com.commerce.huayi.service;
 
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
-import com.commerce.huayi.entity.request.AddGoodsReq;
-import com.commerce.huayi.entity.request.CategoryReq;
-import com.commerce.huayi.entity.request.UpdateCategoryReq;
+import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.CategoryVo;
+import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
+import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 
 import java.util.List;
@@ -39,4 +39,7 @@ public interface GoodsService {
 
     ApiResponseEnum addGoodsImage(Long goodsId,byte[] bytes);
 
+    ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq);
+
+    GoodsSpecValuePageVo getSpecInfoList(PageReq pageReq);
 }
