@@ -29,22 +29,28 @@ public class GlobalExceptionHandler {
     }
 
     @SuppressWarnings("unchecked")
-    @ExceptionHandler({BusinessException.class, RuntimeException.class, Exception.class})
+    @ExceptionHandler({RuntimeException.class, Exception.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ResponseEntity<?> internalExceptionHandler(Exception e) {
         logger.error("internalExceptionHandler: stacktrace={}", ExceptionUtils.getStackTrace(e));
-        if(e instanceof BusinessException) {
-            BusinessException businessException = (BusinessException) e;
-            ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
-            Object errorData = businessException.getErrorData();
-            Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
-            return new ResponseEntity(retVl, HttpStatus.BAD_REQUEST);
-        }
         ApiResponse apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR);
         Object retVl = translateService.translate(apiResponse);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
+    }
+
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler({BusinessException.class})
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<?> businessExceptionHandler(Exception e) {
+        logger.error("internalExceptionHandler: stacktrace={}", ExceptionUtils.getStackTrace(e));
+        BusinessException businessException = (BusinessException) e;
+        ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
+        Object errorData = businessException.getErrorData();
+        Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
+        return new ResponseEntity(retVl, HttpStatus.OK);
     }
 
     @SuppressWarnings("unchecked")

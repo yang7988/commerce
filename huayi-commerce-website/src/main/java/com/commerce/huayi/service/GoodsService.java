@@ -25,7 +25,7 @@ public interface GoodsService {
 
     List<GoodsSpuDetailsVo> categoryGoods(Long id)  throws BusinessException;
 
-    Integer addCategory(CategoryReq categoryReq);
+    ApiResponseEnum addCategory(CategoryReq categoryReq);
 
     Integer deleteCategory(Long id);
 

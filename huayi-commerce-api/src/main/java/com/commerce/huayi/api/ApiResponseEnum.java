@@ -18,6 +18,7 @@ public enum ApiResponseEnum implements Serializable {
     PARAMETER_CANT_BE_EMPTY(608, "parameter_cant_be_empty", "缺少必要参数", false),
     GOODS_NOT_EXISTS(608, "GOODS_NOT_EXISTS", "产品不存在", false),
     GOODS_IMAGE_ABSENCE(609, "GOODS_IMAGE_ABSENCE", "产品图片缺失", false),
+    GOODS_CATEGORY_EXISTS(610, "GOODS_CATEGORY_EXISTS", "商品分类已存在", false),
     DO_NOT_HAVE_ANY_MORE_RECORD(700, "DO_NOT_HAVE_ANY_MORE_RECORD", "没有更多记录", false);
 
     protected int id;

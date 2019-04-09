@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/goods")
-@Api(tags = "后台产品分类管理")
+@Api(tags = "后台产品管理")
 public class GoodsAdminController {
 
     @Autowired
@@ -26,8 +26,11 @@ public class GoodsAdminController {
     @PostMapping(value = "/addCategory")
     @ApiOperation(value = "添加分类",notes = "添加产品分类")
     public ApiResponse addCategory(@RequestBody CategoryReq categoryReq) {
-        Integer result = goodsService.addCategory(categoryReq);
-        return ApiResponse.returnSuccess();
+        ApiResponseEnum responseEnum = goodsService.addCategory(categoryReq);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
     }
 
     @PostMapping(value = "/deleteCategory")

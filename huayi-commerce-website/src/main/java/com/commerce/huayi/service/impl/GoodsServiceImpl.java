@@ -106,16 +106,23 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public Integer addCategory(CategoryReq categoryReq) {
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(categoryReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> translateMapper.insertTranslateDict(map));
+    public ApiResponseEnum addCategory(CategoryReq categoryReq) {
+        Example example = new Example(GoodsCategory.class);
+        example.createCriteria().andEqualTo("categoryName", categoryReq.getCategoryName());
+        int count = goodsCategoryMapper.selectCountByExample(example);
+        if (count > 0) {
+            return ApiResponseEnum.GOODS_CATEGORY_EXISTS;
+        }
         GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
         goodsCategory.setIsDelete(Constant.NODELETE);
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
-        return goodsCategoryMapper.insertSelective(goodsCategory);
+        goodsCategoryMapper.insertSelective(goodsCategory);
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(categoryReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> translateMapper.insertTranslateDict(map));
+        return ApiResponseEnum.SUCCESS;
     }
 
     @Override
@@ -147,14 +154,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum addGoods(AddGoodsReq addGoodsReq) {
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> map.forEach((key, value) -> {
-            Map<String, String> sqlMap = new HashMap<>(1);
-            sqlMap.put("sqlStatement", value);
-            translateMapper.insertTranslateDict(sqlMap);
-        }));
         if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
             return ApiResponseEnum.PARAMETER_CANT_BE_EMPTY;
         }
@@ -173,59 +172,17 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
 
-        if(StringUtils.isBlank(addGoodsReq.getSpecName())) {
-          return ApiResponseEnum.SUCCESS;
-        }
-        //添加产品规格
-        Example specExample = new Example(GoodsSpec.class);
-        specExample.createCriteria().andEqualTo("specName", addGoodsReq.getSpecName());
-        int specCount = goodsSpecMapper.selectCountByExample(spuExample);
-        GoodsSpec goodsSpec;
-        if (specCount > 0) {
-            goodsSpec = goodsSpecMapper.selectByExample(spuExample).get(0);
-        } else {
-            goodsSpec = new GoodsSpec();
-            BeanCopyUtil.copy(goodsSpec, addGoodsReq);
-            goodsSpec.setSpecNo(DigestUtils.md5Hex(addGoodsReq.getSpecName().concat(UUID.randomUUID().toString())));
-            goodsSpec.setCreateDate(new Date());
-            goodsSpec.setUpdateDate(new Date());
-            goodsSpec.setIsDelete(Constant.NODELETE);
-            goodsSpecMapper.insertSelective(goodsSpec);
-        }
-        if(StringUtils.isBlank(addGoodsReq.getSpecValue())) {
-            return ApiResponseEnum.SUCCESS;
-        }
-        Example specValueExample = new Example(GoodsSpecValue.class);
-        specExample.createCriteria().andEqualTo("specValue", addGoodsReq.getSpecValue())
-                .andEqualTo("specId", goodsSpec.getId());
-        int specValueCount = goodsSpecValueMapper.selectCountByExample(specValueExample);
-        //添加产品规格值
-        GoodsSpecValue goodsSpecValue;
-        if (specValueCount > 0) {
-            goodsSpecValue = goodsSpecValueMapper.selectByExample(specValueExample).get(0);
-        } else {
-            goodsSpecValue = new GoodsSpecValue();
-            goodsSpecValue.setSpecId(goodsSpec.getId());
-            goodsSpecValue.setSpecValue(addGoodsReq.getSpecValue());
-            goodsSpecValue.setCreateDate(new Date());
-            goodsSpecValue.setUpdateDate(new Date());
-            goodsSpecValue.setIsDelete(Constant.NODELETE);
-            goodsSpecValueMapper.insertSelective(goodsSpecValue);
-        }
-        Example spuSpecValueExample = new Example(GoodsSpuSpec.class);
-        specExample.createCriteria().andEqualTo("spuId", goodsSpu.getId())
-                .andEqualTo("specValueId", goodsSpecValue.getId());
-        int spuSpecCount = goodsSpuSpecMapper.selectCountByExample(spuSpecValueExample);
-        if (spuSpecCount == 0) {
-            //添加产品单元与产品规格关联关系
-            GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();
-            goodsSpuSpec.setSpecValueId(goodsSpecValue.getId());
-            goodsSpuSpec.setSpuId(goodsSpu.getId());
-            goodsSpuSpec.setCreateDate(new Date());
-            goodsSpuSpec.setUpdateDate(new Date());
-            goodsSpuSpec.setIsDelete(Constant.NODELETE);
-            goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
-        }
+        GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();
+        goodsSpuSpec.setSpuId(goodsSpu.getId());
+        goodsSpuSpec.setSpecValueId(addGoodsReq.getSpecValueId());
+        goodsSpuSpec.setCreateDate(new Date());
+        goodsSpuSpec.setUpdateDate(new Date());
+        goodsSpuSpec.setIsDelete(Constant.NODELETE);
+        goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> translateMapper.insertTranslateDict(map));
         return ApiResponseEnum.SUCCESS;
     }
 

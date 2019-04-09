@@ -30,32 +30,21 @@ public class AddGoodsReq {
     private Long categoryId;
 
     //规格名称
-    @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
+    @ApiModelProperty(value = "产品的规格名称",required = true,example = "1")
     @NotNull
-    private String specName;
-
-    //规格描述
-    @ApiModelProperty(value = "产品的规格描述",required = true,example = "describe_color")
-    @NotNull
-    private String specDescription;
+    private Long specId;
 
     //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "yellow")
+    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "1")
     @NotNull
-    private String specValue;
+    private Long specValueId;
 
     //产品名称及规格的翻译可选字段
     @ApiModelProperty(value = "产品名称及规格的翻译可选字段",position = 8,example = "{\n" +
-            "    \"specName_english\":\"ram\",\n" +
-            "    \"goodsDescription_chinese\":\"爱疯\",\n" +
-            "    \"specValue_chinese\":\"16G内存\",\n" +
-            "    \"specDescription_english\":\"ram\",\n" +
-            "    \"specDescription_chinese\":\"手机内存\",\n" +
-            "    \"specValue_english\":\"16G\",\n" +
-            "    \"goodsDescription_english\":\"iphone\",\n" +
-            "    \"goodsName_english\":\"iphone\",\n" +
-            "    \"goodsName_chinese\":\"爱疯\",\n" +
-            "    \"specName_chinese\":\"内存\"\n" +
+            "    \"goodsName_english\":\"iphone6\",\n" +
+            "    \"goodsName_chinese\":\"爱疯6\",\n" +
+            "    \"goodsDescription_english\":\"iphone6\",\n" +
+            "    \"goodsDescription_chinese\":\"爱疯6代\",\n" +
             "}")
     private Map<String,String> optionals;
 
@@ -91,28 +80,20 @@ public class AddGoodsReq {
         this.categoryId = categoryId;
     }
 
-    public String getSpecName() {
-        return specName;
+    public Long getSpecId() {
+        return specId;
     }
 
-    public void setSpecName(String specName) {
-        this.specName = specName;
+    public void setSpecId(Long specId) {
+        this.specId = specId;
     }
 
-    public String getSpecDescription() {
-        return specDescription;
+    public Long getSpecValueId() {
+        return specValueId;
     }
 
-    public void setSpecDescription(String specDescription) {
-        this.specDescription = specDescription;
-    }
-
-    public String getSpecValue() {
-        return specValue;
-    }
-
-    public void setSpecValue(String specValue) {
-        this.specValue = specValue;
+    public void setSpecValueId(Long specValueId) {
+        this.specValueId = specValueId;
     }
 
     public Map<String, String> getOptionals() {
@@ -124,44 +105,22 @@ public class AddGoodsReq {
     }
 
     public Map<String, String> buildSql(String language) {
-        Map<String, String> sqlMap = new HashMap<>();
         if (StringUtils.isBlank(this.goodsName) || StringUtils.isBlank(this.goodsDescription)) {
-            String goodsNameKey = "goodsName_".concat(language);
-            String goodsDescriptionKey = "goodsDescription_".concat(language);
-            String goodsNameTranslate = optionals.get(goodsNameKey);
-            String goodsDescriptionTranslate = optionals.get(goodsDescriptionKey);
-            if (StringUtils.isNotBlank(goodsNameTranslate) && StringUtils.isNotBlank(goodsDescriptionTranslate)) {
-                String preSql = "insert into tb_goods_spu_%s (goods_name,goods_name_translate,goods_description," +
-                        "goods_description_translate) values('%s','%s','%s','%s')";
-                String sql = String.format(preSql, language, this.goodsName, goodsNameTranslate,
-                        this.goodsDescription, goodsDescriptionTranslate);
-                sqlMap.put("sqlStatement", sql);
-            }
+            return null;
         }
-
-        if (StringUtils.isNotBlank(this.specName) || StringUtils.isNotBlank(this.specDescription)) {
-            String specNameKey = "specName_".concat(language);
-            String specDescriptionKey = "specDescription_".concat(language);
-            String specTranslate = optionals.get(specNameKey);
-            String specDescriptionTranslate = optionals.get(specDescriptionKey);
-            if (StringUtils.isNotBlank(specTranslate) && StringUtils.isNotBlank(specDescriptionTranslate)) {
-                String specPreSql = "insert into tb_goods_spec_%s (spec_name,spec_name_translate,spec_description," +
-                        "spec_description_translate) values('%s','%s','%s','%s')";
-                String specSql = String.format(specPreSql, language, this.specName, specTranslate,
-                        this.specDescription, specDescriptionTranslate);
-                sqlMap.put("specSqlStatement", specSql);
-            }
+        String goodsNameKey = "goodsName_".concat(language);
+        String goodsDescriptionKey = "goodsDescription_".concat(language);
+        String goodsNameTranslate = optionals.get(goodsNameKey);
+        String goodsDescriptionTranslate = optionals.get(goodsDescriptionKey);
+        if (StringUtils.isBlank(goodsNameTranslate) || StringUtils.isBlank(goodsDescriptionTranslate)) {
+           return null;
         }
-
-        if (StringUtils.isNotBlank(this.specValue)) {
-            String specValueKey = "specValue_".concat(language);
-            String specValueTranslate = optionals.get(specValueKey);
-            if (StringUtils.isNotBlank(specValueTranslate)) {
-                String specValuePreSql = "insert into tb_goods_spec_value_%s (spec_value,spec_value_translate) values('%s','%s')";
-                String specValueSql = String.format(specValuePreSql, language, this.specValue, specValueTranslate);
-                sqlMap.put("specValueSql", specValueSql);
-            }
-        }
+        Map<String, String> sqlMap = new HashMap<>();
+        String preSql = "insert into tb_goods_spu_%s (goods_name,goods_name_translate,goods_description," +
+                "goods_description_translate) values('%s','%s','%s','%s')";
+        String sql = String.format(preSql, language, this.goodsName, goodsNameTranslate,
+                this.goodsDescription, goodsDescriptionTranslate);
+        sqlMap.put("sqlStatement", sql);
         return sqlMap;
     }
 }
