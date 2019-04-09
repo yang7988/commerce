@@ -52,6 +52,9 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsSpecValueMapper goodsSpecValueMapper;
 
     @Autowired
+    private GoodPopulateMapper goodPopulateMapper;
+
+    @Autowired
     private TranslateMapper translateMapper;
 
     @Autowired
@@ -306,5 +309,70 @@ public class GoodsServiceImpl implements GoodsService {
         if(StringUtils.isNotBlank(specValTranslate)) {
             goodsSpecValueVo.getTranslation().put(specVal.concat("_").concat(language), specValTranslate);
         }
+    }
+
+    @Override
+    public List<GoodsSpuDetailsVo> populateGoods(Long id) {
+        Example example = new Example(GoodPopulate.class);
+        example.createCriteria().andEqualTo("categoryId", id);
+        List<GoodPopulate> goodPopulates = goodPopulateMapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(goodPopulates)) {
+            return null;
+        }
+        List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
+        for (GoodPopulate goodPopulate : goodPopulates) {
+            GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodPopulate.getSpuId());
+            GoodsSpuDetailsVo detailsVo = BeanCopyUtil.copy(GoodsSpuDetailsVo.class, goodsSpu);
+            GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(goodPopulate.getSpecValueId());
+            BeanCopyUtil.copy(detailsVo, goodsSpecValue);
+            GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(goodsSpecValue.getSpecId());
+            BeanCopyUtil.copy(detailsVo, goodsSpec);
+            goodsSpuDetailsVos.add(detailsVo);
+        }
+        return goodsSpuDetailsVos;
+    }
+
+    @Override
+    public ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req) {
+        Example example = new Example(GoodPopulate.class);
+        example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
+                .andEqualTo("spuId", req.getGoodsId())
+                .andEqualTo("specValueId", req.getSpecValueId())
+                .andEqualTo("isDelete",Constant.NODELETE);
+        int count = goodPopulateMapper.selectCountByExample(example);
+        if(count > 0) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        GoodPopulate goodPopulate = new GoodPopulate();
+        goodPopulate.setCategoryId(req.getCategoryId());
+        goodPopulate.setSpuId(req.getGoodsId());
+        goodPopulate.setSpecValueId(req.getSpecValueId());
+        goodPopulate.setCreateDate(new Date());
+        goodPopulate.setUpdateDate(new Date());
+        goodPopulate.setIsDelete(Constant.NODELETE);
+        goodPopulateMapper.insertSelective(goodPopulate);
+        return ApiResponseEnum.SUCCESS;
+    }
+
+    @Override
+    public ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req) {
+        Example example = new Example(GoodPopulate.class);
+        example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
+                .andEqualTo("spuId", req.getGoodsId())
+                .andEqualTo("specValueId", req.getSpecValueId())
+                .andEqualTo("isDelete", Constant.DELETED);
+        int count = goodPopulateMapper.selectCountByExample(example);
+        if (count == 0) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        example.clear();
+        example = new Example(GoodPopulate.class);
+        example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
+                .andEqualTo("spuId", req.getGoodsId())
+                .andEqualTo("specValueId", req.getSpecValueId());
+        GoodPopulate goodPopulate = new GoodPopulate();
+        goodPopulate.setIsDelete(Constant.DELETED);
+        goodPopulateMapper.updateByExampleSelective(goodPopulate, example);
+        return ApiResponseEnum.SUCCESS;
     }
 }

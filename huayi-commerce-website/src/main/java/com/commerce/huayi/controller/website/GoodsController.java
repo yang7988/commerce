@@ -43,4 +43,10 @@ public class GoodsController {
     public byte[] getImg(@PathVariable Long goodsId) throws IOException {
         return goodsService.getGoodsImage(goodsId);
     }
+
+    @PostMapping(value = "/category/populate/goods")
+    @ApiOperation(value = "获取分类的主推热门产品",notes = "获取分类的主推热门产品")
+    public ApiResponse<List<GoodsSpuDetailsVo>> populateGoods(@RequestBody PrimaryKeyReq req){
+        return ApiResponse.returnSuccess(goodsService.populateGoods(req.getId()));
+    }
 }

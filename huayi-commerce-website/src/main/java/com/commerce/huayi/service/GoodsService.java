@@ -42,4 +42,10 @@ public interface GoodsService {
     ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq);
 
     GoodsSpecValuePageVo getSpecInfoList(PageReq pageReq);
+
+    List<GoodsSpuDetailsVo> populateGoods(Long id);
+
+    ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req);
+
+    ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req);
 }

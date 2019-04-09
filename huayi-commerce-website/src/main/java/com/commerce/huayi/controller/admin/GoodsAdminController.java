@@ -104,4 +104,24 @@ public class GoodsAdminController {
     public ApiResponse<GoodsSpecValuePageVo> getSpecInfoList(@RequestBody PageReq pageReq) {
         return ApiResponse.returnSuccess(goodsService.getSpecInfoList(pageReq));
     }
+
+    @PostMapping(value = "/addPopulateGoods")
+    @ApiOperation(value = "添加热门主推产品",notes = "添加热门主推产品")
+    public ApiResponse addPopulateGoods(@RequestBody AddPopulateGoodsReq req) {
+        ApiResponseEnum responseEnum = goodsService.addPopulateGoods(req);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
+
+    @PostMapping(value = "/delPopulateGoods")
+    @ApiOperation(value = "移除热门主推产品",notes = "移除热门主推产品")
+    public ApiResponse delPopulateGoods(@RequestBody AddPopulateGoodsReq req) {
+        ApiResponseEnum responseEnum = goodsService.delPopulateGoods(req);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
 }
