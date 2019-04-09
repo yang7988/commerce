@@ -8,23 +8,23 @@ import java.util.Map;
 public class GoodsSpecValueVo {
 
     //规格描述
-    @ApiModelProperty(value = "产品的规格id",required = true)
+    @ApiModelProperty(value = "产品的规格id",required = true,example = "1")
     private Long specId;
 
     //规格名称
-    @ApiModelProperty(value = "产品的规格描述",required = true)
+    @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
     private String specName;
 
     //规格描述
-    @ApiModelProperty(value = "产品的规格描述",required = true)
+    @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
     private String specDescription;
 
     //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true)
+    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
     private String specValue;
 
     //规格值id
-    @ApiModelProperty(value = "规格值id",required = true)
+    @ApiModelProperty(value = "规格值id",required = true,example = "1")
     private Long specValueId;
 
     @ApiModelProperty(example = "{\n" +

@@ -8,29 +8,25 @@ import io.swagger.annotations.ApiModelProperty;
 public class CategoryVo {
 
     //主键id
-    @ApiModelProperty(value = "分类id",required = true)
+    @ApiModelProperty(value = "分类id",required = true,example = "10")
     private Long id;
 
     //父级分类id
-    @ApiModelProperty(value = "父级分类id",required = true)
+    @ApiModelProperty(value = "父级分类id",required = true,example = "0")
     private Long parentId;
 
     //能否展开
-    @ApiModelProperty(value = "分类是否有可以展开的子分类",required = true)
+    @ApiModelProperty(value = "分类是否有可以展开的子分类",required = true,example = "0")
     private Byte isOpen;
     //分类名称
     @Translate(refTable = "tb_goods_category",refColumn = "category_name")
-    @ApiModelProperty(value = "分类名",required = true)
+    @ApiModelProperty(value = "分类名",required = true,example = "big_blue_earphone")
     private String categoryName;
 
     //分类描述
     @Translate(refTable = "tb_goods_category",refColumn = "category_description")
-    @ApiModelProperty(value = "分类描述",required = true)
+    @ApiModelProperty(value = "分类描述",required = true,example = "big_blue_earphone")
     private String categoryDescription;
-
-    //商品分类的base64
-    @ApiModelProperty(value = "商品分类的base64图片",required = true)
-    private String imageBase64;
 
     public Long getId() {
         return id;
@@ -72,11 +68,4 @@ public class CategoryVo {
         this.isOpen = isOpen;
     }
 
-    public String getImageBase64() {
-        return imageBase64;
-    }
-
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
-    }
 }
