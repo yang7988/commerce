@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class ImageUploadVo {
 
     //分类名称
-    @ApiModelProperty(value = "图片上传后的url",example = "http://pgd3zoxnk.bkt.clouddn.com/FgaeuBs1QwDZUd9UO4betMtgZOMs")
+    @ApiModelProperty(value = "图片上传后的url",example = "FsdVQeZzIkAgoCpbvq81gGSeF3Y7")
     private String imageKey;
 
     //分类名称
