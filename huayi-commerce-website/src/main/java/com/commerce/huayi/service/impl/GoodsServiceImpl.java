@@ -17,6 +17,7 @@ import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
+import com.commerce.huayi.utils.ObjectUtil;
 import com.commerce.huayi.utils.PageUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -85,14 +86,7 @@ public class GoodsServiceImpl implements GoodsService {
             return null;
         }
         List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
-        for (GoodsSpu spu : goodsSpus) {
-            Example spuSpecexample = new Example(GoodsSpuSpec.class);
-            spuSpecexample.createCriteria().andEqualTo("spuId", spu.getId());
-            List<GoodsSpuSpec> goodsSpuSpecs = goodsSpuSpecMapper.selectByExample(spuSpecexample);
-            if (CollectionUtils.isNotEmpty(goodsSpuSpecs)) {
-                goodsSpuSpecs.forEach(goodsSpuSpec -> goodsSpuDetailsVos.add(getSpuDeatis(spu, goodsSpuSpec)));
-            }
-        }
+        packageGoodsSpu(goodsSpuDetailsVos, goodsSpus);
         return goodsSpuDetailsVos;
     }
 
@@ -191,11 +185,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @Transactional
     public ApiResponseEnum deleteGoods(Long goodsId) {
         GoodsSpu goodsSpu = new GoodsSpu();
         goodsSpu.setId(goodsId);
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.DELETED);
+        goodsSpuMapper.updateByPrimaryKeySelective(goodsSpu);
         return ApiResponseEnum.SUCCESS;
     }
 
@@ -333,6 +329,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @Transactional
     public ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req) {
         Example example = new Example(GoodPopulate.class);
         example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
@@ -355,6 +352,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @Transactional
     public ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req) {
         Example example = new Example(GoodPopulate.class);
         example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
@@ -375,4 +373,53 @@ public class GoodsServiceImpl implements GoodsService {
         goodPopulateMapper.updateByExampleSelective(goodPopulate, example);
         return ApiResponseEnum.SUCCESS;
     }
+
+    @Override
+    public List<GoodsSpuDetailsVo> search(String keyWord, String language) {
+        keyWord = ObjectUtil.processsenseKeyword(keyWord);
+        List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
+        List<GoodsSpu> goodsSpus = goodsSpuMapper.search(keyWord);
+        if (CollectionUtils.isNotEmpty(goodsSpus)) {
+            packageGoodsSpu(goodsSpuDetailsVos, goodsSpus);
+            return goodsSpuDetailsVos;
+        }
+        StringBuilder stringBuilder = new StringBuilder("select goods_name,goods_name_translate,goods_description," +
+                "goods_description_translate from tb_goods_spu_");
+        stringBuilder.append(language).append(" where goods_name like '%").append(keyWord).append("%'");
+        stringBuilder.append(" or ").append(" goods_name_translate like '%").append(keyWord).append("%'");
+        stringBuilder.append(" or ").append(" goods_description like '%").append(keyWord).append("%'");
+        stringBuilder.append(" or ").append(" goods_description_translate like '%").append(keyWord).append("%'");
+        String sql = stringBuilder.toString();
+
+        Map<String, String> sqlMap = new HashMap<>(1);
+        sqlMap.put("sqlStatement", sql);
+        List<Map<String, String>> resultMap = goodsSpuMapper.searchBySql(sqlMap);
+        if(CollectionUtils.isEmpty(resultMap)) {
+            return goodsSpuDetailsVos;
+        }
+        List<GoodsSpu> goodsSpusList = new ArrayList<>();
+        for (Map<String, String> map : resultMap) {
+            String goodsName = map.get("goods_name");
+            String goodsDescription = map.get("goods_description");
+            Example example = new Example(GoodsSpu.class);
+            example.createCriteria().andEqualTo("goodsName", goodsName)
+                    .orEqualTo("goodsDescription", goodsDescription);
+            List<GoodsSpu> spuList = goodsSpuMapper.selectByExample(example);
+            goodsSpusList.addAll(spuList);
+        }
+        packageGoodsSpu(goodsSpuDetailsVos, goodsSpusList);
+        return goodsSpuDetailsVos;
+    }
+
+    private void packageGoodsSpu(List<GoodsSpuDetailsVo> goodsSpuDetailsVos, List<GoodsSpu> goodsSpus) {
+        for (GoodsSpu spu : goodsSpus) {
+            Example spuSpecexample = new Example(GoodsSpuSpec.class);
+            spuSpecexample.createCriteria().andEqualTo("spuId", spu.getId());
+            List<GoodsSpuSpec> goodsSpuSpecs = goodsSpuSpecMapper.selectByExample(spuSpecexample);
+            if (CollectionUtils.isNotEmpty(goodsSpuSpecs)) {
+                goodsSpuSpecs.forEach(goodsSpuSpec -> goodsSpuDetailsVos.add(getSpuDeatis(spu, goodsSpuSpec)));
+            }
+        }
+    }
+
 }

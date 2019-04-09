@@ -48,4 +48,6 @@ public interface GoodsService {
     ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req);
 
     ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req);
+
+    List<GoodsSpuDetailsVo> search(String keyWord,String language);
 }

@@ -3,6 +3,7 @@
 package com.commerce.huayi.utils;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,5 +59,22 @@ public class ObjectUtil {
         map.put(key, value);
     }
 
-
+    public static String processsenseKeyword(String searchKeyword) {
+        if (StringUtils.isBlank(searchKeyword)) {
+            return "";
+        }
+        if (searchKeyword.length() == 1) {
+            return "%".equalsIgnoreCase(searchKeyword) ? "\\" + searchKeyword : searchKeyword;
+        }
+        if (searchKeyword.startsWith("%") && !searchKeyword.endsWith("%")) {
+            return "\\" + searchKeyword;
+        }
+        if (searchKeyword.endsWith("%") && !searchKeyword.startsWith("%")) {
+            return searchKeyword.substring(0, searchKeyword.length() - 1) + "\\" + "%";
+        }
+        if (searchKeyword.startsWith("%") && searchKeyword.endsWith("%")) {
+            return "\\" + searchKeyword.substring(0, searchKeyword.length() - 1) + "\\" + "%";
+        }
+        return searchKeyword;
+    }
 }

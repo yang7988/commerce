@@ -20,4 +20,16 @@
     id, spu_no, goods_name, goods_description, goods_image_key, low_price, category_id, 
     brand_id, create_date, update_date, is_delete
   </sql>
+
+  <select id="search" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_goods_spu where goods_name like concat(concat('%',#{keyWord}),'%') or goods_description like
+    concat(concat('%',#{keyWord}),'%')
+  </select>
+
+  <select id="searchBySql" resultType="java.util.Map" parameterType="java.util.Map">
+    ${sqlStatement}
+  </select>
+
 </mapper>

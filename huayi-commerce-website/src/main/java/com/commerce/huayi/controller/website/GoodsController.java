@@ -2,15 +2,18 @@ package com.commerce.huayi.controller.website;
 
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.PrimaryKeyReq;
+import com.commerce.huayi.entity.request.SearchGoodsReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.service.GoodsService;
+import com.commerce.huayi.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -48,5 +51,11 @@ public class GoodsController {
     @ApiOperation(value = "获取分类的主推热门产品",notes = "获取分类的主推热门产品")
     public ApiResponse<List<GoodsSpuDetailsVo>> populateGoods(@RequestBody PrimaryKeyReq req){
         return ApiResponse.returnSuccess(goodsService.populateGoods(req.getId()));
+    }
+
+    @PostMapping(value = "/search")
+    @ApiOperation(value = "按产品名模糊搜索产品",notes = "按产品名模糊搜索产品")
+    public ApiResponse<List<GoodsSpuDetailsVo>> search(@RequestBody SearchGoodsReq req) {
+        return ApiResponse.returnSuccess(goodsService.search(req.getKeyWord(), ServletUtils.language().getLanguage()));
     }
 }
