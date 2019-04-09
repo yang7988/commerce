@@ -20,6 +20,11 @@ public class AddGoodsReq {
     @NotNull
     private String goodsDescription;
 
+    //商品描述
+    @ApiModelProperty(value = "产品图片url地址",required = true,example = "http://localhost/image/earphone")
+    @NotNull
+    private String goodsImageKey;
+
     //最低售价
     @ApiModelProperty(value = "产品价格",example = "66.36")
     private BigDecimal price;
@@ -62,6 +67,14 @@ public class AddGoodsReq {
 
     public void setGoodsDescription(String goodsDescription) {
         this.goodsDescription = goodsDescription;
+    }
+
+    public String getGoodsImageKey() {
+        return goodsImageKey;
+    }
+
+    public void setGoodsImageKey(String goodsImageKey) {
+        this.goodsImageKey = goodsImageKey;
     }
 
     public BigDecimal getPrice() {

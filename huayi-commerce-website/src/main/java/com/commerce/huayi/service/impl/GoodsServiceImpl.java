@@ -167,6 +167,7 @@ public class GoodsServiceImpl implements GoodsService {
         GoodsSpu goodsSpu = new GoodsSpu();
         BeanCopyUtil.copy(goodsSpu, addGoodsReq);
         goodsSpu.setSpuNo(DigestUtils.md5Hex(addGoodsReq.getGoodsName().concat(UUID.randomUUID().toString())));
+        goodsSpu.setGoodsImageKey(addGoodsReq.getGoodsImageKey());
         goodsSpu.setCreateDate(new Date());
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
