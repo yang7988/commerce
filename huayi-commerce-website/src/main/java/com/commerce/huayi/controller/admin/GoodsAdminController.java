@@ -72,7 +72,7 @@ public class GoodsAdminController {
     @PostMapping(value = "/image/addGoodsImage")
     @ApiOperation(value = "添加产品图片",notes = "添加产品单元图片")
     public ApiResponse addGoodsImage(PrimaryKeyReq req,
-                                     @RequestParam(value = "goodsImage",required = false) MultipartFile goodsImage) {
+                                     @RequestParam(value = "goodsImage") MultipartFile goodsImage) {
         byte[] bytes;
         try {
             bytes = goodsImage.getBytes();

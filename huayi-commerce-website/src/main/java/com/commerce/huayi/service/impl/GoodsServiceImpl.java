@@ -10,7 +10,10 @@ import com.commerce.huayi.constant.Constant;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.*;
 import com.commerce.huayi.entity.request.*;
-import com.commerce.huayi.entity.response.*;
+import com.commerce.huayi.entity.response.CategoryVo;
+import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
+import com.commerce.huayi.entity.response.GoodsSpecValueVo;
+import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
@@ -313,8 +316,37 @@ public class GoodsServiceImpl implements GoodsService {
         if (CollectionUtils.isEmpty(goodsSpecValueVos)) {
             return null;
         }
+
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        goodsSpecValueVos.forEach(vo -> languages.forEach(language -> getSpecTranslate(vo,language)));
         pageVo.setCount(goodsSpecMapper.getSpecInfoCount());
         pageVo.setList(goodsSpecValueVos);
         return pageVo;
+    }
+
+    private void getSpecTranslate(GoodsSpecValueVo goodsSpecValueVo, String language) {
+        String specTranslateTable = "tb_goods_spec_";
+        String specValTranslateTable = "tb_goods_spec_value_";
+        String specName = "spec_name";
+        String specDescription = "spec_description";
+        String specVal = "spec_value";
+        RedisKey specNameKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
+        String specNameTranslate = jedisTemplate.hget(specNameKey, specName.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
+                .concat(goodsSpecValueVo.getSpecName()), String.class);
+        if(StringUtils.isNotBlank(specNameTranslate)) {
+            goodsSpecValueVo.getOptionals().put(specName.concat("_").concat(language), specNameTranslate);
+        }
+        RedisKey specDescriptionKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
+        String specDescriptionTranslate = jedisTemplate.hget(specDescriptionKey, specDescription.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
+                .concat(goodsSpecValueVo.getSpecDescription()), String.class);
+        if(StringUtils.isNotBlank(specDescriptionTranslate)) {
+            goodsSpecValueVo.getOptionals().put(specDescription.concat("_").concat(language), specDescriptionTranslate);
+        }
+        RedisKey specValKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specValTranslateTable.concat(language));
+        String specValTranslate = jedisTemplate.hget(specValKey, specVal.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
+                .concat(goodsSpecValueVo.getSpecValue()), String.class);
+        if(StringUtils.isNotBlank(specValTranslate)) {
+            goodsSpecValueVo.getOptionals().put(specVal.concat("_").concat(language), specValTranslate);
+        }
     }
 }

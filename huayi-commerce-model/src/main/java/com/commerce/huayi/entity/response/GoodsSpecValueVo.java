@@ -3,6 +3,8 @@ package com.commerce.huayi.entity.response;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GoodsSpecValueVo {
 
@@ -30,6 +32,8 @@ public class GoodsSpecValueVo {
     @ApiModelProperty(value = "规格值id",required = true)
     @NotNull
     private Long specValueId;
+
+    private Map<String,String> optionals = new HashMap<>();
 
     public Long getSpecId() {
         return specId;
@@ -69,5 +73,9 @@ public class GoodsSpecValueVo {
 
     public void setSpecValueId(Long specValueId) {
         this.specValueId = specValueId;
+    }
+
+    public Map<String, String> getOptionals() {
+        return optionals;
     }
 }
