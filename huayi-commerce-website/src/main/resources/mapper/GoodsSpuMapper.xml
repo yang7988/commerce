@@ -32,4 +32,41 @@
     ${sqlStatement}
   </select>
 
+
+  <select id="getGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
+    SELECT spu.id,
+           spu.spu_no            as spuNo,
+           spu.goods_name        as goodsName,
+           spu.goods_description as goodsDescription,
+           spu.goods_image_key   as goodsImageKey,
+           spu.low_price         as lowPrice,
+           spu.brand_id          as brandId,
+           category.id           as categoryId,
+           spec.id               as specId,
+           spec.spec_no          as specNo,
+           spec.spec_name        as specName,
+           spec.spec_description as specDescription,
+           specValue.id          as specValueId,
+           specValue.spec_value  as specValue
+    FROM
+         tb_goods_spu_spec tgss
+           JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
+           JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
+           JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
+           JOIN tb_goods_category category ON spu.category_id = category.id
+    WHERE category.id = #{categoryId}
+  </select>
+
+  <select id="getGoodsCountByCategoryId" resultType="java.lang.Integer">
+    SELECT
+           count(1)
+    FROM
+         tb_goods_spu_spec tgss
+           JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
+           JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
+           JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
+           JOIN tb_goods_category category ON spu.category_id = category.id
+    WHERE category.id = #{categoryId}
+  </select>
+
 </mapper>
