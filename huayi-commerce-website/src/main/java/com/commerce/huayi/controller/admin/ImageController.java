@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value ="/api/image")
-@Api(value = "图片上传api")
+@Api(tags = "图片上传API")
 public class ImageController {
 
     @Autowired
