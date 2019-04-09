@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/contractInfo")
-@Api(value = "联系我们信息管理")
+@Api(tags = "联系我们信息管理")
 public class ContractInfoForAdminController {
 
     @Autowired

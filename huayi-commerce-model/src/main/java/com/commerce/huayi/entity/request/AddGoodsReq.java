@@ -11,41 +11,52 @@ import java.util.Map;
 public class AddGoodsReq {
 
     //商品名称
-    @ApiModelProperty(value = "产品名称",required = true)
+    @ApiModelProperty(value = "产品名称",required = true,example = "blue_earphone")
     @NotNull
     private String goodsName;
 
     //商品描述
-    @ApiModelProperty(value = "产品描述",required = true)
+    @ApiModelProperty(value = "产品描述",required = true,example = "blue_earphone")
     @NotNull
     private String goodsDescription;
 
     //最低售价
-    @ApiModelProperty(value = "产品价格")
+    @ApiModelProperty(value = "产品价格",example = "66.36")
     private BigDecimal price;
 
     //分类id
-    @ApiModelProperty(value = "产品所属分类id",required = true)
+    @ApiModelProperty(value = "产品所属分类id",required = true,example = "10")
     @NotNull
     private Long categoryId;
 
     //规格名称
-    @ApiModelProperty(value = "产品的规格名称",required = true)
+    @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
     @NotNull
     private String specName;
 
     //规格描述
-    @ApiModelProperty(value = "产品的规格描述",required = true)
+    @ApiModelProperty(value = "产品的规格描述",required = true,example = "describe_color")
     @NotNull
     private String specDescription;
 
     //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true)
+    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "yellow")
     @NotNull
     private String specValue;
 
     //产品名称及规格的翻译可选字段
-    @ApiModelProperty(value = "产品名称及规格的翻译可选字段",dataType = "String")
+    @ApiModelProperty(value = "产品名称及规格的翻译可选字段",position = 8,example = "{\n" +
+            "    \"specName_english\":\"ram\",\n" +
+            "    \"goodsDescription_chinese\":\"爱疯\",\n" +
+            "    \"specValue_chinese\":\"16G内存\",\n" +
+            "    \"specDescription_english\":\"ram\",\n" +
+            "    \"specDescription_chinese\":\"手机内存\",\n" +
+            "    \"specValue_english\":\"16G\",\n" +
+            "    \"goodsDescription_english\":\"iphone\",\n" +
+            "    \"goodsName_english\":\"iphone\",\n" +
+            "    \"goodsName_chinese\":\"爱疯\",\n" +
+            "    \"specName_chinese\":\"内存\"\n" +
+            "}")
     private Map<String,String> optionals;
 
     public String getGoodsName() {

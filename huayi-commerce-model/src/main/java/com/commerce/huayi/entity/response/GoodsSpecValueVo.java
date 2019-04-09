@@ -2,7 +2,6 @@ package com.commerce.huayi.entity.response;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,30 +9,33 @@ public class GoodsSpecValueVo {
 
     //规格描述
     @ApiModelProperty(value = "产品的规格id",required = true)
-    @NotNull
     private Long specId;
 
     //规格名称
     @ApiModelProperty(value = "产品的规格描述",required = true)
-    @NotNull
     private String specName;
 
     //规格描述
     @ApiModelProperty(value = "产品的规格描述",required = true)
-    @NotNull
     private String specDescription;
 
     //规格值
     @ApiModelProperty(value = "产品的规格具体值",required = true)
-    @NotNull
     private String specValue;
 
     //规格值id
     @ApiModelProperty(value = "规格值id",required = true)
-    @NotNull
     private Long specValueId;
 
-    private Map<String,String> optionals = new HashMap<>();
+    @ApiModelProperty(example = "{\n" +
+            "        \"specName_english\":\"color\",\n" +
+            "        \"specName_chinese\":\"颜色\",\n" +"        " +
+            "        \"specDescription_english\":\"describe_goods_color\",\n" +
+            "        \"specDescription_chinese\":\"描述产品颜色\",\n" +
+            "        \"specValue_english\":\"red\",\n" +
+            "        \"specValue_chinese\":\"红色\"\n" +
+            "    }")
+    private Map<String,String> translation = new HashMap<>();
 
     public Long getSpecId() {
         return specId;
@@ -75,7 +77,7 @@ public class GoodsSpecValueVo {
         this.specValueId = specValueId;
     }
 
-    public Map<String, String> getOptionals() {
-        return optionals;
+    public Map<String, String> getTranslation() {
+        return translation;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/user")
-@Api(value = "用户管理")
+@Api(tags = "用户管理")
 public class UserController {
 
     @ApiOperation(value = "用户登录",notes = "根据用户名密码登陆")

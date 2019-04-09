@@ -334,19 +334,19 @@ public class GoodsServiceImpl implements GoodsService {
         String specNameTranslate = jedisTemplate.hget(specNameKey, specName.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
                 .concat(goodsSpecValueVo.getSpecName()), String.class);
         if(StringUtils.isNotBlank(specNameTranslate)) {
-            goodsSpecValueVo.getOptionals().put(specName.concat("_").concat(language), specNameTranslate);
+            goodsSpecValueVo.getTranslation().put(specName.concat("_").concat(language), specNameTranslate);
         }
         RedisKey specDescriptionKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
         String specDescriptionTranslate = jedisTemplate.hget(specDescriptionKey, specDescription.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
                 .concat(goodsSpecValueVo.getSpecDescription()), String.class);
         if(StringUtils.isNotBlank(specDescriptionTranslate)) {
-            goodsSpecValueVo.getOptionals().put(specDescription.concat("_").concat(language), specDescriptionTranslate);
+            goodsSpecValueVo.getTranslation().put(specDescription.concat("_").concat(language), specDescriptionTranslate);
         }
         RedisKey specValKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specValTranslateTable.concat(language));
         String specValTranslate = jedisTemplate.hget(specValKey, specVal.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
                 .concat(goodsSpecValueVo.getSpecValue()), String.class);
         if(StringUtils.isNotBlank(specValTranslate)) {
-            goodsSpecValueVo.getOptionals().put(specVal.concat("_").concat(language), specValTranslate);
+            goodsSpecValueVo.getTranslation().put(specVal.concat("_").concat(language), specValTranslate);
         }
     }
 }

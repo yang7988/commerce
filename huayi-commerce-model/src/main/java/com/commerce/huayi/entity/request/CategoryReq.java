@@ -12,23 +12,28 @@ import java.util.Map;
 public class CategoryReq {
 
     //父级分类id
-    @ApiModelProperty(value = "分类父id",dataType = "String")
+    @ApiModelProperty(value = "分类父id",example = "0")
     @NotNull
     private Long parentId;
 
     //分类名称
-    @ApiModelProperty(value = "分类名",dataType = "String")
+    @ApiModelProperty(value = "分类名",example = "big_earphone")
     @NotNull
     private String categoryName;
 
     //分类描述
-    @ApiModelProperty(value = "分类描述",dataType = "String")
+    @ApiModelProperty(value = "分类描述",example = "big_earphone")
     @NotNull
     private String categoryDescription;
 
     //分类名称及描述的翻译可选字段
-    @ApiModelProperty(value = "分类名称及描述的翻译可选字段",dataType = "String")
-    private Map<String,String> optionals;
+    @ApiModelProperty(value = "分类名称及描述的翻译可选字段",position = 4,example = "{\n" +
+            "        \"categoryName_english\":\"big_earphone\",\n" +
+            "        \"categoryName_chinese\":\"大耳机\",\n" +
+            "        \"categoryDescription_english\":\"big_earphone_desc_english\",\n" +
+            "        \"categoryDescription_chinese\":\"中文大耳机描述\"\n" +
+            "    }")
+    private Map<String,String> translation;
 
     public Long getParentId() {
         return parentId;
@@ -54,12 +59,12 @@ public class CategoryReq {
         this.categoryDescription = categoryDescription;
     }
 
-    public Map<String, String> getOptionals() {
-        return optionals;
+    public Map<String, String> getTranslation() {
+        return translation;
     }
 
-    public void setOptionals(Map<String, String> optionals) {
-        this.optionals = optionals;
+    public void setTranslation(Map<String, String> translation) {
+        this.translation = translation;
     }
 
     public Map<String,String> buildSql(String language) {
@@ -68,8 +73,8 @@ public class CategoryReq {
         }
         String categoryNameKey = "categoryName_".concat(language);
         String categoryDescriptionKey = "categoryDescription_".concat(language);
-        String categoryNameTranslate = optionals.get(categoryNameKey);
-        String categoryDescriptionTranslate = optionals.get(categoryDescriptionKey);
+        String categoryNameTranslate = translation.get(categoryNameKey);
+        String categoryDescriptionTranslate = translation.get(categoryDescriptionKey);
         if (StringUtils.isBlank(categoryNameTranslate) || StringUtils.isBlank(categoryDescriptionTranslate)) {
             return null;
         }

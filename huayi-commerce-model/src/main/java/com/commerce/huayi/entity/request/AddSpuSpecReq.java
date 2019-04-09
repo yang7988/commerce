@@ -10,23 +10,30 @@ import java.util.Map;
 public class AddSpuSpecReq {
 
     //规格名称
-    @ApiModelProperty(value = "产品的规格名称",required = true)
+    @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
     @NotNull
     private String specName;
 
     //规格描述
-    @ApiModelProperty(value = "产品的规格描述",required = true)
+    @ApiModelProperty(value = "产品的规格描述",required = true,example = "describe_color")
     @NotNull
     private String specDescription;
 
     //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true)
+    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
     @NotNull
     private String specValue;
 
     //产品名称及规格的翻译可选字段
-    @ApiModelProperty(value = "产品名称及规格的翻译可选字段",dataType = "String")
-    private Map<String,String> optionals;
+    @ApiModelProperty(value = "产品名称及规格的翻译可选字段",position = 4,example = "{\n" +
+            "        \"specName_english\":\"color\",\n" +
+            "        \"specName_chinese\":\"颜色\",\n" +"  " +
+            "        \"specDescription_english\":\"describe_goods_color\",\n" +
+            "        \"specDescription_chinese\":\"描述产品颜色\",\n" +
+            "        \"specValue_english\":\"red\",\n" +
+            "        \"specValue_chinese\":\"红色\"\n" +
+            "    }")
+    private Map<String,String> translation;
 
     public String getSpecName() {
         return specName;
@@ -52,20 +59,20 @@ public class AddSpuSpecReq {
         this.specValue = specValue;
     }
 
-    public Map<String, String> getOptionals() {
-        return optionals;
+    public Map<String, String> getTranslation() {
+        return translation;
     }
 
-    public void setOptionals(Map<String, String> optionals) {
-        this.optionals = optionals;
+    public void setTranslation(Map<String, String> translation) {
+        this.translation = translation;
     }
 
     public Map<String, String> buildSql(String language) {
         Map<String, String> sqlMap = new HashMap<>();
         String specNameKey = "specName_".concat(language);
         String specDescriptionKey = "specDescription_".concat(language);
-        String specTranslate = optionals.get(specNameKey);
-        String specDescriptionTranslate = optionals.get(specDescriptionKey);
+        String specTranslate = translation.get(specNameKey);
+        String specDescriptionTranslate = translation.get(specDescriptionKey);
         if (StringUtils.isBlank(specTranslate) || StringUtils.isBlank(specDescriptionTranslate)) {
             return null;
         }
@@ -74,7 +81,7 @@ public class AddSpuSpecReq {
         String specSql = String.format(specPreSql, language, this.specName, specTranslate, this.specDescription, specDescriptionTranslate);
         sqlMap.put("specSqlStatement", specSql);
         String specValueKey = "specValue_".concat(language);
-        String specValueTranslate = optionals.get(specValueKey);
+        String specValueTranslate = translation.get(specValueKey);
         if (StringUtils.isBlank(specValueTranslate)) {
             return null;
         }

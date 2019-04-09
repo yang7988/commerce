@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/admin/customerMessage")
-@Api(value = "客户留言管理")
+@Api(tags = "客户留言管理")
 public class CustomerMessageForAdminController {
 
     @Autowired

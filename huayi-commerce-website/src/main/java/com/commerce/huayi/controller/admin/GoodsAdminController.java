@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/goods")
-@Api(value = "后台产品分类管理")
+@Api(tags = "后台产品分类管理")
 public class GoodsAdminController {
 
     @Autowired

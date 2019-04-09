@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "信息请求json对象")
 public class PrimaryKeyReq {
 
-    @ApiModelProperty(value = "数据主键id",example = "1",dataType = "int")
+    @ApiModelProperty(value = "数据主键id",example = "1")
     @NotNull
     private Long id;
 

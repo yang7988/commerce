@@ -19,6 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -61,5 +63,21 @@ public class ApplicationTests {
         JedisStatus jedisStatus = jedisTemplate.hset(redisKey, "big_bluetooth_earphone_sample", data);
         byte[] bytes = jedisTemplate.hget(redisKey, "big_bluetooth_earphone_sample");
         System.out.println(jedisStatus);
+    }
+
+    @Test
+    public void testJson() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("goodsName_english", "iphone");
+        map.put("goodsName_chinese", "爱疯");
+        map.put("goodsDescription_english", "iphone");
+        map.put("goodsDescription_chinese", "爱疯");
+        map.put("specName_english", "ram");
+        map.put("specName_chinese", "内存");
+        map.put("specDescription_english", "ram");
+        map.put("specDescription_chinese", "手机内存");
+        map.put("specValue_english", "16G");
+        map.put("specValue_chinese", "16G内存");
+        System.out.println(JSON.toJSONString(map));
     }
 }

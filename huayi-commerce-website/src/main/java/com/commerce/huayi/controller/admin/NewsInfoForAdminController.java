@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/admin/newsInfo")
-@Api(value = "新闻中心管理")
+@Api(tags = "新闻中心管理")
 public class NewsInfoForAdminController {
 
     @Autowired

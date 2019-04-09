@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/customerMessage")
-@Api(value = "客户留言")
+@Api(tags = "客户留言")
 public class CustomerMessageController {
 
     @Autowired

@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/status")
-@Api(value = "自定义API状态码查询")
+@Api(tags = "自定义API状态码查询")
 public class ApiDescriptionController {
 
     @PostMapping(value = "/code")
