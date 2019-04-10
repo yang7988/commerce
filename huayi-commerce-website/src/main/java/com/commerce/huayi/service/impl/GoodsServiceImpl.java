@@ -63,32 +63,27 @@ public class GoodsServiceImpl implements GoodsService {
     private JedisTemplate jedisTemplate;
 
     @Override
-    public List<CategoryVo> getCategories(Long parentId) throws BusinessException {
-        LOGGER.warn("getGoodsCategory========parentId====" + parentId);
-        Example example = new Example(GoodsCategory.class);
-        example.createCriteria().andEqualTo("parentId", parentId);
-        List<GoodsCategory> goodsCategories = goodsCategoryMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(goodsCategories)) {
-            return null;
+    public Page<CategoryVo> getCategories(Long id,String name, int pageIndex, int pageMaxSize) throws BusinessException {
+        Integer count = goodsCategoryMapper.selectCategoryCountByPage(id, name);
+        Page<CategoryVo> page = Page.create(pageIndex, pageMaxSize, count);
+        if (count <= 0) {
+            return page;
         }
-        return BeanCopyUtil.copy(CategoryVo.class, goodsCategories);
+        List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(id, name, page.getOffset(), page.getPageMaxSize());
+        page.setList(categoryVos);
+        return page;
     }
 
     @Override
-    public List<GoodsSpuDetailsVo> categoryGoods(Long id) throws BusinessException {
-        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(id);
-        if (goodsCategory == null) {
-            return null;
+    public Page<GoodsSpuDetailsVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException {
+        Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
+        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
+        if(count <= 0) {
+            return page;
         }
-        Example example = new Example(GoodsSpu.class);
-        example.createCriteria().andEqualTo("categoryId", id);
-        List<GoodsSpu> goodsSpus = goodsSpuMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(goodsSpus)) {
-            return null;
-        }
-        List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
-        packageGoodsSpu(goodsSpuDetailsVos, goodsSpus);
-        return goodsSpuDetailsVos;
+        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
+        page.setList(list);
+        return page;
     }
 
     private GoodsSpuDetailsVo getSpuDeatis(GoodsSpu goodsSpu, GoodsSpuSpec goodsSpuSpec) {
@@ -423,12 +418,4 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
-    @Override
-    public Page<GoodsSpuDetailsVo> pageCategoryGoods(Long id, int pageIndex, int pageMaxSize) {
-        Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
-        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
-        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
-        page.setList(list);
-        return page;
-    }
 }

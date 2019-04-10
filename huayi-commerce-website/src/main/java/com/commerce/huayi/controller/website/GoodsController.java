@@ -28,23 +28,18 @@ public class GoodsController {
 
     @PostMapping(value = "/categories")
     @ApiOperation(value = "产品分类管理",notes = "获取产品分类")
-    public ApiResponse<List<CategoryVo>> categories(@RequestBody PrimaryKeyRequest req) {
-        Long parentId = req.getId();
-        List<CategoryVo> categories = goodsService.getCategories(parentId);
-        return ApiResponse.returnSuccess(categories);
+    public ApiResponse<Page<CategoryVo>> categories(@RequestBody PageCategoryGoodsRequest req) {
+        Page<CategoryVo> page = goodsService.getCategories(req.getId(), req.getName(), req.getPageIndex(), req.getPageMaxSize());
+        return ApiResponse.returnSuccess(page);
     }
 
     @PostMapping(value = "/categoryGoods")
     @ApiOperation(value = "获取分类的全部产品",notes = "获取分类的全部产品此接口不分页")
-    public ApiResponse<List<GoodsSpuDetailsVo>> categoryGoods(@RequestBody PrimaryKeyRequest req){
-        return ApiResponse.returnSuccess(goodsService.categoryGoods(req.getId()));
+    public ApiResponse<Page<GoodsSpuDetailsVo>> categoryGoods(@RequestBody PageCategoryGoodsRequest req){
+        Page<GoodsSpuDetailsVo> page = goodsService.categoryGoods(req.getId(), req.getPageIndex(), req.getPageMaxSize());
+        return ApiResponse.returnSuccess(page);
     }
 
-    @PostMapping(value = "/page/categoryGoods")
-    @ApiOperation(value = "分页获取分类的产品",notes = "分页获取分类的产品")
-    public ApiResponse<Page<GoodsSpuDetailsVo>> pageCategoryGoods(@RequestBody PageCategoryGoodsRequest req){
-        return ApiResponse.returnSuccess(goodsService.pageCategoryGoods(req.getId(),req.getPageIndex(),req.getPageMaxSize()));
-    }
 
     @RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
     @ResponseBody

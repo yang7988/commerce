@@ -6,8 +6,6 @@ import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
-import com.commerce.huayi.entity.request.PageRequest;
-import com.commerce.huayi.entity.response.CustomerMessagePageVo;
 import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.service.GoodsService;
 import org.junit.Test;
@@ -46,11 +44,6 @@ public class ApplicationTests {
 
     @Test
     public void testI18n() throws Exception {
-        PageRequest pageRequest = new PageRequest();
-        pageRequest.setPageIndex(1);
-        pageRequest.setPageMaxSize(10);
-        CustomerMessagePageVo customerMessages = customerMessageService.getCustomerMessages(pageRequest);
-        System.out.println(customerMessages);
 
     }
 

@@ -17,4 +17,38 @@
     id, parent_id, is_open, category_name, category_description, create_date, update_date, 
     is_delete
   </sql>
+
+  <select id="selectCategoryByPage" resultType="com.commerce.huayi.entity.response.CategoryVo">
+    select
+        category.id as id,
+        category.parent_id as parentId,
+        category.is_open as isOpen,
+        category.category_name as categoryName,
+        category.category_description as categoryDescription
+    from tb_goods_category category
+
+    where 1=1
+    <if test="categoryId != null and categoryId != 0">
+      and category.id = #{categoryId}
+    </if>
+    <if test="categoryName != null and categoryName != ''">
+      and category.category_name = #{categoryName}
+    </if>
+    order by category.id
+    limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
+  </select>
+
+  <select id="selectCategoryCountByPage" resultType="java.lang.Integer">
+    select count(category.id)
+    from tb_goods_category category
+    where 1=1
+    <if test="categoryId != null and categoryId != 0">
+      and category.id = #{categoryId}
+    </if>
+    <if test="categoryName != null and categoryName != ''">
+      and category.category_name = #{categoryName}
+    </if>
+  </select>
+
+
 </mapper>

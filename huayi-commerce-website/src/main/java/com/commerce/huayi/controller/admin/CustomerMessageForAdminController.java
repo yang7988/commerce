@@ -2,7 +2,8 @@ package com.commerce.huayi.controller.admin;
 
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.PageRequest;
-import com.commerce.huayi.entity.response.CustomerMessagePageVo;
+import com.commerce.huayi.entity.response.CustomerMessageVo;
+import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.CustomerMessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,7 @@ public class CustomerMessageForAdminController {
 
     @PostMapping(value = "/getCustomerMessages")
     @ApiOperation(value = "客户留言管理",notes = "获取客户留言")
-    public ApiResponse<CustomerMessagePageVo> getCustomerMessages(@RequestBody PageRequest pageRequest) {
+    public ApiResponse<Page<CustomerMessageVo>> getCustomerMessages(@RequestBody PageRequest pageRequest) {
         return ApiResponse.returnSuccess(customerMessageService.getCustomerMessages(pageRequest));
     }
 

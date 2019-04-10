@@ -17,13 +17,13 @@ public interface GoodsService {
 
     /**
      *
-     * @param parentId 产品分类父id(一级分类parentId为0)
+     * @param id 产品分类id()
      * @return 返回ApiResponse接口响应对象
      * @throws BusinessException 抛出业务异常
      */
-    List<CategoryVo> getCategories(Long parentId) throws BusinessException;
+    Page<CategoryVo> getCategories(Long id, String name,int pageIndex, int pageMaxSize) throws BusinessException;
 
-    List<GoodsSpuDetailsVo> categoryGoods(Long id)  throws BusinessException;
+    Page<GoodsSpuDetailsVo> categoryGoods(Long id, int pageIndex, int pageMaxSize)  throws BusinessException;
 
     ApiResponseEnum addCategory(CategoryReq categoryReq);
 
@@ -51,5 +51,4 @@ public interface GoodsService {
 
     List<GoodsSpuDetailsVo> search(String keyWord,String language);
 
-    Page<GoodsSpuDetailsVo> pageCategoryGoods(Long id, int pageIndex, int pageMaxSize);
 }

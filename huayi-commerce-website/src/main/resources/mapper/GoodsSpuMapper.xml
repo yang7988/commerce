@@ -54,7 +54,10 @@
            JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
            JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
            JOIN tb_goods_category category ON spu.category_id = category.id
-    WHERE category.id = #{categoryId}
+      WHERE 1=1
+      <if test="categoryId != null and categoryId != 0">
+          and category.id = #{categoryId}
+      </if>
     order by specValue.id
     limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
   </select>
@@ -68,7 +71,10 @@
            JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
            JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
            JOIN tb_goods_category category ON spu.category_id = category.id
-    WHERE category.id = #{categoryId}
+    WHERE 1=1
+      <if test="categoryId != null and categoryId != 0">
+          and category.id = #{categoryId}
+      </if>
   </select>
 
 </mapper>
