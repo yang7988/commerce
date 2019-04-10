@@ -32,7 +32,7 @@ public final class Page<T> implements Serializable {
     private int count;
 
     // 每页显示的数据,查询出来的，传进来
-    @ApiModelProperty(value = "数据库总记录数",example = "[\n" +
+    @ApiModelProperty(value = "数据列表,跟具体业务类型相关，举个产品列表的例子",example = "[\n" +
             "            {\n" +
             "                \"id\": 1,\n" +
             "                \"spuNo\": \"132156465kjkj\",\n" +

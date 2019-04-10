@@ -3,12 +3,11 @@ package com.commerce.huayi.service.impl;
 import com.commerce.huayi.entity.db.NewsInfo;
 import com.commerce.huayi.entity.request.NewsInfoReq;
 import com.commerce.huayi.entity.request.PageRequest;
-import com.commerce.huayi.entity.response.NewsInfoPageVo;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 import com.commerce.huayi.mapper.NewsInfoMapper;
+import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.NewsInfoService;
 import com.commerce.huayi.utils.BeanCopyUtil;
-import com.commerce.huayi.utils.PageUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,24 +26,16 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     private NewsInfoMapper newsInfoMapper;
 
     @Override
-    public NewsInfoPageVo getNewsInfos(PageRequest pageRequest) {
+    public Page<NewsInfoVo> getNewsInfos(PageRequest pageRequest) {
 
-        NewsInfoPageVo newsInfoPageVo = new NewsInfoPageVo();
-        int pageMaxSzie = pageRequest.getPageMaxSize();
-        if(pageMaxSzie <= 0) {
-            pageMaxSzie = 10;
-        }
-        int pageIndex = pageRequest.getPageIndex();
-        int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
-
-        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(startLine, pageMaxSzie);
+        int count = newsInfoMapper.getNewsInfoTotalCount();
+        Page<NewsInfoVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize());
+        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(page.getOffset(), pageRequest.getPageMaxSize());
         if(CollectionUtils.isEmpty(newsInfoList)) {
             return null;
         }
-        newsInfoPageVo.setCount(newsInfoMapper.getNewsInfoTotalCount());
-        newsInfoPageVo.setList(BeanCopyUtil.copy(NewsInfoVo.class, newsInfoList));
-
-        return newsInfoPageVo;
+        page.setList(BeanCopyUtil.copy(NewsInfoVo.class, newsInfoList));
+        return page;
     }
 
     @Override
