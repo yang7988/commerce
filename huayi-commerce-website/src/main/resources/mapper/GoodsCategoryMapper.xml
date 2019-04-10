@@ -27,7 +27,7 @@
         category.category_description as categoryDescription
     from tb_goods_category category
 
-    where 1=1
+    where 1=1 and category.is_delete = 0
     <if test="categoryId != null and categoryId != 0">
       and category.id = #{categoryId}
     </if>
@@ -41,7 +41,7 @@
   <select id="selectCategoryCountByPage" resultType="java.lang.Integer">
     select count(category.id)
     from tb_goods_category category
-    where 1=1
+    where 1=1 and category.is_delete = 0
     <if test="categoryId != null and categoryId != 0">
       and category.id = #{categoryId}
     </if>

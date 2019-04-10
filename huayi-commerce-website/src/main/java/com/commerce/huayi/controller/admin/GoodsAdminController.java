@@ -3,7 +3,8 @@ package com.commerce.huayi.controller.admin;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.entity.request.*;
-import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
+import com.commerce.huayi.entity.response.GoodsSpecValueVo;
+import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -99,7 +100,7 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/getSpecInfoList")
     @ApiOperation(value = "获取产品规格列表",notes = "获取产品规格列表")
-    public ApiResponse<GoodsSpecValuePageVo> getSpecInfoList(@RequestBody PageRequest pageRequest) {
+    public ApiResponse<Page<GoodsSpecValueVo>> getSpecInfoList(@RequestBody PageRequest pageRequest) {
         return ApiResponse.returnSuccess(goodsService.getSpecInfoList(pageRequest));
     }
 

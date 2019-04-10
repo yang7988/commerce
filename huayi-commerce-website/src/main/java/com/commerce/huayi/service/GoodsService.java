@@ -4,7 +4,7 @@ import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.CategoryVo;
-import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
+import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.pagination.Page;
 
@@ -41,7 +41,7 @@ public interface GoodsService {
 
     ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq);
 
-    GoodsSpecValuePageVo getSpecInfoList(PageRequest pageRequest);
+    Page<GoodsSpecValueVo> getSpecInfoList(PageRequest pageRequest);
 
     List<GoodsSpuDetailsVo> populateGoods(Long id);
 

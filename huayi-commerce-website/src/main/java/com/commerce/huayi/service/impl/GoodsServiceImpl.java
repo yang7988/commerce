@@ -11,7 +11,6 @@ import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.*;
 import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.CategoryVo;
-import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
 import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
@@ -19,7 +18,6 @@ import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
 import com.commerce.huayi.utils.ObjectUtil;
-import com.commerce.huayi.utils.PageUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -256,25 +254,18 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsSpecValuePageVo getSpecInfoList(PageRequest pageRequest) {
-        GoodsSpecValuePageVo pageVo = new GoodsSpecValuePageVo();
-        int pageMaxSzie = pageRequest.getPageMaxSize();
-        if (pageMaxSzie <= 0) {
-            pageMaxSzie = 10;
+    public Page<GoodsSpecValueVo> getSpecInfoList(PageRequest pageRequest) {
+        int count = goodsSpecMapper.getSpecInfoCount();
+        Page<GoodsSpecValueVo> page = Page.create(pageRequest.getPageIndex(),pageRequest.getPageMaxSize(),count);
+        if(count <= 0) {
+            return page;
         }
-        int pageIndex = pageRequest.getPageIndex();
-        int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
-
-        List<GoodsSpecValueVo> goodsSpecValueVos = goodsSpecMapper.getSpecInfos(startLine, pageMaxSzie);
-        if (CollectionUtils.isEmpty(goodsSpecValueVos)) {
-            return null;
-        }
-
+        List<GoodsSpecValueVo> goodsSpecValueVos = goodsSpecMapper.getSpecInfos(page.getOffset(), page.getPageMaxSize());
         List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
         goodsSpecValueVos.forEach(vo -> languages.forEach(language -> getSpecTranslate(vo,language)));
-        pageVo.setCount(goodsSpecMapper.getSpecInfoCount());
-        pageVo.setList(goodsSpecValueVos);
-        return pageVo;
+        page.setList(goodsSpecValueVos);
+        return page;
+
     }
 
     private void getSpecTranslate(GoodsSpecValueVo goodsSpecValueVo, String language) {
