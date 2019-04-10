@@ -86,8 +86,8 @@ public final class Page<T> implements Serializable {
 
     private Page(int pageIndex, int pageMaxSize, int count, List<T> list) {
         this.setPageMaxSize(pageMaxSize);
-        this.setPageIndex(pageIndex);
         this.setCount(count);
+        this.setPageIndex(pageIndex);
         this.setList(list);
     }
 
@@ -100,8 +100,8 @@ public final class Page<T> implements Serializable {
     }
 
     public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex < 1 || pageCount < pageIndex ? 1 : pageIndex;
-        this.setOffset((pageIndex - 1) * pageMaxSize);
+        this.pageIndex = pageIndex < 1 ? 1 : pageIndex;
+        this.setOffset((this.pageIndex - 1) * pageMaxSize);
     }
 
     public int getPageIndex() {
@@ -118,16 +118,16 @@ public final class Page<T> implements Serializable {
 
     public void setCount(int count) {
         this.count = count;
-        this.setPageCount(count % pageMaxSize == 0 ? count / pageMaxSize
-                : count / pageMaxSize + 1);
+        this.setPageCount(count % pageMaxSize == 0 ? count / pageMaxSize : count / pageMaxSize + 1);
     }
 
     public int getCount() {
         return count;
     }
 
+    //设置数据库偏移索引,如果偏移量为负数则数据库会出错
     public void setOffset(int offset) {
-        this.offset = offset;
+        this.offset = offset < 0 ? 0 : offset;
     }
 
     public int getOffset() {
