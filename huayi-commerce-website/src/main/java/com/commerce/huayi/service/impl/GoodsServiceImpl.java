@@ -427,7 +427,7 @@ public class GoodsServiceImpl implements GoodsService {
     public Page<GoodsSpuDetailsVo> pageCategoryGoods(Long id, int pageIndex, int pageMaxSize) {
         Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
         Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
-        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), pageMaxSize);
+        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
         page.setList(list);
         return page;
     }
