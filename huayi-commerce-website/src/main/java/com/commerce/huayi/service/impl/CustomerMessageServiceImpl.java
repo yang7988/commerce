@@ -2,7 +2,7 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.entity.db.CustomerMessage;
 import com.commerce.huayi.entity.request.CustomerMessageReq;
-import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.request.PageRequest;
 import com.commerce.huayi.entity.response.CustomerMessagePageVo;
 import com.commerce.huayi.entity.response.CustomerMessageVo;
 import com.commerce.huayi.mapper.CustomerMessageMapper;
@@ -26,15 +26,15 @@ public class CustomerMessageServiceImpl implements CustomerMessageService {
     private CustomerMessageMapper customerMessageMapper;
 
     @Override
-    public CustomerMessagePageVo getCustomerMessages(PageReq pageReq) {
+    public CustomerMessagePageVo getCustomerMessages(PageRequest pageRequest) {
 
         CustomerMessagePageVo customerMessagePageVo = new CustomerMessagePageVo();
 
-        int pageMaxSzie = pageReq.getPageMaxSize();
+        int pageMaxSzie = pageRequest.getPageMaxSize();
         if(pageMaxSzie <= 0) {
             pageMaxSzie = 10;
         }
-        int pageIndex = pageReq.getPageIndex();
+        int pageIndex = pageRequest.getPageIndex();
 
         int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
 

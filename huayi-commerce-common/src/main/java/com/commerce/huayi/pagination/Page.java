@@ -1,152 +1,158 @@
 package com.commerce.huayi.pagination;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author Hugo.Wwg
  * @Since 2017-08-21
  */
-public final class Page implements Serializable {
+public final class Page<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    /**
-     * 分页查询开始记录位置.
-     */
-    private int begin;
-    /**
-     * 分页查看下结束位置.
-     */
-    private int end;
-    /**
-     * 每页显示记录数.
-     */
-    private int length = 20;
-    /**
-     * 查询结果总记录数.
-     */
-    private int totalRecords;
-    /**
-     * 当前页码.
-     */
-    private int pageNo;
-    /**
-     * 总共页数.
-     */
+
+    private static final int DEFAULT_PAGE_SIZE = 10;
+
+    // 每页显示多少条记录，固定值，可以从配置文件中获取
+    @ApiModelProperty(value = "每页显示数据条数pageMaxSize",example = "10")
+    private int pageMaxSize;
+
+    // 当前页码，传进来
+    @ApiModelProperty(value = "当前页码pageIndex",example = "1")
+    private int pageIndex;
+
+    // 每页的起始位置，通过当前页面和每页显示多少条记录算出来的
+    @ApiModelProperty(value = "数据的偏移量",example = "0")
+    private int offset;
+
+    // 总记录数，查询出来的，传进来
+    @ApiModelProperty(value = "数据库总记录数",example = "5")
+    private int count;
+
+    // 每页显示的数据,查询出来的，传进来
+    @ApiModelProperty(value = "数据库总记录数",example = "[\n" +
+            "            {\n" +
+            "                \"id\": 1,\n" +
+            "                \"spuNo\": \"132156465kjkj\",\n" +
+            "                \"goodsName\": \"蓝牙大耳机样品\",\n" +
+            "                \"goodsDescription\": \"蓝牙大耳机样品\",\n" +
+            "                \"goodsImageKey\": \"\",\n" +
+            "                \"lowPrice\": 500,\n" +
+            "                \"categoryId\": 10,\n" +
+            "                \"brandId\": 0,\n" +
+            "                \"specId\": 1,\n" +
+            "                \"specNo\": \"1456498132132\",\n" +
+            "                \"specName\": \"颜色\",\n" +
+            "                \"specDescription\": \"用于区分商品颜色\",\n" +
+            "                \"specValueId\": 1,\n" +
+            "                \"specValue\": \"红色\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"id\": 1,\n" +
+            "                \"spuNo\": \"132156465kjkj\",\n" +
+            "                \"goodsName\": \"蓝牙大耳机样品\",\n" +
+            "                \"goodsDescription\": \"蓝牙大耳机样品\",\n" +
+            "                \"goodsImageKey\": \"\",\n" +
+            "                \"lowPrice\": 500,\n" +
+            "                \"categoryId\": 10,\n" +
+            "                \"brandId\": 0,\n" +
+            "                \"specId\": 1,\n" +
+            "                \"specNo\": \"1456498132132\",\n" +
+            "                \"specName\": \"颜色\",\n" +
+            "                \"specDescription\": \"用于区分商品颜色\",\n" +
+            "                \"specValueId\": 2,\n" +
+            "                \"specValue\": \"绿色\"\n" +
+            "            }\n" +
+            "            \n" +
+            "        ]")
+    private List<T> list;
+
+    // 总页数，计算出来，通过总记录数和每页显示多少条记录算出来的
+    @ApiModelProperty(value = "总页数",example = "1")
     private int pageCount;
 
-    public Page() {
+    private Page() {
     }
 
-    /**
-     * 构造函数.
-     */
-    public Page(int begin, int length) {
-        this.begin = begin;
-        this.length = length;
-        this.end = this.begin + this.length;
-        this.pageNo = (int) Math.floor((this.begin * 1.0d) / this.length) + 1;
+    private Page(int pageIndex, int pageMaxSize) {
+        this(pageIndex, pageMaxSize, 0);
     }
 
-    /**
-     * @param begin
-     * @param length
-     * @param totalRecords
-     */
-    public Page(int begin, int length, int totalRecords) {
-        this(begin, length);
-        this.totalRecords = totalRecords;
+    private Page(int pageIndex, int pageMaxSize, int count) {
+        this(pageIndex, pageMaxSize, count, null);
     }
 
-    /**
-     * 设置页数，自动计算数据范围.
-     */
-    public Page(int pageNo) {
-        this.pageNo = pageNo;
-        pageNo = pageNo > 0 ? pageNo : 1;
-        this.begin = this.length * (pageNo - 1);
-        this.end = this.length * pageNo;
+    private Page(int pageIndex, int pageMaxSize, int count, List<T> list) {
+        this.setPageMaxSize(pageMaxSize);
+        this.setPageIndex(pageIndex);
+        this.setCount(count);
+        this.setList(list);
     }
 
-    public int getBegin() {
-        return begin;
+    public void setPageMaxSize(int pageMaxSize) {
+        this.pageMaxSize = pageMaxSize <= 0 ? DEFAULT_PAGE_SIZE : pageMaxSize;
     }
 
-    public void setBegin(int begin) {
-        this.begin = begin;
-        if (this.length != 0) {
-            this.pageNo = (int) Math.floor((this.begin * 1.0d) / this.length) + 1;
-        }
+    public int getPageMaxSize() {
+        return pageMaxSize;
     }
 
-    public int getEnd() {
-        return end;
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex < 1 || pageCount < pageIndex ? 1 : pageIndex;
+        this.setOffset((pageIndex - 1) * pageMaxSize);
     }
 
-    public void setEnd(int end) {
-        this.end = end;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-        if (this.begin != 0) {
-            this.pageNo = (int) Math.floor((this.begin * 1.0d) / this.length) + 1;
-        }
-    }
-
-    public int getTotalRecords() {
-        return totalRecords;
-    }
-
-    public void setTotalRecords(int totalRecords) {
-        this.totalRecords = totalRecords;
-        this.pageCount = (int) Math.floor((this.totalRecords * 1.0d) / this.length);
-        if (this.totalRecords % this.length != 0) {
-            this.pageCount++;
-        }
-    }
-
-    public int getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
-        pageNo = pageNo > 0 ? pageNo : 1;
-        this.begin = this.length * (pageNo - 1);
-        this.end = this.length * pageNo;
-    }
-
-    public int getPageCount() {
-        if (pageCount == 0) {
-            return 1;
-        }
-        return pageCount;
+    public int getPageIndex() {
+        return pageIndex;
     }
 
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
 
-
-    public static Page createPage(int total, int pageNum, int pageSize) {
-        Page page = new Page();
-        page.setLength(pageSize);
-        page.setPageNo(pageNum);
-        page.setTotalRecords(total);
-        return page;
+    public int getPageCount() {
+        return pageCount;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder("begin=").append(begin).append(", end=")
-                .append(end).append(", length=").append(length).append(", totalRecords=").append(
-                        totalRecords).append(", pageNo=").append(pageNo).append(", pageCount=")
-                .append(pageCount);
-
-        return builder.toString();
+    public void setCount(int count) {
+        this.count = count;
+        this.setPageCount(count % pageMaxSize == 0 ? count / pageMaxSize
+                : count / pageMaxSize + 1);
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public static <T> Page<T> create(int pageIndex, int pageMaxSize) {
+        return new Page<>(pageIndex, pageMaxSize);
+    }
+
+    public static <T> Page<T> create(int pageIndex, int pageMaxSize, int count) {
+        return new Page<>(pageIndex, pageMaxSize, count);
+    }
+
+    public static <T> Page<T> create(int pageIndex, int pageMaxSize, int count, List<T> list) {
+        return new Page<>(pageIndex, pageMaxSize, count, list);
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package com.commerce.huayi.service;
 
 import com.commerce.huayi.entity.request.NewsInfoReq;
-import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.request.PageRequest;
 import com.commerce.huayi.entity.response.NewsInfoPageVo;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 
@@ -11,7 +11,7 @@ import com.commerce.huayi.entity.response.NewsInfoVo;
  * */
 public interface NewsInfoService {
 
-    NewsInfoPageVo getNewsInfos(PageReq pageReq);
+    NewsInfoPageVo getNewsInfos(PageRequest pageRequest);
 
     NewsInfoVo getNewsInfo(int id);
 

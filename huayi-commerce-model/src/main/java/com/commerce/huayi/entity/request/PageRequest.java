@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  *
  * */
 @ApiModel(value = "数据分页请求json对象")
-public class PageReq {
+public class PageRequest {
 
     @ApiModelProperty(value = "每页显示数据条数pageMaxSize",example = "10",dataType = "int")
     @NotNull

@@ -15,6 +15,7 @@ import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
 import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
+import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
 import com.commerce.huayi.utils.ObjectUtil;
@@ -260,13 +261,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsSpecValuePageVo getSpecInfoList(PageReq pageReq) {
+    public GoodsSpecValuePageVo getSpecInfoList(PageRequest pageRequest) {
         GoodsSpecValuePageVo pageVo = new GoodsSpecValuePageVo();
-        int pageMaxSzie = pageReq.getPageMaxSize();
+        int pageMaxSzie = pageRequest.getPageMaxSize();
         if (pageMaxSzie <= 0) {
             pageMaxSzie = 10;
         }
-        int pageIndex = pageReq.getPageIndex();
+        int pageIndex = pageRequest.getPageIndex();
         int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
 
         List<GoodsSpecValueVo> goodsSpecValueVos = goodsSpecMapper.getSpecInfos(startLine, pageMaxSzie);
@@ -422,4 +423,12 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+    @Override
+    public Page<GoodsSpuDetailsVo> pageCategoryGoods(Long id, int pageIndex, int pageMaxSize) {
+        Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
+        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
+        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), pageMaxSize);
+        page.setList(list);
+        return page;
+    }
 }

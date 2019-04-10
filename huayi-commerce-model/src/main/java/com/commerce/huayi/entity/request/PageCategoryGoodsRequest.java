@@ -1,12 +1,10 @@
 package com.commerce.huayi.entity.request;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 
-@ApiModel(value = "信息请求json对象")
-public class PrimaryKeyReq {
+public class PageCategoryGoodsRequest extends PageRequest {
 
     @ApiModelProperty(value = "数据主键id",example = "1")
     @NotNull

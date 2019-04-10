@@ -14,7 +14,8 @@ public interface GoodsSpuMapper extends Mapper<GoodsSpu> {
 
     List<Map<String,String>> searchBySql(Map<String, String> sqlMap);
 
-    List<GoodsSpuDetailsVo> getGoodsByCategoryId(@Param("categoryId") Long categoryId);
+    List<GoodsSpuDetailsVo> getGoodsByCategoryId(@Param("categoryId") Long categoryId,@Param("offset") Integer offset,
+                                                 @Param("rowSize")Integer rowSize);
 
     Integer getGoodsCountByCategoryId(@Param("categoryId") Long categoryId);
 }

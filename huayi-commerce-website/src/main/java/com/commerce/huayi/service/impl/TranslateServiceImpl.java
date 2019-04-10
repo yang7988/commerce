@@ -11,6 +11,7 @@ import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.TranslateEntity;
 import com.commerce.huayi.entity.db.TranslateEntityExample;
 import com.commerce.huayi.mapper.TranslateMapper;
+import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.TranslateService;
 import com.commerce.huayi.utils.ServletUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -103,8 +104,20 @@ public class TranslateServiceImpl implements TranslateService, InitializingBean 
                 }
             }
         } else {
-            if (isNecessary(language, data.getClass())) {
-                translateObject(language, data);
+            if (data instanceof Page) {
+                Page page = (Page) data;
+                if (CollectionUtils.isNotEmpty(page.getList())) {
+                    List list = page.getList();
+                    if (isNecessary(language, list)) {
+                        for (Object object : list) {
+                            translateObject(language, object);
+                        }
+                    }
+                }
+            } else {
+                if (isNecessary(language, data.getClass())) {
+                    translateObject(language, data);
+                }
             }
         }
     }

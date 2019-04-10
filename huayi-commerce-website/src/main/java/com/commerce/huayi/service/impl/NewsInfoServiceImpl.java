@@ -2,7 +2,7 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.entity.db.NewsInfo;
 import com.commerce.huayi.entity.request.NewsInfoReq;
-import com.commerce.huayi.entity.request.PageReq;
+import com.commerce.huayi.entity.request.PageRequest;
 import com.commerce.huayi.entity.response.NewsInfoPageVo;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 import com.commerce.huayi.mapper.NewsInfoMapper;
@@ -27,14 +27,14 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     private NewsInfoMapper newsInfoMapper;
 
     @Override
-    public NewsInfoPageVo getNewsInfos(PageReq pageReq) {
+    public NewsInfoPageVo getNewsInfos(PageRequest pageRequest) {
 
         NewsInfoPageVo newsInfoPageVo = new NewsInfoPageVo();
-        int pageMaxSzie = pageReq.getPageMaxSize();
+        int pageMaxSzie = pageRequest.getPageMaxSize();
         if(pageMaxSzie <= 0) {
             pageMaxSzie = 10;
         }
-        int pageIndex = pageReq.getPageIndex();
+        int pageIndex = pageRequest.getPageIndex();
         int startLine = PageUtils.pageNumCastToRowNum(pageIndex, pageMaxSzie);
 
         List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(startLine, pageMaxSzie);

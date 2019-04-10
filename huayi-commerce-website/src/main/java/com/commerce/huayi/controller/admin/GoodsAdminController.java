@@ -4,7 +4,6 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.GoodsSpecValuePageVo;
-import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/goods")
@@ -35,7 +33,7 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/deleteCategory")
     @ApiOperation(value = "删除分类",notes = "删除产品分类")
-    public ApiResponse deleteCategory(@RequestBody PrimaryKeyReq req) {
+    public ApiResponse deleteCategory(@RequestBody PrimaryKeyRequest req) {
         Integer result = goodsService.deleteCategory(req.getId());
         return ApiResponse.returnSuccess();
     }
@@ -59,7 +57,7 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/deleteGoods")
     @ApiOperation(value = "删除产品单元",notes = "删除产品单元")
-    public ApiResponse deleteGoods(@RequestBody PrimaryKeyReq req) {
+    public ApiResponse deleteGoods(@RequestBody PrimaryKeyRequest req) {
         ApiResponseEnum responseEnum = goodsService.deleteGoods(req.getId());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
@@ -74,7 +72,7 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/image/addGoodsImage")
     @ApiOperation(value = "添加产品图片",notes = "添加产品单元图片")
-    public ApiResponse addGoodsImage(PrimaryKeyReq req,
+    public ApiResponse addGoodsImage(PrimaryKeyRequest req,
                                      @RequestParam(value = "goodsImage") MultipartFile goodsImage) {
         byte[] bytes;
         try {
@@ -101,8 +99,8 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/getSpecInfoList")
     @ApiOperation(value = "获取产品规格列表",notes = "获取产品规格列表")
-    public ApiResponse<GoodsSpecValuePageVo> getSpecInfoList(@RequestBody PageReq pageReq) {
-        return ApiResponse.returnSuccess(goodsService.getSpecInfoList(pageReq));
+    public ApiResponse<GoodsSpecValuePageVo> getSpecInfoList(@RequestBody PageRequest pageRequest) {
+        return ApiResponse.returnSuccess(goodsService.getSpecInfoList(pageRequest));
     }
 
     @PostMapping(value = "/addPopulateGoods")
