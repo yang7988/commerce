@@ -29,10 +29,10 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     public Page<NewsInfoVo> getNewsInfos(PageRequest pageRequest) {
         int count = newsInfoMapper.getNewsInfoTotalCount();
         Page<NewsInfoVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize(),count);
-        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(page.getOffset(), page.getPageMaxSize());
-        if(CollectionUtils.isEmpty(newsInfoList)) {
-            return null;
+        if(count <= 0) {
+            return page;
         }
+        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(page.getOffset(), page.getPageMaxSize());
         page.setList(BeanCopyUtil.copy(NewsInfoVo.class, newsInfoList));
         return page;
     }
