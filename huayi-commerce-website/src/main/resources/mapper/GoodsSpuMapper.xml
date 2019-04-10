@@ -55,6 +55,8 @@
            JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
            JOIN tb_goods_category category ON spu.category_id = category.id
     WHERE category.id = #{categoryId}
+    order by specValue.id
+    limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
   </select>
 
   <select id="getGoodsCountByCategoryId" resultType="java.lang.Integer">
