@@ -63,11 +63,11 @@ public class GoodsController {
         return goodsService.getGoodsImage(goodsId);
     }
 
-    @PostMapping(value = "/category/populate/goods")
+    /*@PostMapping(value = "/category/populate/goods")
     @ApiOperation(value = "获取分类的主推热门产品",notes = "获取分类的主推热门产品")
     public ApiResponse<Page<GoodsSpuDetailsVo>> populateGoods(@RequestBody PageCategoryGoodsRequest req){
         return ApiResponse.returnSuccess(goodsService.populateGoods(req.getId(),req.getPageIndex(),req.getPageMaxSize()));
-    }
+    }*/
 
     @PostMapping(value = "/search")
     @ApiOperation(value = "按产品名模糊搜索产品",notes = "按产品名模糊搜索产品")

@@ -98,7 +98,7 @@ public class GoodsAdminController {
         return ApiResponse.returnSuccess(goodsService.getSpecInfoList(pageRequest));
     }
 
-    @PostMapping(value = "/addPopulateGoods")
+    /*@PostMapping(value = "/addPopulateGoods")
     @ApiOperation(value = "添加热门主推产品",notes = "添加热门主推产品")
     public ApiResponse addPopulateGoods(@RequestBody AddPopulateGoodsReq req) {
         ApiResponseEnum responseEnum = goodsService.addPopulateGoods(req);
@@ -106,9 +106,9 @@ public class GoodsAdminController {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
-    }
+    }*/
 
-    @PostMapping(value = "/delPopulateGoods")
+    /*@PostMapping(value = "/delPopulateGoods")
     @ApiOperation(value = "移除热门主推产品",notes = "移除热门主推产品")
     public ApiResponse delPopulateGoods(@RequestBody AddPopulateGoodsReq req) {
         ApiResponseEnum responseEnum = goodsService.delPopulateGoods(req);
@@ -116,5 +116,5 @@ public class GoodsAdminController {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
-    }
+    }*/
 }
