@@ -44,10 +44,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BusinessException.class})
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<?> businessExceptionHandler(Exception e) {
-        logger.error("internalExceptionHandler: stacktrace={}", ExceptionUtils.getStackTrace(e));
-        BusinessException businessException = (BusinessException) e;
+    public ResponseEntity<?> businessExceptionHandler(BusinessException businessException) {
         ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
+        String message = apiResponseEnum != null ? apiResponseEnum.getLabel() : businessException.getMessage();
+        logger.error("intercept===BusinessException===info=={}", message);
         Object errorData = businessException.getErrorData();
         Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
         return new ResponseEntity(retVl, HttpStatus.OK);

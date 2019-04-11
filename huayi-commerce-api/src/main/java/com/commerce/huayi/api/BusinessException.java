@@ -18,10 +18,6 @@ public class BusinessException extends RuntimeException {
         this.apiResponseEnum = apiResponseEnum;
     }
 
-    public BusinessException(String errMsg) {
-        super(errMsg);
-    }
-
     public ApiResponseEnum getApiResponseEnum() {
         return this.apiResponseEnum;
     }
