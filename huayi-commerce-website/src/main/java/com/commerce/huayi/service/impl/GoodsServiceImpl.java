@@ -108,21 +108,22 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum addCategory(CategoryReq categoryReq) {
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(categoryReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> translateMapper.insertTranslateDict(map));
         Example example = new Example(GoodsCategory.class);
         example.createCriteria().andEqualTo("categoryName", categoryReq.getCategoryName());
         int count = goodsCategoryMapper.selectCountByExample(example);
         if (count > 0) {
-            return ApiResponseEnum.GOODS_CATEGORY_EXISTS;
+            return ApiResponseEnum.SUCCESS;
         }
         GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
         goodsCategory.setIsDelete(Constant.NODELETE);
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
         goodsCategoryMapper.insertSelective(goodsCategory);
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(categoryReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> translateMapper.insertTranslateDict(map));
+
         return ApiResponseEnum.SUCCESS;
     }
 
@@ -155,6 +156,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public GoodsSpuVo addGoods(AddGoodsReq addGoodsReq) {
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> translateMapper.insertTranslateDict(map));
+
         if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
             return null;
         }
@@ -173,12 +179,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
-
-
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> translateMapper.insertTranslateDict(map));
         return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
