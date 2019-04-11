@@ -12,7 +12,7 @@ import java.util.Map;
 
 @ApiModel(value = "产品添加的请求json对象")
 @Pretreatment
-public class AddGoodsReq {
+public class AddGoodsReq extends AbstractDictReq {
 
     //商品名称
     @ApiModelProperty(value = "产品名称",required = true,example = "blue_earphone")
@@ -97,6 +97,7 @@ public class AddGoodsReq {
         this.optionals = optionals;
     }
 
+    @Override
     public Map<String, String> buildSql(String language) {
         if (StringUtils.isBlank(this.goodsName) || StringUtils.isBlank(this.goodsDescription)) {
             return null;

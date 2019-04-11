@@ -11,7 +11,7 @@ import java.util.Map;
 
 @ApiModel(value = "添加规格请求json对象")
 @Pretreatment
-public class AddSpuSpecReq {
+public class AddSpuSpecReq extends AbstractDictReq {
 
     //规格名称
     @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
@@ -74,6 +74,7 @@ public class AddSpuSpecReq {
         this.translation = translation;
     }
 
+    @Override
     public Map<String, String> buildSql(String language) {
         Map<String, String> sqlMap = new HashMap<>();
         String specNameKey = "specName_".concat(language);
@@ -83,17 +84,23 @@ public class AddSpuSpecReq {
         if (StringUtils.isBlank(specTranslate) || StringUtils.isBlank(specDescriptionTranslate)) {
             return null;
         }
-        String specPreSql = "insert into tb_goods_spec_%s (spec_name,spec_name_translate,spec_description," +
-                "spec_description_translate) values('%s','%s','%s','%s')";
-        String specSql = String.format(specPreSql, language, this.specName, specTranslate, this.specDescription, specDescriptionTranslate);
+        String specPreSql = "insert into tb_goods_spec_%s (spec_name,spec_name_translate,spec_description,spec_description_translate) " +
+                "SELECT '%s','%s','%s','%s' " +
+                "FROM DUAL WHERE NOT EXISTS (" +
+                "SELECT spec_name,spec_description FROM tb_goods_spec_%s " +
+                "WHERE spec_name = '%s' and spec_description='%s')";
+
+        String specSql = String.format(specPreSql,language,this.specName, specTranslate, this.specDescription, specDescriptionTranslate,language,this.specName,this.specDescription);
+
         sqlMap.put("specSqlStatement", specSql);
         String specValueKey = "specValue_".concat(language);
         String specValueTranslate = translation.get(specValueKey);
         if (StringUtils.isBlank(specValueTranslate)) {
             return null;
         }
-        String specValuePreSql = "insert into tb_goods_spec_value_%s (spec_value,spec_value_translate) values('%s','%s')";
-        String specValueSql = String.format(specValuePreSql, language, this.specValue, specValueTranslate);
+        String specValuePreSql = "insert into tb_goods_spec_value_%s (spec_value,spec_value_translate) " +
+                "select '%s','%s' FROM DUAL WHERE NOT EXISTS (SELECT spec_value from tb_goods_spec_value_%s where spec_value = '%s')";
+        String specValueSql = String.format(specValuePreSql, language, this.specValue, specValueTranslate,language,this.specValue);
         sqlMap.put("specValueSql", specValueSql);
         return sqlMap;
     }

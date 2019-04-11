@@ -2,6 +2,7 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.asyn.AsynTranslateTask;
 import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
@@ -62,6 +63,9 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private JedisTemplate jedisTemplate;
 
+    @Autowired
+    private ThreadService threadService;
+
     @Override
     public Page<CategoryVo> getCategories(Long id,String name, int pageIndex, int pageMaxSize) throws BusinessException {
         Condition condition = Condition.create();
@@ -119,6 +123,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
         goodsCategoryMapper.insertSelective(goodsCategory);
+        threadService.submit(new AsynTranslateTask(categoryReq,translateMapper));
         //增加字典翻译
         return ApiResponseEnum.SUCCESS;
     }
@@ -170,11 +175,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
-        //增加产品字典翻译
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> translateMapper.insertTranslateDict(map));
+        threadService.submit(new AsynTranslateTask(addGoodsReq,translateMapper));
         return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
@@ -221,15 +222,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecValue.setUpdateDate(new Date());
         goodsSpecValue.setIsDelete(Constant.NODELETE);
         goodsSpecValueMapper.insertSelective(goodsSpecValue);
-        //增加规格及规格值字典翻译
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addSpuSpecReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> map.forEach((key, value) -> {
-            Map<String, String> sqlMap = new HashMap<>(1);
-            sqlMap.put("sqlStatement", value);
-            translateMapper.insertTranslateDict(sqlMap);
-        }));
+        threadService.submit(new AsynTranslateTask(addSpuSpecReq,translateMapper));
         return ApiResponseEnum.SUCCESS;
     }
 
