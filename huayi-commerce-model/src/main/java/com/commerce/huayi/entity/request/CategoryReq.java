@@ -1,5 +1,6 @@
 package com.commerce.huayi.entity.request;
 
+import com.commerce.huayi.annotation.Pretreatment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
@@ -19,11 +20,13 @@ public class CategoryReq {
     //分类名称
     @ApiModelProperty(value = "分类名",example = "big_earphone")
     @NotNull
+    @Pretreatment
     private String categoryName;
 
     //分类描述
     @ApiModelProperty(value = "分类描述",example = "big_earphone")
     @NotNull
+    @Pretreatment
     private String categoryDescription;
 
     //分类名称及描述的翻译可选字段
