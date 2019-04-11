@@ -55,6 +55,11 @@
            JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
            JOIN tb_goods_category category ON spu.category_id = category.id
       WHERE 1=1
+      and tgss.is_delete =0
+      and spu.is_delete=0
+      and specValue.is_delete =0
+      and spec.is_delete =0
+      and category.is_delete = 0
       <if test="categoryId != null and categoryId != 0">
           and category.id = #{categoryId}
       </if>
@@ -72,6 +77,11 @@
            JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
            JOIN tb_goods_category category ON spu.category_id = category.id
     WHERE 1=1
+      and tgss.is_delete =0
+      and spu.is_delete=0
+      and specValue.is_delete =0
+      and spec.is_delete =0
+      and category.is_delete = 0
       <if test="categoryId != null and categoryId != 0">
           and category.id = #{categoryId}
       </if>

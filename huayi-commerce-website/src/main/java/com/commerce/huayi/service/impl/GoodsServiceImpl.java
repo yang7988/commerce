@@ -304,24 +304,16 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<GoodsSpuDetailsVo> populateGoods(Long id) {
-        Example example = new Example(GoodPopulate.class);
-        example.createCriteria().andEqualTo("categoryId", id);
-        List<GoodPopulate> goodPopulates = goodPopulateMapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(goodPopulates)) {
-            return null;
+    public Page<GoodsSpuDetailsVo> populateGoods(Long id, int pageIndex, int pageMaxSize) {
+        int count = goodPopulateMapper.selectPopulateGoodsCount(id);
+        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
+        if(count <= 0) {
+            return page;
         }
-        List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
-        for (GoodPopulate goodPopulate : goodPopulates) {
-            GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodPopulate.getSpuId());
-            GoodsSpuDetailsVo detailsVo = BeanCopyUtil.copy(GoodsSpuDetailsVo.class, goodsSpu);
-            GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(goodPopulate.getSpecValueId());
-            BeanCopyUtil.copy(detailsVo, goodsSpecValue);
-            GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(goodsSpecValue.getSpecId());
-            BeanCopyUtil.copy(detailsVo, goodsSpec);
-            goodsSpuDetailsVos.add(detailsVo);
-        }
-        return goodsSpuDetailsVos;
+        List<GoodsSpuDetailsVo> list = goodPopulateMapper.selectPopulateGoodsByPage(id, page.getOffset(), page.getPageMaxSize());
+        page.setList(list);
+        return page;
+
     }
 
     @Override

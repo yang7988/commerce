@@ -43,7 +43,7 @@ public interface GoodsService {
 
     Page<GoodsSpecValueVo> getSpecInfoList(PageRequest pageRequest);
 
-    List<GoodsSpuDetailsVo> populateGoods(Long id);
+    Page<GoodsSpuDetailsVo> populateGoods(Long id, int pageIndex, int pageMaxSize);
 
     ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req);
 

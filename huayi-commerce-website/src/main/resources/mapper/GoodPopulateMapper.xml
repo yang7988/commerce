@@ -15,4 +15,60 @@
     <!--@mbg.generated generated on Tue Apr 09 15:46:15 CST 2019.-->
     id, category_id, spu_id, spec_value_id, is_delete, create_date, update_date
   </sql>
+
+
+    <select id="selectPopulateGoodsCount" resultType="int">
+      SELECT
+             count(1)
+      FROM
+           tb_good_populate tgp
+             join tb_goods_category category on tgp.category_id = category.id
+             join tb_goods_spu spu on tgp.spu_id = spu.id
+             join tb_goods_spec_value specValue on tgp.spec_value_id = specValue.id
+             join tb_goods_spec spec on specValue.spec_id = spec.id
+      where 1=1
+        and tgp.is_delete = 0
+        and spu.is_delete=0
+        and specValue.is_delete =0
+        and spec.is_delete =0
+        and category.is_delete = 0
+      <if test="categoryId != null and categoryId != 0">
+        and tgp.category_id = #{categoryId}
+      </if>
+    </select>
+
+    <select id="selectPopulateGoodsByPage" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
+      SELECT
+             spu.id,
+             spu.spu_no            as spuNo,
+             spu.goods_name        as goodsName,
+             spu.goods_description as goodsDescription,
+             spu.goods_image_key   as goodsImageKey,
+             spu.low_price         as lowPrice,
+             spu.brand_id          as brandId,
+             category.id           as categoryId,
+             spec.id               as specId,
+             spec.spec_no          as specNo,
+             spec.spec_name        as specName,
+             spec.spec_description as specDescription,
+             specValue.id          as specValueId,
+             specValue.spec_value  as specValue
+      FROM
+           tb_good_populate tgp
+             join tb_goods_category category on tgp.category_id = category.id
+             join tb_goods_spu spu on tgp.spu_id = spu.id
+             join tb_goods_spec_value specValue on tgp.spec_value_id = specValue.id
+             join tb_goods_spec spec on specValue.spec_id = spec.id
+      where 1=1
+        and tgp.is_delete = 0
+        and spu.is_delete=0
+        and specValue.is_delete =0
+        and spec.is_delete =0
+        and category.is_delete = 0
+      <if test="categoryId != null and categoryId != 0">
+        and tgp.category_id = #{categoryId}
+      </if>
+      order by specValue.id
+      limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
+    </select>
 </mapper>
