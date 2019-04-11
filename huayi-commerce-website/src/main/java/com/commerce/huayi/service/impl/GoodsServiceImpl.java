@@ -208,7 +208,8 @@ public class GoodsServiceImpl implements GoodsService {
             goodsSpecMapper.insertSelective(goodsSpec);
         }
         Example specValexample = new Example(GoodsSpecValue.class);
-        specValexample.createCriteria().andEqualTo("specId", goodsSpec.getId());
+        specValexample.createCriteria().andEqualTo("specId", goodsSpec.getId())
+                .andEqualTo("specValue",addSpuSpecReq.getSpecValue());
         int countByExample = goodsSpecValueMapper.selectCountByExample(specValexample);
         if (countByExample > 0) {
             return ApiResponseEnum.SUCCESS;
