@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApiModel(value = "产品添加的请求json对象")
+@Pretreatment
 public class AddGoodsReq {
 
     //商品名称

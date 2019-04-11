@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApiModel(value = "商品分类的请求json对象")
+@Pretreatment
 public class CategoryReq {
 
     //父级分类id

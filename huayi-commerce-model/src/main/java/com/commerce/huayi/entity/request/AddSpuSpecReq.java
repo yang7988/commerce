@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApiModel(value = "添加规格请求json对象")
+@Pretreatment
 public class AddSpuSpecReq {
 
     //规格名称
