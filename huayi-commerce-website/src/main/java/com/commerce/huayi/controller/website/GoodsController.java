@@ -3,7 +3,6 @@ package com.commerce.huayi.controller.website;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.GoodsSpecDetailsReq;
 import com.commerce.huayi.entity.request.PageCategoryGoodsRequest;
-import com.commerce.huayi.entity.request.PrimaryKeyRequest;
 import com.commerce.huayi.entity.request.SearchGoodsReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
@@ -14,10 +13,11 @@ import com.commerce.huayi.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController

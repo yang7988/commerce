@@ -1,10 +1,9 @@
 package com.commerce.huayi.service.impl;
 
+import com.commerce.huayi.annotation.Dictionary;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
-import com.commerce.huayi.asyn.AsynTranslateTask;
 import com.commerce.huayi.cache.JedisTemplate;
-import com.commerce.huayi.cache.enums.JedisStatus;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
@@ -58,13 +57,7 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodPopulateMapper goodPopulateMapper;
 
     @Autowired
-    private TranslateMapper translateMapper;
-
-    @Autowired
     private JedisTemplate jedisTemplate;
-
-    @Autowired
-    private ThreadService threadService;
 
     @Override
     public Page<CategoryVo> getCategories(Long id,String name, int pageIndex, int pageMaxSize) throws BusinessException {
@@ -111,6 +104,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
+    @Dictionary
     public ApiResponseEnum addCategory(CategoryReq categoryReq) {
         Example example = new Example(GoodsCategory.class);
         example.createCriteria().andEqualTo("categoryName", categoryReq.getCategoryName());
@@ -123,7 +117,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
         goodsCategoryMapper.insertSelective(goodsCategory);
-        threadService.submit(new AsynTranslateTask(categoryReq,translateMapper));
         //增加字典翻译
         return ApiResponseEnum.SUCCESS;
     }
@@ -156,6 +149,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
+    @Dictionary
     public GoodsSpuVo addGoods(AddGoodsReq addGoodsReq) {
         if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
             return null;
@@ -175,7 +169,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
-        threadService.submit(new AsynTranslateTask(addGoodsReq,translateMapper));
         return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
@@ -193,6 +186,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
+    @Dictionary
     public ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
         Example example = new Example(GoodsSpec.class);
         example.createCriteria().andEqualTo("specName", addSpuSpecReq.getSpecName());
@@ -222,7 +216,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecValue.setUpdateDate(new Date());
         goodsSpecValue.setIsDelete(Constant.NODELETE);
         goodsSpecValueMapper.insertSelective(goodsSpecValue);
-        threadService.submit(new AsynTranslateTask(addSpuSpecReq,translateMapper));
         return ApiResponseEnum.SUCCESS;
     }
 

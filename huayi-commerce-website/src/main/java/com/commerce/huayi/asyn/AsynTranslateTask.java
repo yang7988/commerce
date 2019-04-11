@@ -3,7 +3,6 @@ package com.commerce.huayi.asyn;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.request.AbstractDictReq;
 import com.commerce.huayi.mapper.TranslateMapper;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;

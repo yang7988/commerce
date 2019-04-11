@@ -1,5 +1,6 @@
 package com.commerce.huayi.entity.request;
 
+import com.commerce.huayi.annotation.Dictionary;
 import com.commerce.huayi.annotation.Pretreatment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @ApiModel(value = "产品添加的请求json对象")
 @Pretreatment
+@Dictionary
 public class AddGoodsReq extends AbstractDictReq {
 
     //商品名称

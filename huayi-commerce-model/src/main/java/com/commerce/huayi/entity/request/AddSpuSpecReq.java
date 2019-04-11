@@ -1,5 +1,6 @@
 package com.commerce.huayi.entity.request;
 
+import com.commerce.huayi.annotation.Dictionary;
 import com.commerce.huayi.annotation.Pretreatment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @ApiModel(value = "添加规格请求json对象")
 @Pretreatment
+@Dictionary
 public class AddSpuSpecReq extends AbstractDictReq {
 
     //规格名称
