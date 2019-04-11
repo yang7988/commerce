@@ -14,6 +14,7 @@ import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.mapper.*;
+import com.commerce.huayi.pagination.Condition;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
@@ -62,12 +63,20 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Page<CategoryVo> getCategories(Long id,String name, int pageIndex, int pageMaxSize) throws BusinessException {
-        Integer count = goodsCategoryMapper.selectCategoryCountByPage(id, name);
+        Condition condition = Condition.create();
+        Map<String, Object> criterion = condition.getCriterion();
+        criterion.put("categoryId",id);
+        criterion.put("categoryName",name);
+        //查询数据库count
+        Integer count = goodsCategoryMapper.selectCategoryCount(condition);
         Page<CategoryVo> page = Page.create(pageIndex, pageMaxSize, count);
         if (count <= 0) {
             return page;
         }
-        List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(id, name, page.getOffset(), page.getPageMaxSize());
+        //分页条件
+        condition.setOffset(page.getOffset());
+        condition.setRowSize(page.getPageMaxSize());
+        List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(condition);
         page.setList(categoryVos);
         return page;
     }

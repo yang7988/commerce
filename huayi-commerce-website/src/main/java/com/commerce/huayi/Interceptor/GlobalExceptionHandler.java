@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -51,6 +52,18 @@ public class GlobalExceptionHandler {
         Object errorData = businessException.getErrorData();
         Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
         return new ResponseEntity(retVl, HttpStatus.OK);
+    }
+
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler({MissingServletRequestPartException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ResponseEntity<?> missingServletRequestPartExceptionHandler(MissingServletRequestPartException exception) {
+        ApiResponseEnum apiResponseEnum = ApiResponseEnum.FILE_CANT_BE_EMPTY;
+        String message = apiResponseEnum.getLabel();
+        logger.error("intercept===BusinessException===info=={}", message);
+        Object retVl = translateService.translate(ApiResponse.returnFail(apiResponseEnum));
+        return new ResponseEntity(retVl, HttpStatus.BAD_REQUEST);
     }
 
     @SuppressWarnings("unchecked")
