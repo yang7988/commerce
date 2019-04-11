@@ -8,7 +8,6 @@ import com.commerce.huayi.mapper.NewsInfoMapper;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.NewsInfoService;
 import com.commerce.huayi.utils.BeanCopyUtil;
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

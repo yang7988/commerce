@@ -1,7 +1,7 @@
 <configuration>
 
 
-    <property name="moduleName" value="huayi-commerce-website"/>
+    <property name="moduleName" value="website"/>
 
     <property name="charset" value="utf-8"/>
     <property name="pattern" value="%d [%thread] %-5level %logger - %msg %n"/>
