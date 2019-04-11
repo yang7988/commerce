@@ -108,22 +108,18 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum addCategory(CategoryReq categoryReq) {
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(categoryReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> translateMapper.insertTranslateDict(map));
         Example example = new Example(GoodsCategory.class);
         example.createCriteria().andEqualTo("categoryName", categoryReq.getCategoryName());
         int count = goodsCategoryMapper.selectCountByExample(example);
         if (count > 0) {
-            return ApiResponseEnum.SUCCESS;
+            return ApiResponseEnum.GOODS_CATEGORY_EXISTS;
         }
         GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, categoryReq);
         goodsCategory.setIsDelete(Constant.NODELETE);
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
         goodsCategoryMapper.insertSelective(goodsCategory);
-
+        //增加字典翻译
         return ApiResponseEnum.SUCCESS;
     }
 
@@ -156,11 +152,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public GoodsSpuVo addGoods(AddGoodsReq addGoodsReq) {
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> translateMapper.insertTranslateDict(map));
-
         if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
             return null;
         }
@@ -179,6 +170,11 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
+        //增加产品字典翻译
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> translateMapper.insertTranslateDict(map));
         return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
@@ -197,14 +193,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        List<Map<String, String>> list = languages.stream().map(addSpuSpecReq::buildSql).collect(Collectors.toList());
-        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        list.forEach(map -> map.forEach((key, value) -> {
-            Map<String, String> sqlMap = new HashMap<>(1);
-            sqlMap.put("sqlStatement", value);
-            translateMapper.insertTranslateDict(sqlMap);
-        }));
         Example example = new Example(GoodsSpec.class);
         example.createCriteria().andEqualTo("specName", addSpuSpecReq.getSpecName());
         int count = goodsSpecMapper.selectCountByExample(example);
@@ -232,6 +220,15 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecValue.setUpdateDate(new Date());
         goodsSpecValue.setIsDelete(Constant.NODELETE);
         goodsSpecValueMapper.insertSelective(goodsSpecValue);
+        //增加规格及规格值字典翻译
+        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        List<Map<String, String>> list = languages.stream().map(addSpuSpecReq::buildSql).collect(Collectors.toList());
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        list.forEach(map -> map.forEach((key, value) -> {
+            Map<String, String> sqlMap = new HashMap<>(1);
+            sqlMap.put("sqlStatement", value);
+            translateMapper.insertTranslateDict(sqlMap);
+        }));
         return ApiResponseEnum.SUCCESS;
     }
 
