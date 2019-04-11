@@ -53,4 +53,6 @@ public interface GoodsService {
     Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize);
 
     ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req);
+
+    GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId);
 }

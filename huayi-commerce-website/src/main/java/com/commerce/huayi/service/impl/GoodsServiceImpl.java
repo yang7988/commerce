@@ -415,4 +415,9 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
         return ApiResponseEnum.SUCCESS;
     }
+
+    @Override
+    public GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId) {
+        return goodsSpuSpecMapper.selectGoodsSpecDetails(id,specValueId);
+    }
 }

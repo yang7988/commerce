@@ -15,4 +15,40 @@
     <!--@mbg.generated generated on Thu Apr 11 12:28:03 CST 2019.-->
     id, spu_id, spec_value_id, spec_image_key, create_date, update_date, is_delete
   </sql>
+
+    <select id="selectGoodsSpecDetails" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
+      SELECT
+      spu.id,
+      spu.spu_no            as spuNo,
+      spu.goods_name        as goodsName,
+      spu.goods_description as goodsDescription,
+      spu.low_price         as lowPrice,
+      spu.brand_id          as brandId,
+      category.id           as categoryId,
+      spec.id               as specId,
+      spec.spec_no          as specNo,
+      spec.spec_name        as specName,
+      spu.goods_image_key   as goodsImageKey,
+      spec.spec_description as specDescription,
+      specValue.id          as specValueId,
+      specValue.spec_value  as specValue
+      FROM
+      tb_goods_spu_spec tgss
+      JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
+      JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
+      JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
+      JOIN tb_goods_category category ON spu.category_id = category.id
+      WHERE 1=1
+      and tgss.is_delete =0
+      and spu.is_delete=0
+      and specValue.is_delete =0
+      and spec.is_delete =0
+      and category.is_delete = 0
+      <if test="spuId != null and spuId != 0">
+        and tgss.spu_id = #{spuId}
+      </if>
+      <if test="specValueId != null and specValueId != 0">
+        and tgss.spec_value_id = #{specValueId}
+      </if>
+    </select>
 </mapper>

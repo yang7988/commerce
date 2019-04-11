@@ -1,6 +1,7 @@
 package com.commerce.huayi.controller.website;
 
 import com.commerce.huayi.api.ApiResponse;
+import com.commerce.huayi.entity.request.GoodsSpecDetailsReq;
 import com.commerce.huayi.entity.request.PageCategoryGoodsRequest;
 import com.commerce.huayi.entity.request.PrimaryKeyRequest;
 import com.commerce.huayi.entity.request.SearchGoodsReq;
@@ -46,6 +47,13 @@ public class GoodsController {
     public ApiResponse<Page<GoodsSpuDetailsVo>> goodsDetails(@RequestBody PageCategoryGoodsRequest req){
         Page<GoodsSpuDetailsVo> page = goodsService.goodsDetails(req.getId(), req.getPageIndex(), req.getPageMaxSize());
         return ApiResponse.returnSuccess(page);
+    }
+
+    @PostMapping(value = "/goodsSpecDetails")
+    @ApiOperation(value = "获取某一个产品下某一具体规格的详情",notes = "获取某一个产品下所有不同规格产品")
+    public ApiResponse<GoodsSpuDetailsVo> goodsSpecDetails(@RequestBody GoodsSpecDetailsReq req){
+        GoodsSpuDetailsVo details = goodsService.goodsSpecDetails(req.getId(), req.getSpecValueId());
+        return ApiResponse.returnSuccess(details);
     }
 
     @RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
