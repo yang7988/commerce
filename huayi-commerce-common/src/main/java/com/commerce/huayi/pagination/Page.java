@@ -41,32 +41,8 @@ public final class Page<T> implements Serializable {
             "                \"goodsImageKey\": \"\",\n" +
             "                \"lowPrice\": 500,\n" +
             "                \"categoryId\": 10,\n" +
-            "                \"brandId\": 0,\n" +
-            "                \"specId\": 1,\n" +
-            "                \"specNo\": \"1456498132132\",\n" +
-            "                \"specName\": \"颜色\",\n" +
-            "                \"specDescription\": \"用于区分商品颜色\",\n" +
-            "                \"specValueId\": 1,\n" +
-            "                \"specValue\": \"红色\"\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"id\": 1,\n" +
-            "                \"spuNo\": \"132156465kjkj\",\n" +
-            "                \"goodsName\": \"蓝牙大耳机样品\",\n" +
-            "                \"goodsDescription\": \"蓝牙大耳机样品\",\n" +
-            "                \"goodsImageKey\": \"\",\n" +
-            "                \"lowPrice\": 500,\n" +
-            "                \"categoryId\": 10,\n" +
-            "                \"brandId\": 0,\n" +
-            "                \"specId\": 1,\n" +
-            "                \"specNo\": \"1456498132132\",\n" +
-            "                \"specName\": \"颜色\",\n" +
-            "                \"specDescription\": \"用于区分商品颜色\",\n" +
-            "                \"specValueId\": 2,\n" +
-            "                \"specValue\": \"绿色\"\n" +
-            "            }\n" +
-            "            \n" +
-            "        ]")
+            "                \"brandId\": 0\n" +
+            "            }")
     private List<T> list;
 
     // 总页数，计算出来，通过总记录数和每页显示多少条记录算出来的
