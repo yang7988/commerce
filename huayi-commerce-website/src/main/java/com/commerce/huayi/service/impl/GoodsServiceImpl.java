@@ -13,6 +13,7 @@ import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
+import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.mapper.*;
 import com.commerce.huayi.pagination.Condition;
 import com.commerce.huayi.pagination.Page;
@@ -82,13 +83,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Page<GoodsSpuDetailsVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException {
+    public Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException {
         Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
-        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
+        Page<GoodsSpuVo> page = Page.create(pageIndex, pageMaxSize, count);
         if(count <= 0) {
             return page;
         }
-        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
+        List<GoodsSpuVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
         page.setList(list);
         return page;
     }
@@ -153,15 +154,15 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public ApiResponseEnum addGoods(AddGoodsReq addGoodsReq) {
+    public GoodsSpuVo addGoods(AddGoodsReq addGoodsReq) {
         if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
-            return ApiResponseEnum.PARAMETER_CANT_BE_EMPTY;
+            return null;
         }
         Example spuExample = new Example(GoodsSpu.class);
         spuExample.createCriteria().andEqualTo("goodsName", addGoodsReq.getGoodsName());
         int count = goodsSpuMapper.selectCountByExample(spuExample);
         if (count > 0) {
-            return ApiResponseEnum.GOODS_NAME_EXISTS;
+            return null;
         }
         //添加产品单元
         GoodsSpu goodsSpu = new GoodsSpu();
@@ -173,18 +174,12 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
 
-        GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();
-        goodsSpuSpec.setSpuId(goodsSpu.getId());
-        goodsSpuSpec.setSpecValueId(addGoodsReq.getSpecValueId());
-        goodsSpuSpec.setCreateDate(new Date());
-        goodsSpuSpec.setUpdateDate(new Date());
-        goodsSpuSpec.setIsDelete(Constant.NODELETE);
-        goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
+
         List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
         List<Map<String, String>> list = languages.stream().map(addGoodsReq::buildSql).collect(Collectors.toList());
         list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
         list.forEach(map -> translateMapper.insertTranslateDict(map));
-        return ApiResponseEnum.SUCCESS;
+        return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
     @Override
@@ -195,28 +190,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.DELETED);
         goodsSpuMapper.updateByPrimaryKeySelective(goodsSpu);
-        return ApiResponseEnum.SUCCESS;
-    }
-
-    @Override
-    @Transactional
-    public ApiResponseEnum addGoodsImage(Long goodsId,byte[] bytes) {
-        if(bytes == null) {
-            return ApiResponseEnum.GOODS_IMAGE_ABSENCE;
-        }
-        GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodsId);
-        if(goodsSpu == null) {
-           return ApiResponseEnum.GOODS_NOT_EXISTS;
-        }
-        String imageKey = goodsSpu.getSpuNo().concat(":").concat(goodsSpu.getGoodsName());
-        goodsSpu.setGoodsImageKey(imageKey);
-        //jedis保存产品单元图片
-        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(goodsSpu.getCategoryId());
-        RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, goodsCategory.getCategoryName());
-        JedisStatus jedisStatus = jedisTemplate.hset(redisKey, imageKey, bytes);
-        if(JedisStatus.OK == jedisStatus) {
-            goodsSpuMapper.updateByPrimaryKeySelective(goodsSpu);
-        }
         return ApiResponseEnum.SUCCESS;
     }
 
@@ -410,4 +383,36 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+    @Override
+    public Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize) {
+        Integer count = goodsSpuMapper.getGoodsCountByBySpuId(id);
+        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
+        if(count <= 0) {
+            return page;
+        }
+        List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsBySpuId(id, page.getOffset(), page.getPageMaxSize());
+        page.setList(list);
+        return page;
+    }
+
+    @Override
+    @Transactional
+    public ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req) {
+        Example example = new Example(GoodsSpuSpec.class);
+        example.createCriteria().andEqualTo("spuId",req.getId())
+                .andEqualTo("specValueId",req.getSpecValueId());
+        int count = goodsSpuSpecMapper.selectCountByExample(example);
+        if(count <= 0) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();
+        goodsSpuSpec.setSpuId(req.getId());
+        goodsSpuSpec.setSpecValueId(req.getSpecValueId());
+        goodsSpuSpec.setSpecImageKey(req.getGoodsSpecImageKey());
+        goodsSpuSpec.setCreateDate(new Date());
+        goodsSpuSpec.setUpdateDate(new Date());
+        goodsSpuSpec.setIsDelete(Constant.NODELETE);
+        goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
+        return ApiResponseEnum.SUCCESS;
+    }
 }

@@ -6,6 +6,7 @@ import com.commerce.huayi.entity.request.PrimaryKeyRequest;
 import com.commerce.huayi.entity.request.SearchGoodsReq;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
+import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.ServletUtils;
@@ -35,11 +36,17 @@ public class GoodsController {
 
     @PostMapping(value = "/categoryGoods")
     @ApiOperation(value = "获取分类的全部产品",notes = "获取分类的全部产品此接口不分页")
-    public ApiResponse<Page<GoodsSpuDetailsVo>> categoryGoods(@RequestBody PageCategoryGoodsRequest req){
-        Page<GoodsSpuDetailsVo> page = goodsService.categoryGoods(req.getId(), req.getPageIndex(), req.getPageMaxSize());
+    public ApiResponse<Page<GoodsSpuVo>> categoryGoods(@RequestBody PageCategoryGoodsRequest req){
+        Page<GoodsSpuVo> page = goodsService.categoryGoods(req.getId(), req.getPageIndex(), req.getPageMaxSize());
         return ApiResponse.returnSuccess(page);
     }
 
+    @PostMapping(value = "/goodsDetails")
+    @ApiOperation(value = "获取某一个产品下所有不同规格产品",notes = "获取某一个产品下所有不同规格产品")
+    public ApiResponse<Page<GoodsSpuDetailsVo>> goodsDetails(@RequestBody PageCategoryGoodsRequest req){
+        Page<GoodsSpuDetailsVo> page = goodsService.goodsDetails(req.getId(), req.getPageIndex(), req.getPageMaxSize());
+        return ApiResponse.returnSuccess(page);
+    }
 
     @RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
     @ResponseBody

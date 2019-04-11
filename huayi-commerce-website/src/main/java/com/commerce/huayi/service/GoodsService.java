@@ -6,6 +6,7 @@ import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.CategoryVo;
 import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
+import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.pagination.Page;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface GoodsService {
      */
     Page<CategoryVo> getCategories(Long id, String name,int pageIndex, int pageMaxSize) throws BusinessException;
 
-    Page<GoodsSpuDetailsVo> categoryGoods(Long id, int pageIndex, int pageMaxSize)  throws BusinessException;
+    Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize)  throws BusinessException;
 
     ApiResponseEnum addCategory(CategoryReq categoryReq);
 
@@ -33,11 +34,9 @@ public interface GoodsService {
 
     byte[] getGoodsImage(Long goodsId);
 
-    ApiResponseEnum addGoods(AddGoodsReq addGoodsReq);
+    GoodsSpuVo addGoods(AddGoodsReq addGoodsReq);
 
     ApiResponseEnum deleteGoods(Long goodsId);
-
-    ApiResponseEnum addGoodsImage(Long goodsId,byte[] bytes);
 
     ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq);
 
@@ -51,4 +50,7 @@ public interface GoodsService {
 
     List<GoodsSpuDetailsVo> search(String keyWord,String language);
 
+    Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize);
+
+    ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req);
 }

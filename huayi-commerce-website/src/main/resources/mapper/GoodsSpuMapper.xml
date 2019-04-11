@@ -33,7 +33,7 @@
   </select>
 
 
-  <select id="getGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
+  <select id="getGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
     SELECT spu.id,
            spu.spu_no            as spuNo,
            spu.goods_name        as goodsName,
@@ -41,29 +41,17 @@
            spu.goods_image_key   as goodsImageKey,
            spu.low_price         as lowPrice,
            spu.brand_id          as brandId,
-           category.id           as categoryId,
-           spec.id               as specId,
-           spec.spec_no          as specNo,
-           spec.spec_name        as specName,
-           spec.spec_description as specDescription,
-           specValue.id          as specValueId,
-           specValue.spec_value  as specValue
+           category.id           as categoryId
     FROM
-         tb_goods_spu_spec tgss
-           JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
-           JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
-           JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
-           JOIN tb_goods_category category ON spu.category_id = category.id
+           tb_goods_category category JOIN tb_goods_spu spu ON category.id = spu.category_id
+
       WHERE 1=1
-      and tgss.is_delete =0
       and spu.is_delete=0
-      and specValue.is_delete =0
-      and spec.is_delete =0
       and category.is_delete = 0
       <if test="categoryId != null and categoryId != 0">
           and category.id = #{categoryId}
       </if>
-    order by specValue.id
+    order by spu.id
     limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
   </select>
 
@@ -71,20 +59,68 @@
     SELECT
            count(1)
     FROM
-         tb_goods_spu_spec tgss
-           JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
-           JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
-           JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
-           JOIN tb_goods_category category ON spu.category_id = category.id
+      tb_goods_category category JOIN tb_goods_spu spu ON category.id = spu.category_id
     WHERE 1=1
-      and tgss.is_delete =0
       and spu.is_delete=0
-      and specValue.is_delete =0
-      and spec.is_delete =0
       and category.is_delete = 0
       <if test="categoryId != null and categoryId != 0">
           and category.id = #{categoryId}
       </if>
   </select>
+
+
+    <select id="getGoodsBySpuId" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
+        SELECT spu.id,
+        spu.spu_no            as spuNo,
+        spu.goods_name        as goodsName,
+        spu.goods_description as goodsDescription,
+        spu.low_price         as lowPrice,
+        spu.brand_id          as brandId,
+        category.id           as categoryId,
+        spec.id               as specId,
+        spec.spec_no          as specNo,
+        spec.spec_name        as specName,
+        spu.goods_image_key   as goodsImageKey,
+        spec.spec_description as specDescription,
+        specValue.id          as specValueId,
+        specValue.spec_value  as specValue
+        FROM
+        tb_goods_spu_spec tgss
+        JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
+        JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
+        JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
+        JOIN tb_goods_category category ON spu.category_id = category.id
+        WHERE 1=1
+        and tgss.is_delete =0
+        and spu.is_delete=0
+        and specValue.is_delete =0
+        and spec.is_delete =0
+        and category.is_delete = 0
+        <if test="spuId != null and spuId != 0">
+            and tgss.spu_id = #{spuId}
+        </if>
+        order by specValue.id
+        limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
+    </select>
+
+    <select id="getGoodsCountByBySpuId" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        tb_goods_spu_spec tgss
+        JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
+        JOIN tb_goods_spec_value specValue ON tgss.spec_value_id = specValue.id
+        JOIN tb_goods_spec spec ON specValue.spec_id = spec.id
+        JOIN tb_goods_category category ON spu.category_id = category.id
+        WHERE 1=1
+        and tgss.is_delete =0
+        and spu.is_delete=0
+        and specValue.is_delete =0
+        and spec.is_delete =0
+        and category.is_delete = 0
+        <if test="spuId != null and spuId != 0">
+            and tgss.spu_id = #{spuId}
+        </if>
+    </select>
 
 </mapper>

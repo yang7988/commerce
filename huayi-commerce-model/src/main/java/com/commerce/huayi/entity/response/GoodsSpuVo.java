@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.math.BigDecimal;
 
-@ApiModel(value = "产品详情的response body")
-public class GoodsSpuDetailsVo {
+@ApiModel(value = "产品的response body")
+public class GoodsSpuVo {
 
     @ApiModelProperty(value = "产品id",required = true,example = "1")
     private Long id;
@@ -41,33 +41,6 @@ public class GoodsSpuDetailsVo {
     //品牌id
     @ApiModelProperty(value = "产品所属品牌id",required = true,example = "0")
     private Long brandId;
-
-    //商品的规格id
-    @ApiModelProperty(value = "产品的规格id",required = true,example = "1")
-    private Long specId;
-
-    //商品的规格编号
-    @ApiModelProperty(value = "产品的规格编号",required = true,example = "Abc-1234567")
-    private String specNo;
-
-    //规格名称
-    @Translate(refTable = "tb_goods_spec",refColumn = "spec_name")
-    @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
-    private String specName;
-
-    //规格描述
-    @Translate(refTable = "tb_goods_spec",refColumn = "spec_description")
-    @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
-    private String specDescription;
-
-    //商品的规格值id
-    @ApiModelProperty(value = "产品的规格值id",required = true,example = "1")
-    private Long specValueId;
-
-    //规格值
-    @Translate(refTable = "tb_goods_spec_value",refColumn = "spec_value")
-    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
-    private String specValue;
 
     public Long getId() {
         return id;
@@ -131,53 +104,5 @@ public class GoodsSpuDetailsVo {
 
     public void setBrandId(Long brandId) {
         this.brandId = brandId;
-    }
-
-    public Long getSpecId() {
-        return specId;
-    }
-
-    public void setSpecId(Long specId) {
-        this.specId = specId;
-    }
-
-    public String getSpecNo() {
-        return specNo;
-    }
-
-    public void setSpecNo(String specNo) {
-        this.specNo = specNo;
-    }
-
-    public String getSpecName() {
-        return specName;
-    }
-
-    public void setSpecName(String specName) {
-        this.specName = specName;
-    }
-
-    public String getSpecDescription() {
-        return specDescription;
-    }
-
-    public void setSpecDescription(String specDescription) {
-        this.specDescription = specDescription;
-    }
-
-    public String getSpecValue() {
-        return specValue;
-    }
-
-    public void setSpecValue(String specValue) {
-        this.specValue = specValue;
-    }
-
-    public Long getSpecValueId() {
-        return specValueId;
-    }
-
-    public void setSpecValueId(Long specValueId) {
-        this.specValueId = specValueId;
     }
 }

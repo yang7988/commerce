@@ -1,5 +1,6 @@
 package com.commerce.huayi.entity.request;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+@ApiModel(value = "添加规格请求json对象")
 public class AddSpuSpecReq {
 
     //规格名称

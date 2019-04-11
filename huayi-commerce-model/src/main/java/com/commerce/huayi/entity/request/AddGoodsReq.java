@@ -1,5 +1,6 @@
 package com.commerce.huayi.entity.request;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+@ApiModel(value = "产品添加的请求json对象")
 public class AddGoodsReq {
 
     //商品名称
@@ -33,16 +35,6 @@ public class AddGoodsReq {
     @ApiModelProperty(value = "产品所属分类id",required = true,example = "10")
     @NotNull
     private Long categoryId;
-
-    //规格名称
-    @ApiModelProperty(value = "产品的规格名称",required = true,example = "1")
-    @NotNull
-    private Long specId;
-
-    //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "1")
-    @NotNull
-    private Long specValueId;
 
     //产品名称及规格的翻译可选字段
     @ApiModelProperty(value = "产品名称及规格的翻译可选字段",position = 8,example = "{\n" +
@@ -91,22 +83,6 @@ public class AddGoodsReq {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public Long getSpecId() {
-        return specId;
-    }
-
-    public void setSpecId(Long specId) {
-        this.specId = specId;
-    }
-
-    public Long getSpecValueId() {
-        return specValueId;
-    }
-
-    public void setSpecValueId(Long specValueId) {
-        this.specValueId = specValueId;
     }
 
     public Map<String, String> getOptionals() {

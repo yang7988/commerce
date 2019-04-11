@@ -1,11 +1,8 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "tb_goods_spu_spec")
 public class GoodsSpuSpec implements Serializable {
@@ -28,6 +25,12 @@ public class GoodsSpuSpec implements Serializable {
      */
     @Column(name = "spec_value_id")
     private Long specValueId;
+
+    /**
+     * 产品规格图
+     */
+    @Column(name = "spec_image_key")
+    private String specImageKey;
 
     /**
      * 创建时间
@@ -104,6 +107,24 @@ public class GoodsSpuSpec implements Serializable {
     }
 
     /**
+     * 获取产品规格图
+     *
+     * @return spec_image_key - 产品规格图
+     */
+    public String getSpecImageKey() {
+        return specImageKey;
+    }
+
+    /**
+     * 设置产品规格图
+     *
+     * @param specImageKey 产品规格图
+     */
+    public void setSpecImageKey(String specImageKey) {
+        this.specImageKey = specImageKey;
+    }
+
+    /**
      * 获取创建时间
      *
      * @return create_date - 创建时间
@@ -166,6 +187,7 @@ public class GoodsSpuSpec implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", spuId=").append(spuId);
         sb.append(", specValueId=").append(specValueId);
+        sb.append(", specImageKey=").append(specImageKey);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", isDelete=").append(isDelete);
@@ -186,11 +208,12 @@ public class GoodsSpuSpec implements Serializable {
         }
         GoodsSpuSpec other = (GoodsSpuSpec) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getSpuId() == null ? other.getSpuId() == null : this.getSpuId().equals(other.getSpuId()))
-            && (this.getSpecValueId() == null ? other.getSpecValueId() == null : this.getSpecValueId().equals(other.getSpecValueId()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
-            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
-            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
+                && (this.getSpuId() == null ? other.getSpuId() == null : this.getSpuId().equals(other.getSpuId()))
+                && (this.getSpecValueId() == null ? other.getSpecValueId() == null : this.getSpecValueId().equals(other.getSpecValueId()))
+                && (this.getSpecImageKey() == null ? other.getSpecImageKey() == null : this.getSpecImageKey().equals(other.getSpecImageKey()))
+                && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
+                && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
+                && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
     }
 
     @Override
@@ -200,6 +223,7 @@ public class GoodsSpuSpec implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getSpuId() == null) ? 0 : getSpuId().hashCode());
         result = prime * result + ((getSpecValueId() == null) ? 0 : getSpecValueId().hashCode());
+        result = prime * result + ((getSpecImageKey() == null) ? 0 : getSpecImageKey().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());

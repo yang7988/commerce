@@ -1,9 +1,11 @@
 package com.commerce.huayi.entity.request;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 
+@ApiModel(value = "添加热门产品请求json对象")
 public class AddPopulateGoodsReq {
 
     @ApiModelProperty(value = "产品id",required = true,example = "1")

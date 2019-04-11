@@ -4,6 +4,7 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.GoodsSpecValueVo;
+import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import io.swagger.annotations.Api;
@@ -47,9 +48,19 @@ public class GoodsAdminController {
     }
 
     @PostMapping(value = "/addGoods")
-    @ApiOperation(value = "添加产品单元",notes = "添加产品单元")
-    public ApiResponse addGoods(@RequestBody AddGoodsReq addGoodsReq) {
-        ApiResponseEnum responseEnum = goodsService.addGoods(addGoodsReq);
+    @ApiOperation(value = "添加产品单元", notes = "添加产品单元")
+    public ApiResponse<GoodsSpuVo> addGoods(@RequestBody AddGoodsReq addGoodsReq) {
+        GoodsSpuVo goodsSpuVo = goodsService.addGoods(addGoodsReq);
+        if (goodsSpuVo == null) {
+            return ApiResponse.returnFail(ApiResponseEnum.GOODS_NAME_EXISTS);
+        }
+        return ApiResponse.returnSuccess(goodsSpuVo);
+    }
+
+    @PostMapping(value = "/addGoodsSpec")
+    @ApiOperation(value = "为某一种产品添加不同的规格,以及添加该规格图", notes = "添加产品单元")
+    public ApiResponse addGoods(@RequestBody AddGoodsSpecReq req) {
+        ApiResponseEnum responseEnum = goodsService.addGoodsSpec(req);
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
@@ -70,23 +81,6 @@ public class GoodsAdminController {
         return null;
     }
 
-
-    @PostMapping(value = "/image/addGoodsImage")
-    @ApiOperation(value = "添加产品图片",notes = "添加产品单元图片")
-    public ApiResponse addGoodsImage(PrimaryKeyRequest req,
-                                     @RequestParam(value = "goodsImage") MultipartFile goodsImage) {
-        byte[] bytes;
-        try {
-            bytes = goodsImage.getBytes();
-        } catch (IOException e) {
-            bytes = null;
-        }
-        ApiResponseEnum responseEnum = goodsService.addGoodsImage(req.getId(),bytes);
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
-            return ApiResponse.returnSuccess();
-        }
-        return ApiResponse.returnFail(responseEnum);
-    }
 
     @PostMapping(value = "/addSpecInfo")
     @ApiOperation(value = "添加规格",notes = "添加产品规格")
