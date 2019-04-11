@@ -1,5 +1,6 @@
 package com.commerce.huayi.entity.response;
 
+import com.commerce.huayi.annotation.Translate;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.HashMap;
@@ -13,14 +14,17 @@ public class GoodsSpecValueVo {
 
     //规格名称
     @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
+    @Translate(refTable = "tb_goods_spec",refColumn = "spec_name")
     private String specName;
 
     //规格描述
     @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
+    @Translate(refTable = "tb_goods_spec",refColumn = "spec_description")
     private String specDescription;
 
     //规格值
     @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
+    @Translate(refTable = "tb_goods_spec_value",refColumn = "spec_value")
     private String specValue;
 
     //规格值id
