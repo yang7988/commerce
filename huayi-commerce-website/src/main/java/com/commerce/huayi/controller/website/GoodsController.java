@@ -56,12 +56,12 @@ public class GoodsController {
         return ApiResponse.returnSuccess(details);
     }
 
-    @RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
+    /*@RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
     @ResponseBody
     @ApiOperation(value = "获取产品图片",notes = "获取产品单元图片GET请求")
     public byte[] getImg(@PathVariable Long goodsId) throws IOException {
         return goodsService.getGoodsImage(goodsId);
-    }
+    }*/
 
     /*@PostMapping(value = "/category/populate/goods")
     @ApiOperation(value = "获取分类的主推热门产品",notes = "获取分类的主推热门产品")
