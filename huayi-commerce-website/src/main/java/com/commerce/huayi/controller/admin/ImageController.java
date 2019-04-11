@@ -22,7 +22,7 @@ public class ImageController {
 
     @PostMapping(value = "/upload")
     @ApiOperation(value = "上传图片",notes = "上传图片")
-    public ApiResponse<ImageUploadVo> upload(@RequestParam(value = "file") MultipartFile file) throws Exception {
-        return ApiResponse.returnSuccess(imageService.upload(file));
+    public ApiResponse<ImageUploadVo> upload(@RequestParam(value = "goodsImage") MultipartFile goodsImage) throws Exception {
+        return ApiResponse.returnSuccess(imageService.upload(goodsImage));
     }
 }
