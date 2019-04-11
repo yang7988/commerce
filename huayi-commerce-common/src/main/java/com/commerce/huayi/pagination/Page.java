@@ -42,7 +42,8 @@ public final class Page<T> implements Serializable {
             "                \"lowPrice\": 500,\n" +
             "                \"categoryId\": 10,\n" +
             "                \"brandId\": 0\n" +
-            "            }")
+            "            }\n" +
+            "        ]")
     private List<T> list;
 
     // 总页数，计算出来，通过总记录数和每页显示多少条记录算出来的
