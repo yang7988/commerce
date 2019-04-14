@@ -18,6 +18,9 @@ public class NewsInfoVo {
     @ApiModelProperty(value = "标题title",required = true)
     private String title;
 
+    @ApiModelProperty(value = "类型type",required = true)
+    private String type;
+
     @ApiModelProperty(value = "内容明细content",required = true)
     private String content;
 
@@ -38,6 +41,14 @@ public class NewsInfoVo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getContent() {

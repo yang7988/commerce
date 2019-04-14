@@ -7,9 +7,9 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 public interface NewsInfoMapper extends Mapper<NewsInfo> {
-    List<NewsInfo> getNewsInfos(@Param("startLine") int startLine, @Param("pageMaxSize") int endLine);
+    List<NewsInfo> getNewsInfos(@Param("type") String type, @Param("startLine") int startLine, @Param("pageMaxSize") int endLine);
 
-    int getNewsInfoTotalCount();
+    int getNewsInfoTotalCount(@Param("type") String type);
 
     void addNewsInfo(@Param("newsInfo") NewsInfo newsInfo);
 

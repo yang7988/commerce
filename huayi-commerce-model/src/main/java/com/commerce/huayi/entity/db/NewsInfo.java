@@ -24,6 +24,12 @@ public class NewsInfo implements Serializable {
     private String title;
 
     /**
+     * 类型
+     */
+    @Column(name = "type")
+    private String type;
+
+    /**
      * 内容
      */
     @Column(name = "content")
@@ -89,6 +95,14 @@ public class NewsInfo implements Serializable {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**

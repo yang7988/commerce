@@ -18,6 +18,9 @@ public class NewsInfoReq {
     @ApiModelProperty(value = "新闻标题title",example = "HuaYi公司耳机大卖",dataType = "String")
     private String title;
 
+    @ApiModelProperty(value = "新闻类型type",example = "1:公司 2:行业",dataType = "String")
+    private String type;
+
     @ApiModelProperty(value = "新闻内容content",example = "HuaYi公司耳机大卖",dataType = "String")
     private String content;
 
@@ -31,6 +34,14 @@ public class NewsInfoReq {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getContent() {

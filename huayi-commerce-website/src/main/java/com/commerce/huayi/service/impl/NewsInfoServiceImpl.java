@@ -2,6 +2,7 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.entity.db.NewsInfo;
 import com.commerce.huayi.entity.request.NewsInfoReq;
+import com.commerce.huayi.entity.request.NewsListReq;
 import com.commerce.huayi.entity.request.PageRequest;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 import com.commerce.huayi.mapper.NewsInfoMapper;
@@ -25,13 +26,13 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     private NewsInfoMapper newsInfoMapper;
 
     @Override
-    public Page<NewsInfoVo> getNewsInfos(PageRequest pageRequest) {
-        int count = newsInfoMapper.getNewsInfoTotalCount();
+    public Page<NewsInfoVo> getNewsInfos(NewsListReq pageRequest) {
+        int count = newsInfoMapper.getNewsInfoTotalCount(pageRequest.getType());
         Page<NewsInfoVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize(),count);
         if(count <= 0) {
             return page;
         }
-        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(page.getOffset(), page.getPageMaxSize());
+        List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(pageRequest.getType(), page.getOffset(), page.getPageMaxSize());
         page.setList(BeanCopyUtil.copy(NewsInfoVo.class, newsInfoList));
         return page;
     }
@@ -46,6 +47,7 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         NewsInfoVo newsInfoVo = new NewsInfoVo();
         newsInfoVo.setId(newsInfo.getId());
         newsInfoVo.setTitle(newsInfo.getTitle());
+        newsInfoVo.setType(newsInfo.getType());
         newsInfoVo.setContent(newsInfo.getContent());
         newsInfoVo.setCreateDate(newsInfo.getCreateDate());
         return newsInfoVo;
@@ -58,6 +60,7 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         newsInfo.setDelFlag("0");
         newsInfo.setCreateDate(new Date());
         newsInfo.setTitle(newsInfoReq.getTitle());
+        newsInfo.setType(newsInfoReq.getType());
         newsInfo.setContent(newsInfoReq.getContent());
         newsInfo.setEffectDate(new Date());
         newsInfoMapper.addNewsInfo(newsInfo);
@@ -76,6 +79,7 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         newsInfo.setDelFlag("0");
         newsInfo.setId(newsInfoReq.getId());
         newsInfo.setTitle(newsInfoReq.getTitle());
+        newsInfo.setType(newsInfoReq.getType());
         newsInfo.setContent(newsInfoReq.getContent());
         newsInfoMapper.updateNewsInfo(newsInfo);
     }

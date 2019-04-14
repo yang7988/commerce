@@ -3,7 +3,7 @@ package com.commerce.huayi.controller.admin;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.DelDataReq;
 import com.commerce.huayi.entity.request.NewsInfoReq;
-import com.commerce.huayi.entity.request.PageRequest;
+import com.commerce.huayi.entity.request.NewsListReq;
 import com.commerce.huayi.entity.response.NewsInfoVo;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.NewsInfoService;
@@ -25,7 +25,7 @@ public class NewsInfoForAdminController {
 
     @PostMapping(value = "/getNewsInfos")
     @ApiOperation(value = "新闻中心管理",notes = "获取新闻列表")
-    public ApiResponse<Page<NewsInfoVo>> getNewsInfos(@RequestBody PageRequest pageRequest) {
+    public ApiResponse<Page<NewsInfoVo>> getNewsInfos(@RequestBody NewsListReq pageRequest) {
         return ApiResponse.returnSuccess(newsInfoService.getNewsInfos(pageRequest));
     }
 
