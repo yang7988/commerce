@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.commerce.huayi.mapper.BannerMapper">
+  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.Banner">
+    <!--@mbg.generated generated on Wed Apr 03 15:32:58 CST 2019.-->
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="url" jdbcType="VARCHAR" property="url" />
+      <result column="imageKey" jdbcType="VARCHAR" property="imageKey" />
+      <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+      <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+      <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Wed Apr 03 15:32:58 CST 2019.-->
+    id, url, imageKey, del_flag, create_date, update_date
+  </sql>
+
+    <select id="getBannerList" resultType="com.commerce.huayi.entity.db.Banner">
+        select id as id,
+             url as url,
+             imageKey as imageKey,
+             del_flag as delFlag,
+             create_date as createDate,
+             update_date as updateDate
+        from tb_banner
+        where del_flag = '0'
+    </select>
+
+    <insert id="addBanner">
+        insert into tb_banner (url, imageKey, del_flag, create_date) values
+            (#{banner.url, jdbcType=VARCHAR},#{banner.imageKey, jdbcType=VARCHAR},#{banner.delFlag, jdbcType=VARCHAR},now())
+    </insert>
+
+    <update id="delBanner">
+        update tb_banner set del_flag = '1',update_date = now() where id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <update id="updateBanner">
+        update tb_banner
+        set url = #{banner.url, jdbcType=VARCHAR},
+            imageKey = #{banner.imageKey, jdbcType=VARCHAR},
+            update_date = now()
+        where id = #{banner.id, jdbcType=INTEGER}
+    </update>
+
+</mapper>

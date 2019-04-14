@@ -28,7 +28,7 @@
 
     <insert id="addRecruitmentInfo">
         insert into tb_recruitment_info (title, content, del_flag, create_date) values
-            (#{recruitmentInfo.title, jdbcType=VARCHAR},#{recruitmentInfo.content, jdbcType=VARCHAR},#{recruitmentInfo.delFlag, jdbcType=VARCHAR},#{recruitmentInfo.createDate, jdbcType=INTEGER})
+            (#{recruitmentInfo.title, jdbcType=VARCHAR},#{recruitmentInfo.content, jdbcType=VARCHAR},#{recruitmentInfo.delFlag, jdbcType=VARCHAR},now())
     </insert>
 
     <update id="delRecruitmentInfo">

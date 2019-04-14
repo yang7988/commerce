@@ -37,7 +37,6 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         LOGGER.info("CompanyInfoServiceImpl->addCompanyInfo companyInfoReq:{}",companyInfoReq);
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setDelFlag("0");
-        companyInfo.setCreateDate(new Date());
         companyInfo.setContent(companyInfoReq.getContent());
         companyInfoMapper.addCompanyInfo(companyInfo);
     }

@@ -36,7 +36,7 @@
 
     <insert id="addNewsInfo">
         insert into tb_news_info (title, content, effect_date, del_flag, create_date) values
-            (#{newsInfo.title, jdbcType=VARCHAR},#{newsInfo.content, jdbcType=VARCHAR},#{newsInfo.effectDate, jdbcType=VARCHAR},#{newsInfo.delFlag, jdbcType=VARCHAR},#{newsInfo.createDate, jdbcType=VARCHAR})
+            (#{newsInfo.title, jdbcType=VARCHAR},#{newsInfo.content, jdbcType=VARCHAR},#{newsInfo.effectDate, jdbcType=VARCHAR},#{newsInfo.delFlag, jdbcType=VARCHAR},now())
     </insert>
 
     <update id="delNewsInfo">

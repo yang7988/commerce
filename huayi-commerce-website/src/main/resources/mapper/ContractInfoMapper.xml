@@ -26,7 +26,7 @@
 
     <insert id="addContractInfo">
         insert into tb_contract_info (content,del_flag,create_date) values
-            (#{contractInfo.content, jdbcType=VARCHAR},#{contractInfo.delFlag, jdbcType=VARCHAR},#{contractInfo.createDate, jdbcType=INTEGER})
+            (#{contractInfo.content, jdbcType=VARCHAR},#{contractInfo.delFlag, jdbcType=VARCHAR},now())
     </insert>
 
     <update id="delContractInfo">

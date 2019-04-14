@@ -55,7 +55,7 @@
             deal_flag,document_quality,create_date) values
         (#{customerMessage.name, jdbcType=VARCHAR},#{customerMessage.company, jdbcType=VARCHAR},#{customerMessage.mobilePhone, jdbcType=VARCHAR},#{customerMessage.mailAddress, jdbcType=VARCHAR},#{customerMessage.fax, jdbcType=VARCHAR},
         #{customerMessage.postalCode, jdbcType=VARCHAR},#{customerMessage.address, jdbcType=VARCHAR},#{customerMessage.opinion, jdbcType=VARCHAR},#{customerMessage.accessPurpose, jdbcType=VARCHAR},#{customerMessage.purposeFlag, jdbcType=VARCHAR},
-        #{customerMessage.dealFlag, jdbcType=VARCHAR},#{customerMessage.documentQuality, jdbcType=VARCHAR},#{customerMessage.createDate, jdbcType=VARCHAR})
+        #{customerMessage.dealFlag, jdbcType=VARCHAR},#{customerMessage.documentQuality, jdbcType=VARCHAR},now())
     </insert>
 
 
