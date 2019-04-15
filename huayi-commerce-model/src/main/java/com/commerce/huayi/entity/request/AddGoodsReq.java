@@ -100,10 +100,11 @@ public class AddGoodsReq extends AbstractDictReq {
     }
 
     @Override
-    public Map<String, String> buildSql(String language) {
+    public Map<String, Object> buildSql(String language) {
         if (StringUtils.isBlank(this.goodsName) || StringUtils.isBlank(this.goodsDescription)) {
             return null;
         }
+
         String goodsNameKey = "goodsName_".concat(language);
         String goodsDescriptionKey = "goodsDescription_".concat(language);
         String goodsNameTranslate = optionals.get(goodsNameKey);
@@ -111,12 +112,20 @@ public class AddGoodsReq extends AbstractDictReq {
         if (StringUtils.isBlank(goodsNameTranslate) || StringUtils.isBlank(goodsDescriptionTranslate)) {
            return null;
         }
-        Map<String, String> sqlMap = new HashMap<>();
+        Map<String, Object> sqlMap = new HashMap<>();
+        sqlMap.put("table","tb_goods_spu_".concat(language));
+        sqlMap.put("id", getDictId());
+        sqlMap.put("goods_name",goodsName);
+        sqlMap.put("goods_name_translate",goodsNameTranslate);
+        sqlMap.put("goods_description",goodsDescription);
+        sqlMap.put("goods_description_translate",goodsDescriptionTranslate);
+
+        /*Map<String, String> sqlMap = new HashMap<>();
         String preSql = "insert into tb_goods_spu_%s (goods_name,goods_name_translate,goods_description," +
                 "goods_description_translate) values('%s','%s','%s','%s')";
         String sql = String.format(preSql, language, this.goodsName, goodsNameTranslate,
                 this.goodsDescription, goodsDescriptionTranslate);
-        sqlMap.put("sqlStatement", sql);
+        sqlMap.put("sqlStatement", sql);*/
         return sqlMap;
     }
 }

@@ -77,8 +77,8 @@ public class AddSpuSpecReq extends AbstractDictReq {
     }
 
     @Override
-    public Map<String, String> buildSql(String language) {
-        Map<String, String> sqlMap = new HashMap<>();
+    public Map<String, Object> buildSql(String language) {
+        Map<String, Object> sqlMap = new HashMap<>();
         String specNameKey = "specName_".concat(language);
         String specDescriptionKey = "specDescription_".concat(language);
         String specTranslate = translation.get(specNameKey);
@@ -86,7 +86,14 @@ public class AddSpuSpecReq extends AbstractDictReq {
         if (StringUtils.isBlank(specTranslate) || StringUtils.isBlank(specDescriptionTranslate)) {
             return null;
         }
-        String specPreSql = "insert into tb_goods_spec_%s (spec_name,spec_name_translate,spec_description,spec_description_translate) " +
+        sqlMap.put("table","tb_goods_spec_".concat(language));
+        sqlMap.put("id", getDictId());
+        sqlMap.put("spec_name",specName);
+        sqlMap.put("spec_name_translate",specTranslate);
+        sqlMap.put("spec_description",specDescription);
+        sqlMap.put("spec_description_translate",specDescriptionTranslate);
+
+        /*String specPreSql = "insert into tb_goods_spec_%s (spec_name,spec_name_translate,spec_description,spec_description_translate) " +
                 "SELECT '%s','%s','%s','%s' " +
                 "FROM DUAL WHERE NOT EXISTS (" +
                 "SELECT spec_name,spec_description FROM tb_goods_spec_%s " +
@@ -103,7 +110,7 @@ public class AddSpuSpecReq extends AbstractDictReq {
         String specValuePreSql = "insert into tb_goods_spec_value_%s (spec_value,spec_value_translate) " +
                 "select '%s','%s' FROM DUAL WHERE NOT EXISTS (SELECT spec_value from tb_goods_spec_value_%s where spec_value = '%s')";
         String specValueSql = String.format(specValuePreSql, language, this.specValue, specValueTranslate,language,this.specValue);
-        sqlMap.put("specValueSql", specValueSql);
+        sqlMap.put("specValueSql", specValueSql);*/
         return sqlMap;
     }
 }

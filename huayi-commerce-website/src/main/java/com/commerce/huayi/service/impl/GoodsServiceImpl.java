@@ -109,6 +109,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
         goodsCategoryMapper.insertSelective(goodsCategory);
+        categoryReq.setDictId(goodsCategory.getId());
         //增加字典翻译
         return ApiResponseEnum.SUCCESS;
     }
@@ -122,8 +123,9 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @Transactional
     public ApiResponseEnum updateCategory(UpdateCategoryReq req,String language) {
-        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getId());
+        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getDictId());
         if (goodsCategory == null) {
             return ApiResponseEnum.SUCCESS;
         }
@@ -176,6 +178,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
+        addGoodsReq.setDictId(goodsSpu.getId());
         return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
@@ -194,7 +197,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     @Dictionary
-    public ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
+    public AddSpuSpecValueReq addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
         Example example = new Example(GoodsSpec.class);
         example.createCriteria().andEqualTo("specName", addSpuSpecReq.getSpecName());
         int count = goodsSpecMapper.selectCountByExample(example);
@@ -209,12 +212,13 @@ public class GoodsServiceImpl implements GoodsService {
             goodsSpec.setIsDelete(Constant.NODELETE);
             goodsSpecMapper.insertSelective(goodsSpec);
         }
+        addSpuSpecReq.setDictId(goodsSpec.getId());
         Example specValexample = new Example(GoodsSpecValue.class);
         specValexample.createCriteria().andEqualTo("specId", goodsSpec.getId())
                 .andEqualTo("specValue",addSpuSpecReq.getSpecValue());
         int countByExample = goodsSpecValueMapper.selectCountByExample(specValexample);
         if (countByExample > 0) {
-            return ApiResponseEnum.SUCCESS;
+            return null;
         }
         GoodsSpecValue goodsSpecValue = new GoodsSpecValue();
         goodsSpecValue.setSpecId(goodsSpec.getId());
@@ -223,7 +227,9 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecValue.setUpdateDate(new Date());
         goodsSpecValue.setIsDelete(Constant.NODELETE);
         goodsSpecValueMapper.insertSelective(goodsSpecValue);
-        return ApiResponseEnum.SUCCESS;
+        AddSpuSpecValueReq specValueReq = BeanCopyUtil.copy(AddSpuSpecValueReq.class, addSpuSpecReq);
+        specValueReq.setDictId(goodsSpecValue.getId());
+        return specValueReq;
     }
 
     @Override
@@ -375,6 +381,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    @Transactional
     public ApiResponseEnum updateGoods(UpdateGoodsReq req, String language) {
         GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(req.getId());
         if (goodsSpu == null) {
@@ -418,9 +425,12 @@ public class GoodsServiceImpl implements GoodsService {
         TranslateEntityExample translateExample = new TranslateEntityExample(table,
                 translateColumn, reqVal, whereColumn, updateVal);
         translateMapper.updateByKey(translateExample);
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY,table);
+        jedisTemplate.hset(redisKey, translateColumn.concat(":").concat(updateVal),reqVal);
     }
 
     @Override
+    @Transactional
     public ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language) {
         GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(req.getId());
         if (goodsSpec == null) {

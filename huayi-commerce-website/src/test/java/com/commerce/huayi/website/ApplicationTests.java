@@ -8,6 +8,7 @@ import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.service.GoodsService;
+import com.commerce.huayi.service.TranslateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class ApplicationTests {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private TranslateService translateService;
     @Test
     public void contextLoads() {
     }
@@ -60,7 +63,7 @@ public class ApplicationTests {
 
     @Test
     public void testJson() throws Exception {
-        Map<String, String> map = new HashMap<>();
+        /*Map<String, String> map = new HashMap<>();
         map.put("goodsName_english", "iphone");
         map.put("goodsName_chinese", "爱疯");
         map.put("goodsDescription_english", "iphone");
@@ -71,6 +74,14 @@ public class ApplicationTests {
         map.put("specDescription_chinese", "手机内存");
         map.put("specValue_english", "16G");
         map.put("specValue_chinese", "16G内存");
-        System.out.println(JSON.toJSONString(map));
+        System.out.println(JSON.toJSONString(map));*/
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("table", "tb_goods_spu_chinese");
+        objectMap.put("goods_name", "sdfasld");
+        objectMap.put("goods_name_translate", "你好");
+        objectMap.put("goods_description", "asfdasds");
+        objectMap.put("goods_description_translate", "你好啊");
+        objectMap.put("id", 100);
+        translateService.addTranslate(objectMap);
     }
 }

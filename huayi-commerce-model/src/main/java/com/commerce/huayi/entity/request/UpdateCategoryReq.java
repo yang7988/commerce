@@ -18,12 +18,12 @@ public class UpdateCategoryReq extends CategoryReq {
     @ApiModelProperty(value = "分类描述",example = "big_earphone")
     private String categoryDescription;
 
-    public Long getId() {
+    public Long getDictId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDictId(Long dictId) {
+        this.id = dictId;
     }
 
     @Override

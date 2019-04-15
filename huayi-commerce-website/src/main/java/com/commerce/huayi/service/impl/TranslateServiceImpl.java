@@ -15,10 +15,10 @@ import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.TranslateService;
 import com.commerce.huayi.utils.ServletUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +37,8 @@ public class TranslateServiceImpl implements TranslateService {
 
     //数据库所有的字典表缓存
     private static final HashSet<String> ALL_DICT_TABLES = new HashSet<>(16);
+
+    private static final String TABLE = "table";
 
     @Autowired
     private TranslateMapper translateMapper;
@@ -342,4 +344,82 @@ public class TranslateServiceImpl implements TranslateService {
         return dictTables;
     }
 
+
+    @Override
+    public void addTranslate(Map<String, Object> objectMap) {
+        if(!objectMap.containsKey(TABLE)) {
+            return ;
+        }
+        String table = (String) objectMap.get(TABLE);
+        StringBuilder sb = new StringBuilder("insert into ");
+        sb.append(table).append(" (");
+        objectMap.remove(TABLE);
+        if(MapUtils.isEmpty(objectMap)) {
+            return;
+        }
+        List<String> keys = new ArrayList<>(objectMap.keySet());
+
+        Map<String, String> translateCacheMateda = new HashMap<>();
+
+        for (int i = 0; i < keys.size(); i++) {
+            constructIntoColumns(sb, keys, i);
+            String key = keys.get(i);
+            processAddTranslateKey(objectMap, translateCacheMateda, key);
+        }
+        sb.append(" values (");
+        for (int i = 0; i < keys.size(); i++) {
+            constructValues(objectMap, sb, keys, i);
+        }
+        String sql = sb.toString();
+        Map<String, String> sqlMap = new HashMap<>(1);
+        sqlMap.put("sqlStatement", sql);
+        try {
+             translateMapper.updateTranslate(sqlMap);
+            for (Map.Entry<String, String> entry : translateCacheMateda.entrySet()) {
+                RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY, table);
+                jedisTemplate.hset(redisKey, entry.getKey(), entry.getValue());
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e);
+        }
+    }
+
+    private void processAddTranslateKey(Map<String, Object> objectMap, Map<String, String> translateCacheMateda, String key) {
+        if(!key.endsWith("_translate")) {
+            return;
+        }
+        String cacheKey = key.substring(0, key.lastIndexOf("_translate"));
+        String cacheValue = (String) objectMap.get(cacheKey);
+        if(StringUtils.isBlank(cacheValue)) {
+            return;
+        }
+        translateCacheMateda.put(key.concat(":").concat(cacheValue), (String)objectMap.get(key));
+    }
+
+    private void constructIntoColumns(StringBuilder sb, List<String> keys, int i) {
+        if (i == keys.size() - 1) {
+            sb.append(keys.get(i)).append(")");
+        } else {
+            sb.append(keys.get(i)).append(",");
+        }
+    }
+
+    private void constructValues(Map<String, Object> objectMap, StringBuilder sb, List<String> keys, int i) {
+        if (i == keys.size() - 1) {
+            Object value = objectMap.get(keys.get(i));
+            if (value instanceof String) {
+                sb.append("'").append((String) value).append("')");
+            } else if (value instanceof Number) {
+                sb.append(value).append(",)");
+            }
+        } else {
+            Object value = objectMap.get(keys.get(i));
+            if (value instanceof String) {
+                sb.append("'").append((String) value).append("',");
+            } else if (value instanceof Number) {
+                sb.append(value).append(",");
+            }
+
+        }
+    }
 }

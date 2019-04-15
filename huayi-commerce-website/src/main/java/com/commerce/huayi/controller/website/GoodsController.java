@@ -66,7 +66,7 @@ public class GoodsController {
     /*@PostMapping(value = "/category/populate/goods")
     @ApiOperation(value = "获取分类的主推热门产品",notes = "获取分类的主推热门产品")
     public ApiResponse<Page<GoodsSpuDetailsVo>> populateGoods(@RequestBody PageCategoryGoodsRequest req){
-        return ApiResponse.returnSuccess(goodsService.populateGoods(req.getId(),req.getPageIndex(),req.getPageMaxSize()));
+        return ApiResponse.returnSuccess(goodsService.populateGoods(req.getDictId(),req.getPageIndex(),req.getPageMaxSize()));
     }*/
 
     @PostMapping(value = "/search")

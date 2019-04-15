@@ -74,7 +74,7 @@ public class CategoryReq extends AbstractDictReq {
     }
 
     @Override
-    public Map<String,String> buildSql(String language) {
+    public Map<String,Object> buildSql(String language) {
         if (StringUtils.isBlank(this.categoryName) || StringUtils.isBlank(this.categoryDescription)) {
             return null;
         }
@@ -85,12 +85,19 @@ public class CategoryReq extends AbstractDictReq {
         if (StringUtils.isBlank(categoryNameTranslate) || StringUtils.isBlank(categoryDescriptionTranslate)) {
             return null;
         }
-        String preSql = "insert into tb_goods_category_%s (category_name,category_name_translate,category_description," +
+        Map<String, Object> sqlMap = new HashMap<>();
+        sqlMap.put("table","tb_goods_category_".concat(language));
+        sqlMap.put("id", getDictId());
+        sqlMap.put("category_name",categoryName);
+        sqlMap.put("category_name_translate",categoryNameTranslate);
+        sqlMap.put("category_description",categoryDescription);
+        sqlMap.put("category_description_translate",categoryDescriptionTranslate);
+        /*String preSql = "insert into tb_goods_category_%s (category_name,category_name_translate,category_description," +
                 "category_description_translate) values('%s','%s','%s','%s')";
         String sql = String.format(preSql, language, this.categoryName, categoryNameTranslate,
                 this.categoryDescription, categoryDescriptionTranslate);
         Map<String, String> sqlMap = new HashMap<>(1);
-        sqlMap.put("sqlStatement", sql);
+        sqlMap.put("sqlStatement", sql);*/
         return sqlMap;
     }
 }

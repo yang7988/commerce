@@ -38,9 +38,6 @@ public class PretreatmentAspect {
     private ThreadService threadService;
 
     @Autowired
-    private TranslateMapper translateMapper;
-
-    @Autowired
     private TranslateService translateService;
 
     @Autowired
@@ -71,25 +68,19 @@ public class PretreatmentAspect {
         fields.forEach(field -> pretreatmentString(obj,field));
     }
 
-    @AfterReturning(value = "service()",returning = "retVal")
+    @AfterReturning(value = "service()", returning = "retVal")
     public void translateExecute(JoinPoint joinPoint, Object retVal) {
         Object[] args = joinPoint.getArgs();
         Optional<Object> optional = Stream.of(args).filter(arg -> arg instanceof AbstractDictReq).findFirst();
         Object arg = optional.orElse(null);
-        if(arg == null) {
-            return;
+        if (arg != null) {
+            AbstractDictReq req = (AbstractDictReq) arg;
+            threadService.submit(new AsynTranslateTask(req, translateService));
         }
-        AbstractDictReq req = (AbstractDictReq) arg;
-        Future<Boolean> future = threadService.submit(new AsynTranslateTask(req, translateMapper));
-        try {
-            if (future.get()) {
-                TranslateCacheFlushTask flushTask = new TranslateCacheFlushTask(translateService, jedisTemplate);
-                threadService.submit(flushTask);
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            LOGGER.error(e.getMessage(),e);
+        if (retVal instanceof AbstractDictReq) {
+            AbstractDictReq req = (AbstractDictReq) retVal;
+            threadService.submit(new AsynTranslateTask(req, translateService));
         }
-
     }
 
     private void pretreatmentString(Object obj, Field field)  {

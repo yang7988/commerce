@@ -97,11 +97,8 @@ public class GoodsAdminController {
     @ApiOperation(value = "添加规格",notes = "添加产品规格")
     @Pretreatment
     public ApiResponse addSpecInfo(@RequestBody AddSpuSpecReq req) {
-        ApiResponseEnum responseEnum = goodsService.addSpecInfo(req);
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
-            return ApiResponse.returnSuccess();
-        }
-        return ApiResponse.returnFail(responseEnum);
+        goodsService.addSpecInfo(req);
+        return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/updateSpecInfo")

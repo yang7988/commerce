@@ -38,7 +38,7 @@ public interface GoodsService {
 
     ApiResponseEnum deleteGoods(Long goodsId);
 
-    ApiResponseEnum addSpecInfo(AddSpuSpecReq addSpuSpecReq);
+    AddSpuSpecValueReq addSpecInfo(AddSpuSpecReq addSpuSpecReq);
 
     Page<GoodsSpecValueVo> getSpecInfoList(PageRequest pageRequest);
 
