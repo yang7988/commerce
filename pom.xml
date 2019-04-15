@@ -106,19 +106,19 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <dictId>dev</dictId>
+            <id>dev</id>
             <properties>
                 <deploy.type>dev</deploy.type>
             </properties>
         </profile>
         <profile>
-            <dictId>test</dictId>
+            <id>test</id>
             <properties>
                 <deploy.type>test</deploy.type>
             </properties>
         </profile>
         <profile>
-            <dictId>prod</dictId>
+            <id>prod</id>
             <properties>
                 <deploy.type>prod</deploy.type>
             </properties>
