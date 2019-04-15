@@ -2,10 +2,8 @@ package com.commerce.huayi.Interceptor;
 
 import com.commerce.huayi.annotation.Pretreatment;
 import com.commerce.huayi.asyn.AsynTranslateTask;
-import com.commerce.huayi.asyn.TranslateCacheFlushTask;
 import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.entity.request.AbstractDictReq;
-import com.commerce.huayi.mapper.TranslateMapper;
 import com.commerce.huayi.service.TranslateService;
 import com.commerce.huayi.service.impl.ThreadService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -23,8 +21,6 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

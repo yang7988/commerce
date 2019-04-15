@@ -2,17 +2,13 @@ package com.commerce.huayi.asyn;
 
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.request.AbstractDictReq;
-import com.commerce.huayi.mapper.TranslateMapper;
 import com.commerce.huayi.service.TranslateService;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
