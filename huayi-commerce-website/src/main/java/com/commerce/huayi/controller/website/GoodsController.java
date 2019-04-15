@@ -71,7 +71,7 @@ public class GoodsController {
 
     @PostMapping(value = "/search")
     @ApiOperation(value = "按产品名模糊搜索产品",notes = "按产品名模糊搜索产品")
-    public ApiResponse<List<GoodsSpuDetailsVo>> search(@RequestBody SearchGoodsReq req) {
+    public ApiResponse<List<GoodsSpuVo>> search(@RequestBody SearchGoodsReq req) {
         return ApiResponse.returnSuccess(goodsService.search(req.getKeyWord(), ServletUtils.language().getLanguage()));
     }
 }

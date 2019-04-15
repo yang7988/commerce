@@ -10,9 +10,11 @@ import java.util.Map;
 public interface TranslateMapper {
     List<TranslateEntity> selectByKey(TranslateEntityExample entityExample);
 
+    int updateByKey(TranslateEntityExample entityExample);
+
     List<Map<String, String>> selectDict(TranslateEntityExample entityExample);
 
     List<TranslateEntity> selectAllTables(String tableSchema);
 
-    int insertTranslateDict(Map<String,String> map);
+    int updateranslateDict(Map<String,String> map);
 }

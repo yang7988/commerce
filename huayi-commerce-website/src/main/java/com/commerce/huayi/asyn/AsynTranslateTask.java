@@ -11,11 +11,12 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class AsynTranslateTask implements Runnable {
+public class AsynTranslateTask implements Callable<Boolean> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsynTranslateTask.class);
 
@@ -29,9 +30,10 @@ public class AsynTranslateTask implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Boolean call() throws Exception {
         //增加产品字典翻译
         List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+
         for (String language : languages) {
             try {
                 Map<String, String> map = dictReq.buildSql(language);
@@ -41,12 +43,13 @@ public class AsynTranslateTask implements Runnable {
                 for (String sqlKey : map.keySet()) {
                     Map<String, String> sqlMap = new HashMap<>(1);
                     sqlMap.put("sqlStatement", map.get(sqlKey));
-                    translateMapper.insertTranslateDict(sqlMap);
+                    translateMapper.updateranslateDict(sqlMap);
                 }
             } catch (Exception e) {
                 LOGGER.error("=========AsynTranslateTask===新增翻译字典异常======{}", ExceptionUtils.getStackTrace(e));
+                return false;
             }
         }
-
+        return true;
     }
 }

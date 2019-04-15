@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class TranslateServiceImpl implements TranslateService, InitializingBean {
+public class TranslateServiceImpl implements TranslateService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslateServiceImpl.class);
 
@@ -253,6 +253,7 @@ public class TranslateServiceImpl implements TranslateService, InitializingBean 
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        ALL_DICT_TABLES.clear();
         Set<String> allDictTables = getAllDictTables();
         if (CollectionUtils.isEmpty(allDictTables)) {
             return;

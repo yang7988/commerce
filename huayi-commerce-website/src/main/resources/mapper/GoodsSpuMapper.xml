@@ -21,17 +21,6 @@
     brand_id, create_date, update_date, is_delete
   </sql>
 
-  <select id="search" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from tb_goods_spu where goods_name like concat(concat('%',#{keyWord}),'%') or goods_description like
-    concat(concat('%',#{keyWord}),'%')
-  </select>
-
-  <select id="searchBySql" resultType="java.util.Map" parameterType="java.util.Map">
-    ${sqlStatement}
-  </select>
-
 
   <select id="getGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
     SELECT spu.id,
@@ -120,6 +109,27 @@
         and category.is_delete = 0
         <if test="spuId != null and spuId != 0">
             and tgss.spu_id = #{spuId}
+        </if>
+    </select>
+
+    <select id="searchGoodsSpu" resultType="com.commerce.huayi.entity.response.GoodsSpuVo"
+                                parameterType="com.commerce.huayi.pagination.Condition">
+        SELECT
+        spu.id,
+        spu.spu_no as spuNo,
+        spu.goods_name as goodsName,
+        spu.goods_description as goodsDescription,
+        spu.goods_image_key as goodsImageKey,
+        spu.low_price as lowPrice,
+        spu.brand_id as brandId,
+        spu.category_id as categoryId
+        from tb_goods_spu spu join ${criterion.translate_table_name} translateTable
+        on spu.goods_name = translateTable.goods_name
+        where 1=1
+        <if test="criterion.searchKeyWord != null and criterion.searchKeyWord != '' ">
+            and (translateTable.goods_name_translate like concat(concat('%',#{criterion.searchKeyWord}),'%')
+            or translateTable.goods_description like
+            concat(concat('%',#{criterion.searchKeyWord}),'%'))
         </if>
     </select>
 

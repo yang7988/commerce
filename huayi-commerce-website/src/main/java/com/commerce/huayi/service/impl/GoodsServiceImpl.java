@@ -59,6 +59,9 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private JedisTemplate jedisTemplate;
 
+    @Autowired
+    private TranslateMapper translateMapper;
+
     @Override
     public Page<CategoryVo> getCategories(Long id,String name, int pageIndex, int pageMaxSize) throws BusinessException {
         Condition condition = Condition.create();
@@ -89,17 +92,6 @@ public class GoodsServiceImpl implements GoodsService {
         List<GoodsSpuVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
         page.setList(list);
         return page;
-    }
-
-    private GoodsSpuDetailsVo getSpuDeatis(GoodsSpu goodsSpu, GoodsSpuSpec goodsSpuSpec) {
-        GoodsSpuDetailsVo goodsSpuDetailsVo = BeanCopyUtil.copy(GoodsSpuDetailsVo.class, goodsSpu);
-        GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(goodsSpuSpec.getSpecValueId());
-        BeanCopyUtil.copy(goodsSpuDetailsVo, goodsSpecValue);
-        GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(goodsSpecValue.getSpecId());
-        BeanCopyUtil.copy(goodsSpuDetailsVo, goodsSpec);
-        goodsSpuDetailsVo.setSpecId(goodsSpec.getId());
-        goodsSpuDetailsVo.setSpecValueId(goodsSpecValue.getId());
-        return goodsSpuDetailsVo;
     }
 
     @Override
@@ -320,51 +312,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<GoodsSpuDetailsVo> search(String keyWord, String language) {
+    public List<GoodsSpuVo> search(String keyWord, String language) {
         keyWord = ObjectUtil.processsenseKeyword(keyWord);
-        List<GoodsSpuDetailsVo> goodsSpuDetailsVos = new ArrayList<>();
-        List<GoodsSpu> goodsSpus = goodsSpuMapper.search(keyWord);
-        if (CollectionUtils.isNotEmpty(goodsSpus)) {
-            packageGoodsSpu(goodsSpuDetailsVos, goodsSpus);
-            return goodsSpuDetailsVos;
-        }
-        StringBuilder stringBuilder = new StringBuilder("select goods_name,goods_name_translate,goods_description," +
-                "goods_description_translate from tb_goods_spu_");
-        stringBuilder.append(language).append(" where goods_name like '%").append(keyWord).append("%'");
-        stringBuilder.append(" or ").append(" goods_name_translate like '%").append(keyWord).append("%'");
-        stringBuilder.append(" or ").append(" goods_description like '%").append(keyWord).append("%'");
-        stringBuilder.append(" or ").append(" goods_description_translate like '%").append(keyWord).append("%'");
-        String sql = stringBuilder.toString();
-
-        Map<String, String> sqlMap = new HashMap<>(1);
-        sqlMap.put("sqlStatement", sql);
-        List<Map<String, String>> resultMap = goodsSpuMapper.searchBySql(sqlMap);
-        if(CollectionUtils.isEmpty(resultMap)) {
-            return goodsSpuDetailsVos;
-        }
-        List<GoodsSpu> goodsSpusList = new ArrayList<>();
-        for (Map<String, String> map : resultMap) {
-            String goodsName = map.get("goods_name");
-            String goodsDescription = map.get("goods_description");
-            Example example = new Example(GoodsSpu.class);
-            example.createCriteria().andEqualTo("goodsName", goodsName)
-                    .orEqualTo("goodsDescription", goodsDescription);
-            List<GoodsSpu> spuList = goodsSpuMapper.selectByExample(example);
-            goodsSpusList.addAll(spuList);
-        }
-        packageGoodsSpu(goodsSpuDetailsVos, goodsSpusList);
-        return goodsSpuDetailsVos;
-    }
-
-    private void packageGoodsSpu(List<GoodsSpuDetailsVo> goodsSpuDetailsVos, List<GoodsSpu> goodsSpus) {
-        for (GoodsSpu spu : goodsSpus) {
-            Example spuSpecexample = new Example(GoodsSpuSpec.class);
-            spuSpecexample.createCriteria().andEqualTo("spuId", spu.getId());
-            List<GoodsSpuSpec> goodsSpuSpecs = goodsSpuSpecMapper.selectByExample(spuSpecexample);
-            if (CollectionUtils.isNotEmpty(goodsSpuSpecs)) {
-                goodsSpuSpecs.forEach(goodsSpuSpec -> goodsSpuDetailsVos.add(getSpuDeatis(spu, goodsSpuSpec)));
-            }
-        }
+        Condition condition = Condition.create();
+        Map<String, Object> criterion = condition.getCriterion();
+        criterion.put("searchKeyWord",keyWord);
+        criterion.put("translate_table_name", "tb_goods_spu_".concat(language));
+        return goodsSpuMapper.searchGoodsSpu(condition);
     }
 
     @Override
@@ -403,5 +357,50 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId) {
         return goodsSpuSpecMapper.selectGoodsSpecDetails(id,specValueId);
+    }
+
+    @Override
+    public ApiResponseEnum updateGoods(UpdateGoodsReq req, String language) {
+        GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(req.getId());
+        if (goodsSpu == null) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        GoodsSpu updateGoods = new GoodsSpu();
+        updateGoods.setId(goodsSpu.getId());
+        if (StringUtils.isNotBlank(req.getGoodsImageKey())) {
+            updateGoods.setGoodsImageKey(req.getGoodsImageKey());
+        }
+        if (req.getPrice() != null) {
+            updateGoods.setLowPrice(req.getPrice());
+        }
+        if (req.getCategoryId() != null) {
+            updateGoods.setCategoryId(req.getCategoryId());
+        }
+        String tableName = "tb_goods_spu_".concat(language);
+        if (StringUtils.isNotBlank(req.getGoodsName())) {
+            this.updateDict(tableName, "goods_name_translate",
+                    "goods_name", req.getGoodsName(), goodsSpu.getGoodsName());
+        }
+        if (StringUtils.isNotBlank(req.getGoodsDescription())) {
+            this.updateDict(tableName, "goods_description_translate",
+                    "goods_description", req.getGoodsName(), goodsSpu.getGoodsName());
+        }
+        goodsSpuMapper.updateByPrimaryKeySelective(updateGoods);
+        return ApiResponseEnum.SUCCESS;
+    }
+
+    private void updateDict(String table, String translateColumn, String whereColumn, String reqVal, String updateVal) {
+        TranslateEntityExample example = new TranslateEntityExample(table, translateColumn, whereColumn, updateVal);
+        List<TranslateEntity> translateEntities = translateMapper.selectByKey(example);
+        if (CollectionUtils.isEmpty(translateEntities)) {
+            return;
+        }
+        TranslateEntity translateEntity = translateEntities.get(0);
+        if (reqVal.equalsIgnoreCase(translateEntity.getTranslateResult())) {
+            return;
+        }
+        TranslateEntityExample translateExample = new TranslateEntityExample(table,
+                translateColumn, reqVal, whereColumn, updateVal);
+        translateMapper.updateByKey(translateExample);
     }
 }

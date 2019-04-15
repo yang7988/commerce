@@ -2,8 +2,11 @@ package com.commerce.huayi.Interceptor;
 
 import com.commerce.huayi.annotation.Pretreatment;
 import com.commerce.huayi.asyn.AsynTranslateTask;
+import com.commerce.huayi.asyn.TranslateCacheFlushTask;
+import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.entity.request.AbstractDictReq;
 import com.commerce.huayi.mapper.TranslateMapper;
+import com.commerce.huayi.service.TranslateService;
 import com.commerce.huayi.service.impl.ThreadService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +23,8 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,6 +39,12 @@ public class PretreatmentAspect {
 
     @Autowired
     private TranslateMapper translateMapper;
+
+    @Autowired
+    private TranslateService translateService;
+
+    @Autowired
+    private JedisTemplate jedisTemplate;
 
     @Pointcut("execution(* com.commerce.huayi.controller..*Controller.*(..)) && @annotation(com.commerce.huayi.annotation.Pretreatment)")
     public void controller() {
@@ -69,7 +80,16 @@ public class PretreatmentAspect {
             return;
         }
         AbstractDictReq req = (AbstractDictReq) arg;
-        threadService.submit(new AsynTranslateTask(req,translateMapper));
+        Future<Boolean> future = threadService.submit(new AsynTranslateTask(req, translateMapper));
+        try {
+            if (future.get()) {
+                TranslateCacheFlushTask flushTask = new TranslateCacheFlushTask(translateService, jedisTemplate);
+                threadService.submit(flushTask);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            LOGGER.error(e.getMessage(),e);
+        }
+
     }
 
     private void pretreatmentString(Object obj, Field field)  {

@@ -60,9 +60,17 @@ public class GoodsAdminController {
         return ApiResponse.returnSuccess(goodsSpuVo);
     }
 
+    public ApiResponse updateGoods(@RequestBody UpdateGoodsReq req) {
+        ApiResponseEnum responseEnum = goodsService.updateGoods(req);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
+
     @PostMapping(value = "/addGoodsSpec")
     @ApiOperation(value = "为某一种产品添加不同的规格,以及添加该规格图", notes = "添加产品单元")
-    public ApiResponse addGoods(@RequestBody AddGoodsSpecReq req) {
+    public ApiResponse addGoodsSpec(@RequestBody AddGoodsSpecReq req) {
         ApiResponseEnum responseEnum = goodsService.addGoodsSpec(req);
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
@@ -79,11 +87,6 @@ public class GoodsAdminController {
         }
         return ApiResponse.returnFail(responseEnum);
     }
-
-    public ApiResponse updateGoods() {
-        return null;
-    }
-
 
     @PostMapping(value = "/addSpecInfo")
     @ApiOperation(value = "添加规格",notes = "添加产品规格")

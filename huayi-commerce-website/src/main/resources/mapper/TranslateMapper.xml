@@ -16,8 +16,12 @@
     select table_name as tableName from information_schema.tables where table_schema=#{tableSchema} and table_type='base table';
   </select>
 
-  <insert id="insertTranslateDict" parameterType="java.util.Map" keyProperty="id" useGeneratedKeys="true">
+  <insert id="updateranslateDict" parameterType="java.util.Map" keyProperty="id" useGeneratedKeys="true">
        ${sqlStatement}
   </insert>
+
+  <update id="updateByKey" parameterType="com.commerce.huayi.entity.db.TranslateEntityExample">
+    update ${tableName} set ${translateCloumn} = #{translateVal,jdbcType=VARCHAR} where ${whereCloumn} = #{key,jdbcType=VARCHAR}
+  </update>
 
 </mapper>

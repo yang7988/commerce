@@ -8,6 +8,8 @@ public class TranslateEntityExample implements Serializable {
 
     private String translateCloumn;
 
+    private String translateVal;
+
     private String whereCloumn;
 
     private String key;
@@ -18,6 +20,14 @@ public class TranslateEntityExample implements Serializable {
     public TranslateEntityExample(String tableName,String translateCloumn, String whereCloumn, String key) {
         this.tableName = tableName;
         this.translateCloumn = translateCloumn;
+        this.whereCloumn = whereCloumn;
+        this.key = key;
+    }
+
+    public TranslateEntityExample(String tableName,String translateCloumn, String translateVal,String whereCloumn, String key) {
+        this.tableName = tableName;
+        this.translateCloumn = translateCloumn;
+        this.translateVal = translateVal;
         this.whereCloumn = whereCloumn;
         this.key = key;
     }
@@ -52,5 +62,13 @@ public class TranslateEntityExample implements Serializable {
 
     public void setTranslateCloumn(String translateCloumn) {
         this.translateCloumn = translateCloumn;
+    }
+
+    public String getTranslateVal() {
+        return translateVal;
+    }
+
+    public void setTranslateVal(String translateVal) {
+        this.translateVal = translateVal;
     }
 }
