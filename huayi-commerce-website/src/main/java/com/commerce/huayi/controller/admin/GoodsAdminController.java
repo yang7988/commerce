@@ -46,12 +46,15 @@ public class GoodsAdminController {
     @PostMapping(value = "/updateCategory")
     @ApiOperation(value = "更新分类",notes = "更新产品分类")
     public ApiResponse updateCategory(@RequestBody UpdateCategoryReq req) {
-        Integer result = goodsService.updateCategory(req);
-        return ApiResponse.returnSuccess();
+        ApiResponseEnum responseEnum = goodsService.updateCategory(req,ServletUtils.language().getLanguage());
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
     }
 
     @PostMapping(value = "/addGoods")
-    @ApiOperation(value = "添加产品单元", notes = "添加产品单元")
+    @ApiOperation(value = "添加产品", notes = "添加产品")
     @Pretreatment
     public ApiResponse<GoodsSpuVo> addGoods(@RequestBody AddGoodsReq addGoodsReq) {
         GoodsSpuVo goodsSpuVo = goodsService.addGoods(addGoodsReq);
@@ -60,7 +63,8 @@ public class GoodsAdminController {
         }
         return ApiResponse.returnSuccess(goodsSpuVo);
     }
-
+    @PostMapping(value = "/updateGoods")
+    @ApiOperation(value = "跟新产品", notes = "跟新产品")
     public ApiResponse updateGoods(@RequestBody UpdateGoodsReq req) {
         ApiResponseEnum responseEnum = goodsService.updateGoods(req, ServletUtils.language().getLanguage());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
@@ -94,6 +98,17 @@ public class GoodsAdminController {
     @Pretreatment
     public ApiResponse addSpecInfo(@RequestBody AddSpuSpecReq req) {
         ApiResponseEnum responseEnum = goodsService.addSpecInfo(req);
+        if(ApiResponseEnum.SUCCESS == responseEnum) {
+            return ApiResponse.returnSuccess();
+        }
+        return ApiResponse.returnFail(responseEnum);
+    }
+
+    @PostMapping(value = "/updateSpecInfo")
+    @ApiOperation(value = "更新规格",notes = "更新产品规格")
+    @Pretreatment
+    public ApiResponse updateSpecInfo(@RequestBody UpdateSpuSpecReq req) {
+        ApiResponseEnum responseEnum = goodsService.updateSpecInfo(req,ServletUtils.language().getLanguage());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }

@@ -122,10 +122,25 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Integer updateCategory(UpdateCategoryReq req) {
-        GoodsCategory goodsCategory = BeanCopyUtil.copy(GoodsCategory.class, req);
-        goodsCategory.setUpdateDate(new Date());
-        return goodsCategoryMapper.updateByPrimaryKeySelective(goodsCategory);
+    public ApiResponseEnum updateCategory(UpdateCategoryReq req,String language) {
+        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getId());
+        if (goodsCategory == null) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        GoodsCategory updateCategory = new GoodsCategory();
+        updateCategory.setId(goodsCategory.getId());
+        updateCategory.setUpdateDate(new Date());
+        String tableName = "tb_goods_category_".concat(language);
+        if (StringUtils.isNotBlank(req.getCategoryName())) {
+            this.updateDict(tableName, "category_name_translate",
+                    "category_name", req.getCategoryName(), goodsCategory.getCategoryName());
+        }
+        if (StringUtils.isNotBlank(req.getCategoryDescription())) {
+            this.updateDict(tableName, "category_description_translate",
+                    "category_description", req.getCategoryDescription(), goodsCategory.getCategoryDescription());
+        }
+        goodsCategoryMapper.updateByPrimaryKeySelective(updateCategory);
+        return ApiResponseEnum.SUCCESS;
     }
 
     @Override
@@ -367,6 +382,7 @@ public class GoodsServiceImpl implements GoodsService {
         }
         GoodsSpu updateGoods = new GoodsSpu();
         updateGoods.setId(goodsSpu.getId());
+        updateGoods.setUpdateDate(new Date());
         if (StringUtils.isNotBlank(req.getGoodsImageKey())) {
             updateGoods.setGoodsImageKey(req.getGoodsImageKey());
         }
@@ -402,5 +418,41 @@ public class GoodsServiceImpl implements GoodsService {
         TranslateEntityExample translateExample = new TranslateEntityExample(table,
                 translateColumn, reqVal, whereColumn, updateVal);
         translateMapper.updateByKey(translateExample);
+    }
+
+    @Override
+    public ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language) {
+        GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(req.getId());
+        if (goodsSpec == null) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        GoodsSpec updateSpec = new GoodsSpec();
+        updateSpec.setId(goodsSpec.getId());
+        updateSpec.setUpdateDate(new Date());
+
+        String tableName = "tb_goods_spec_".concat(language);
+        if (StringUtils.isNotBlank(req.getSpecName())) {
+            this.updateDict(tableName, "spec_name_translate",
+                    "spec_name", req.getSpecName(), updateSpec.getSpecName());
+        }
+        if (StringUtils.isNotBlank(req.getSpecDescription())) {
+            this.updateDict(tableName, "spec_description_translate",
+                    "spec_description", req.getSpecDescription(), updateSpec.getSpecDescription());
+        }
+        GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(req.getSpecValueId());
+        goodsSpecMapper.updateByPrimaryKeySelective(updateSpec);
+        if(goodsSpecValue == null) {
+            return ApiResponseEnum.SUCCESS;
+        }
+        String table = "tb_goods_spec_value_".concat(language);
+        GoodsSpecValue updateSpecValue = new GoodsSpecValue();
+        updateSpecValue.setId(goodsSpecValue.getId());
+        updateSpecValue.setUpdateDate(new Date());
+        if(StringUtils.isNotBlank(req.getSpecValue())) {
+            this.updateDict(table, "spec_value_translate",
+                    "spec_value", req.getSpecValue(), goodsSpecValue.getSpecValue());
+        }
+        goodsSpecValueMapper.updateByPrimaryKeySelective(updateSpecValue);
+        return ApiResponseEnum.SUCCESS;
     }
 }

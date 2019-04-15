@@ -11,11 +11,38 @@ public class UpdateCategoryReq extends CategoryReq {
     @NotNull
     private Long id;
 
+    @ApiModelProperty(value = "分类名",example = "big_earphone")
+    private String categoryName;
+
+    //分类描述
+    @ApiModelProperty(value = "分类描述",example = "big_earphone")
+    private String categoryDescription;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    @Override
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    @Override
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    @Override
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 }
