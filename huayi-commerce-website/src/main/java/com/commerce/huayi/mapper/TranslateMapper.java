@@ -16,5 +16,5 @@ public interface TranslateMapper {
 
     List<TranslateEntity> selectAllTables(String tableSchema);
 
-    int updateranslateDict(Map<String,String> map);
+    int updateTranslate(Map<String,String> map);
 }

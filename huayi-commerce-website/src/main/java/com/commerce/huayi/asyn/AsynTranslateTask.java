@@ -43,7 +43,7 @@ public class AsynTranslateTask implements Callable<Boolean> {
                 for (String sqlKey : map.keySet()) {
                     Map<String, String> sqlMap = new HashMap<>(1);
                     sqlMap.put("sqlStatement", map.get(sqlKey));
-                    translateMapper.updateranslateDict(sqlMap);
+                    translateMapper.updateTranslate(sqlMap);
                 }
             } catch (Exception e) {
                 LOGGER.error("=========AsynTranslateTask===新增翻译字典异常======{}", ExceptionUtils.getStackTrace(e));
