@@ -74,7 +74,7 @@ public class GenericFilter implements Filter {
             return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
         }
         List<String> languages = list.stream().map(InternationalLanguage::getLanguage).collect(Collectors.toList());
-        if(languages.contains(language)) {
+        if(!languages.contains(language)) {
             return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
         }
         request.setAttribute("language", language);
