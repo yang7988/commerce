@@ -426,7 +426,7 @@ public class GoodsServiceImpl implements GoodsService {
             return;
         }
         TranslateEntityExample translateExample = new TranslateEntityExample(table,
-                translateColumn, reqVal, whereColumn, updateVal);
+                translateColumn, whereColumn, updateVal,reqVal);
         translateMapper.updateByKey(translateExample);
         RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY,table);
         jedisTemplate.hset(redisKey, translateColumn.concat(":").concat(updateVal),reqVal);

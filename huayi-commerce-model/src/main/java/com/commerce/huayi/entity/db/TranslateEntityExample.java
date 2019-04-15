@@ -24,12 +24,12 @@ public class TranslateEntityExample implements Serializable {
         this.key = key;
     }
 
-    public TranslateEntityExample(String tableName,String translateCloumn, String translateVal,String whereCloumn, String key) {
+    public TranslateEntityExample(String tableName,String translateCloumn, String whereCloumn, String key,String translateVal) {
         this.tableName = tableName;
         this.translateCloumn = translateCloumn;
-        this.translateVal = translateVal;
         this.whereCloumn = whereCloumn;
         this.key = key;
+        this.translateVal = translateVal;
     }
 
     public String getTableName() {
