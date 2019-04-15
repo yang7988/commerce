@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,13 +18,15 @@ public class AsynTranslateTask implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsynTranslateTask.class);
 
+    private Set<String> languages;
     private AbstractDictReq dictReq;
     private TranslateService translateService;
 
 
-    public AsynTranslateTask(AbstractDictReq dictReq, TranslateService translateService) {
+    public AsynTranslateTask(AbstractDictReq dictReq, TranslateService translateService,Set<String> languages) {
         this.dictReq = dictReq;
         this.translateService = translateService;
+        this.languages = languages;
     }
 
     @Override

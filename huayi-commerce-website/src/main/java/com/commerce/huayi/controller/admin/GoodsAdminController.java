@@ -46,7 +46,7 @@ public class GoodsAdminController {
     @PostMapping(value = "/updateCategory")
     @ApiOperation(value = "更新分类",notes = "更新产品分类")
     public ApiResponse updateCategory(@RequestBody UpdateCategoryReq req) {
-        ApiResponseEnum responseEnum = goodsService.updateCategory(req,ServletUtils.language().getLanguage());
+        ApiResponseEnum responseEnum = goodsService.updateCategory(req,ServletUtils.language());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
@@ -66,7 +66,7 @@ public class GoodsAdminController {
     @PostMapping(value = "/updateGoods")
     @ApiOperation(value = "跟新产品", notes = "跟新产品")
     public ApiResponse updateGoods(@RequestBody UpdateGoodsReq req) {
-        ApiResponseEnum responseEnum = goodsService.updateGoods(req, ServletUtils.language().getLanguage());
+        ApiResponseEnum responseEnum = goodsService.updateGoods(req, ServletUtils.language());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
@@ -105,7 +105,7 @@ public class GoodsAdminController {
     @ApiOperation(value = "更新规格",notes = "更新产品规格")
     @Pretreatment
     public ApiResponse updateSpecInfo(@RequestBody UpdateSpuSpecReq req) {
-        ApiResponseEnum responseEnum = goodsService.updateSpecInfo(req,ServletUtils.language().getLanguage());
+        ApiResponseEnum responseEnum = goodsService.updateSpecInfo(req,ServletUtils.language());
         if(ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }

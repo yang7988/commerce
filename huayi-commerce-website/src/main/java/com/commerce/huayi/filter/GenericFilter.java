@@ -5,7 +5,10 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.RequestHeaderEnum;
+import com.commerce.huayi.entity.db.InternationalLanguage;
+import com.commerce.huayi.mapper.InternationalLanguageMapper;
 import com.commerce.huayi.service.TranslateService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,8 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class GenericFilter implements Filter {
@@ -24,6 +29,9 @@ public class GenericFilter implements Filter {
 
     @Autowired
     private TranslateService translateService;
+
+    @Autowired
+    private InternationalLanguageMapper internationalLanguageMapper;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -60,11 +68,16 @@ public class GenericFilter implements Filter {
         if (StringUtils.isBlank(language)) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======缺少请求头部参数language");
             return ApiResponseEnum.ABSENCE_LANGUAGE_PARAM;
-        } else if (LanguageEnum.enums(language) == null) {
-            return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
-        } else {
-            request.setAttribute("language", language);
         }
+        List<InternationalLanguage> list = internationalLanguageMapper.selectAll();
+        if(CollectionUtils.isEmpty(list)) {
+            return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
+        }
+        List<String> languages = list.stream().map(InternationalLanguage::getLanguage).collect(Collectors.toList());
+        if(languages.contains(language)) {
+            return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
+        }
+        request.setAttribute("language", language);
         String contentType = request.getHeader("Content-Type");
         if (StringUtils.isBlank(contentType) || !contentType.startsWith("application/json")) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======Content-type:===" + contentType + "is not application/json");

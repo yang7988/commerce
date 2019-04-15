@@ -7,9 +7,10 @@ import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
-import com.commerce.huayi.constant.LanguageEnum;
+import com.commerce.huayi.entity.db.InternationalLanguage;
 import com.commerce.huayi.entity.db.TranslateEntity;
 import com.commerce.huayi.entity.db.TranslateEntityExample;
+import com.commerce.huayi.mapper.InternationalLanguageMapper;
 import com.commerce.huayi.mapper.TranslateMapper;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.TranslateService;
@@ -49,9 +50,12 @@ public class TranslateServiceImpl implements TranslateService {
     @Autowired
     private JedisTemplate jedisTemplate;
 
+    @Autowired
+    private InternationalLanguageMapper internationalLanguageMapper;
+
     public Object translate(Object requiredObject) {
-        LanguageEnum language = ServletUtils.language();
-        LanguageEnum definLanguage = language == null ? LanguageEnum.ZH_CN : language;
+        String language = ServletUtils.language();
+        String definLanguage = language == null ? "chinese" : language;
         if (!(requiredObject instanceof ApiResponse)) {
             return requiredObject;
         }
@@ -93,7 +97,7 @@ public class TranslateServiceImpl implements TranslateService {
         return requiredObject;
     }
 
-    private void translateByType(LanguageEnum language, Object data) throws Exception {
+    private void translateByType(String language, Object data) throws Exception {
         if (Map.class.isAssignableFrom(data.getClass())) {
             LOGGER.warn("======国际化翻译不支持返回数据为Map类型");
             return;
@@ -125,12 +129,12 @@ public class TranslateServiceImpl implements TranslateService {
     }
 
     @SuppressWarnings("unchecked")
-    private boolean isNecessary(LanguageEnum language, Collection collection) {
+    private boolean isNecessary(String language, Collection collection) {
         Set<Class> clazzs = (Set<Class>) collection.stream().map(Object::getClass).collect(Collectors.toSet());
         return clazzs.stream().allMatch(clazz -> isNecessary(language, clazz));
     }
 
-    private boolean isNecessary(LanguageEnum language, Class clazz) {
+    private boolean isNecessary(String language, Class clazz) {
         Field[] declaredFields = clazz.getDeclaredFields();
         if (declaredFields.length == 0) {
             return false;
@@ -149,14 +153,14 @@ public class TranslateServiceImpl implements TranslateService {
         if (CollectionUtils.isEmpty(refTables)) {
             return false;
         }
-        if (refTables.stream().anyMatch(refTable -> !tableNameExist(refTable.concat("_").concat(language.getLanguage())))) {
-            LOGGER.error("====国际化翻译检测到未存在该语言对应的翻译字典======language=" + language.getLanguage());
+        if (refTables.stream().anyMatch(refTable -> !tableNameExist(refTable.concat("_").concat(language)))) {
+            LOGGER.error("====国际化翻译检测到未存在该语言对应的翻译字典======language=" + language);
             return false;
         }
         return true;
     }
 
-    private void translateObject(LanguageEnum language, Object object) throws Exception {
+    private void translateObject(String language, Object object) throws Exception {
         Class<?> clazz = object.getClass();
         Field[] declaredFields = clazz.getDeclaredFields();
         //获取翻译字段
@@ -172,7 +176,7 @@ public class TranslateServiceImpl implements TranslateService {
     }
 
     //获取翻译文本，反射覆盖java bean的属性
-    private void translateField(LanguageEnum language, Object object, Class<?> clazz, Field translateField) throws Exception {
+    private void translateField(String language, Object object, Class<?> clazz, Field translateField) throws Exception {
         Translate annotation = translateField.getAnnotation(Translate.class);
         String referenceTableName = annotation.refTable();
         String referenceColumnName = annotation.refColumn();
@@ -182,12 +186,12 @@ public class TranslateServiceImpl implements TranslateService {
         this.translateField(language, object, clazz, translateField, referenceTableName, referenceColumnName);
     }
 
-    private void translateField(LanguageEnum language, Object object, Class<?> clazz, Field translateField,
+    private void translateField(String language, Object object, Class<?> clazz, Field translateField,
                                 String referenceTableName, String referenceColumnName) throws Exception {
         if (StringUtils.isBlank(referenceTableName) || StringUtils.isBlank(referenceColumnName)) {
             return;
         }
-        String translateTableName = referenceTableName.concat("_").concat(language.getLanguage());
+        String translateTableName = referenceTableName.concat("_").concat(language);
         String translateColumnName = referenceColumnName.concat(Constant.TRANSLATE_FIELD_SUFFIX);
         translateField.setAccessible(true);
         Object requiredFieldValue = translateField.get(object);
@@ -332,7 +336,7 @@ public class TranslateServiceImpl implements TranslateService {
         if (CollectionUtils.isEmpty(translateEntities)) {
             return null;
         }
-        Set<String> languages = Arrays.stream(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toSet());
+        Set<String> languages = internationalLanguageMapper.selectAll().stream().map(InternationalLanguage::getLanguage).collect(Collectors.toSet());
         List<TranslateEntity> collect = translateEntities.stream()
                 .filter(entity -> languages.contains(entity.getTableName()
                         .substring(entity.getTableName().lastIndexOf("_") + 1))).collect(Collectors.toList());

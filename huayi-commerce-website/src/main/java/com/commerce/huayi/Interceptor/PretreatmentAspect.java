@@ -3,7 +3,9 @@ package com.commerce.huayi.Interceptor;
 import com.commerce.huayi.annotation.Pretreatment;
 import com.commerce.huayi.asyn.AsynTranslateTask;
 import com.commerce.huayi.cache.JedisTemplate;
+import com.commerce.huayi.entity.db.InternationalLanguage;
 import com.commerce.huayi.entity.request.AbstractDictReq;
+import com.commerce.huayi.mapper.InternationalLanguageMapper;
 import com.commerce.huayi.service.TranslateService;
 import com.commerce.huayi.service.impl.ThreadService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,6 +41,9 @@ public class PretreatmentAspect {
 
     @Autowired
     private JedisTemplate jedisTemplate;
+
+    @Autowired
+    private InternationalLanguageMapper internationalLanguageMapper;
 
     @Pointcut("execution(* com.commerce.huayi.controller..*Controller.*(..)) && @annotation(com.commerce.huayi.annotation.Pretreatment)")
     public void controller() {
@@ -69,13 +75,14 @@ public class PretreatmentAspect {
         Object[] args = joinPoint.getArgs();
         Optional<Object> optional = Stream.of(args).filter(arg -> arg instanceof AbstractDictReq).findFirst();
         Object arg = optional.orElse(null);
+        Set<String> languages = internationalLanguageMapper.selectAll().stream().map(InternationalLanguage::getLanguage).collect(Collectors.toSet());
         if (arg != null) {
             AbstractDictReq req = (AbstractDictReq) arg;
-            threadService.submit(new AsynTranslateTask(req, translateService));
+            threadService.submit(new AsynTranslateTask(req, translateService,languages));
         }
         if (retVal instanceof AbstractDictReq) {
             AbstractDictReq req = (AbstractDictReq) retVal;
-            threadService.submit(new AsynTranslateTask(req, translateService));
+            threadService.submit(new AsynTranslateTask(req, translateService,languages));
         }
     }
 

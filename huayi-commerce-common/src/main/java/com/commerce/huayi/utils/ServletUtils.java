@@ -145,8 +145,7 @@ public class ServletUtils {
         return os;
     }
 
-    public static LanguageEnum language() {
-        String language = getHttpServletRequest().getHeader(RequestHeaderEnum.language.name());
-        return LanguageEnum.enums(language);
+    public static String language() {
+        return getHttpServletRequest().getHeader(RequestHeaderEnum.language.name());
     }
 }
