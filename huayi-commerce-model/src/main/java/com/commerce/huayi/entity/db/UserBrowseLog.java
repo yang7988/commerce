@@ -1,38 +1,27 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_user_browse_log")
 public class UserBrowseLog implements Serializable {
     /**
      * 主键ID
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**
      * 用户所在地址
      */
-    @Column(name = "address")
     private String address;
 
     /**
      * 浏览模块
      */
-    @Column(name = "`module`")
     private String module;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_date")
     private Date createDate;
 
     private static final long serialVersionUID = 1L;

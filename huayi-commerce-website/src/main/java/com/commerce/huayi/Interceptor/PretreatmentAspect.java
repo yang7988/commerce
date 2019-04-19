@@ -3,9 +3,8 @@ package com.commerce.huayi.Interceptor;
 import com.commerce.huayi.annotation.Pretreatment;
 import com.commerce.huayi.asyn.AsynTranslateTask;
 import com.commerce.huayi.cache.JedisTemplate;
-import com.commerce.huayi.entity.db.InternationalLanguage;
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.request.AbstractDictReq;
-import com.commerce.huayi.mapper.InternationalLanguageMapper;
 import com.commerce.huayi.service.TranslateService;
 import com.commerce.huayi.service.impl.ThreadService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -42,8 +41,6 @@ public class PretreatmentAspect {
     @Autowired
     private JedisTemplate jedisTemplate;
 
-    @Autowired
-    private InternationalLanguageMapper internationalLanguageMapper;
 
     @Pointcut("execution(* com.commerce.huayi.controller..*Controller.*(..)) && @annotation(com.commerce.huayi.annotation.Pretreatment)")
     public void controller() {
@@ -54,12 +51,12 @@ public class PretreatmentAspect {
     }
 
     @Before(value = "controller()")
-    public void beforeMethod(JoinPoint joinPoint){
+    public void beforeMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
         Optional<Object> optional = Stream.of(args).filter(arg -> arg.getClass().getAnnotation(Pretreatment.class) != null).findFirst();
         Object obj = optional.orElse(null);
-        if(obj == null) {
+        if (obj == null) {
             return;
         }
         Field[] declaredFields = obj.getClass().getDeclaredFields();
@@ -67,7 +64,7 @@ public class PretreatmentAspect {
             return;
         }
         List<Field> fields = Stream.of(declaredFields).filter(field -> field.getAnnotation(Pretreatment.class) != null).collect(Collectors.toList());
-        fields.forEach(field -> pretreatmentString(obj,field));
+        fields.forEach(field -> pretreatmentString(obj, field));
     }
 
     @AfterReturning(value = "service()", returning = "retVal")
@@ -75,33 +72,33 @@ public class PretreatmentAspect {
         Object[] args = joinPoint.getArgs();
         Optional<Object> optional = Stream.of(args).filter(arg -> arg instanceof AbstractDictReq).findFirst();
         Object arg = optional.orElse(null);
-        Set<String> languages = internationalLanguageMapper.selectAll().stream().map(InternationalLanguage::getLanguage).collect(Collectors.toSet());
+        Set<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toSet());
         if (arg != null) {
             AbstractDictReq req = (AbstractDictReq) arg;
-            threadService.submit(new AsynTranslateTask(req, translateService,languages));
+            threadService.submit(new AsynTranslateTask(req, translateService, languages));
         }
         if (retVal instanceof AbstractDictReq) {
             AbstractDictReq req = (AbstractDictReq) retVal;
-            threadService.submit(new AsynTranslateTask(req, translateService,languages));
+            threadService.submit(new AsynTranslateTask(req, translateService, languages));
         }
     }
 
-    private void pretreatmentString(Object obj, Field field)  {
+    private void pretreatmentString(Object obj, Field field) {
         try {
             field.setAccessible(true);
             Object result = field.get(obj);
-            if(!(result instanceof String)) {
+            if (!(result instanceof String)) {
                 return;
             }
             String ret = (String) result;
-            if(StringUtils.isBlank(ret)) {
+            if (StringUtils.isBlank(ret)) {
                 return;
             }
             ret = ret.replaceAll(" ", "");
             String pretreatmentString = DigestUtils.md5Hex(ret);
-            field.set(obj,pretreatmentString);
+            field.set(obj, pretreatmentString);
         } catch (IllegalAccessException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

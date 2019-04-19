@@ -1,33 +1,20 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_banner")
 public class Banner implements Serializable {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
-    @Column(name = "url")
     private String url;
 
-    @Column(name = "imageKey")
     private String imageKey;
 
-    @Column(name = "create_date")
     private Date createDate;
 
-    @Column(name = "update_date")
     private Date updateDate;
 
-    @Column(name = "del_flag")
     private String delFlag;
 
     public Integer getId() {

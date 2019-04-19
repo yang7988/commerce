@@ -21,7 +21,7 @@ public class ContractInfoController {
     private ContractInfoService contractInfoService;
 
     @PostMapping(value = "/getContractInfo")
-    @ApiOperation(value = "联系我们",notes = "获取联系我们信息")
+    @ApiOperation(value = "联系我们", notes = "获取联系我们信息")
     public ApiResponse<List<ContractInfoVo>> getContractInfo() {
         return ApiResponse.returnSuccess(contractInfoService.getContractInfo());
     }

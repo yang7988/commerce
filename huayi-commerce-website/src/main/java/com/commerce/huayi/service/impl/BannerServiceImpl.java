@@ -22,7 +22,7 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public List<BannerVo> getBannerList() {
         List<Banner> bannerList = bannerMapper.getBannerList();
-        if(CollectionUtils.isEmpty(bannerList)) {
+        if (CollectionUtils.isEmpty(bannerList)) {
             return null;
         }
         return BeanCopyUtil.copy(BannerVo.class, bannerList);

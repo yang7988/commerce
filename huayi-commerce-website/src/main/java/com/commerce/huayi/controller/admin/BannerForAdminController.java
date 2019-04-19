@@ -25,14 +25,14 @@ public class BannerForAdminController {
 
     // 获取banner列表
     @PostMapping(value = "/getBannerList")
-    @ApiOperation(value = "官网banner管理",notes = "获取banner列表")
+    @ApiOperation(value = "官网banner管理", notes = "获取banner列表")
     public ApiResponse<List<BannerVo>> getBannerList() {
         return ApiResponse.returnSuccess(bannerService.getBannerList());
     }
 
     // 添加banner
     @PostMapping(value = "/addBanner")
-    @ApiOperation(value = "官网banner管理",notes = "添加banner")
+    @ApiOperation(value = "官网banner管理", notes = "添加banner")
     public ApiResponse addBanner(@RequestBody BannerReq bannerReq) {
         bannerService.addBanner(bannerReq);
         return ApiResponse.returnSuccess();
@@ -40,7 +40,7 @@ public class BannerForAdminController {
 
     // 删除banner
     @PostMapping(value = "/delBanner")
-    @ApiOperation(value = "官网banner管理",notes = "删除banner")
+    @ApiOperation(value = "官网banner管理", notes = "删除banner")
     public ApiResponse delBanner(@RequestBody DelDataReq delDataReq) {
         bannerService.delBanner(delDataReq);
         return ApiResponse.returnSuccess();
@@ -48,7 +48,7 @@ public class BannerForAdminController {
 
     // 更新banner
     @PostMapping(value = "/updateBanner")
-    @ApiOperation(value = "官网banner管理",notes = "更新banner信息")
+    @ApiOperation(value = "官网banner管理", notes = "更新banner信息")
     public ApiResponse updateBanner(@RequestBody BannerReq bannerReq) {
         bannerService.updateBanner(bannerReq);
         return ApiResponse.returnSuccess();

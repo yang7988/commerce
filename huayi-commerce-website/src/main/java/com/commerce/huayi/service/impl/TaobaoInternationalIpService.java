@@ -15,7 +15,7 @@ public class TaobaoInternationalIpService implements InternationalIpService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaobaoInternationalIpService.class);
     private static String taobaoUrl = "http://ip.taobao.com/service/getIpInfo.php?ip=";
-    
+
     @Override
     public IpAddressDetails queryIp(String ip) {
         if (StringUtils.isBlank(ip)) {
@@ -31,7 +31,7 @@ public class TaobaoInternationalIpService implements InternationalIpService {
             LOGGER.error("获取ip国家省份城市出错,ip= " + ip, e);
             return null;
         }
-        if(StringUtils.isBlank(json)) {
+        if (StringUtils.isBlank(json)) {
             LOGGER.warn("获取ip国家省份城市出错,ip= " + ip);
             return null;
         }

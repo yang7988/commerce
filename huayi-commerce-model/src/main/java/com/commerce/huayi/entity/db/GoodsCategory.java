@@ -1,206 +1,111 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_goods_category")
 public class GoodsCategory implements Serializable {
     /**
      * 主键id
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**
      * 父级分类id
      */
-    @Column(name = "parent_id")
     private Long parentId;
 
     /**
      * 是否可以展开0不能展开1能展开
      */
-    @Column(name = "is_open")
     private Byte isOpen;
 
     /**
      * 分类名称
      */
-    @Column(name = "category_name")
     private String categoryName;
 
     /**
      * 分类描述
      */
-    @Column(name = "category_description")
     private String categoryDescription;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_date")
     private Date createDate;
 
     /**
      * 更新时间
      */
-    @Column(name = "update_date")
     private Date updateDate;
 
     /**
      * 是否删除(0未删除1已删除)
      */
-    @Column(name = "is_delete")
     private Byte isDelete;
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 获取主键id
-     *
-     * @return id - 主键id
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     * 设置主键id
-     *
-     * @param id 主键id
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * 获取父级分类id
-     *
-     * @return parent_id - 父级分类id
-     */
     public Long getParentId() {
         return parentId;
     }
 
-    /**
-     * 设置父级分类id
-     *
-     * @param parentId 父级分类id
-     */
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
-    /**
-     * 获取是否可以展开0不能展开1能展开
-     *
-     * @return is_open - 是否可以展开0不能展开1能展开
-     */
     public Byte getIsOpen() {
         return isOpen;
     }
 
-    /**
-     * 设置是否可以展开0不能展开1能展开
-     *
-     * @param isOpen 是否可以展开0不能展开1能展开
-     */
     public void setIsOpen(Byte isOpen) {
         this.isOpen = isOpen;
     }
 
-    /**
-     * 获取分类名称
-     *
-     * @return category_name - 分类名称
-     */
     public String getCategoryName() {
         return categoryName;
     }
 
-    /**
-     * 设置分类名称
-     *
-     * @param categoryName 分类名称
-     */
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    /**
-     * 获取分类描述
-     *
-     * @return category_description - 分类描述
-     */
     public String getCategoryDescription() {
         return categoryDescription;
     }
 
-    /**
-     * 设置分类描述
-     *
-     * @param categoryDescription 分类描述
-     */
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
     }
 
-    /**
-     * 获取创建时间
-     *
-     * @return create_date - 创建时间
-     */
     public Date getCreateDate() {
         return createDate;
     }
 
-    /**
-     * 设置创建时间
-     *
-     * @param createDate 创建时间
-     */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    /**
-     * 获取更新时间
-     *
-     * @return update_date - 更新时间
-     */
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    /**
-     * 设置更新时间
-     *
-     * @param updateDate 更新时间
-     */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
-    /**
-     * 获取是否删除(0未删除1已删除)
-     *
-     * @return is_delete - 是否删除(0未删除1已删除)
-     */
     public Byte getIsDelete() {
         return isDelete;
     }
 
-    /**
-     * 设置是否删除(0未删除1已删除)
-     *
-     * @param isDelete 是否删除(0未删除1已删除)
-     */
     public void setIsDelete(Byte isDelete) {
         this.isDelete = isDelete;
     }
@@ -236,13 +141,13 @@ public class GoodsCategory implements Serializable {
         }
         GoodsCategory other = (GoodsCategory) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
-            && (this.getIsOpen() == null ? other.getIsOpen() == null : this.getIsOpen().equals(other.getIsOpen()))
-            && (this.getCategoryName() == null ? other.getCategoryName() == null : this.getCategoryName().equals(other.getCategoryName()))
-            && (this.getCategoryDescription() == null ? other.getCategoryDescription() == null : this.getCategoryDescription().equals(other.getCategoryDescription()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
-            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
-            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
+                && (this.getParentId() == null ? other.getParentId() == null : this.getParentId().equals(other.getParentId()))
+                && (this.getIsOpen() == null ? other.getIsOpen() == null : this.getIsOpen().equals(other.getIsOpen()))
+                && (this.getCategoryName() == null ? other.getCategoryName() == null : this.getCategoryName().equals(other.getCategoryName()))
+                && (this.getCategoryDescription() == null ? other.getCategoryDescription() == null : this.getCategoryDescription().equals(other.getCategoryDescription()))
+                && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
+                && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
+                && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
     }
 
     @Override

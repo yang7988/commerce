@@ -25,16 +25,16 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping(value = "/login")
-    @ApiOperation(value = "后台管理员管理",notes = "管理员登陆")
+    @ApiOperation(value = "后台管理员管理", notes = "管理员登陆")
     public ApiResponse<AdministratorVo> login(@RequestBody UserLoginReq userLoginReq) {
         return ApiResponse.returnSuccess(adminService.login(userLoginReq.getUserName(), userLoginReq.getPassword()));
     }
 
     @PostMapping(value = "/addAdmin")
-    @ApiOperation(value = "后台管理员管理",notes = "添加管理员")
+    @ApiOperation(value = "后台管理员管理", notes = "添加管理员")
     public ApiResponse addAdmin(@RequestBody AdministratorReq administratorReq) {
         String loginName = administratorReq.getLoginName();
-        if(adminService.loginNameIsUsed(loginName)) {
+        if (adminService.loginNameIsUsed(loginName)) {
             return ApiResponse.returnFail("该登录名已经被占用");
         }
         adminService.addAdmin(administratorReq);
@@ -42,14 +42,14 @@ public class AdminController {
     }
 
     @PostMapping(value = "/delAdmin")
-    @ApiOperation(value = "后台管理员管理",notes = "删除管理员")
+    @ApiOperation(value = "后台管理员管理", notes = "删除管理员")
     public ApiResponse delAdmin(@RequestBody DelDataReq delDataReq) {
         adminService.delAdmin(delDataReq);
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/getAdmin")
-    @ApiOperation(value = "后台管理员管理",notes = "获取所有管理员")
+    @ApiOperation(value = "后台管理员管理", notes = "获取所有管理员")
     public ApiResponse<List<AdministratorVo>> getAdmin() {
         return ApiResponse.returnSuccess(adminService.getAdmin());
     }

@@ -2,11 +2,10 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.NewsInfo;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface NewsInfoMapper extends Mapper<NewsInfo> {
+public interface NewsInfoMapper {
     List<NewsInfo> getNewsInfos(@Param("type") String type, @Param("startLine") int startLine, @Param("pageMaxSize") int endLine);
 
     int getNewsInfoTotalCount(@Param("type") String type);

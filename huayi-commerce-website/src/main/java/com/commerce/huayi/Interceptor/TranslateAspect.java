@@ -25,11 +25,11 @@ public class TranslateAspect {
     public void controller() {
     }
 
-    @AfterReturning(value = "controller()",returning = "retVal")
+    @AfterReturning(value = "controller()", returning = "retVal")
     public void translateExecute(JoinPoint joinPoint, Object retVal) {
         long startTime = System.currentTimeMillis();
         translateService.translate(retVal);
-        if(LOGGER.isWarnEnabled()) {
+        if (LOGGER.isWarnEnabled()) {
             LOGGER.warn("国际化翻译耗时======{}===={}", (System.currentTimeMillis() - startTime) + "/ms", joinPoint.toString());
         }
     }

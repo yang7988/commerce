@@ -24,33 +24,33 @@ public class NewsInfoForAdminController {
     private NewsInfoService newsInfoService;
 
     @PostMapping(value = "/getNewsInfos")
-    @ApiOperation(value = "新闻中心管理",notes = "获取新闻列表")
+    @ApiOperation(value = "新闻中心管理", notes = "获取新闻列表")
     public ApiResponse<Page<NewsInfoVo>> getNewsInfos(@RequestBody NewsListReq pageRequest) {
         return ApiResponse.returnSuccess(newsInfoService.getNewsInfos(pageRequest));
     }
 
     @PostMapping(value = "/getNewsInfo")
-    @ApiOperation(value = "新闻中心管理",notes = "获取新闻明细")
+    @ApiOperation(value = "新闻中心管理", notes = "获取新闻明细")
     public ApiResponse<NewsInfoVo> getNewsInfo(@RequestBody DelDataReq param) {
         return ApiResponse.returnSuccess(newsInfoService.getNewsInfo(param.getId()));
     }
 
     @PostMapping(value = "/addNewsInfo")
-    @ApiOperation(value = "新闻中心管理",notes = "添加新闻")
+    @ApiOperation(value = "新闻中心管理", notes = "添加新闻")
     public ApiResponse addNewsInfo(@RequestBody NewsInfoReq newsInfoReq) {
         newsInfoService.addNewsInfo(newsInfoReq);
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/delNewsInfo")
-    @ApiOperation(value = "新闻中心管理",notes = "删除新闻")
+    @ApiOperation(value = "新闻中心管理", notes = "删除新闻")
     public ApiResponse delNewsInfo(@RequestBody DelDataReq param) {
         newsInfoService.delNewsInfo(param.getId());
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/updateNewsInfo")
-    @ApiOperation(value = "新闻中心管理",notes = "更新新闻明细")
+    @ApiOperation(value = "新闻中心管理", notes = "更新新闻明细")
     public ApiResponse updateNewsInfo(@RequestBody NewsInfoReq newsInfoReq) {
         newsInfoService.updateNewsInfo(newsInfoReq);
         return ApiResponse.returnSuccess();

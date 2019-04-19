@@ -17,20 +17,19 @@ import java.util.List;
 public interface GoodsService {
 
     /**
-     *
      * @param id 产品分类id()
      * @return 返回ApiResponse接口响应对象
      * @throws BusinessException 抛出业务异常
      */
-    Page<CategoryVo> getCategories(Long id, String name,int pageIndex, int pageMaxSize) throws BusinessException;
+    Page<CategoryVo> getCategories(Long id, String name, int pageIndex, int pageMaxSize) throws BusinessException;
 
-    Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize)  throws BusinessException;
+    Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException;
 
     ApiResponseEnum addCategory(CategoryReq categoryReq);
 
     Integer deleteCategory(Long id);
 
-    ApiResponseEnum updateCategory(UpdateCategoryReq req,String language);
+    ApiResponseEnum updateCategory(UpdateCategoryReq req, String language);
 
     byte[] getGoodsImage(Long goodsId);
 
@@ -44,11 +43,11 @@ public interface GoodsService {
 
     Page<GoodsSpuDetailsVo> populateGoods(Long id, int pageIndex, int pageMaxSize);
 
-    ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req);
+    /*ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req);
 
-    ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req);
+    ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req);*/
 
-    List<GoodsSpuVo> search(String keyWord,String language);
+    List<GoodsSpuVo> search(String keyWord, String language);
 
     Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize);
 
@@ -56,7 +55,7 @@ public interface GoodsService {
 
     GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId);
 
-    ApiResponseEnum updateGoods(UpdateGoodsReq req,String language);
+    ApiResponseEnum updateGoods(UpdateGoodsReq req, String language);
 
     ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language);
 }

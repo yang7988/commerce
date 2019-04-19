@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.commerce.huayi.mapper.GoodPopulateMapper">
   <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodPopulate">
-    <!--@mbg.generated generated on Tue Apr 09 15:46:15 CST 2019.-->
+    <!--@mbg.generated-->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="category_id" jdbcType="BIGINT" property="categoryId" />
     <result column="spu_id" jdbcType="BIGINT" property="spuId" />
@@ -12,9 +12,90 @@
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--@mbg.generated generated on Tue Apr 09 15:46:15 CST 2019.-->
+    <!--@mbg.generated-->
     id, category_id, spu_id, spec_value_id, is_delete, create_date, update_date
   </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_good_populate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from tb_good_populate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.commerce.huayi.entity.db.GoodPopulate" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_good_populate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="spuId != null">
+        spu_id,
+      </if>
+      <if test="specValueId != null">
+        spec_value_id,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="spuId != null">
+        #{spuId,jdbcType=BIGINT},
+      </if>
+      <if test="specValueId != null">
+        #{specValueId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodPopulate">
+    <!--@mbg.generated-->
+    update tb_good_populate
+    <set>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="spuId != null">
+        spu_id = #{spuId,jdbcType=BIGINT},
+      </if>
+      <if test="specValueId != null">
+        spec_value_id = #{specValueId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
 
     <select id="selectPopulateGoodsCount" resultType="int">

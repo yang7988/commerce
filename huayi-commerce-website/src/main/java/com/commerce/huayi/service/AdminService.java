@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AdminService {
 
-    AdministratorVo login(String userName,String password) throws BusinessException;
+    AdministratorVo login(String userName, String password) throws BusinessException;
 
     void addAdmin(AdministratorReq administratorReq);
 

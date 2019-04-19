@@ -7,8 +7,9 @@ import com.commerce.huayi.pagination.Page;
 
 /**
  * 新闻中心服务类
+ *
  * @date 2019-03-16
- * */
+ */
 public interface NewsInfoService {
 
     Page<NewsInfoVo> getNewsInfos(NewsListReq pageRequest);

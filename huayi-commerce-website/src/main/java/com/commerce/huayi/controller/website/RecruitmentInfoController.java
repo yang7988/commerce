@@ -23,13 +23,13 @@ public class RecruitmentInfoController {
     private RecruitmentInfoService recruitmentInfoService;
 
     @PostMapping(value = "/getRecruitmentInfos")
-    @ApiOperation(value = "人才中心",notes = "获取人才中心信息")
+    @ApiOperation(value = "人才中心", notes = "获取人才中心信息")
     public ApiResponse<List<RecruitmentInfoVo>> getRecruitmentInfos() {
         return ApiResponse.returnSuccess(recruitmentInfoService.getRecruitmentInfos());
     }
 
     @PostMapping(value = "/getRecruitmentInfo")
-    @ApiOperation(value = "人才中心",notes = "获取人才中心明细")
+    @ApiOperation(value = "人才中心", notes = "获取人才中心明细")
     public ApiResponse<RecruitmentInfoVo> getRecruitmentInfo(@RequestBody DelDataReq param) {
         return ApiResponse.returnSuccess(recruitmentInfoService.getRecruitmentInfo(param.getId()));
     }

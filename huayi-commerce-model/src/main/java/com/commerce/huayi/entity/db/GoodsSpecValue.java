@@ -1,158 +1,85 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_goods_spec_value")
 public class GoodsSpecValue implements Serializable {
     /**
      * 主键id
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**
      * 规格id
      */
-    @Column(name = "spec_id")
     private Long specId;
 
     /**
      * 规格值
      */
-    @Column(name = "spec_value")
     private String specValue;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_date")
     private Date createDate;
 
     /**
      * 更新时间
      */
-    @Column(name = "update_date")
     private Date updateDate;
 
     /**
      * 是否删除(0未删除1已删除)
      */
-    @Column(name = "is_delete")
     private Byte isDelete;
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 获取主键id
-     *
-     * @return id - 主键id
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     * 设置主键id
-     *
-     * @param id 主键id
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * 获取规格id
-     *
-     * @return spec_id - 规格id
-     */
     public Long getSpecId() {
         return specId;
     }
 
-    /**
-     * 设置规格id
-     *
-     * @param specId 规格id
-     */
     public void setSpecId(Long specId) {
         this.specId = specId;
     }
 
-    /**
-     * 获取规格值
-     *
-     * @return spec_value - 规格值
-     */
     public String getSpecValue() {
         return specValue;
     }
 
-    /**
-     * 设置规格值
-     *
-     * @param specValue 规格值
-     */
     public void setSpecValue(String specValue) {
         this.specValue = specValue;
     }
 
-    /**
-     * 获取创建时间
-     *
-     * @return create_date - 创建时间
-     */
     public Date getCreateDate() {
         return createDate;
     }
 
-    /**
-     * 设置创建时间
-     *
-     * @param createDate 创建时间
-     */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    /**
-     * 获取更新时间
-     *
-     * @return update_date - 更新时间
-     */
     public Date getUpdateDate() {
         return updateDate;
     }
 
-    /**
-     * 设置更新时间
-     *
-     * @param updateDate 更新时间
-     */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
-    /**
-     * 获取是否删除(0未删除1已删除)
-     *
-     * @return is_delete - 是否删除(0未删除1已删除)
-     */
     public Byte getIsDelete() {
         return isDelete;
     }
 
-    /**
-     * 设置是否删除(0未删除1已删除)
-     *
-     * @param isDelete 是否删除(0未删除1已删除)
-     */
     public void setIsDelete(Byte isDelete) {
         this.isDelete = isDelete;
     }
@@ -186,11 +113,11 @@ public class GoodsSpecValue implements Serializable {
         }
         GoodsSpecValue other = (GoodsSpecValue) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getSpecId() == null ? other.getSpecId() == null : this.getSpecId().equals(other.getSpecId()))
-            && (this.getSpecValue() == null ? other.getSpecValue() == null : this.getSpecValue().equals(other.getSpecValue()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
-            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
-            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
+                && (this.getSpecId() == null ? other.getSpecId() == null : this.getSpecId().equals(other.getSpecId()))
+                && (this.getSpecValue() == null ? other.getSpecValue() == null : this.getSpecValue().equals(other.getSpecValue()))
+                && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
+                && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
+                && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
     }
 
     @Override

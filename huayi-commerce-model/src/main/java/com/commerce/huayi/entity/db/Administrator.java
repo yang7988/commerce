@@ -1,80 +1,62 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_administrator")
 public class Administrator implements Serializable {
     /**
      * 主键
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**
      * 登录名
      */
-    @Column(name = "login_name")
     private String loginName;
 
     /**
      * 用户名
      */
-    @Column(name = "`name`")
     private String name;
 
     /**
      * 用户手机号
      */
-    @Column(name = "mobile_phone")
     private String mobilePhone;
 
     /**
      * 登录密码
      */
-    @Column(name = "`password`")
     private String password;
 
     /**
      * 用户状态(0:锁定 1:正常)
      */
-    @Column(name = "`status`")
     private String status;
 
     /**
      * 创建人
      */
-    @Column(name = "create_by")
     private String createBy;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_date")
     private Date createDate;
 
     /**
      * 更新时间
      */
-    @Column(name = "update_date")
     private Date updateDate;
 
     /**
      * 删除标识(0未删除1已删除)
      */
-    @Column(name = "is_delete")
     private Byte isDelete;
 
     /**
      * 更新人
      */
-    @Column(name = "update_by")
     private String updateBy;
 
     private static final long serialVersionUID = 1L;

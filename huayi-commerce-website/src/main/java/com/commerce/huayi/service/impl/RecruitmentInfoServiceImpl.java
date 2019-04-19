@@ -27,7 +27,7 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
     public List<RecruitmentInfoVo> getRecruitmentInfos() {
 
         List<RecruitmentInfo> recruitmentInfoList = recruitmentInfoMapper.getRecruitmentInfos();
-        if(CollectionUtils.isEmpty(recruitmentInfoList)) {
+        if (CollectionUtils.isEmpty(recruitmentInfoList)) {
             return null;
         }
 
@@ -36,7 +36,7 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
 
     @Override
     public void addRecruitmentInfo(RecruitmentInfoReq recruitmentInfoReq) {
-        LOGGER.info("RecruitmentInfoServiceImpl->addRecruitmentInfo recruitmentInfoReq:{}",recruitmentInfoReq);
+        LOGGER.info("RecruitmentInfoServiceImpl->addRecruitmentInfo recruitmentInfoReq:{}", recruitmentInfoReq);
         RecruitmentInfo recruitmentInfo = new RecruitmentInfo();
         recruitmentInfo.setDelFlag("0");
         recruitmentInfo.setCreateDate(new Date());
@@ -47,15 +47,15 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
 
     @Override
     public void delRecruitmentInfo(int id) {
-        LOGGER.info("RecruitmentInfoServiceImpl->delRecruitmentInfo id:{}",id);
+        LOGGER.info("RecruitmentInfoServiceImpl->delRecruitmentInfo id:{}", id);
         recruitmentInfoMapper.delRecruitmentInfo(id);
     }
 
     @Override
     public RecruitmentInfoVo getRecruitmentInfo(int id) {
-        LOGGER.info("RecruitmentInfoServiceImpl->getRecruitmentInfo id:{}",id);
+        LOGGER.info("RecruitmentInfoServiceImpl->getRecruitmentInfo id:{}", id);
         RecruitmentInfo recruitmentInfo = recruitmentInfoMapper.getRecruitmentInfo(id);
-        if(null == recruitmentInfo) {
+        if (null == recruitmentInfo) {
             return null;
         }
         RecruitmentInfoVo recruitmentInfoVo = new RecruitmentInfoVo();
@@ -68,7 +68,7 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
 
     @Override
     public void updateRecruitmentInfo(RecruitmentInfoReq recruitmentInfoReq) {
-        LOGGER.info("RecruitmentInfoServiceImpl->updateRecruitmentInfo recruitmentInfoReq:{}",recruitmentInfoReq);
+        LOGGER.info("RecruitmentInfoServiceImpl->updateRecruitmentInfo recruitmentInfoReq:{}", recruitmentInfoReq);
         RecruitmentInfo recruitmentInfo = new RecruitmentInfo();
         recruitmentInfo.setId(recruitmentInfoReq.getId());
         recruitmentInfo.setTitle(recruitmentInfoReq.getTitle());

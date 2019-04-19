@@ -29,29 +29,29 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @PostMapping(value = "/categories")
-    @ApiOperation(value = "产品分类管理",notes = "获取产品分类")
+    @ApiOperation(value = "产品分类管理", notes = "获取产品分类")
     public ApiResponse<Page<CategoryVo>> categories(@RequestBody PageCategoryGoodsRequest req) {
         Page<CategoryVo> page = goodsService.getCategories(req.getId(), req.getName(), req.getPageIndex(), req.getPageMaxSize());
         return ApiResponse.returnSuccess(page);
     }
 
     @PostMapping(value = "/categoryGoods")
-    @ApiOperation(value = "获取分类的全部产品",notes = "获取分类的全部产品此接口不分页")
-    public ApiResponse<Page<GoodsSpuVo>> categoryGoods(@RequestBody PageCategoryGoodsRequest req){
+    @ApiOperation(value = "获取分类的全部产品", notes = "获取分类的全部产品此接口不分页")
+    public ApiResponse<Page<GoodsSpuVo>> categoryGoods(@RequestBody PageCategoryGoodsRequest req) {
         Page<GoodsSpuVo> page = goodsService.categoryGoods(req.getId(), req.getPageIndex(), req.getPageMaxSize());
         return ApiResponse.returnSuccess(page);
     }
 
     @PostMapping(value = "/goodsDetails")
-    @ApiOperation(value = "获取某一个产品下所有不同规格产品",notes = "获取某一个产品下所有不同规格产品")
-    public ApiResponse<Page<GoodsSpuDetailsVo>> goodsDetails(@RequestBody PageCategoryGoodsRequest req){
+    @ApiOperation(value = "获取某一个产品下所有不同规格产品", notes = "获取某一个产品下所有不同规格产品")
+    public ApiResponse<Page<GoodsSpuDetailsVo>> goodsDetails(@RequestBody PageCategoryGoodsRequest req) {
         Page<GoodsSpuDetailsVo> page = goodsService.goodsDetails(req.getId(), req.getPageIndex(), req.getPageMaxSize());
         return ApiResponse.returnSuccess(page);
     }
 
     @PostMapping(value = "/goodsSpecDetails")
-    @ApiOperation(value = "获取某一个产品下某一具体规格的详情",notes = "获取某一个产品下所有不同规格产品")
-    public ApiResponse<GoodsSpuDetailsVo> goodsSpecDetails(@RequestBody GoodsSpecDetailsReq req){
+    @ApiOperation(value = "获取某一个产品下某一具体规格的详情", notes = "获取某一个产品下所有不同规格产品")
+    public ApiResponse<GoodsSpuDetailsVo> goodsSpecDetails(@RequestBody GoodsSpecDetailsReq req) {
         GoodsSpuDetailsVo details = goodsService.goodsSpecDetails(req.getId(), req.getSpecValueId());
         return ApiResponse.returnSuccess(details);
     }
@@ -70,7 +70,7 @@ public class GoodsController {
     }*/
 
     @PostMapping(value = "/search")
-    @ApiOperation(value = "按产品名模糊搜索产品",notes = "按产品名模糊搜索产品")
+    @ApiOperation(value = "按产品名模糊搜索产品", notes = "按产品名模糊搜索产品")
     public ApiResponse<List<GoodsSpuVo>> search(@RequestBody SearchGoodsReq req) {
         return ApiResponse.returnSuccess(goodsService.search(req.getKeyWord(), ServletUtils.language()));
     }

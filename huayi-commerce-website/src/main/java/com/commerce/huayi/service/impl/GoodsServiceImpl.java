@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
@@ -66,11 +65,11 @@ public class GoodsServiceImpl implements GoodsService {
     private TranslateMapper translateMapper;
 
     @Override
-    public Page<CategoryVo> getCategories(Long id,String name, int pageIndex, int pageMaxSize) throws BusinessException {
+    public Page<CategoryVo> getCategories(Long id, String name, int pageIndex, int pageMaxSize) throws BusinessException {
         Condition condition = Condition.create();
         Map<String, Object> criterion = condition.getCriterion();
-        criterion.put("categoryId",id);
-        criterion.put("categoryName",name);
+        criterion.put("categoryId", id);
+        criterion.put("categoryName", name);
         //查询数据库count
         Integer count = goodsCategoryMapper.selectCategoryCount(condition);
         Page<CategoryVo> page = Page.create(pageIndex, pageMaxSize, count);
@@ -89,7 +88,7 @@ public class GoodsServiceImpl implements GoodsService {
     public Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException {
         Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
         Page<GoodsSpuVo> page = Page.create(pageIndex, pageMaxSize, count);
-        if(count <= 0) {
+        if (count <= 0) {
             return page;
         }
         List<GoodsSpuVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
@@ -101,9 +100,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     @Dictionary
     public ApiResponseEnum addCategory(CategoryReq categoryReq) {
-        Example example = new Example(GoodsCategory.class);
-        example.createCriteria().andEqualTo("categoryName", categoryReq.getCategoryName());
-        int count = goodsCategoryMapper.selectCountByExample(example);
+        int count = goodsCategoryMapper.selectCountByName(categoryReq.getCategoryName());
         if (count > 0) {
             return ApiResponseEnum.GOODS_CATEGORY_EXISTS;
         }
@@ -127,7 +124,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public ApiResponseEnum updateCategory(UpdateCategoryReq req,String language) {
+    public ApiResponseEnum updateCategory(UpdateCategoryReq req, String language) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getDictId());
         if (goodsCategory == null) {
             return ApiResponseEnum.SUCCESS;
@@ -150,7 +147,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public byte[] getGoodsImage(Long goodsId) {
-        if(goodsId == null) {
+        if (goodsId == null) {
             return null;
         }
         GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(goodsId);
@@ -163,12 +160,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     @Dictionary
     public GoodsSpuVo addGoods(AddGoodsReq addGoodsReq) {
-        if(StringUtils.isBlank(addGoodsReq.getGoodsName())) {
+        if (StringUtils.isBlank(addGoodsReq.getGoodsName())) {
             return null;
         }
-        Example spuExample = new Example(GoodsSpu.class);
-        spuExample.createCriteria().andEqualTo("goodsName", addGoodsReq.getGoodsName());
-        int count = goodsSpuMapper.selectCountByExample(spuExample);
+        int count = goodsSpuMapper.selectCountByName(addGoodsReq.getGoodsName());
         if (count > 0) {
             return null;
         }
@@ -201,12 +196,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     @Dictionary
     public AddSpuSpecValueReq addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
-        Example example = new Example(GoodsSpec.class);
-        example.createCriteria().andEqualTo("specName", addSpuSpecReq.getSpecName());
-        int count = goodsSpecMapper.selectCountByExample(example);
+        int count = goodsSpecMapper.selectCountByName(addSpuSpecReq.getSpecName());
         GoodsSpec goodsSpec;
         if (count > 0) {
-            goodsSpec = goodsSpecMapper.selectByExample(example).get(0);
+            goodsSpec = goodsSpecMapper.selectByName(addSpuSpecReq.getSpecName()).get(0);
         } else {
             goodsSpec = BeanCopyUtil.copy(GoodsSpec.class, addSpuSpecReq);
             goodsSpec.setSpecNo(DigestUtils.md5Hex(addSpuSpecReq.getSpecName().concat(UUID.randomUUID().toString())));
@@ -216,10 +209,7 @@ public class GoodsServiceImpl implements GoodsService {
             goodsSpecMapper.insertSelective(goodsSpec);
         }
         addSpuSpecReq.setDictId(goodsSpec.getId());
-        Example specValexample = new Example(GoodsSpecValue.class);
-        specValexample.createCriteria().andEqualTo("specId", goodsSpec.getId())
-                .andEqualTo("specValue",addSpuSpecReq.getSpecValue());
-        int countByExample = goodsSpecValueMapper.selectCountByExample(specValexample);
+        int countByExample = goodsSpecValueMapper.selectCountBySpecIdAndValue(goodsSpec.getId(), addSpuSpecReq.getSpecValue());
         if (countByExample > 0) {
             return null;
         }
@@ -238,13 +228,13 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Page<GoodsSpecValueVo> getSpecInfoList(PageRequest pageRequest) {
         int count = goodsSpecMapper.getSpecInfoCount();
-        Page<GoodsSpecValueVo> page = Page.create(pageRequest.getPageIndex(),pageRequest.getPageMaxSize(),count);
-        if(count <= 0) {
+        Page<GoodsSpecValueVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize(), count);
+        if (count <= 0) {
             return page;
         }
         List<GoodsSpecValueVo> goodsSpecValueVos = goodsSpecMapper.getSpecInfos(page.getOffset(), page.getPageMaxSize());
         List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        goodsSpecValueVos.forEach(vo -> languages.forEach(language -> getSpecTranslate(vo,language)));
+        goodsSpecValueVos.forEach(vo -> languages.forEach(language -> getSpecTranslate(vo, language)));
         page.setList(goodsSpecValueVos);
         return page;
 
@@ -259,19 +249,19 @@ public class GoodsServiceImpl implements GoodsService {
         RedisKey specNameKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
         String specNameTranslate = jedisTemplate.hget(specNameKey, specName.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
                 .concat(goodsSpecValueVo.getSpecName()), String.class);
-        if(StringUtils.isNotBlank(specNameTranslate)) {
+        if (StringUtils.isNotBlank(specNameTranslate)) {
             goodsSpecValueVo.getTranslation().put(specName.concat("_").concat(language), specNameTranslate);
         }
         RedisKey specDescriptionKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
         String specDescriptionTranslate = jedisTemplate.hget(specDescriptionKey, specDescription.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
                 .concat(goodsSpecValueVo.getSpecDescription()), String.class);
-        if(StringUtils.isNotBlank(specDescriptionTranslate)) {
+        if (StringUtils.isNotBlank(specDescriptionTranslate)) {
             goodsSpecValueVo.getTranslation().put(specDescription.concat("_").concat(language), specDescriptionTranslate);
         }
         RedisKey specValKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specValTranslateTable.concat(language));
         String specValTranslate = jedisTemplate.hget(specValKey, specVal.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
                 .concat(goodsSpecValueVo.getSpecValue()), String.class);
-        if(StringUtils.isNotBlank(specValTranslate)) {
+        if (StringUtils.isNotBlank(specValTranslate)) {
             goodsSpecValueVo.getTranslation().put(specVal.concat("_").concat(language), specValTranslate);
         }
     }
@@ -280,7 +270,7 @@ public class GoodsServiceImpl implements GoodsService {
     public Page<GoodsSpuDetailsVo> populateGoods(Long id, int pageIndex, int pageMaxSize) {
         int count = goodPopulateMapper.selectPopulateGoodsCount(id);
         Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
-        if(count <= 0) {
+        if (count <= 0) {
             return page;
         }
         List<GoodsSpuDetailsVo> list = goodPopulateMapper.selectPopulateGoodsByPage(id, page.getOffset(), page.getPageMaxSize());
@@ -289,7 +279,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
-    @Override
+    /*@Override
     @Transactional
     public ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req) {
         Example example = new Example(GoodPopulate.class);
@@ -333,14 +323,14 @@ public class GoodsServiceImpl implements GoodsService {
         goodPopulate.setIsDelete(Constant.DELETED);
         goodPopulateMapper.updateByExampleSelective(goodPopulate, example);
         return ApiResponseEnum.SUCCESS;
-    }
+    }*/
 
     @Override
     public List<GoodsSpuVo> search(String keyWord, String language) {
         keyWord = ObjectUtil.processsenseKeyword(keyWord);
         Condition condition = Condition.create();
         Map<String, Object> criterion = condition.getCriterion();
-        criterion.put("searchKeyWord",keyWord);
+        criterion.put("searchKeyWord", keyWord);
         criterion.put("translate_table_name", "tb_goods_spu_".concat(language));
         return goodsSpuMapper.searchGoodsSpu(condition);
     }
@@ -349,7 +339,7 @@ public class GoodsServiceImpl implements GoodsService {
     public Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize) {
         Integer count = goodsSpuMapper.getGoodsCountByBySpuId(id);
         Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
-        if(count <= 0) {
+        if (count <= 0) {
             return page;
         }
         List<GoodsSpuDetailsVo> list = goodsSpuMapper.getGoodsBySpuId(id, page.getOffset(), page.getPageMaxSize());
@@ -360,11 +350,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req) {
-        Example example = new Example(GoodsSpuSpec.class);
-        example.createCriteria().andEqualTo("spuId",req.getId())
-                .andEqualTo("specValueId",req.getSpecValueId());
-        int count = goodsSpuSpecMapper.selectCountByExample(example);
-        if(count <= 0) {
+        int count = goodsSpuSpecMapper.selectCountBySpuIdAndSpecValueId(req.getId(), req.getSpecValueId());
+        if (count <= 0) {
             return ApiResponseEnum.SUCCESS;
         }
         GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();
@@ -380,7 +367,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId) {
-        return goodsSpuSpecMapper.selectGoodsSpecDetails(id,specValueId);
+        return goodsSpuSpecMapper.selectGoodsSpecDetails(id, specValueId);
     }
 
     @Override
@@ -426,10 +413,10 @@ public class GoodsServiceImpl implements GoodsService {
             return;
         }
         TranslateEntityExample translateExample = new TranslateEntityExample(table,
-                translateColumn, whereColumn, updateVal,reqVal);
+                translateColumn, whereColumn, updateVal, reqVal);
         translateMapper.updateByKey(translateExample);
-        RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY,table);
-        jedisTemplate.hset(redisKey, translateColumn.concat(":").concat(updateVal),reqVal);
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY, table);
+        jedisTemplate.hset(redisKey, translateColumn.concat(":").concat(updateVal), reqVal);
     }
 
     @Override
@@ -454,14 +441,14 @@ public class GoodsServiceImpl implements GoodsService {
         }
         GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(req.getSpecValueId());
         goodsSpecMapper.updateByPrimaryKeySelective(updateSpec);
-        if(goodsSpecValue == null) {
+        if (goodsSpecValue == null) {
             return ApiResponseEnum.SUCCESS;
         }
         String table = "tb_goods_spec_value_".concat(language);
         GoodsSpecValue updateSpecValue = new GoodsSpecValue();
         updateSpecValue.setId(goodsSpecValue.getId());
         updateSpecValue.setUpdateDate(new Date());
-        if(StringUtils.isNotBlank(req.getSpecValue())) {
+        if (StringUtils.isNotBlank(req.getSpecValue())) {
             this.updateDict(table, "spec_value_translate",
                     "spec_value", req.getSpecValue(), goodsSpecValue.getSpecValue());
         }

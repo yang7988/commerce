@@ -1,56 +1,42 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_admin_operator_log")
 public class AdminOperatorLog implements Serializable {
     /**
      * 主键
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     /**
      * 登录用户ID
      */
-    @Column(name = "login_user")
     private String loginUser;
 
     /**
      * 登陆地址
      */
-    @Column(name = "login_addr")
     private String loginAddr;
 
     /**
      * 操作接口
      */
-    @Column(name = "interfaces")
     private String interfaces;
 
     /**
      * 入参
      */
-    @Column(name = "`input`")
     private String input;
 
     /**
      * 出参
      */
-    @Column(name = "`output`")
     private String output;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_date")
     private Date createDate;
 
     private static final long serialVersionUID = 1L;

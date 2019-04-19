@@ -28,7 +28,7 @@ public class CustomerMessageServiceImpl implements CustomerMessageService {
 
         int count = customerMessageMapper.getCustomerMessagesTotalCount();
         Page<CustomerMessageVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize(), count);
-        if(count <= 0) {
+        if (count <= 0) {
             return page;
         }
         List<CustomerMessage> customerMessageList = customerMessageMapper.getCustomerMessages(page.getOffset(), page.getPageMaxSize());
@@ -39,7 +39,7 @@ public class CustomerMessageServiceImpl implements CustomerMessageService {
     @Override
     public void addCustomerMessage(CustomerMessageReq customerMessageReq) {
 
-        LOGGER.info("CustomerMessageServiceImpl->addCustomerMessage:{}",customerMessageReq);
+        LOGGER.info("CustomerMessageServiceImpl->addCustomerMessage:{}", customerMessageReq);
         CustomerMessage customerMessage = new CustomerMessage();
 
         customerMessageMapper.addCustomerMessage(customerMessage);

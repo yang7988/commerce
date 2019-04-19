@@ -27,7 +27,7 @@ public class ContractInfoServiceImpl implements ContractInfoService {
     public List<ContractInfoVo> getContractInfo() {
 
         List<ContractInfo> contractInfoList = contractInfoMapper.getContractInfo();
-        if(CollectionUtils.isEmpty(contractInfoList)) {
+        if (CollectionUtils.isEmpty(contractInfoList)) {
             return null;
         }
 
@@ -36,7 +36,7 @@ public class ContractInfoServiceImpl implements ContractInfoService {
 
     @Override
     public void addContractInfo(ContractInfoReq contractInfoReq) {
-        LOGGER.info("ContractInfoServiceImpl->addContractInfo contractInfoReq:{}",contractInfoReq);
+        LOGGER.info("ContractInfoServiceImpl->addContractInfo contractInfoReq:{}", contractInfoReq);
         ContractInfo contractInfo = new ContractInfo();
         contractInfo.setDelFlag("0");
         contractInfo.setCreateDate(new Date());
@@ -46,13 +46,13 @@ public class ContractInfoServiceImpl implements ContractInfoService {
 
     @Override
     public void delContractInfo(int id) {
-        LOGGER.info("ContractInfoServiceImpl->delContractInfo id:{}",id);
+        LOGGER.info("ContractInfoServiceImpl->delContractInfo id:{}", id);
         contractInfoMapper.delContractInfo(id);
     }
 
     @Override
     public void updateContractInfo(ContractInfoReq contractInfoReq) {
-        LOGGER.info("ContractInfoServiceImpl->updateContractInfo contractInfoReq:{}",contractInfoReq);
+        LOGGER.info("ContractInfoServiceImpl->updateContractInfo contractInfoReq:{}", contractInfoReq);
         ContractInfo contractInfo = new ContractInfo();
         contractInfo.setId(contractInfoReq.getId());
         contractInfo.setContent(contractInfoReq.getContent());

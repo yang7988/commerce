@@ -21,7 +21,7 @@ public class CompanyInfoController {
     private CompanyInfoService companyInfoService;
 
     @PostMapping(value = "/getCompanyInfo")
-    @ApiOperation(value = "公司介绍",notes = "获取公司介绍信息")
+    @ApiOperation(value = "公司介绍", notes = "获取公司介绍信息")
     public ApiResponse<List<CompanyInfoVo>> getCompanyInfo() {
         return ApiResponse.returnSuccess(companyInfoService.getCompanyInfo());
     }

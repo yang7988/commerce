@@ -23,13 +23,13 @@ public class NewsInfoController {
     private NewsInfoService newsInfoService;
 
     @PostMapping(value = "/getNewsInfos")
-    @ApiOperation(value = "新闻中心",notes = "获取新闻列表")
+    @ApiOperation(value = "新闻中心", notes = "获取新闻列表")
     public ApiResponse<Page<NewsInfoVo>> getNewsInfos(@RequestBody NewsListReq pageRequest) {
         return ApiResponse.returnSuccess(newsInfoService.getNewsInfos(pageRequest));
     }
 
     @PostMapping(value = "/getNewsInfo")
-    @ApiOperation(value = "新闻中心",notes = "获取新闻明细")
+    @ApiOperation(value = "新闻中心", notes = "获取新闻明细")
     public ApiResponse<NewsInfoVo> getNewsInfo(@RequestBody DelDataReq param) {
         return ApiResponse.returnSuccess(newsInfoService.getNewsInfo(param.getId()));
     }

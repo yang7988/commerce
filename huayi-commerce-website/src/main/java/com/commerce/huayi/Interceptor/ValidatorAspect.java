@@ -34,8 +34,8 @@ public class ValidatorAspect {
 
     @Around(value = "controller()")
     public Object validate(ProceedingJoinPoint joinPoint) throws Throwable {
-        if(LOGGER.isWarnEnabled()) {
-            LOGGER.warn("====正在校验{}方法参数",joinPoint.toString());
+        if (LOGGER.isWarnEnabled()) {
+            LOGGER.warn("====正在校验{}方法参数", joinPoint.toString());
         }
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {

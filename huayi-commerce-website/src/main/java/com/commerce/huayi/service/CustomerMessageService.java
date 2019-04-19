@@ -7,8 +7,9 @@ import com.commerce.huayi.pagination.Page;
 
 /**
  * 客户留言服务类
+ *
  * @date 2019-03-16
- * */
+ */
 public interface CustomerMessageService {
 
     Page<CustomerMessageVo> getCustomerMessages(PageRequest pageRequest);

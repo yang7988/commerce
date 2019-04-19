@@ -7,8 +7,9 @@ import java.util.List;
 
 /**
  * 公司介绍服务类
+ *
  * @date 2019-03-16
- * */
+ */
 public interface CompanyInfoService {
 
     List<CompanyInfoVo> getCompanyInfo();

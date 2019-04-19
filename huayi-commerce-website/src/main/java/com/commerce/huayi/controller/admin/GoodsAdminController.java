@@ -26,28 +26,28 @@ public class GoodsAdminController {
     private GoodsService goodsService;
 
     @PostMapping(value = "/addCategory")
-    @ApiOperation(value = "添加分类",notes = "添加产品分类")
+    @ApiOperation(value = "添加分类", notes = "添加产品分类")
     @Pretreatment
     public ApiResponse addCategory(@RequestBody CategoryReq categoryReq) {
         ApiResponseEnum responseEnum = goodsService.addCategory(categoryReq);
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
+        if (ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
     }
 
     @PostMapping(value = "/deleteCategory")
-    @ApiOperation(value = "删除分类",notes = "删除产品分类")
+    @ApiOperation(value = "删除分类", notes = "删除产品分类")
     public ApiResponse deleteCategory(@RequestBody PrimaryKeyRequest req) {
         Integer result = goodsService.deleteCategory(req.getId());
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/updateCategory")
-    @ApiOperation(value = "更新分类",notes = "更新产品分类")
+    @ApiOperation(value = "更新分类", notes = "更新产品分类")
     public ApiResponse updateCategory(@RequestBody UpdateCategoryReq req) {
-        ApiResponseEnum responseEnum = goodsService.updateCategory(req,ServletUtils.language());
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
+        ApiResponseEnum responseEnum = goodsService.updateCategory(req, ServletUtils.language());
+        if (ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
@@ -63,11 +63,12 @@ public class GoodsAdminController {
         }
         return ApiResponse.returnSuccess(goodsSpuVo);
     }
+
     @PostMapping(value = "/updateGoods")
     @ApiOperation(value = "跟新产品", notes = "跟新产品")
     public ApiResponse updateGoods(@RequestBody UpdateGoodsReq req) {
         ApiResponseEnum responseEnum = goodsService.updateGoods(req, ServletUtils.language());
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
+        if (ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
@@ -77,24 +78,24 @@ public class GoodsAdminController {
     @ApiOperation(value = "为某一种产品添加不同的规格,以及添加该规格图", notes = "添加产品单元")
     public ApiResponse addGoodsSpec(@RequestBody AddGoodsSpecReq req) {
         ApiResponseEnum responseEnum = goodsService.addGoodsSpec(req);
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
+        if (ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
     }
 
     @PostMapping(value = "/deleteGoods")
-    @ApiOperation(value = "删除产品单元",notes = "删除产品单元")
+    @ApiOperation(value = "删除产品单元", notes = "删除产品单元")
     public ApiResponse deleteGoods(@RequestBody PrimaryKeyRequest req) {
         ApiResponseEnum responseEnum = goodsService.deleteGoods(req.getId());
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
+        if (ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
     }
 
     @PostMapping(value = "/addSpecInfo")
-    @ApiOperation(value = "添加规格",notes = "添加产品规格")
+    @ApiOperation(value = "添加规格", notes = "添加产品规格")
     @Pretreatment
     public ApiResponse addSpecInfo(@RequestBody AddSpuSpecReq req) {
         goodsService.addSpecInfo(req);
@@ -102,18 +103,18 @@ public class GoodsAdminController {
     }
 
     @PostMapping(value = "/updateSpecInfo")
-    @ApiOperation(value = "更新规格",notes = "更新产品规格")
+    @ApiOperation(value = "更新规格", notes = "更新产品规格")
     @Pretreatment
     public ApiResponse updateSpecInfo(@RequestBody UpdateSpuSpecReq req) {
-        ApiResponseEnum responseEnum = goodsService.updateSpecInfo(req,ServletUtils.language());
-        if(ApiResponseEnum.SUCCESS == responseEnum) {
+        ApiResponseEnum responseEnum = goodsService.updateSpecInfo(req, ServletUtils.language());
+        if (ApiResponseEnum.SUCCESS == responseEnum) {
             return ApiResponse.returnSuccess();
         }
         return ApiResponse.returnFail(responseEnum);
     }
 
     @PostMapping(value = "/getSpecInfoList")
-    @ApiOperation(value = "获取产品规格列表",notes = "获取产品规格列表")
+    @ApiOperation(value = "获取产品规格列表", notes = "获取产品规格列表")
     public ApiResponse<Page<GoodsSpecValueVo>> getSpecInfoList(@RequestBody PageRequest pageRequest) {
         return ApiResponse.returnSuccess(goodsService.getSpecInfoList(pageRequest));
     }

@@ -5,8 +5,6 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.RequestHeaderEnum;
-import com.commerce.huayi.entity.db.InternationalLanguage;
-import com.commerce.huayi.mapper.InternationalLanguageMapper;
 import com.commerce.huayi.service.TranslateService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class GenericFilter implements Filter {
@@ -29,9 +29,6 @@ public class GenericFilter implements Filter {
 
     @Autowired
     private TranslateService translateService;
-
-    @Autowired
-    private InternationalLanguageMapper internationalLanguageMapper;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -58,10 +55,10 @@ public class GenericFilter implements Filter {
     }
 
     private ApiResponseEnum validate(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(!request.getRequestURI().startsWith("/api")) {
+        if (!request.getRequestURI().startsWith("/api")) {
             return ApiResponseEnum.SUCCESS;
         }
-        if(request.getRequestURI().contains("/image")) {
+        if (request.getRequestURI().contains("/image")) {
             return ApiResponseEnum.SUCCESS;
         }
         String language = request.getHeader(RequestHeaderEnum.language.name());
@@ -69,12 +66,11 @@ public class GenericFilter implements Filter {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======缺少请求头部参数language");
             return ApiResponseEnum.ABSENCE_LANGUAGE_PARAM;
         }
-        List<InternationalLanguage> list = internationalLanguageMapper.selectAll();
-        if(CollectionUtils.isEmpty(list)) {
+        List<String> list = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(list)) {
             return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
         }
-        List<String> languages = list.stream().map(InternationalLanguage::getLanguage).collect(Collectors.toList());
-        if(!languages.contains(language)) {
+        if (!list.contains(language)) {
             return ApiResponseEnum.LANGUAGE_PARAM_ILLEGAL;
         }
         request.setAttribute("language", language);

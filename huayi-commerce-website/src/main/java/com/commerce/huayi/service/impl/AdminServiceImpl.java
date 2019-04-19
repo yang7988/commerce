@@ -28,8 +28,8 @@ public class AdminServiceImpl implements AdminService {
 
         Administrator administrator = administratorMapper.getAdminByLoginName(userName);
 
-        if(null != administrator) {
-            if(administrator.getPassword().equals(password)) {
+        if (null != administrator) {
+            if (administrator.getPassword().equals(password)) {
                 AdministratorVo administratorVo = new AdministratorVo();
                 String token = getUserLoginToken(userName);
                 administratorVo.setToken(token);
@@ -69,7 +69,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<AdministratorVo> getAdmin() {
         List<Administrator> lists = administratorMapper.getAdmin();
-        if(CollectionUtils.isEmpty(lists)) {
+        if (CollectionUtils.isEmpty(lists)) {
             return null;
         }
         return BeanCopyUtil.copy(AdministratorVo.class, lists);
@@ -82,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 根据规则生成管理员登录token
-     * */
+     */
     private String getUserLoginToken(String loginName) {
         String result = "";
         StringBuffer token = new StringBuffer();

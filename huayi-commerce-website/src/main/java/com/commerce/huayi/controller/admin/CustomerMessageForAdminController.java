@@ -22,7 +22,7 @@ public class CustomerMessageForAdminController {
     private CustomerMessageService customerMessageService;
 
     @PostMapping(value = "/getCustomerMessages")
-    @ApiOperation(value = "客户留言管理",notes = "获取客户留言")
+    @ApiOperation(value = "客户留言管理", notes = "获取客户留言")
     public ApiResponse<Page<CustomerMessageVo>> getCustomerMessages(@RequestBody PageRequest pageRequest) {
         return ApiResponse.returnSuccess(customerMessageService.getCustomerMessages(pageRequest));
     }

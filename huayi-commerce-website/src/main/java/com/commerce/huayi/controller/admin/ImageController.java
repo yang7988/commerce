@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping(value ="/api/image")
+@RequestMapping(value = "/api/image")
 @Api(tags = "图片上传API")
 public class ImageController {
 
@@ -21,7 +21,7 @@ public class ImageController {
     private ImageService imageService;
 
     @PostMapping(value = "/upload")
-    @ApiOperation(value = "上传图片",notes = "上传图片")
+    @ApiOperation(value = "上传图片", notes = "上传图片")
     public ApiResponse<ImageUploadVo> upload(@RequestParam(value = "goodsImage") MultipartFile goodsImage) throws Exception {
         return ApiResponse.returnSuccess(imageService.upload(goodsImage));
     }

@@ -2,11 +2,10 @@ package com.commerce.huayi.mapper;
 
 import com.commerce.huayi.entity.db.Banner;
 import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface BannerMapper extends Mapper<Banner> {
+public interface BannerMapper {
 
     List<Banner> getBannerList();
 

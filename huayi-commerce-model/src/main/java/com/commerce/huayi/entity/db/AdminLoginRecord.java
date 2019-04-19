@@ -1,50 +1,37 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_admin_login_record")
 public class AdminLoginRecord implements Serializable {
     /**
      * 主键
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**
      * 登陆用户ID
      */
-    @Column(name = "login_user")
     private String loginUser;
 
     /**
      * 登陆唯一标识
      */
-    @Column(name = "login_key")
     private String loginKey;
 
     /**
      * 登陆地址
      */
-    @Column(name = "login_add")
     private String loginAdd;
 
     /**
      * 登入时间
      */
-    @Column(name = "login_in_date")
     private Date loginInDate;
 
     /**
      * 登出时间
      */
-    @Column(name = "login_out_date")
     private Date loginOutDate;
 
     private static final long serialVersionUID = 1L;

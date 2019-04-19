@@ -7,8 +7,9 @@ import java.util.List;
 
 /**
  * 联系我们服务类
+ *
  * @date 2019-03-16
- * */
+ */
 public interface ContractInfoService {
 
     List<ContractInfoVo> getContractInfo();

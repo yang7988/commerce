@@ -20,7 +20,7 @@ public class CustomerMessageController {
     private CustomerMessageService customerMessageService;
 
     @PostMapping(value = "/addCustomerMessage")
-    @ApiOperation(value = "客户留言",notes = "添加客户留言")
+    @ApiOperation(value = "客户留言", notes = "添加客户留言")
     public ApiResponse addCustomerMessage(@RequestBody CustomerMessageReq customerMessageReq) {
         customerMessageService.addCustomerMessage(customerMessageReq);
         return ApiResponse.returnSuccess();

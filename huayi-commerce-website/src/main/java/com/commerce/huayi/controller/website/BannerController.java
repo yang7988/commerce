@@ -22,7 +22,7 @@ public class BannerController {
 
     // 获取banner列表
     @PostMapping(value = "/getBannerList")
-    @ApiOperation(value = "官网banner管理",notes = "获取banner")
+    @ApiOperation(value = "官网banner管理", notes = "获取banner")
     public ApiResponse<List<BannerVo>> getBannerList() {
         return ApiResponse.returnSuccess(bannerService.getBannerList());
     }

@@ -27,8 +27,8 @@ public class NewsInfoServiceImpl implements NewsInfoService {
     @Override
     public Page<NewsInfoVo> getNewsInfos(NewsListReq pageRequest) {
         int count = newsInfoMapper.getNewsInfoTotalCount(pageRequest.getType());
-        Page<NewsInfoVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize(),count);
-        if(count <= 0) {
+        Page<NewsInfoVo> page = Page.create(pageRequest.getPageIndex(), pageRequest.getPageMaxSize(), count);
+        if (count <= 0) {
             return page;
         }
         List<NewsInfo> newsInfoList = newsInfoMapper.getNewsInfos(pageRequest.getType(), page.getOffset(), page.getPageMaxSize());
@@ -38,9 +38,9 @@ public class NewsInfoServiceImpl implements NewsInfoService {
 
     @Override
     public NewsInfoVo getNewsInfo(int id) {
-        LOGGER.info("NewsInfoServiceImpl->getNewsInfo id:{}",id);
-        NewsInfo newsInfo =  newsInfoMapper.getNewsInfo(id);
-        if(null == newsInfo) {
+        LOGGER.info("NewsInfoServiceImpl->getNewsInfo id:{}", id);
+        NewsInfo newsInfo = newsInfoMapper.getNewsInfo(id);
+        if (null == newsInfo) {
             return null;
         }
         NewsInfoVo newsInfoVo = new NewsInfoVo();
@@ -54,7 +54,7 @@ public class NewsInfoServiceImpl implements NewsInfoService {
 
     @Override
     public void addNewsInfo(NewsInfoReq newsInfoReq) {
-        LOGGER.info("NewsInfoServiceImpl->addNewsInfo newsInfoReq:{}",newsInfoReq);
+        LOGGER.info("NewsInfoServiceImpl->addNewsInfo newsInfoReq:{}", newsInfoReq);
         NewsInfo newsInfo = new NewsInfo();
         newsInfo.setDelFlag("0");
         newsInfo.setCreateDate(new Date());
@@ -67,13 +67,13 @@ public class NewsInfoServiceImpl implements NewsInfoService {
 
     @Override
     public void delNewsInfo(int id) {
-        LOGGER.info("NewsInfoServiceImpl->delNewsInfo id:{}",id);
+        LOGGER.info("NewsInfoServiceImpl->delNewsInfo id:{}", id);
         newsInfoMapper.delNewsInfo(id);
     }
 
     @Override
     public void updateNewsInfo(NewsInfoReq newsInfoReq) {
-        LOGGER.info("NewsInfoServiceImpl->updateNewsInfo newsInfoReq:{}",newsInfoReq);
+        LOGGER.info("NewsInfoServiceImpl->updateNewsInfo newsInfoReq:{}", newsInfoReq);
         NewsInfo newsInfo = new NewsInfo();
         newsInfo.setDelFlag("0");
         newsInfo.setId(newsInfoReq.getId());

@@ -3,7 +3,7 @@ package com.commerce.huayi.asyn;
 import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.service.TranslateService;
 
-public class TranslateCacheFlushTask implements Runnable{
+public class TranslateCacheFlushTask implements Runnable {
 
     private TranslateService translateService;
 

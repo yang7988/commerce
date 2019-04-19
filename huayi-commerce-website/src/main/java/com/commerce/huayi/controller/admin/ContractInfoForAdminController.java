@@ -24,27 +24,27 @@ public class ContractInfoForAdminController {
     private ContractInfoService contractInfoService;
 
     @PostMapping(value = "/getContractInfo")
-    @ApiOperation(value = "联系我们信息管理",notes = "获取联系我们信息")
+    @ApiOperation(value = "联系我们信息管理", notes = "获取联系我们信息")
     public ApiResponse<List<ContractInfoVo>> getContractInfo() {
         return ApiResponse.returnSuccess(contractInfoService.getContractInfo());
     }
 
     @PostMapping(value = "/addContractInfo")
-    @ApiOperation(value = "联系我们信息管理",notes = "添加联系我们数据")
+    @ApiOperation(value = "联系我们信息管理", notes = "添加联系我们数据")
     public ApiResponse addContractInfo(@RequestBody ContractInfoReq contractInfoReq) {
         contractInfoService.addContractInfo(contractInfoReq);
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/delContractInfo")
-    @ApiOperation(value = "联系我们信息管理",notes = "删除联系我们数据")
+    @ApiOperation(value = "联系我们信息管理", notes = "删除联系我们数据")
     public ApiResponse delContractInfo(@RequestBody DelDataReq param) {
         contractInfoService.delContractInfo(param.getId());
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/updateContractInfo")
-    @ApiOperation(value = "联系我们信息管理",notes = "更新联系我们数据")
+    @ApiOperation(value = "联系我们信息管理", notes = "更新联系我们数据")
     public ApiResponse updateContractInfo(@RequestBody ContractInfoReq contractInfoReq) {
         contractInfoService.updateContractInfo(contractInfoReq);
         return ApiResponse.returnSuccess();

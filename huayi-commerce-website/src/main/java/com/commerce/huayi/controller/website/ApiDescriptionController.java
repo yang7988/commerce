@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class ApiDescriptionController {
 
     @PostMapping(value = "/code")
-    @ApiOperation(value = "返回系统状态码",notes = "返回状态码及描述")
+    @ApiOperation(value = "返回系统状态码", notes = "返回状态码及描述")
     public List<ApiStatusCodeVo> code() {
         ApiResponseEnum[] values = ApiResponseEnum.values();
         return Stream.of(values).map(apiEnum -> new ApiStatusCodeVo(apiEnum.getId(), apiEnum.getCode(), apiEnum.getLabel()))

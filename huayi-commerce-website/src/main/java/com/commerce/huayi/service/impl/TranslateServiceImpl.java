@@ -7,10 +7,9 @@ import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
-import com.commerce.huayi.entity.db.InternationalLanguage;
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.TranslateEntity;
 import com.commerce.huayi.entity.db.TranslateEntityExample;
-import com.commerce.huayi.mapper.InternationalLanguageMapper;
 import com.commerce.huayi.mapper.TranslateMapper;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.TranslateService;
@@ -50,8 +49,6 @@ public class TranslateServiceImpl implements TranslateService {
     @Autowired
     private JedisTemplate jedisTemplate;
 
-    @Autowired
-    private InternationalLanguageMapper internationalLanguageMapper;
 
     public Object translate(Object requiredObject) {
         String language = ServletUtils.language();
@@ -331,12 +328,12 @@ public class TranslateServiceImpl implements TranslateService {
             LOGGER.error("========获取数据库schema===出错", e);
         }
         tableSchema = tableSchema == null ? Constant.TRANSLATE_TABLE_SCHEMA : tableSchema;
-        LOGGER.warn("=====获取数据库字典翻译表=====tableSchema=={}",tableSchema);
+        LOGGER.warn("=====获取数据库字典翻译表=====tableSchema=={}", tableSchema);
         List<TranslateEntity> translateEntities = translateMapper.selectAllTables(tableSchema);
         if (CollectionUtils.isEmpty(translateEntities)) {
             return null;
         }
-        Set<String> languages = internationalLanguageMapper.selectAll().stream().map(InternationalLanguage::getLanguage).collect(Collectors.toSet());
+        Set<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toSet());
         List<TranslateEntity> collect = translateEntities.stream()
                 .filter(entity -> languages.contains(entity.getTableName()
                         .substring(entity.getTableName().lastIndexOf("_") + 1))).collect(Collectors.toList());
@@ -351,14 +348,14 @@ public class TranslateServiceImpl implements TranslateService {
 
     @Override
     public void addTranslate(Map<String, Object> objectMap) {
-        if(!objectMap.containsKey(TABLE)) {
-            return ;
+        if (!objectMap.containsKey(TABLE)) {
+            return;
         }
         String table = (String) objectMap.get(TABLE);
         StringBuilder sb = new StringBuilder("insert into ");
         sb.append(table).append(" (");
         objectMap.remove(TABLE);
-        if(MapUtils.isEmpty(objectMap)) {
+        if (MapUtils.isEmpty(objectMap)) {
             return;
         }
         List<String> keys = new ArrayList<>(objectMap.keySet());
@@ -378,26 +375,26 @@ public class TranslateServiceImpl implements TranslateService {
         Map<String, String> sqlMap = new HashMap<>(1);
         sqlMap.put("sqlStatement", sql);
         try {
-             translateMapper.updateTranslate(sqlMap);
+            translateMapper.updateTranslate(sqlMap);
             for (Map.Entry<String, String> entry : translateCacheMateda.entrySet()) {
                 RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY, table);
                 jedisTemplate.hset(redisKey, entry.getKey(), entry.getValue());
             }
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
     private void processAddTranslateKey(Map<String, Object> objectMap, Map<String, String> translateCacheMateda, String key) {
-        if(!key.endsWith("_translate")) {
+        if (!key.endsWith("_translate")) {
             return;
         }
         String cacheKey = key.substring(0, key.lastIndexOf("_translate"));
         String cacheValue = (String) objectMap.get(cacheKey);
-        if(StringUtils.isBlank(cacheValue)) {
+        if (StringUtils.isBlank(cacheValue)) {
             return;
         }
-        translateCacheMateda.put(key.concat(":").concat(cacheValue), (String)objectMap.get(key));
+        translateCacheMateda.put(key.concat(":").concat(cacheValue), (String) objectMap.get(key));
     }
 
     private void constructIntoColumns(StringBuilder sb, List<String> keys, int i) {

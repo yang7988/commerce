@@ -23,7 +23,7 @@ public class AsynTranslateTask implements Runnable {
     private TranslateService translateService;
 
 
-    public AsynTranslateTask(AbstractDictReq dictReq, TranslateService translateService,Set<String> languages) {
+    public AsynTranslateTask(AbstractDictReq dictReq, TranslateService translateService, Set<String> languages) {
         this.dictReq = dictReq;
         this.translateService = translateService;
         this.languages = languages;
@@ -35,7 +35,7 @@ public class AsynTranslateTask implements Runnable {
         List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
         for (String language : languages) {
             Map<String, Object> objectMap = dictReq.buildSql(language);
-            if(MapUtils.isNotEmpty(objectMap)) {
+            if (MapUtils.isNotEmpty(objectMap)) {
                 translateService.addTranslate(objectMap);
             }
         }

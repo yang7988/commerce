@@ -25,7 +25,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
     @Override
     public List<CompanyInfoVo> getCompanyInfo() {
         List<CompanyInfo> companyInfoList = companyInfoMapper.getCompanyInfo();
-        if(CollectionUtils.isEmpty(companyInfoList)) {
+        if (CollectionUtils.isEmpty(companyInfoList)) {
             return null;
         }
         return BeanCopyUtil.copy(CompanyInfoVo.class, companyInfoList);
@@ -33,7 +33,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
 
     @Override
     public void addCompanyInfo(CompanyInfoReq companyInfoReq) {
-        LOGGER.info("CompanyInfoServiceImpl->addCompanyInfo companyInfoReq:{}",companyInfoReq);
+        LOGGER.info("CompanyInfoServiceImpl->addCompanyInfo companyInfoReq:{}", companyInfoReq);
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setDelFlag("0");
         companyInfo.setContent(companyInfoReq.getContent());
@@ -42,13 +42,13 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
 
     @Override
     public void delCompanyInfo(int id) {
-        LOGGER.info("CompanyInfoServiceImpl->delCompanyInfo id:{}",id);
+        LOGGER.info("CompanyInfoServiceImpl->delCompanyInfo id:{}", id);
         companyInfoMapper.delCompanyInfo(id);
     }
 
     @Override
     public void updateCompanyInfo(CompanyInfoReq companyInfoReq) {
-        LOGGER.info("CompanyInfoServiceImpl->updateCompanyInfo companyInfoReq:{}",companyInfoReq);
+        LOGGER.info("CompanyInfoServiceImpl->updateCompanyInfo companyInfoReq:{}", companyInfoReq);
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setId(companyInfoReq.getId());
         companyInfo.setContent(companyInfoReq.getContent());

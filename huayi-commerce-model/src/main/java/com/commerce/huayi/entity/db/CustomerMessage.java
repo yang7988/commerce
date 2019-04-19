@@ -1,98 +1,77 @@
 package com.commerce.huayi.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-@Table(name = "tb_customer_message")
 public class CustomerMessage implements Serializable {
     /**
      * 主键ID
      */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**
      * 姓名
      */
-    @Column(name = "`name`")
     private String name;
 
     /**
      * 所属公司
      */
-    @Column(name = "company")
     private String company;
 
     /**
      * 电话
      */
-    @Column(name = "mobile_phone")
     private String mobilePhone;
 
     /**
      * 邮箱地址
      */
-    @Column(name = "mail_address")
     private String mailAddress;
 
     /**
      * 传真
      */
-    @Column(name = "fax")
     private String fax;
 
     /**
      * 邮政编码
      */
-    @Column(name = "postal_code")
     private String postalCode;
 
     /**
      * 地址
      */
-    @Column(name = "address")
     private String address;
 
     /**
      * 意见
      */
-    @Column(name = "opinion")
     private String opinion;
 
     /**
      * 访问目的
      */
-    @Column(name = "access_purpose")
     private String accessPurpose;
 
     /**
      * 目的是否达到（是，否，一部分，仅浏览）
      */
-    @Column(name = "purpose_flag")
     private String purposeFlag;
 
     /**
      * 是否提交服务解决问题（是，否）
      */
-    @Column(name = "deal_flag")
     private String dealFlag;
 
     /**
      * 文档质量（非常好，好，平均，差）
      */
-    @Column(name = "document_quality")
     private String documentQuality;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_date")
     private Date createDate;
 
     private static final long serialVersionUID = 1L;

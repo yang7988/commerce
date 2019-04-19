@@ -52,7 +52,7 @@ public class BaiduInternationalIpService implements InternationalIpService {
         } catch (Exception e) {
             LOGGER.error("BaiduInternationalIpService===queryIp===error", e);
         } finally {
-            colseResources(is,reader,connection);
+            colseResources(is, reader, connection);
         }
         try {
             js = JSON.parseObject(result, IpAddress.class);
@@ -64,7 +64,7 @@ public class BaiduInternationalIpService implements InternationalIpService {
             return null;
         }
         IpAddressDetails ipAddressDetails = js.getRetData();
-        if(ipAddressDetails == null) {
+        if (ipAddressDetails == null) {
             return null;
         }
         if ("None".equalsIgnoreCase(ipAddressDetails.getCountry())) {

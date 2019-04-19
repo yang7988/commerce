@@ -24,33 +24,33 @@ public class RecruitmentInfoForAdminController {
     private RecruitmentInfoService recruitmentInfoService;
 
     @PostMapping(value = "/getRecruitmentInfos")
-    @ApiOperation(value = "人才中心管理",notes = "获取人才中心信息")
+    @ApiOperation(value = "人才中心管理", notes = "获取人才中心信息")
     public ApiResponse<List<RecruitmentInfoVo>> getRecruitmentInfos() {
         return ApiResponse.returnSuccess(recruitmentInfoService.getRecruitmentInfos());
     }
 
     @PostMapping(value = "/getRecruitmentInfo")
-    @ApiOperation(value = "人才中心管理",notes = "获取人才中心明细")
+    @ApiOperation(value = "人才中心管理", notes = "获取人才中心明细")
     public ApiResponse<RecruitmentInfoVo> getRecruitmentInfo(@RequestBody DelDataReq param) {
         return ApiResponse.returnSuccess(recruitmentInfoService.getRecruitmentInfo(param.getId()));
     }
 
     @PostMapping(value = "/addRecruitmentInfo")
-    @ApiOperation(value = "人才中心管理",notes = "添加人才中心数据")
+    @ApiOperation(value = "人才中心管理", notes = "添加人才中心数据")
     public ApiResponse addRecruitmentInfo(@RequestBody RecruitmentInfoReq recruitmentInfoReq) {
         recruitmentInfoService.addRecruitmentInfo(recruitmentInfoReq);
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/delRecruitmentInfo")
-    @ApiOperation(value = "人才中心管理",notes = "删除人才中心数据")
+    @ApiOperation(value = "人才中心管理", notes = "删除人才中心数据")
     public ApiResponse delRecruitmentInfo(@RequestBody DelDataReq param) {
         recruitmentInfoService.delRecruitmentInfo(param.getId());
         return ApiResponse.returnSuccess();
     }
 
     @PostMapping(value = "/updateRecruitmentInfo")
-    @ApiOperation(value = "人才中心管理",notes = "更新人才中心数据")
+    @ApiOperation(value = "人才中心管理", notes = "更新人才中心数据")
     public ApiResponse updateRecruitmentInfo(@RequestBody RecruitmentInfoReq recruitmentInfoReq) {
         recruitmentInfoService.updateRecruitmentInfo(recruitmentInfoReq);
         return ApiResponse.returnSuccess();
