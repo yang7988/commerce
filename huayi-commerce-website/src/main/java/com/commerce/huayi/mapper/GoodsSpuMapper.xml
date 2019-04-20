@@ -229,7 +229,7 @@
         </if>
     </select>
 
-    <select id="searchGoodsSpu" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
+    <select id="searchGoodsSpu" parameterType="String" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
         SELECT
         spu.id,
         spu.spu_no as spuNo,
@@ -243,9 +243,9 @@
         where 1=1
         <if test="searchKeyWord != null and searchKeyWord != '' ">
             and (
-              spu.goods_name like concat(concat('%',#{criterion.searchKeyWord}),'%')
+              spu.goods_name like concat(concat('%',#{searchKeyWord}),'%')
             or
-              spu.goods_description like concat(concat('%',#{criterion.searchKeyWord}),'%')
+              spu.goods_description like concat(concat('%',#{searchKeyWord}),'%')
             )
         </if>
     </select>
