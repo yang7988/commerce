@@ -1,17 +1,18 @@
 package com.commerce.huayi;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
+import com.commerce.huayi.service.DynamicDataSource;
 import com.google.common.collect.Sets;
 import org.hibernate.validator.HibernateValidator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,10 +25,11 @@ import javax.sql.DataSource;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.commerce.huayi"})
 @MapperScan(basePackages = "com.commerce.huayi.mapper")
 @EnableSwagger2
@@ -37,16 +39,34 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean(name = {"dataSource"}, destroyMethod = "close", initMethod = "init")
+    @Bean(name = {"chineseDataSource"}, destroyMethod = "close", initMethod = "init")
     @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource dataSource() {
+    public DataSource chineseDataSource() {
         return new DruidDataSource();
     }
 
-    @Bean
-    public ServletRegistrationBean druidServlet() {
-        return new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+    @Bean(name = {"englishDataSource"}, destroyMethod = "close", initMethod = "init")
+    @ConfigurationProperties(prefix = "spring.datasource.english")
+    public DataSource englishDataSource() {
+        return new DruidDataSource();
     }
+
+    @Primary
+    @Bean(name = "dynamicDataSource")
+    public DataSource dynamicDataSource() {
+        DynamicDataSource dynamicDataSource = new DynamicDataSource();
+        // 默认数据源
+        dynamicDataSource.setDefaultTargetDataSource(chineseDataSource());
+        // 配置多数据源
+        Map<Object, Object> dsMap = new HashMap<>();
+        dsMap.put("chineseDataSource", chineseDataSource());
+        dsMap.put("englishDataSource", englishDataSource());
+
+        dynamicDataSource.setTargetDataSources(dsMap);
+        return dynamicDataSource;
+    }
+
+
 
     @Bean
     public Validator getValidatorFactory() {
