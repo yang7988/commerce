@@ -1,6 +1,10 @@
 package com.commerce.huayi.controller.website;
 
 import com.commerce.huayi.api.ApiResponse;
+import com.commerce.huayi.cache.JedisTemplate;
+import com.commerce.huayi.cache.key.RedisKey;
+import com.commerce.huayi.cache.key.RedisKeysPrefix;
+import com.commerce.huayi.cache.serializer.Serializer;
 import com.commerce.huayi.entity.response.CompanyInfoVo;
 import com.commerce.huayi.service.CompanyInfoService;
 import io.swagger.annotations.Api;
@@ -20,10 +24,25 @@ public class CompanyInfoController {
     @Autowired
     private CompanyInfoService companyInfoService;
 
+    @Autowired
+    private JedisTemplate jedisTemplate;
+
     @PostMapping(value = "/getCompanyInfo")
     @ApiOperation(value = "公司介绍", notes = "获取公司介绍信息")
     public ApiResponse<List<CompanyInfoVo>> getCompanyInfo() {
         return ApiResponse.returnSuccess(companyInfoService.getCompanyInfo());
+    }
+
+    @PostMapping(value = "/tokenTest")
+    public ApiResponse tokenTest() {
+        String token = "VISFBNISABGET1651AB1EB6531";
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, "admin");
+        jedisTemplate.setex(redisKey,1800,token);
+
+        RedisKey redisKey1 = new RedisKey(RedisKeysPrefix.USER_KEY, "admin");
+        String token1 = jedisTemplate.get(redisKey, String.class);
+
+        return ApiResponse.returnSuccess();
     }
 
 }

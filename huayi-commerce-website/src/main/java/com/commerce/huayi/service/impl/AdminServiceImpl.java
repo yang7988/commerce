@@ -2,6 +2,9 @@ package com.commerce.huayi.service.impl;
 
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
+import com.commerce.huayi.cache.JedisTemplate;
+import com.commerce.huayi.cache.key.RedisKey;
+import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.entity.db.Administrator;
 import com.commerce.huayi.entity.request.AdministratorReq;
 import com.commerce.huayi.entity.request.DelDataReq;
@@ -23,6 +26,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdministratorMapper administratorMapper;
 
+    @Autowired
+    private JedisTemplate jedisTemplate;
+
     @Override
     public AdministratorVo login(String userName, String password) throws BusinessException {
 
@@ -39,6 +45,8 @@ public class AdminServiceImpl implements AdminService {
                 administratorVo.setId(administrator.getId());
                 administratorVo.setIsDelete(administrator.getIsDelete());
                 administratorVo.setStatus(administrator.getStatus());
+                RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, administratorVo.getLoginName());
+                jedisTemplate.setex(redisKey,1800,token);
                 return administratorVo;
             } else {
                 // 密码错误

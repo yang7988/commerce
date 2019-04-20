@@ -24,12 +24,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping(value = "/login")
-    @ApiOperation(value = "后台管理员管理", notes = "管理员登陆")
-    public ApiResponse<AdministratorVo> login(@RequestBody UserLoginReq userLoginReq) {
-        return ApiResponse.returnSuccess(adminService.login(userLoginReq.getUserName(), userLoginReq.getPassword()));
-    }
-
     @PostMapping(value = "/addAdmin")
     @ApiOperation(value = "后台管理员管理", notes = "添加管理员")
     public ApiResponse addAdmin(@RequestBody AdministratorReq administratorReq) {

@@ -148,4 +148,12 @@ public class ServletUtils {
     public static String language() {
         return getHttpServletRequest().getHeader(RequestHeaderEnum.language.name());
     }
+
+    public static String loginName() {
+        return getHttpServletRequest().getHeader(RequestHeaderEnum.loginName.name());
+    }
+
+    public static String adminToken() {
+        return getHttpServletRequest().getHeader(RequestHeaderEnum.adminToken.name());
+    }
 }

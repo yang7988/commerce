@@ -1,7 +1,9 @@
 package com.commerce.huayi.constant;
 
 public enum RequestHeaderEnum {
-    language("language");
+    language("language"),
+    loginName("loginName"),
+    adminToken("adminToken");
 
     private String headerName;
 
