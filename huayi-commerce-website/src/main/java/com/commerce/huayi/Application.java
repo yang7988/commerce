@@ -1,6 +1,7 @@
 package com.commerce.huayi;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.service.impl.DynamicDataSource;
 import com.google.common.collect.Sets;
 import org.hibernate.validator.HibernateValidator;
@@ -59,8 +60,11 @@ public class Application {
         dynamicDataSource.setDefaultTargetDataSource(chineseDataSource());
         // 配置多数据源
         Map<Object, Object> dsMap = new HashMap<>();
-        dsMap.put("chineseDataSource", chineseDataSource());
-        dsMap.put("englishDataSource", englishDataSource());
+        dsMap.put(LanguageEnum.ZH_CN.getDatasource(), chineseDataSource());
+        dsMap.put(LanguageEnum.EN_US.getDatasource(), englishDataSource());
+        dsMap.put(LanguageEnum.DE_DE.getDatasource(), chineseDataSource());
+        dsMap.put(LanguageEnum.FR_FR.getDatasource(), chineseDataSource());
+        dsMap.put(LanguageEnum.JP_JP.getDatasource(), chineseDataSource());
 
         dynamicDataSource.setTargetDataSources(dsMap);
         return dynamicDataSource;

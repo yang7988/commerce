@@ -1,12 +1,13 @@
 package com.commerce.huayi.service.impl;
 
+import com.commerce.huayi.constant.LanguageEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DataSourceContextHolder {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceContextHolder.class);
 
-    public static final String DEFAULT_DS = "chineseDataSource";
+    public static final String DEFAULT_DS = LanguageEnum.ZH_CN.getDatasource();
     private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
 
     // 设置数据源名

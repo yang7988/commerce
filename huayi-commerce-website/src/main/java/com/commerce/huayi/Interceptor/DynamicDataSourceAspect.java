@@ -1,5 +1,6 @@
 package com.commerce.huayi.Interceptor;
 
+import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.service.impl.DataSourceContextHolder;
 import com.commerce.huayi.utils.ServletUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,14 +23,14 @@ public class DynamicDataSourceAspect {
         String language = ServletUtils.language();
         if (StringUtils.isBlank(language)) {
             DataSourceContextHolder.setDB(DataSourceContextHolder.DEFAULT_DS);
-        } else if (language.contains("chinese")) {
-            DataSourceContextHolder.setDB(DataSourceContextHolder.DEFAULT_DS);
-        } else if (language.contains("english")) {
-            DataSourceContextHolder.setDB("englishDataSource");
-        } else {
-            DataSourceContextHolder.setDB(DataSourceContextHolder.DEFAULT_DS);
+            return;
         }
-
+        LanguageEnum languageEnum = LanguageEnum.enums(language);
+        if(languageEnum == null) {
+            DataSourceContextHolder.setDB(DataSourceContextHolder.DEFAULT_DS);
+            return;
+        }
+        DataSourceContextHolder.setDB(languageEnum.getDatasource());
     }
 
 

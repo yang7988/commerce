@@ -6,16 +6,24 @@ import java.util.stream.Stream;
 
 public enum LanguageEnum {
 
-    ZH_CN("chinese"),
-    EN_US("english"),
-    DE_DE("german"),
-    FR_FR("french"),
-    JP_JP("japanese");
+    ZH_CN("chinese","chineseDataSource"),
+    EN_US("english","englishDataSource"),
+    DE_DE("german","chineseDataSource"),
+    FR_FR("french","chineseDataSource"),
+    JP_JP("japanese","chineseDataSource");
 
     private String language;
 
+    private String datasource;
+
+
     LanguageEnum(String language) {
         this.language = language;
+    }
+
+    LanguageEnum(String language,String datasource) {
+        this.language = language;
+        this.datasource = datasource;
     }
 
     public String getLanguage() {
@@ -24,6 +32,14 @@ public enum LanguageEnum {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getDatasource() {
+        return datasource;
+    }
+
+    public void setDatasource(String datasource) {
+        this.datasource = datasource;
     }
 
     public static LanguageEnum enums(String language) {
