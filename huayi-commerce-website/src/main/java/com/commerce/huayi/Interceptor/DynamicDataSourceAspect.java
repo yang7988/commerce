@@ -5,6 +5,7 @@ import com.commerce.huayi.service.impl.DataSourceContextHolder;
 import com.commerce.huayi.utils.ServletUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -33,5 +34,8 @@ public class DynamicDataSourceAspect {
         DataSourceContextHolder.setDB(languageEnum.getDatasource());
     }
 
-
+    @After("controller()")
+    public void afterSwitchDS(JoinPoint point){
+        DataSourceContextHolder.clearDB();
+    }
 }
