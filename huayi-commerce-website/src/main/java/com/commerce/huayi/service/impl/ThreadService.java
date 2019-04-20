@@ -1,6 +1,7 @@
 package com.commerce.huayi.service.impl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PreDestroy;
@@ -9,7 +10,7 @@ import java.util.concurrent.*;
 
 @Service("threadService")
 public class ThreadService {
-    private static Logger log = Logger.getLogger(ThreadService.class);
+    private static Logger log = LoggerFactory.getLogger(ThreadService.class);
     private ThreadPoolExecutor threadPool;
     private final Deque<Runnable> taskQueue = new LinkedBlockingDeque<Runnable>();
 
