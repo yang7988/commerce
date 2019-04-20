@@ -165,7 +165,26 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
-        return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
+        GoodsSpuVo goodsSpuVo = BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
+        if(CollectionUtils.isEmpty(addGoodsReq.getSpecRequest())) {
+            return goodsSpuVo;
+        }
+        Long goodsSpuId = goodsSpu.getId();
+        for (AddGoodsSpecReq addGoodsSpecReq : addGoodsReq.getSpecRequest()) {
+            int specCount = goodsSpuSpecMapper.selectCountBySpuIdAndSpecValueId(goodsSpuId, addGoodsSpecReq.getSpecValueId());
+            if(specCount > 0) {
+                continue;
+            }
+            GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();
+            goodsSpuSpec.setSpuId(goodsSpuId);
+            goodsSpuSpec.setSpecValueId(addGoodsSpecReq.getSpecValueId());
+            goodsSpuSpec.setSpecImageKey(addGoodsSpecReq.getGoodsSpecImageKey());
+            goodsSpuSpec.setCreateDate(new Date());
+            goodsSpuSpec.setUpdateDate(new Date());
+            goodsSpuSpec.setIsDelete(Constant.NODELETE);
+            goodsSpuSpecMapper.insertSelective(goodsSpuSpec);
+        }
+        return goodsSpuVo;
     }
 
     @Override
@@ -317,7 +336,6 @@ public class GoodsServiceImpl implements GoodsService {
         Condition condition = Condition.create();
         Map<String, Object> criterion = condition.getCriterion();
         criterion.put("searchKeyWord", keyWord);
-        criterion.put("translate_table_name", "tb_goods_spu_".concat(language));
         return goodsSpuMapper.searchGoodsSpu(condition);
     }
 

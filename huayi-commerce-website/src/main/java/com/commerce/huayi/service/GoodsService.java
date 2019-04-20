@@ -51,11 +51,11 @@ public interface GoodsService {
 
     Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize);
 
-    ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req);
-
     GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId);
 
     ApiResponseEnum updateGoods(UpdateGoodsReq req, String language);
 
     ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language);
+
+    ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req);
 }

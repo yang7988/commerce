@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ApiModel(value = "产品添加的请求json对象")
@@ -41,6 +42,20 @@ public class AddGoodsReq  {
     @ApiModelProperty(value = "产品所属分类id",required = true,example = "10")
     @NotNull
     private Long categoryId;
+
+    @ApiModelProperty(value = "产品规格请求列表",required = false,example = "[\n" +
+            "        {\n" +
+            "            \"specId\":1,\n" +
+            "            \"specValueId\":2,\n" +
+            "            \"goodsSpecImageKey\":\"123454asdfasda\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"specId\":3,\n" +
+            "            \"specValueId\":4,\n" +
+            "            \"goodsSpecImageKey\":\"jklsdfasjfdas\"\n" +
+            "        }\n" +
+            "    ]")
+    private List<AddGoodsSpecReq> specRequest;
 
     public String getGoodsName() {
         return goodsName;
@@ -82,6 +97,11 @@ public class AddGoodsReq  {
         this.categoryId = categoryId;
     }
 
+    public List<AddGoodsSpecReq> getSpecRequest() {
+        return specRequest;
+    }
 
-
+    public void setSpecRequest(List<AddGoodsSpecReq> specRequest) {
+        this.specRequest = specRequest;
+    }
 }
