@@ -5,12 +5,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 新闻中心
+ *
  * @date 2019-03-16
- * */
+ */
 @ApiModel(value = "新闻中心列表请求json对象")
 public class NewsListReq extends PageRequest {
 
-    @ApiModelProperty(value = "新闻类型type",example = "1:公司 2:行业",dataType = "String")
+    @ApiModelProperty(value = "新闻类型type", example = "1:公司 2:行业", dataType = "String")
     private String type;
 
     public String getType() {

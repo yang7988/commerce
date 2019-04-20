@@ -1,5 +1,3 @@
-
-
 package com.commerce.huayi.utils;
 
 
@@ -28,13 +26,13 @@ public class ObjectUtil {
         try {
             beanInfo = Introspector.getBeanInfo(obj.getClass());
         } catch (IntrospectionException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(), e);
         }
         if (beanInfo == null) {
             return null;
         }
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        if(propertyDescriptors.length == 0) {
+        if (propertyDescriptors.length == 0) {
             return null;
         }
         Map<String, Object> map = new HashMap<>(propertyDescriptors.length);
@@ -54,7 +52,7 @@ public class ObjectUtil {
             value = getter.invoke(obj);
         } catch (IllegalAccessException | InvocationTargetException e) {
             value = null;
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(), e);
         }
         map.put(key, value);
     }

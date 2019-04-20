@@ -1,195 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.commerce.huayi.mapper.GoodsSpuMapper">
-  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSpu">
-    <!--@mbg.generated-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="spu_no" jdbcType="VARCHAR" property="spuNo" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="goods_description" jdbcType="VARCHAR" property="goodsDescription" />
-    <result column="goods_image_key" jdbcType="VARCHAR" property="goodsImageKey" />
-    <result column="low_price" jdbcType="DECIMAL" property="lowPrice" />
-    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
-    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, spu_no, goods_name, goods_description, goods_image_key, low_price, category_id, 
-    brand_id, create_date, update_date, is_delete
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_goods_spu
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from tb_goods_spu
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.commerce.huayi.entity.db.GoodsSpu" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_goods_spu
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="spuNo != null">
-        spu_no,
-      </if>
-      <if test="goodsName != null">
-        goods_name,
-      </if>
-      <if test="goodsDescription != null">
-        goods_description,
-      </if>
-      <if test="goodsImageKey != null">
-        goods_image_key,
-      </if>
-      <if test="lowPrice != null">
-        low_price,
-      </if>
-      <if test="categoryId != null">
-        category_id,
-      </if>
-      <if test="brandId != null">
-        brand_id,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="isDelete != null">
-        is_delete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="spuNo != null">
-        #{spuNo,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsName != null">
-        #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsDescription != null">
-        #{goodsDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsImageKey != null">
-        #{goodsImageKey,jdbcType=VARCHAR},
-      </if>
-      <if test="lowPrice != null">
-        #{lowPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="categoryId != null">
-        #{categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="brandId != null">
-        #{brandId,jdbcType=BIGINT},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodsSpu">
-    <!--@mbg.generated-->
-    update tb_goods_spu
-    <set>
-      <if test="spuNo != null">
-        spu_no = #{spuNo,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsName != null">
-        goods_name = #{goodsName,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsDescription != null">
-        goods_description = #{goodsDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsImageKey != null">
-        goods_image_key = #{goodsImageKey,jdbcType=VARCHAR},
-      </if>
-      <if test="lowPrice != null">
-        low_price = #{lowPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="brandId != null">
-        brand_id = #{brandId,jdbcType=BIGINT},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=TINYINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodsSpu">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="spu_no" jdbcType="VARCHAR" property="spuNo"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_description" jdbcType="VARCHAR" property="goodsDescription"/>
+        <result column="goods_image_key" jdbcType="VARCHAR" property="goodsImageKey"/>
+        <result column="low_price" jdbcType="DECIMAL" property="lowPrice"/>
+        <result column="category_id" jdbcType="BIGINT" property="categoryId"/>
+        <result column="brand_id" jdbcType="BIGINT" property="brandId"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, spu_no, goods_name, goods_description, goods_image_key, low_price, category_id,
+        brand_id, create_date, update_date, is_delete
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_goods_spu
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from tb_goods_spu
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.commerce.huayi.entity.db.GoodsSpu"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_goods_spu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="spuNo != null">
+                spu_no,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsDescription != null">
+                goods_description,
+            </if>
+            <if test="goodsImageKey != null">
+                goods_image_key,
+            </if>
+            <if test="lowPrice != null">
+                low_price,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="spuNo != null">
+                #{spuNo,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDescription != null">
+                #{goodsDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsImageKey != null">
+                #{goodsImageKey,jdbcType=VARCHAR},
+            </if>
+            <if test="lowPrice != null">
+                #{lowPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="brandId != null">
+                #{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodsSpu">
+        <!--@mbg.generated-->
+        update tb_goods_spu
+        <set>
+            <if test="spuNo != null">
+                spu_no = #{spuNo,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDescription != null">
+                goods_description = #{goodsDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsImageKey != null">
+                goods_image_key = #{goodsImageKey,jdbcType=VARCHAR},
+            </if>
+            <if test="lowPrice != null">
+                low_price = #{lowPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="brandId != null">
+                brand_id = #{brandId,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
-  <select id="getGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
-    SELECT spu.id,
-           spu.spu_no            as spuNo,
-           spu.goods_name        as goodsName,
-           spu.goods_description as goodsDescription,
-           spu.goods_image_key   as goodsImageKey,
-           spu.low_price         as lowPrice,
-           spu.brand_id          as brandId,
-           category.id           as categoryId
-    FROM
-           tb_goods_category category JOIN tb_goods_spu spu ON category.id = spu.category_id
+    <select id="getGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
+        SELECT spu.id,
+        spu.spu_no as spuNo,
+        spu.goods_name as goodsName,
+        spu.goods_description as goodsDescription,
+        spu.goods_image_key as goodsImageKey,
+        spu.low_price as lowPrice,
+        spu.brand_id as brandId,
+        category.id as categoryId
+        FROM
+        tb_goods_category category JOIN tb_goods_spu spu ON category.id = spu.category_id
 
-      WHERE 1=1
-      and spu.is_delete=0
-      and category.is_delete = 0
-      <if test="categoryId != null and categoryId != 0">
-          and category.id = #{categoryId}
-      </if>
-    order by spu.id
-    limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
-  </select>
+        WHERE 1=1
+        and spu.is_delete=0
+        and category.is_delete = 0
+        <if test="categoryId != null and categoryId != 0">
+            and category.id = #{categoryId}
+        </if>
+        order by spu.id
+        limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
+    </select>
 
-  <select id="getGoodsCountByCategoryId" resultType="java.lang.Integer">
-    SELECT
-           count(1)
-    FROM
-      tb_goods_category category JOIN tb_goods_spu spu ON category.id = spu.category_id
-    WHERE 1=1
-      and spu.is_delete=0
-      and category.is_delete = 0
-      <if test="categoryId != null and categoryId != 0">
-          and category.id = #{categoryId}
-      </if>
-  </select>
+    <select id="getGoodsCountByCategoryId" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        FROM
+        tb_goods_category category JOIN tb_goods_spu spu ON category.id = spu.category_id
+        WHERE 1=1
+        and spu.is_delete=0
+        and category.is_delete = 0
+        <if test="categoryId != null and categoryId != 0">
+            and category.id = #{categoryId}
+        </if>
+    </select>
 
 
     <select id="getGoodsBySpuId" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
         SELECT spu.id,
-        spu.spu_no            as spuNo,
-        spu.goods_name        as goodsName,
+        spu.spu_no as spuNo,
+        spu.goods_name as goodsName,
         spu.goods_description as goodsDescription,
-        spu.low_price         as lowPrice,
-        spu.brand_id          as brandId,
-        category.id           as categoryId,
-        spec.id               as specId,
-        spec.spec_no          as specNo,
-        spec.spec_name        as specName,
-        spu.goods_image_key   as goodsImageKey,
+        spu.low_price as lowPrice,
+        spu.brand_id as brandId,
+        category.id as categoryId,
+        spec.id as specId,
+        spec.spec_no as specNo,
+        spec.spec_name as specName,
+        spu.goods_image_key as goodsImageKey,
         spec.spec_description as specDescription,
-        specValue.id          as specValueId,
-        specValue.spec_value  as specValue
+        specValue.id as specValueId,
+        specValue.spec_value as specValue
         FROM
         tb_goods_spu_spec tgss
         JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
@@ -243,9 +244,9 @@
         where 1=1
         <if test="searchKeyWord != null and searchKeyWord != '' ">
             and (
-              spu.goods_name like concat(concat('%',#{searchKeyWord}),'%')
+            spu.goods_name like concat(concat('%',#{searchKeyWord}),'%')
             or
-              spu.goods_description like concat(concat('%',#{searchKeyWord}),'%')
+            spu.goods_description like concat(concat('%',#{searchKeyWord}),'%')
             )
         </if>
     </select>

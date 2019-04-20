@@ -68,8 +68,8 @@ public class GoodsServiceImpl implements GoodsService {
             return page;
         }
         //分页条件
-        criterion.put("offset",page.getOffset());
-        criterion.put("rowSize",page.getPageMaxSize());
+        criterion.put("offset", page.getOffset());
+        criterion.put("rowSize", page.getPageMaxSize());
         List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(criterion);
         page.setList(categoryVos);
         return page;
@@ -159,13 +159,13 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
         GoodsSpuVo goodsSpuVo = BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
-        if(CollectionUtils.isEmpty(addGoodsReq.getSpecRequest())) {
+        if (CollectionUtils.isEmpty(addGoodsReq.getSpecRequest())) {
             return goodsSpuVo;
         }
         Long goodsSpuId = goodsSpu.getId();
         for (AddGoodsSpecReq addGoodsSpecReq : addGoodsReq.getSpecRequest()) {
             int specCount = goodsSpuSpecMapper.selectCountBySpuIdAndSpecValueId(goodsSpuId, addGoodsSpecReq.getSpecValueId());
-            if(specCount > 0) {
+            if (specCount > 0) {
                 continue;
             }
             GoodsSpuSpec goodsSpuSpec = new GoodsSpuSpec();

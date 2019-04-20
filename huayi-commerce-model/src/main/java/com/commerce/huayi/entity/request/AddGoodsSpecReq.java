@@ -9,19 +9,19 @@ import javax.validation.constraints.NotNull;
 public class AddGoodsSpecReq {
 
     @NotNull
-    @ApiModelProperty(value = "产品id",required = true,example = "1")
+    @ApiModelProperty(value = "产品id", required = true, example = "1")
     private Long id;
 
     @NotNull
-    @ApiModelProperty(value = "产品规格id",required = true,example = "1")
+    @ApiModelProperty(value = "产品规格id", required = true, example = "1")
     private Long specId;
 
     @NotNull
-    @ApiModelProperty(value = "产品规格值id",required = true,example = "1")
+    @ApiModelProperty(value = "产品规格值id", required = true, example = "1")
     private Long specValueId;
 
     @NotNull
-    @ApiModelProperty(value = "产品该规格图片地址",required = true,example = "1")
+    @ApiModelProperty(value = "产品该规格图片地址", required = true, example = "1")
     private String goodsSpecImageKey;
 
     public Long getId() {

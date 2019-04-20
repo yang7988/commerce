@@ -17,14 +17,14 @@ public class TranslateEntityExample implements Serializable {
     public TranslateEntityExample() {
     }
 
-    public TranslateEntityExample(String tableName,String translateCloumn, String whereCloumn, String key) {
+    public TranslateEntityExample(String tableName, String translateCloumn, String whereCloumn, String key) {
         this.tableName = tableName;
         this.translateCloumn = translateCloumn;
         this.whereCloumn = whereCloumn;
         this.key = key;
     }
 
-    public TranslateEntityExample(String tableName,String translateCloumn, String whereCloumn, String key,String translateVal) {
+    public TranslateEntityExample(String tableName, String translateCloumn, String whereCloumn, String key, String translateVal) {
         this.tableName = tableName;
         this.translateCloumn = translateCloumn;
         this.whereCloumn = whereCloumn;

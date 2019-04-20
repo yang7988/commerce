@@ -7,10 +7,10 @@ public class RegularUtil {
     private static String ipReg = "((25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))";
 
     public static boolean checkIp(String ip) {
-        return checkReg(ip,ipReg);
+        return checkReg(ip, ipReg);
     }
 
-    public static boolean checkReg(String ip,String reg) {
+    public static boolean checkReg(String ip, String reg) {
         Pattern regex = Pattern.compile(reg);
         Matcher matcher = regex.matcher(ip);
         return matcher.matches();

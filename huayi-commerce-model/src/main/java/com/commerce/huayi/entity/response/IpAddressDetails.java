@@ -61,6 +61,6 @@ public class IpAddressDetails {
 
     @Override
     public String toString() {
-        return "country:" + this.country + " province:"+this.province+" city:" + this.city;
+        return "country:" + this.country + " province:" + this.province + " city:" + this.city;
     }
 }

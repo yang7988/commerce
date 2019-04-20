@@ -9,47 +9,47 @@ import java.util.Date;
 @ApiModel(value = "管理员信息response body")
 public class AdministratorVo implements Serializable {
     //主键
-    @ApiModelProperty(value = "主键id",required = true)
+    @ApiModelProperty(value = "主键id", required = true)
     private Integer id;
 
     //登录名
-    @ApiModelProperty(value = "登录名loginName",required = true)
+    @ApiModelProperty(value = "登录名loginName", required = true)
     private String loginName;
 
     //用户名
-    @ApiModelProperty(value = "用户名name",required = true)
+    @ApiModelProperty(value = "用户名name", required = true)
     private String name;
 
     //用户手机号
-    @ApiModelProperty(value = "用户手机号mobilePhone",required = true)
+    @ApiModelProperty(value = "用户手机号mobilePhone", required = true)
     private String mobilePhone;
 
     //用户状态(0:锁定 1:正常)
-    @ApiModelProperty(value = "用户状态(0:锁定 1:正常)status",required = true)
+    @ApiModelProperty(value = "用户状态(0:锁定 1:正常)status", required = true)
     private String status;
 
     //创建人
-    @ApiModelProperty(value = "创建人createBy",required = true)
+    @ApiModelProperty(value = "创建人createBy", required = true)
     private String createBy;
 
     //创建时间
-    @ApiModelProperty(value = "创建时间createDate",required = true)
+    @ApiModelProperty(value = "创建时间createDate", required = true)
     private Date createDate;
 
     //更新时间
-    @ApiModelProperty(value = "更新时间updateDate",required = false)
+    @ApiModelProperty(value = "更新时间updateDate", required = false)
     private Date updateDate;
 
     //删除标识(0未删除1已删除)
-    @ApiModelProperty(value = "删除标识(0未删除1已删除)isDelete",required = true)
+    @ApiModelProperty(value = "删除标识(0未删除1已删除)isDelete", required = true)
     private Byte isDelete;
 
     //更新人
-    @ApiModelProperty(value = "更新人updateBy",required = false)
+    @ApiModelProperty(value = "更新人updateBy", required = false)
     private String updateBy;
 
     // 登录成功对应token
-    @ApiModelProperty(value = "登录成功对应token",required = false)
+    @ApiModelProperty(value = "登录成功对应token", required = false)
     private String token;
 
     static final long serialVersionUID = 1L;

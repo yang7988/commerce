@@ -8,15 +8,15 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "添加热门产品请求json对象")
 public class AddPopulateGoodsReq {
 
-    @ApiModelProperty(value = "产品id",required = true,example = "1")
+    @ApiModelProperty(value = "产品id", required = true, example = "1")
     @NotNull
     private Long goodsId;
 
-    @ApiModelProperty(value = "产品的规格值id",required = true,example = "1")
+    @ApiModelProperty(value = "产品的规格值id", required = true, example = "1")
     @NotNull
     private Long specValueId;
 
-    @ApiModelProperty(value = "产品的分类id",required = true,example = "1")
+    @ApiModelProperty(value = "产品的分类id", required = true, example = "1")
     @NotNull
     private Long categoryId;
 

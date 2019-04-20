@@ -8,21 +8,22 @@ import java.util.Date;
 
 /**
  * 招聘信息
+ *
  * @date 2019-03-16
- * */
+ */
 @ApiModel(value = "人才中心信息response body")
 public class RecruitmentInfoVo {
 
-    @ApiModelProperty(value = "主键id",required = true)
+    @ApiModelProperty(value = "主键id", required = true)
     private int id;
 
-    @ApiModelProperty(value = "标题title",required = true)
+    @ApiModelProperty(value = "标题title", required = true)
     private String title;
 
-    @ApiModelProperty(value = "明细内容content",required = true)
+    @ApiModelProperty(value = "明细内容content", required = true)
     private String content;
 
-    @ApiModelProperty(value = "创建时间createDate",required = true)
+    @ApiModelProperty(value = "创建时间createDate", required = true)
     private Date createDate;
 
     public int getId() {

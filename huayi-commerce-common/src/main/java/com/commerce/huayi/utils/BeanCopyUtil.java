@@ -19,7 +19,8 @@ public class BeanCopyUtil {
 
     /**
      * java bean拷贝
-     * @param dest 目标对象
+     *
+     * @param dest   目标对象
      * @param origin 原始对象
      */
     public static void copy(Object dest, Object origin) {
@@ -44,9 +45,10 @@ public class BeanCopyUtil {
 
     /**
      * java bean的集合拷贝
+     *
      * @param destClazz 目标对象的Class对象
-     * @param origins 原始java bean集合对象
-     * @param <T> 目标对象泛型
+     * @param origins   原始java bean集合对象
+     * @param <T>       目标对象泛型
      * @return 返回目标集合对象
      */
     public static <T> List<T> copy(Class<T> destClazz, List<?> origins) {
@@ -68,14 +70,13 @@ public class BeanCopyUtil {
     }
 
     /**
-     *
      * @param constructor 目标对象的反射构造器对象
-     * @param origin 原始目标对象
-     * @param <T> 目标对象泛型
+     * @param origin      原始目标对象
+     * @param <T>         目标对象泛型
      * @return 返回目标对象实例
      */
     private static <T> T copyReflectInstance(Constructor<T> constructor, Object origin) {
-        if(constructor == null || origin == null) {
+        if (constructor == null || origin == null) {
             return null;
         }
         T t = null;

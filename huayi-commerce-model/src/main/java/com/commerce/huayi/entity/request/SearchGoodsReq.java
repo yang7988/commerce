@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class SearchGoodsReq {
 
     @NotNull
-    @ApiModelProperty(value = "搜索关键字",example = "蓝牙")
+    @ApiModelProperty(value = "搜索关键字", example = "蓝牙")
     private String keyWord;
 
     public String getKeyWord() {

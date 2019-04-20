@@ -8,11 +8,11 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "获取分类的商品数据分页请求json对象")
 public class PageCategoryGoodsRequest extends PageRequest {
 
-    @ApiModelProperty(value = "主键id",example = "1")
+    @ApiModelProperty(value = "主键id", example = "1")
     @NotNull
     private Long id;
 
-    @ApiModelProperty(value = "分类名可选",example = "1")
+    @ApiModelProperty(value = "分类名可选", example = "1")
     private String name;
 
     public Long getId() {

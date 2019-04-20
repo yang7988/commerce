@@ -9,17 +9,17 @@ import javax.validation.constraints.NotNull;
 public class AddSpuSpecReq {
 
     //规格名称
-    @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
+    @ApiModelProperty(value = "产品的规格名称", required = true, example = "color")
     @NotNull
     private String specName;
 
     //规格描述
-    @ApiModelProperty(value = "产品的规格描述",required = true,example = "describe_color")
+    @ApiModelProperty(value = "产品的规格描述", required = true, example = "describe_color")
     @NotNull
     private String specDescription;
 
     //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
+    @ApiModelProperty(value = "产品的规格具体值", required = true, example = "red")
     @NotNull
     private String specValue;
 

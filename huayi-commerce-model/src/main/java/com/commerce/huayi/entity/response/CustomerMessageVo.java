@@ -7,51 +7,52 @@ import java.util.Date;
 
 /**
  * 客户留言
+ *
  * @date 2019-03-16
- * */
+ */
 @ApiModel(value = "客户留言信息明细response body")
 public class CustomerMessageVo {
 
-    @ApiModelProperty(value = "主键id",required = true)
+    @ApiModelProperty(value = "主键id", required = true)
     private int id;
 
-    @ApiModelProperty(value = "姓名name",required = true)
+    @ApiModelProperty(value = "姓名name", required = true)
     private String name;
 
-    @ApiModelProperty(value = "公司company",required = true)
+    @ApiModelProperty(value = "公司company", required = true)
     private String company;
 
-    @ApiModelProperty(value = "手机号mobilePhone",required = true)
+    @ApiModelProperty(value = "手机号mobilePhone", required = true)
     private String mobilePhone;
 
-    @ApiModelProperty(value = "邮箱地址mailAddress",required = true)
+    @ApiModelProperty(value = "邮箱地址mailAddress", required = true)
     private String mailAddress;
 
-    @ApiModelProperty(value = "传真fax",required = true)
+    @ApiModelProperty(value = "传真fax", required = true)
     private String fax;
 
-    @ApiModelProperty(value = "邮编postalCode",required = true)
+    @ApiModelProperty(value = "邮编postalCode", required = true)
     private String postalCode;
 
-    @ApiModelProperty(value = "地址address",required = true)
+    @ApiModelProperty(value = "地址address", required = true)
     private String address;
 
-    @ApiModelProperty(value = "意见opinion",required = true)
+    @ApiModelProperty(value = "意见opinion", required = true)
     private String opinion;
 
-    @ApiModelProperty(value = "访问目的accessPurpose",required = true)
+    @ApiModelProperty(value = "访问目的accessPurpose", required = true)
     private String accessPurpose;
 
-    @ApiModelProperty(value = "目的是否达到（否 0 ，是 1，一部分 2，仅浏览 3）purposeFlag",required = true)
+    @ApiModelProperty(value = "目的是否达到（否 0 ，是 1，一部分 2，仅浏览 3）purposeFlag", required = true)
     private String purposeFlag;
 
-    @ApiModelProperty(value = "是否提交服务解决问题 (是 1  否 0)dealFlag",required = true)
+    @ApiModelProperty(value = "是否提交服务解决问题 (是 1  否 0)dealFlag", required = true)
     private String dealFlag;
 
-    @ApiModelProperty(value = "文档质量（非常好 3，好 2，平均 1，差 0）documentQuality",required = true)
+    @ApiModelProperty(value = "文档质量（非常好 3，好 2，平均 1，差 0）documentQuality", required = true)
     private String documentQuality;
 
-    @ApiModelProperty(value = "创建时间createDate",required = true)
+    @ApiModelProperty(value = "创建时间createDate", required = true)
     private Date createDate;
 
     public int getId() {

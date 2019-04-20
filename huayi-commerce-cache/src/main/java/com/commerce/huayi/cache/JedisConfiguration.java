@@ -54,7 +54,7 @@ public class JedisConfiguration {
 
     @Bean
     public JedisPool jedisPool(@Qualifier("jedisPoolConfig") JedisPoolConfig jedisPoolConfig) {
-        return new JedisPool(jedisPoolConfig, host, port, Integer.parseInt(timeout),password,database);
+        return new JedisPool(jedisPoolConfig, host, port, Integer.parseInt(timeout), password, database);
     }
 
 }

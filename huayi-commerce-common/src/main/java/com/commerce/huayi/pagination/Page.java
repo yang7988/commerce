@@ -16,23 +16,23 @@ public final class Page<T> implements Serializable {
     private static final int DEFAULT_PAGE_SIZE = 10;
 
     // 每页显示多少条记录，固定值，可以从配置文件中获取
-    @ApiModelProperty(value = "每页显示数据条数pageMaxSize",example = "10")
+    @ApiModelProperty(value = "每页显示数据条数pageMaxSize", example = "10")
     private int pageMaxSize;
 
     // 当前页码，传进来
-    @ApiModelProperty(value = "当前页码pageIndex",example = "1")
+    @ApiModelProperty(value = "当前页码pageIndex", example = "1")
     private int pageIndex;
 
     // 每页的起始位置，通过当前页面和每页显示多少条记录算出来的
-    @ApiModelProperty(value = "数据的偏移量",example = "0")
+    @ApiModelProperty(value = "数据的偏移量", example = "0")
     private int offset;
 
     // 总记录数，查询出来的，传进来
-    @ApiModelProperty(value = "数据库总记录数",example = "5")
+    @ApiModelProperty(value = "数据库总记录数", example = "5")
     private int count;
 
     // 每页显示的数据,查询出来的，传进来
-    @ApiModelProperty(value = "数据列表,跟具体业务类型相关，举个产品列表的例子",example = "[\n" +
+    @ApiModelProperty(value = "数据列表,跟具体业务类型相关，举个产品列表的例子", example = "[\n" +
             "            {\n" +
             "                \"id\": 1,\n" +
             "                \"spuNo\": \"132156465kjkj\",\n" +
@@ -47,7 +47,7 @@ public final class Page<T> implements Serializable {
     private List<T> list;
 
     // 总页数，计算出来，通过总记录数和每页显示多少条记录算出来的
-    @ApiModelProperty(value = "总页数",example = "1")
+    @ApiModelProperty(value = "总页数", example = "1")
     private int pageCount;
 
     private Page() {

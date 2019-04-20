@@ -8,59 +8,59 @@ import java.math.BigDecimal;
 @ApiModel(value = "产品详情的response body")
 public class GoodsSpuDetailsVo {
 
-    @ApiModelProperty(value = "产品id",required = true,example = "1")
+    @ApiModelProperty(value = "产品id", required = true, example = "1")
     private Long id;
 
     //商品编号，唯一
-    @ApiModelProperty(value = "产品编号",required = true,example = "adasdkjas-132156s-aaa")
+    @ApiModelProperty(value = "产品编号", required = true, example = "adasdkjas-132156s-aaa")
     private String spuNo;
 
     //商品名称
-    @ApiModelProperty(value = "产品名称",required = true,example = "big_earphone")
+    @ApiModelProperty(value = "产品名称", required = true, example = "big_earphone")
     private String goodsName;
 
     //商品描述
-    @ApiModelProperty(value = "产品描述",required = true,example = "big_earphone")
+    @ApiModelProperty(value = "产品描述", required = true, example = "big_earphone")
     private String goodsDescription;
 
     //商品的图片地址
-    @ApiModelProperty(value = "产品图片key值",required = true,example = "FsdVQeZzIkAgoCpbvq81gGSeF3Y7")
+    @ApiModelProperty(value = "产品图片key值", required = true, example = "FsdVQeZzIkAgoCpbvq81gGSeF3Y7")
     private String goodsImageKey;
 
     //最低售价
-    @ApiModelProperty(value = "产品价格",required = true,example = "663.69")
+    @ApiModelProperty(value = "产品价格", required = true, example = "663.69")
     private BigDecimal lowPrice;
 
     //分类id
-    @ApiModelProperty(value = "产品所属分类id",required = true,example = "10")
+    @ApiModelProperty(value = "产品所属分类id", required = true, example = "10")
     private Long categoryId;
 
     //品牌id
-    @ApiModelProperty(value = "产品所属品牌id",required = true,example = "0")
+    @ApiModelProperty(value = "产品所属品牌id", required = true, example = "0")
     private Long brandId;
 
     //商品的规格id
-    @ApiModelProperty(value = "产品的规格id",required = true,example = "1")
+    @ApiModelProperty(value = "产品的规格id", required = true, example = "1")
     private Long specId;
 
     //商品的规格编号
-    @ApiModelProperty(value = "产品的规格编号",required = true,example = "Abc-1234567")
+    @ApiModelProperty(value = "产品的规格编号", required = true, example = "Abc-1234567")
     private String specNo;
 
     //规格名称
-    @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
+    @ApiModelProperty(value = "产品的规格名称", required = true, example = "color")
     private String specName;
 
     //规格描述
-    @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
+    @ApiModelProperty(value = "产品的规格描述", required = true, example = "color")
     private String specDescription;
 
     //商品的规格值id
-    @ApiModelProperty(value = "产品的规格值id",required = true,example = "1")
+    @ApiModelProperty(value = "产品的规格值id", required = true, example = "1")
     private Long specValueId;
 
     //规格值
-    @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
+    @ApiModelProperty(value = "产品的规格具体值", required = true, example = "red")
     private String specValue;
 
     public Long getId() {

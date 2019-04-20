@@ -5,16 +5,16 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 公司介绍信息
- * @date 2019-03-16
  *
- * */
+ * @date 2019-03-16
+ */
 @ApiModel(value = "公司介绍信息response body")
 public class CompanyInfoVo {
 
-    @ApiModelProperty(value = "主键id",required = true)
+    @ApiModelProperty(value = "主键id", required = true)
     private int id;
 
-    @ApiModelProperty(value = "介绍内容content",required = true)
+    @ApiModelProperty(value = "介绍内容content", required = true)
     private String content;
 
 

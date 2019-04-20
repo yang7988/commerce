@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.commerce.huayi.mapper.AdminLoginRecordMapper">
-  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.AdminLoginRecord">
-    <!--@mbg.generated generated on Wed Apr 03 15:41:20 CST 2019.-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="login_user" jdbcType="VARCHAR" property="loginUser" />
-    <result column="login_key" jdbcType="VARCHAR" property="loginKey" />
-    <result column="login_add" jdbcType="VARCHAR" property="loginAdd" />
-    <result column="login_in_date" jdbcType="TIMESTAMP" property="loginInDate" />
-    <result column="login_out_date" jdbcType="TIMESTAMP" property="loginOutDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated generated on Wed Apr 03 15:41:20 CST 2019.-->
-    id, login_user, login_key, login_add, login_in_date, login_out_date
-  </sql>
+    <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.AdminLoginRecord">
+        <!--@mbg.generated generated on Wed Apr 03 15:41:20 CST 2019.-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="login_user" jdbcType="VARCHAR" property="loginUser"/>
+        <result column="login_key" jdbcType="VARCHAR" property="loginKey"/>
+        <result column="login_add" jdbcType="VARCHAR" property="loginAdd"/>
+        <result column="login_in_date" jdbcType="TIMESTAMP" property="loginInDate"/>
+        <result column="login_out_date" jdbcType="TIMESTAMP" property="loginOutDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Wed Apr 03 15:41:20 CST 2019.-->
+        id, login_user, login_key, login_add, login_in_date, login_out_date
+    </sql>
 </mapper>

@@ -5,13 +5,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value = "status")
 public class ApiStatusCodeVo {
-    @ApiModelProperty(value = "系统自定义状态码",required = true)
+    @ApiModelProperty(value = "系统自定义状态码", required = true)
     private int status;
 
-    @ApiModelProperty(value = "系统自定义状态码英文描述",required = true)
+    @ApiModelProperty(value = "系统自定义状态码英文描述", required = true)
     private String code;
 
-    @ApiModelProperty(value = "系统自定义状态码描述",required = true)
+    @ApiModelProperty(value = "系统自定义状态码描述", required = true)
     private String desc;
 
     public ApiStatusCodeVo() {

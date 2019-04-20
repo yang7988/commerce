@@ -9,19 +9,19 @@ import java.io.Serializable;
 public class AdministratorReq implements Serializable {
 
     //登录名
-    @ApiModelProperty(value = "登录名loginName",example = "huaYi123",dataType = "String")
+    @ApiModelProperty(value = "登录名loginName", example = "huaYi123", dataType = "String")
     private String loginName;
 
     //用户名
-    @ApiModelProperty(value = "用户名name",example = "张三",dataType = "String")
+    @ApiModelProperty(value = "用户名name", example = "张三", dataType = "String")
     private String name;
 
     //用户手机号
-    @ApiModelProperty(value = "用户手机号mobilePhone",example = "15845784578",dataType = "String")
+    @ApiModelProperty(value = "用户手机号mobilePhone", example = "15845784578", dataType = "String")
     private String mobilePhone;
 
     //登录密码
-    @ApiModelProperty(value = "登录密码password",example = "8E32C1D89CAA28A23F43E16001B44EB7",dataType = "String")
+    @ApiModelProperty(value = "登录密码password", example = "8E32C1D89CAA28A23F43E16001B44EB7", dataType = "String")
     private String password;
 
     static final long serialVersionUID = 1L;

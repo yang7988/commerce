@@ -27,7 +27,7 @@ public class DynamicDataSourceAspect {
             return;
         }
         LanguageEnum languageEnum = LanguageEnum.enums(language);
-        if(languageEnum == null) {
+        if (languageEnum == null) {
             DataSourceContextHolder.setDB(DataSourceContextHolder.DEFAULT_DS);
             return;
         }
@@ -35,7 +35,7 @@ public class DynamicDataSourceAspect {
     }
 
     @After("controller()")
-    public void afterSwitchDS(JoinPoint point){
+    public void afterSwitchDS(JoinPoint point) {
         DataSourceContextHolder.clearDB();
     }
 }

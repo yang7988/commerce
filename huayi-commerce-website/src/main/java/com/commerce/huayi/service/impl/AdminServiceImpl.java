@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
                 administratorVo.setIsDelete(administrator.getIsDelete());
                 administratorVo.setStatus(administrator.getStatus());
                 RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, administratorVo.getLoginName());
-                jedisTemplate.setex(redisKey,1800,token);
+                jedisTemplate.setex(redisKey, 1800, token);
                 return administratorVo;
             } else {
                 // 密码错误

@@ -173,11 +173,11 @@ public class AdminLoginRecord implements Serializable {
         }
         AdminLoginRecord other = (AdminLoginRecord) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getLoginUser() == null ? other.getLoginUser() == null : this.getLoginUser().equals(other.getLoginUser()))
-            && (this.getLoginKey() == null ? other.getLoginKey() == null : this.getLoginKey().equals(other.getLoginKey()))
-            && (this.getLoginAdd() == null ? other.getLoginAdd() == null : this.getLoginAdd().equals(other.getLoginAdd()))
-            && (this.getLoginInDate() == null ? other.getLoginInDate() == null : this.getLoginInDate().equals(other.getLoginInDate()))
-            && (this.getLoginOutDate() == null ? other.getLoginOutDate() == null : this.getLoginOutDate().equals(other.getLoginOutDate()));
+                && (this.getLoginUser() == null ? other.getLoginUser() == null : this.getLoginUser().equals(other.getLoginUser()))
+                && (this.getLoginKey() == null ? other.getLoginKey() == null : this.getLoginKey().equals(other.getLoginKey()))
+                && (this.getLoginAdd() == null ? other.getLoginAdd() == null : this.getLoginAdd().equals(other.getLoginAdd()))
+                && (this.getLoginInDate() == null ? other.getLoginInDate() == null : this.getLoginInDate().equals(other.getLoginInDate()))
+                && (this.getLoginOutDate() == null ? other.getLoginOutDate() == null : this.getLoginOutDate().equals(other.getLoginOutDate()));
     }
 
     @Override

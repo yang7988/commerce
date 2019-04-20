@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * MD5加密工具类
- * */
+ */
 public class MD5Tools {
 
     private static MessageDigest getMd5() {
@@ -35,7 +35,7 @@ public class MD5Tools {
     }
 
 
-    public static void main(String []args) {
+    public static void main(String[] args) {
 
         System.out.println(MD5Tools.encryptUpperCase("huaYi123@123"));
 

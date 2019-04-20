@@ -1,155 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.commerce.huayi.mapper.GoodPopulateMapper">
-  <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodPopulate">
-    <!--@mbg.generated-->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
-    <result column="spu_id" jdbcType="BIGINT" property="spuId" />
-    <result column="spec_value_id" jdbcType="BIGINT" property="specValueId" />
-    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, category_id, spu_id, spec_value_id, is_delete, create_date, update_date
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from tb_good_populate
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from tb_good_populate
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.commerce.huayi.entity.db.GoodPopulate" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into tb_good_populate
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="categoryId != null">
-        category_id,
-      </if>
-      <if test="spuId != null">
-        spu_id,
-      </if>
-      <if test="specValueId != null">
-        spec_value_id,
-      </if>
-      <if test="isDelete != null">
-        is_delete,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="categoryId != null">
-        #{categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="spuId != null">
-        #{spuId,jdbcType=BIGINT},
-      </if>
-      <if test="specValueId != null">
-        #{specValueId,jdbcType=BIGINT},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodPopulate">
-    <!--@mbg.generated-->
-    update tb_good_populate
-    <set>
-      <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="spuId != null">
-        spu_id = #{spuId,jdbcType=BIGINT},
-      </if>
-      <if test="specValueId != null">
-        spec_value_id = #{specValueId,jdbcType=BIGINT},
-      </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.GoodPopulate">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="category_id" jdbcType="BIGINT" property="categoryId"/>
+        <result column="spu_id" jdbcType="BIGINT" property="spuId"/>
+        <result column="spec_value_id" jdbcType="BIGINT" property="specValueId"/>
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, category_id, spu_id, spec_value_id, is_delete, create_date, update_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from tb_good_populate
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from tb_good_populate
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.commerce.huayi.entity.db.GoodPopulate" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into tb_good_populate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="spuId != null">
+                spu_id,
+            </if>
+            <if test="specValueId != null">
+                spec_value_id,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="spuId != null">
+                #{spuId,jdbcType=BIGINT},
+            </if>
+            <if test="specValueId != null">
+                #{specValueId,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.commerce.huayi.entity.db.GoodPopulate">
+        <!--@mbg.generated-->
+        update tb_good_populate
+        <set>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=BIGINT},
+            </if>
+            <if test="spuId != null">
+                spu_id = #{spuId,jdbcType=BIGINT},
+            </if>
+            <if test="specValueId != null">
+                spec_value_id = #{specValueId,jdbcType=BIGINT},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=TINYINT},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
     <select id="selectPopulateGoodsCount" resultType="int">
-      SELECT
-             count(1)
-      FROM
-           tb_good_populate tgp
-             join tb_goods_category category on tgp.category_id = category.id
-             join tb_goods_spu spu on tgp.spu_id = spu.id
-             join tb_goods_spec_value specValue on tgp.spec_value_id = specValue.id
-             join tb_goods_spec spec on specValue.spec_id = spec.id
-      where 1=1
+        SELECT
+        count(1)
+        FROM
+        tb_good_populate tgp
+        join tb_goods_category category on tgp.category_id = category.id
+        join tb_goods_spu spu on tgp.spu_id = spu.id
+        join tb_goods_spec_value specValue on tgp.spec_value_id = specValue.id
+        join tb_goods_spec spec on specValue.spec_id = spec.id
+        where 1=1
         and tgp.is_delete = 0
         and spu.is_delete=0
         and specValue.is_delete =0
         and spec.is_delete =0
         and category.is_delete = 0
-      <if test="categoryId != null and categoryId != 0">
-        and tgp.category_id = #{categoryId}
-      </if>
+        <if test="categoryId != null and categoryId != 0">
+            and tgp.category_id = #{categoryId}
+        </if>
     </select>
 
     <select id="selectPopulateGoodsByPage" resultType="com.commerce.huayi.entity.response.GoodsSpuDetailsVo">
-      SELECT
-             spu.id,
-             spu.spu_no            as spuNo,
-             spu.goods_name        as goodsName,
-             spu.goods_description as goodsDescription,
-             spu.goods_image_key   as goodsImageKey,
-             spu.low_price         as lowPrice,
-             spu.brand_id          as brandId,
-             category.id           as categoryId,
-             spec.id               as specId,
-             spec.spec_no          as specNo,
-             spec.spec_name        as specName,
-             spec.spec_description as specDescription,
-             specValue.id          as specValueId,
-             specValue.spec_value  as specValue
-      FROM
-           tb_good_populate tgp
-             join tb_goods_category category on tgp.category_id = category.id
-             join tb_goods_spu spu on tgp.spu_id = spu.id
-             join tb_goods_spec_value specValue on tgp.spec_value_id = specValue.id
-             join tb_goods_spec spec on specValue.spec_id = spec.id
-      where 1=1
+        SELECT
+        spu.id,
+        spu.spu_no as spuNo,
+        spu.goods_name as goodsName,
+        spu.goods_description as goodsDescription,
+        spu.goods_image_key as goodsImageKey,
+        spu.low_price as lowPrice,
+        spu.brand_id as brandId,
+        category.id as categoryId,
+        spec.id as specId,
+        spec.spec_no as specNo,
+        spec.spec_name as specName,
+        spec.spec_description as specDescription,
+        specValue.id as specValueId,
+        specValue.spec_value as specValue
+        FROM
+        tb_good_populate tgp
+        join tb_goods_category category on tgp.category_id = category.id
+        join tb_goods_spu spu on tgp.spu_id = spu.id
+        join tb_goods_spec_value specValue on tgp.spec_value_id = specValue.id
+        join tb_goods_spec spec on specValue.spec_id = spec.id
+        where 1=1
         and tgp.is_delete = 0
         and spu.is_delete=0
         and specValue.is_delete =0
         and spec.is_delete =0
         and category.is_delete = 0
-      <if test="categoryId != null and categoryId != 0">
-        and tgp.category_id = #{categoryId}
-      </if>
-      order by specValue.id
-      limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
+        <if test="categoryId != null and categoryId != 0">
+            and tgp.category_id = #{categoryId}
+        </if>
+        order by specValue.id
+        limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
     </select>
 </mapper>

@@ -6,16 +6,16 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 公司介绍信息
- * @date 2019-03-16
  *
- * */
+ * @date 2019-03-16
+ */
 @ApiModel(value = "公司介绍信息请求json对象")
 public class CompanyInfoReq {
 
-    @ApiModelProperty(value = "主键id",example = "1",dataType = "int")
+    @ApiModelProperty(value = "主键id", example = "1", dataType = "int")
     private int id;
 
-    @ApiModelProperty(value = "介绍内容content",example = "HuaYi公司，最牛的耳机公司",dataType = "String")
+    @ApiModelProperty(value = "介绍内容content", example = "HuaYi公司，最牛的耳机公司", dataType = "String")
     private String content;
 
 

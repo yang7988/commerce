@@ -7,22 +7,22 @@ import io.swagger.annotations.ApiModelProperty;
 public class CategoryVo {
 
     //主键id
-    @ApiModelProperty(value = "分类id",required = true,example = "10")
+    @ApiModelProperty(value = "分类id", required = true, example = "10")
     private Long id;
 
     //父级分类id
-    @ApiModelProperty(value = "父级分类id",required = true,example = "0")
+    @ApiModelProperty(value = "父级分类id", required = true, example = "0")
     private Long parentId;
 
     //能否展开
-    @ApiModelProperty(value = "分类是否有可以展开的子分类",required = true,example = "0")
+    @ApiModelProperty(value = "分类是否有可以展开的子分类", required = true, example = "0")
     private Byte isOpen;
     //分类名称
-    @ApiModelProperty(value = "分类名",required = true,example = "big_blue_earphone")
+    @ApiModelProperty(value = "分类名", required = true, example = "big_blue_earphone")
     private String categoryName;
 
     //分类描述
-    @ApiModelProperty(value = "分类描述",required = true,example = "big_blue_earphone")
+    @ApiModelProperty(value = "分类描述", required = true, example = "big_blue_earphone")
     private String categoryDescription;
 
     public Long getId() {

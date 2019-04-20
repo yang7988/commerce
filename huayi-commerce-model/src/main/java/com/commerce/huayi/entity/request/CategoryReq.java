@@ -6,20 +6,20 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
 
 @ApiModel(value = "商品分类的请求json对象")
-public class CategoryReq  {
+public class CategoryReq {
 
     //父级分类id
-    @ApiModelProperty(value = "分类父id",example = "0")
+    @ApiModelProperty(value = "分类父id", example = "0")
     @NotNull
     private Long parentId;
 
     //分类名称
-    @ApiModelProperty(value = "分类名",example = "big_earphone")
+    @ApiModelProperty(value = "分类名", example = "big_earphone")
     @NotNull
     private String categoryName;
 
     //分类描述
-    @ApiModelProperty(value = "分类描述",example = "big_earphone")
+    @ApiModelProperty(value = "分类描述", example = "big_earphone")
     @NotNull
     private String categoryDescription;
 

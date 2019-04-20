@@ -125,9 +125,9 @@ public class UserBrowseLog implements Serializable {
         }
         UserBrowseLog other = (UserBrowseLog) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
-            && (this.getModule() == null ? other.getModule() == null : this.getModule().equals(other.getModule()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()));
+                && (this.getAddress() == null ? other.getAddress() == null : this.getAddress().equals(other.getAddress()))
+                && (this.getModule() == null ? other.getModule() == null : this.getModule().equals(other.getModule()))
+                && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()));
     }
 
     @Override

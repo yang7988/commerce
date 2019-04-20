@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
         ApiResponseEnum apiResponseEnum = businessException.getApiResponseEnum();
         String message = apiResponseEnum != null ? apiResponseEnum.getLabel() : businessException.getMessage();
         logger.error("intercept===BusinessException===info=={}", message);
-        if(apiResponseEnum == null) {
+        if (apiResponseEnum == null) {
             return new ResponseEntity(ApiResponse.returnFail(message), HttpStatus.OK);
         }
         return new ResponseEntity(ApiResponse.returnFail(apiResponseEnum), HttpStatus.OK);

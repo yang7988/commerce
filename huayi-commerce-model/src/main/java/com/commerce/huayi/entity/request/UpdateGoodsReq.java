@@ -9,28 +9,28 @@ import java.math.BigDecimal;
 @ApiModel(value = "更新产品的请求json对象")
 public class UpdateGoodsReq {
 
-    @ApiModelProperty(value = "产品id",required = true,example = "1")
+    @ApiModelProperty(value = "产品id", required = true, example = "1")
     @NotNull
     private Long id;
 
-    @ApiModelProperty(value = "产品名称",example = "blue_earphone")
+    @ApiModelProperty(value = "产品名称", example = "blue_earphone")
 
     private String goodsName;
 
     //商品描述
-    @ApiModelProperty(value = "产品描述",example = "blue_earphone")
+    @ApiModelProperty(value = "产品描述", example = "blue_earphone")
     private String goodsDescription;
 
     //商品描述
-    @ApiModelProperty(value = "产品图片url地址",example = "http://localhost/image/earphone")
+    @ApiModelProperty(value = "产品图片url地址", example = "http://localhost/image/earphone")
     private String goodsImageKey;
 
     //最低售价
-    @ApiModelProperty(value = "产品价格",example = "66.36")
+    @ApiModelProperty(value = "产品价格", example = "66.36")
     private BigDecimal price;
 
     //分类id
-    @ApiModelProperty(value = "产品所属分类id",example = "10")
+    @ApiModelProperty(value = "产品所属分类id", example = "10")
     private Long categoryId;
 
     public Long getId() {

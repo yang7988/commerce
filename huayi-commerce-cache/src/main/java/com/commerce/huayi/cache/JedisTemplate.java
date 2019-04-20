@@ -44,7 +44,7 @@ public class JedisTemplate {
         Jedis jedis = null;
         try {
             byte[] serializedVal = this.serializer.serializer(value);
-            if(serializedVal == null) {
+            if (serializedVal == null) {
                 return JedisStatus.SERIALIZE_FAILD;
             }
             jedis = this.getJedis();
@@ -67,7 +67,7 @@ public class JedisTemplate {
         Jedis jedis = null;
         try {
             byte[] serializedVal = this.serializer.serializer(value);
-            if(null == serializedVal) {
+            if (null == serializedVal) {
                 return JedisStatus.SERIALIZE_FAILD;
             }
             jedis = this.getJedis();
@@ -128,7 +128,7 @@ public class JedisTemplate {
         try {
             Charset charset = Charset.defaultCharset();
             byte[] serializedVal = this.serializer.serializer(value);
-            if(null == serializedVal) {
+            if (null == serializedVal) {
                 return JedisStatus.SERIALIZE_FAILD;
             }
             jedis = this.getJedis();
@@ -156,7 +156,7 @@ public class JedisTemplate {
             jedisStatus = JedisStatus.OK;
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
-                LOGGER.error(e.getMessage(),e);
+                LOGGER.error(e.getMessage(), e);
             }
             jedisStatus = JedisStatus.FAILD;
         } finally {
@@ -171,12 +171,12 @@ public class JedisTemplate {
         try {
             Charset charset = Charset.defaultCharset();
             jedis = this.getJedis();
-            byte[] bytes = jedis.hget(key.getRedisKey().getBytes(charset),hashKey.getBytes(charset));
+            byte[] bytes = jedis.hget(key.getRedisKey().getBytes(charset), hashKey.getBytes(charset));
             t = serializer.deserializer(bytes, clazz);
         } catch (Exception e) {
             if (LOGGER.isErrorEnabled()) {
                 LOGGER.error("JedisTemplate hget({},{},{}) method called error {}"
-                        , key.getRedisKey(), hashKey,clazz.getName(), ExceptionUtils.getStackTrace(e));
+                        , key.getRedisKey(), hashKey, clazz.getName(), ExceptionUtils.getStackTrace(e));
             }
         } finally {
             this.closeJedis(jedis);

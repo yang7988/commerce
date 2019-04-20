@@ -197,12 +197,12 @@ public class AdminOperatorLog implements Serializable {
         }
         AdminOperatorLog other = (AdminOperatorLog) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getLoginUser() == null ? other.getLoginUser() == null : this.getLoginUser().equals(other.getLoginUser()))
-            && (this.getLoginAddr() == null ? other.getLoginAddr() == null : this.getLoginAddr().equals(other.getLoginAddr()))
-            && (this.getInterfaces() == null ? other.getInterfaces() == null : this.getInterfaces().equals(other.getInterfaces()))
-            && (this.getInput() == null ? other.getInput() == null : this.getInput().equals(other.getInput()))
-            && (this.getOutput() == null ? other.getOutput() == null : this.getOutput().equals(other.getOutput()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()));
+                && (this.getLoginUser() == null ? other.getLoginUser() == null : this.getLoginUser().equals(other.getLoginUser()))
+                && (this.getLoginAddr() == null ? other.getLoginAddr() == null : this.getLoginAddr().equals(other.getLoginAddr()))
+                && (this.getInterfaces() == null ? other.getInterfaces() == null : this.getInterfaces().equals(other.getInterfaces()))
+                && (this.getInput() == null ? other.getInput() == null : this.getInput().equals(other.getInput()))
+                && (this.getOutput() == null ? other.getOutput() == null : this.getOutput().equals(other.getOutput()))
+                && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()));
     }
 
     @Override
