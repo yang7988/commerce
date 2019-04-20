@@ -14,6 +14,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         String db = DataSourceContextHolder.getDB();
         String remark = "======当前数据源为=====";
         LOGGER.warn(StringUtils.isBlank(db) ? remark + "默认数据源====chineseDatasource" : db);
-        return DataSourceContextHolder.getDB();
+        return db;
     }
 }
