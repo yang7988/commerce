@@ -3,7 +3,6 @@ package com.commerce.huayi.mapper;
 import com.commerce.huayi.entity.db.GoodsSpu;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.entity.response.GoodsSpuVo;
-import com.commerce.huayi.pagination.Condition;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public interface GoodsSpuMapper {
 
     Integer getGoodsCountByBySpuId(@Param("spuId") Long spuId);
 
-    List<GoodsSpuVo> searchGoodsSpu(Condition condition);
+    List<GoodsSpuVo> searchGoodsSpu(@Param("searchKeyWord") String searchKeyWord);
 
     int selectCountByName(@Param("goodsName") String goodsName);
 }

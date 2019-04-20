@@ -108,7 +108,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="selectCategoryByPage" parameterType="com.commerce.huayi.pagination.Condition" resultType="com.commerce.huayi.entity.response.CategoryVo">
+  <select id="selectCategoryByPage" parameterType="java.util.Map" resultType="com.commerce.huayi.entity.response.CategoryVo">
     select
         category.id as id,
         category.parent_id as parentId,
@@ -118,10 +118,10 @@
     from tb_goods_category category
 
     where 1=1 and category.is_delete = 0
-    <if test="criterion.categoryId != null and criterion.categoryId != 0">
+    <if test="categoryId != null andcategoryId != 0">
       and category.id = #{categoryId}
     </if>
-    <if test="criterion.categoryName != null and criterion.categoryName != ''">
+    <if test="categoryName != null and categoryName != ''">
       and category.category_name = #{categoryName}
     </if>
     order by category.id
@@ -130,14 +130,14 @@
     </if>
   </select>
 
-  <select id="selectCategoryCount" parameterType="com.commerce.huayi.pagination.Condition" resultType="java.lang.Integer">
+  <select id="selectCategoryCount" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(category.id)
     from tb_goods_category category
     where 1=1 and category.is_delete = 0
-    <if test="criterion.categoryId != null and criterion.categoryId != 0">
+    <if test="categoryId != null and categoryId != 0">
       and category.id = #{categoryId}
     </if>
-    <if test="criterion.categoryName != null and criterion.categoryName != ''">
+    <if test="categoryName != null and categoryName != ''">
       and category.category_name = #{categoryName}
     </if>
   </select>

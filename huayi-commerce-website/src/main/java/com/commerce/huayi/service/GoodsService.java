@@ -47,7 +47,7 @@ public interface GoodsService {
 
     ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req);*/
 
-    List<GoodsSpuVo> search(String keyWord, String language);
+    List<GoodsSpuVo> search(String keyWord);
 
     Page<GoodsSpuDetailsVo> goodsDetails(Long id, int pageIndex, int pageMaxSize);
 

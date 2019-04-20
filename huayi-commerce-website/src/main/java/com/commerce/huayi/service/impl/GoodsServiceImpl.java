@@ -15,7 +15,6 @@ import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.mapper.*;
-import com.commerce.huayi.pagination.Condition;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
@@ -29,10 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,22 +59,22 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Page<CategoryVo> getCategories(Long id, String name, int pageIndex, int pageMaxSize) throws BusinessException {
-        Condition condition = Condition.create();
-        Map<String, Object> criterion = condition.getCriterion();
+        //查询数据库count
+        Map<String, Object> criterion = new HashMap<>();
         criterion.put("categoryId", id);
         criterion.put("categoryName", name);
-        //查询数据库count
-        Integer count = goodsCategoryMapper.selectCategoryCount(condition);
+        Integer count = goodsCategoryMapper.selectCategoryCount(criterion);
         Page<CategoryVo> page = Page.create(pageIndex, pageMaxSize, count);
         if (count <= 0) {
             return page;
         }
         //分页条件
-        condition.setOffset(page.getOffset());
-        condition.setRowSize(page.getPageMaxSize());
-        List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(condition);
+        criterion.put("offset",page.getOffset());
+        criterion.put("rowSize",page.getPageMaxSize());
+        List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(criterion);
         page.setList(categoryVos);
         return page;
+
     }
 
     @Override
@@ -331,12 +327,9 @@ public class GoodsServiceImpl implements GoodsService {
     }*/
 
     @Override
-    public List<GoodsSpuVo> search(String keyWord, String language) {
+    public List<GoodsSpuVo> search(String keyWord) {
         keyWord = ObjectUtil.processsenseKeyword(keyWord);
-        Condition condition = Condition.create();
-        Map<String, Object> criterion = condition.getCriterion();
-        criterion.put("searchKeyWord", keyWord);
-        return goodsSpuMapper.searchGoodsSpu(condition);
+        return goodsSpuMapper.searchGoodsSpu(keyWord);
     }
 
     @Override
