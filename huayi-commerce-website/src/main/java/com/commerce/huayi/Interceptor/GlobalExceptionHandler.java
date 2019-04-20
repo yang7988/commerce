@@ -3,11 +3,9 @@ package com.commerce.huayi.Interceptor;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
-import com.commerce.huayi.service.TranslateService;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -23,8 +21,6 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 public class GlobalExceptionHandler {
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @Autowired
-    private TranslateService translateService;
 
     public GlobalExceptionHandler() {
     }
@@ -36,7 +32,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> internalExceptionHandler(Exception e) {
         logger.error("internalExceptionHandler: stacktrace={}", ExceptionUtils.getStackTrace(e));
         ApiResponse apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR);
-        Object retVl = translateService.translate(apiResponse);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }
@@ -50,8 +45,7 @@ public class GlobalExceptionHandler {
         String message = apiResponseEnum != null ? apiResponseEnum.getLabel() : businessException.getMessage();
         logger.error("intercept===BusinessException===info=={}", message);
         Object errorData = businessException.getErrorData();
-        Object retVl = translateService.translate(ApiResponse.returnFail(errorData, apiResponseEnum));
-        return new ResponseEntity(retVl, HttpStatus.OK);
+        return new ResponseEntity(ApiResponse.returnFail(errorData, apiResponseEnum), HttpStatus.OK);
     }
 
     @SuppressWarnings("unchecked")
@@ -62,8 +56,7 @@ public class GlobalExceptionHandler {
         ApiResponseEnum apiResponseEnum = ApiResponseEnum.FILE_CANT_BE_EMPTY;
         String message = apiResponseEnum.getLabel();
         logger.error("intercept===BusinessException===info=={}", message);
-        Object retVl = translateService.translate(ApiResponse.returnFail(apiResponseEnum));
-        return new ResponseEntity(retVl, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(ApiResponse.returnFail(apiResponseEnum), HttpStatus.BAD_REQUEST);
     }
 
     @SuppressWarnings("unchecked")
@@ -82,7 +75,6 @@ public class GlobalExceptionHandler {
         } else {
             apiResponse = ApiResponse.returnFail(ApiResponseEnum.INTERNAL_ERROR, e.getMessage());
         }
-        translateService.translate(apiResponse);
         return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
 
     }

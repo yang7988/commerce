@@ -1,7 +1,7 @@
 package com.commerce.huayi;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.commerce.huayi.service.DynamicDataSource;
+import com.commerce.huayi.service.impl.DynamicDataSource;
 import com.google.common.collect.Sets;
 import org.hibernate.validator.HibernateValidator;
 import org.mybatis.spring.annotation.MapperScan;

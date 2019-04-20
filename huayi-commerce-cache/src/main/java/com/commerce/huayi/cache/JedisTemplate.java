@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
 import java.util.Set;
 
 @Component
-public class JedisTemplate implements InitializingBean {
+public class JedisTemplate {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JedisTemplate.class);
 
@@ -206,25 +206,5 @@ public class JedisTemplate implements InitializingBean {
         return bytes;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Jedis jedis = null;
-        try {
-            jedis = this.getJedis();
-            Set<String> keys = jedis.keys(RedisKeysPrefix.I18N_KEY.getPrefix() + "*");
-            if(CollectionUtils.isEmpty(keys)) {
-                return;
-            }
-            String[] keysArray = new String[keys.size()];
-            keys.toArray(keysArray);
-            jedis.del(keysArray);
-            LOGGER.warn("=========项目启动并清空国际化I18n缓存=======");
-        } catch (Exception e) {
-            if (LOGGER.isErrorEnabled()) {
-                LOGGER.error("JedisTemplate flushDB method called error {}", ExceptionUtils.getStackTrace(e));
-            }
-        } finally {
-            this.closeJedis(jedis);
-        }
-    }
+
 }

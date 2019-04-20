@@ -13,7 +13,7 @@ import java.util.Map;
 @ApiModel(value = "添加规格请求json对象")
 @Pretreatment
 @Dictionary
-public class AddSpuSpecReq extends AbstractDictReq {
+public class AddSpuSpecReq {
 
     //规格名称
     @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
@@ -32,17 +32,6 @@ public class AddSpuSpecReq extends AbstractDictReq {
     @NotNull
     @Pretreatment
     private String specValue;
-
-    //产品名称及规格的翻译可选字段
-    @ApiModelProperty(value = "产品名称及规格的翻译可选字段",position = 4,example = "{\n" +
-            "        \"specName_english\":\"color\",\n" +
-            "        \"specName_chinese\":\"颜色\",\n" +"  " +
-            "        \"specDescription_english\":\"describe_goods_color\",\n" +
-            "        \"specDescription_chinese\":\"描述产品颜色\",\n" +
-            "        \"specValue_english\":\"red\",\n" +
-            "        \"specValue_chinese\":\"红色\"\n" +
-            "    }")
-    private Map<String,String> translation;
 
     public String getSpecName() {
         return specName;
@@ -68,49 +57,5 @@ public class AddSpuSpecReq extends AbstractDictReq {
         this.specValue = specValue;
     }
 
-    public Map<String, String> getTranslation() {
-        return translation;
-    }
 
-    public void setTranslation(Map<String, String> translation) {
-        this.translation = translation;
-    }
-
-    @Override
-    public Map<String, Object> buildSql(String language) {
-        Map<String, Object> sqlMap = new HashMap<>();
-        String specNameKey = "specName_".concat(language);
-        String specDescriptionKey = "specDescription_".concat(language);
-        String specTranslate = translation.get(specNameKey);
-        String specDescriptionTranslate = translation.get(specDescriptionKey);
-        if (StringUtils.isBlank(specTranslate) || StringUtils.isBlank(specDescriptionTranslate)) {
-            return null;
-        }
-        sqlMap.put("table","tb_goods_spec_".concat(language));
-        sqlMap.put("id", getDictId());
-        sqlMap.put("spec_name",specName);
-        sqlMap.put("spec_name_translate",specTranslate);
-        sqlMap.put("spec_description",specDescription);
-        sqlMap.put("spec_description_translate",specDescriptionTranslate);
-
-        /*String specPreSql = "insert into tb_goods_spec_%s (spec_name,spec_name_translate,spec_description,spec_description_translate) " +
-                "SELECT '%s','%s','%s','%s' " +
-                "FROM DUAL WHERE NOT EXISTS (" +
-                "SELECT spec_name,spec_description FROM tb_goods_spec_%s " +
-                "WHERE spec_name = '%s' and spec_description='%s')";
-
-        String specSql = String.format(specPreSql,language,this.specName, specTranslate, this.specDescription, specDescriptionTranslate,language,this.specName,this.specDescription);
-
-        sqlMap.put("specSqlStatement", specSql);
-        String specValueKey = "specValue_".concat(language);
-        String specValueTranslate = translation.get(specValueKey);
-        if (StringUtils.isBlank(specValueTranslate)) {
-            return null;
-        }
-        String specValuePreSql = "insert into tb_goods_spec_value_%s (spec_value,spec_value_translate) " +
-                "select '%s','%s' FROM DUAL WHERE NOT EXISTS (SELECT spec_value from tb_goods_spec_value_%s where spec_value = '%s')";
-        String specValueSql = String.format(specValuePreSql, language, this.specValue, specValueTranslate,language,this.specValue);
-        sqlMap.put("specValueSql", specValueSql);*/
-        return sqlMap;
-    }
 }

@@ -61,9 +61,6 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private JedisTemplate jedisTemplate;
 
-    @Autowired
-    private TranslateMapper translateMapper;
-
     @Override
     public Page<CategoryVo> getCategories(Long id, String name, int pageIndex, int pageMaxSize) throws BusinessException {
         Condition condition = Condition.create();
@@ -109,7 +106,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsCategory.setCreateDate(new Date());
         goodsCategory.setUpdateDate(new Date());
         goodsCategoryMapper.insertSelective(goodsCategory);
-        categoryReq.setDictId(goodsCategory.getId());
         //增加字典翻译
         return ApiResponseEnum.SUCCESS;
     }
@@ -132,15 +128,8 @@ public class GoodsServiceImpl implements GoodsService {
         GoodsCategory updateCategory = new GoodsCategory();
         updateCategory.setId(goodsCategory.getId());
         updateCategory.setUpdateDate(new Date());
-        String tableName = "tb_goods_category_".concat(language);
-        if (StringUtils.isNotBlank(req.getCategoryName())) {
-            this.updateDict(tableName, "category_name_translate",
-                    "category_name", req.getCategoryName(), goodsCategory.getCategoryName());
-        }
-        if (StringUtils.isNotBlank(req.getCategoryDescription())) {
-            this.updateDict(tableName, "category_description_translate",
-                    "category_description", req.getCategoryDescription(), goodsCategory.getCategoryDescription());
-        }
+        updateCategory.setCategoryName(req.getCategoryName());
+        updateCategory.setCategoryDescription(req.getCategoryDescription());
         goodsCategoryMapper.updateByPrimaryKeySelective(updateCategory);
         return ApiResponseEnum.SUCCESS;
     }
@@ -176,7 +165,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpu.setUpdateDate(new Date());
         goodsSpu.setIsDelete(Constant.NODELETE);
         goodsSpuMapper.insertSelective(goodsSpu);
-        addGoodsReq.setDictId(goodsSpu.getId());
         return BeanCopyUtil.copy(GoodsSpuVo.class, goodsSpu);
     }
 
@@ -208,7 +196,6 @@ public class GoodsServiceImpl implements GoodsService {
             goodsSpec.setIsDelete(Constant.NODELETE);
             goodsSpecMapper.insertSelective(goodsSpec);
         }
-        addSpuSpecReq.setDictId(goodsSpec.getId());
         int countByExample = goodsSpecValueMapper.selectCountBySpecIdAndValue(goodsSpec.getId(), addSpuSpecReq.getSpecValue());
         if (countByExample > 0) {
             return null;
@@ -221,7 +208,6 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecValue.setIsDelete(Constant.NODELETE);
         goodsSpecValueMapper.insertSelective(goodsSpecValue);
         AddSpuSpecValueReq specValueReq = BeanCopyUtil.copy(AddSpuSpecValueReq.class, addSpuSpecReq);
-        specValueReq.setDictId(goodsSpecValue.getId());
         return specValueReq;
     }
 
@@ -389,34 +375,14 @@ public class GoodsServiceImpl implements GoodsService {
         if (req.getCategoryId() != null) {
             updateGoods.setCategoryId(req.getCategoryId());
         }
-        String tableName = "tb_goods_spu_".concat(language);
         if (StringUtils.isNotBlank(req.getGoodsName())) {
-            this.updateDict(tableName, "goods_name_translate",
-                    "goods_name", req.getGoodsName(), goodsSpu.getGoodsName());
+            updateGoods.setGoodsName(req.getGoodsName());
         }
         if (StringUtils.isNotBlank(req.getGoodsDescription())) {
-            this.updateDict(tableName, "goods_description_translate",
-                    "goods_description", req.getGoodsName(), goodsSpu.getGoodsName());
+            updateGoods.setGoodsDescription(req.getGoodsDescription());
         }
         goodsSpuMapper.updateByPrimaryKeySelective(updateGoods);
         return ApiResponseEnum.SUCCESS;
-    }
-
-    private void updateDict(String table, String translateColumn, String whereColumn, String reqVal, String updateVal) {
-        TranslateEntityExample example = new TranslateEntityExample(table, translateColumn, whereColumn, updateVal);
-        List<TranslateEntity> translateEntities = translateMapper.selectByKey(example);
-        if (CollectionUtils.isEmpty(translateEntities)) {
-            return;
-        }
-        TranslateEntity translateEntity = translateEntities.get(0);
-        if (reqVal.equalsIgnoreCase(translateEntity.getTranslateResult())) {
-            return;
-        }
-        TranslateEntityExample translateExample = new TranslateEntityExample(table,
-                translateColumn, whereColumn, updateVal, reqVal);
-        translateMapper.updateByKey(translateExample);
-        RedisKey redisKey = new RedisKey(RedisKeysPrefix.I18N_KEY, table);
-        jedisTemplate.hset(redisKey, translateColumn.concat(":").concat(updateVal), reqVal);
     }
 
     @Override
@@ -429,29 +395,19 @@ public class GoodsServiceImpl implements GoodsService {
         GoodsSpec updateSpec = new GoodsSpec();
         updateSpec.setId(goodsSpec.getId());
         updateSpec.setUpdateDate(new Date());
-
-        String tableName = "tb_goods_spec_".concat(language);
-        if (StringUtils.isNotBlank(req.getSpecName())) {
-            this.updateDict(tableName, "spec_name_translate",
-                    "spec_name", req.getSpecName(), updateSpec.getSpecName());
-        }
-        if (StringUtils.isNotBlank(req.getSpecDescription())) {
-            this.updateDict(tableName, "spec_description_translate",
-                    "spec_description", req.getSpecDescription(), updateSpec.getSpecDescription());
-        }
-        GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(req.getSpecValueId());
+        updateSpec.setSpecName(req.getSpecName());
+        updateSpec.setSpecDescription(req.getSpecDescription());
         goodsSpecMapper.updateByPrimaryKeySelective(updateSpec);
+
+        GoodsSpecValue goodsSpecValue = goodsSpecValueMapper.selectByPrimaryKey(req.getSpecValueId());
+
         if (goodsSpecValue == null) {
             return ApiResponseEnum.SUCCESS;
         }
-        String table = "tb_goods_spec_value_".concat(language);
         GoodsSpecValue updateSpecValue = new GoodsSpecValue();
         updateSpecValue.setId(goodsSpecValue.getId());
         updateSpecValue.setUpdateDate(new Date());
-        if (StringUtils.isNotBlank(req.getSpecValue())) {
-            this.updateDict(table, "spec_value_translate",
-                    "spec_value", req.getSpecValue(), goodsSpecValue.getSpecValue());
-        }
+        updateSpecValue.setSpecValue(req.getSpecValue());
         goodsSpecValueMapper.updateByPrimaryKeySelective(updateSpecValue);
         return ApiResponseEnum.SUCCESS;
     }

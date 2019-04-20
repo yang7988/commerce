@@ -1,6 +1,5 @@
 package com.commerce.huayi.website;
 
-import com.alibaba.fastjson.JSON;
 import com.commerce.huayi.Application;
 import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.enums.JedisStatus;
@@ -8,7 +7,6 @@ import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.service.GoodsService;
-import com.commerce.huayi.service.TranslateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,6 @@ public class ApplicationTests {
     @Autowired
     private GoodsService goodsService;
 
-    @Autowired
-    private TranslateService translateService;
-    @Test
     public void contextLoads() {
     }
 
@@ -82,6 +77,5 @@ public class ApplicationTests {
         objectMap.put("goods_description", "asfdasds");
         objectMap.put("goods_description_translate", "你好啊");
         objectMap.put("id", 100);
-        translateService.addTranslate(objectMap);
     }
 }

@@ -1,6 +1,5 @@
-package com.commerce.huayi.service;
+package com.commerce.huayi.service.impl;
 
-import com.commerce.huayi.service.impl.DataSourceContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

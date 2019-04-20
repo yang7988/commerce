@@ -5,12 +5,10 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.RequestHeaderEnum;
-import com.commerce.huayi.service.TranslateService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,8 +24,6 @@ public class GenericFilter implements Filter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericFilter.class);
 
-    @Autowired
-    private TranslateService translateService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -85,7 +80,6 @@ public class GenericFilter implements Filter {
     private void responseError(ApiResponseEnum apiResponseEnum, ServletResponse response) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         ApiResponse apiResponse = ApiResponse.returnFail(apiResponseEnum);
-        Object translate = translateService.translate(apiResponse);
-        response.getWriter().write(JSON.toJSONString(translate));
+        response.getWriter().write(JSON.toJSONString(apiResponse));
     }
 }
