@@ -3,7 +3,6 @@ package com.commerce.huayi.controller.admin;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.entity.request.AdministratorReq;
 import com.commerce.huayi.entity.request.DelDataReq;
-import com.commerce.huayi.entity.request.UserLoginReq;
 import com.commerce.huayi.entity.response.AdministratorVo;
 import com.commerce.huayi.service.AdminService;
 import io.swagger.annotations.Api;

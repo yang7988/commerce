@@ -1,6 +1,5 @@
 package com.commerce.huayi.entity.response;
 
-import com.commerce.huayi.annotation.Translate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,12 +18,10 @@ public class CategoryVo {
     @ApiModelProperty(value = "分类是否有可以展开的子分类",required = true,example = "0")
     private Byte isOpen;
     //分类名称
-    @Translate(refTable = "tb_goods_category",refColumn = "category_name")
     @ApiModelProperty(value = "分类名",required = true,example = "big_blue_earphone")
     private String categoryName;
 
     //分类描述
-    @Translate(refTable = "tb_goods_category",refColumn = "category_description")
     @ApiModelProperty(value = "分类描述",required = true,example = "big_blue_earphone")
     private String categoryDescription;
 

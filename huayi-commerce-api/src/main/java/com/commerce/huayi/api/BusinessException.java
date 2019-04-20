@@ -1,16 +1,17 @@
 package com.commerce.huayi.api;
 
 public class BusinessException extends RuntimeException {
-    ApiResponseEnum apiResponseEnum;
-    Object errorData;
+    private ApiResponseEnum apiResponseEnum;
+    private String erroeMessage;
 
     public BusinessException(RuntimeException e) {
         super(e);
     }
 
-    public BusinessException(ApiResponseEnum apiResponseEnum, Object errorData) {
+
+    public BusinessException(ApiResponseEnum apiResponseEnum, String erroeMessage) {
         this.apiResponseEnum = apiResponseEnum;
-        this.errorData = errorData;
+        this.apiResponseEnum.setLabel(erroeMessage);
     }
 
     public BusinessException(ApiResponseEnum apiResponseEnum) {
@@ -22,7 +23,7 @@ public class BusinessException extends RuntimeException {
         return this.apiResponseEnum;
     }
 
-    public Object getErrorData() {
-        return this.errorData;
+    public String getErroeMessage() {
+        return erroeMessage;
     }
 }

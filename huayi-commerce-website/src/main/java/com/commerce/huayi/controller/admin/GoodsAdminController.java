@@ -1,6 +1,5 @@
 package com.commerce.huayi.controller.admin;
 
-import com.commerce.huayi.annotation.Pretreatment;
 import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.entity.request.*;
@@ -27,7 +26,6 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/addCategory")
     @ApiOperation(value = "添加分类", notes = "添加产品分类")
-    @Pretreatment
     public ApiResponse addCategory(@RequestBody CategoryReq categoryReq) {
         ApiResponseEnum responseEnum = goodsService.addCategory(categoryReq);
         if (ApiResponseEnum.SUCCESS == responseEnum) {
@@ -55,7 +53,6 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/addGoods")
     @ApiOperation(value = "添加产品", notes = "添加产品")
-    @Pretreatment
     public ApiResponse<GoodsSpuVo> addGoods(@RequestBody AddGoodsReq addGoodsReq) {
         GoodsSpuVo goodsSpuVo = goodsService.addGoods(addGoodsReq);
         if (goodsSpuVo == null) {
@@ -96,7 +93,6 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/addSpecInfo")
     @ApiOperation(value = "添加规格", notes = "添加产品规格")
-    @Pretreatment
     public ApiResponse addSpecInfo(@RequestBody AddSpuSpecReq req) {
         goodsService.addSpecInfo(req);
         return ApiResponse.returnSuccess();
@@ -104,7 +100,6 @@ public class GoodsAdminController {
 
     @PostMapping(value = "/updateSpecInfo")
     @ApiOperation(value = "更新规格", notes = "更新产品规格")
-    @Pretreatment
     public ApiResponse updateSpecInfo(@RequestBody UpdateSpuSpecReq req) {
         ApiResponseEnum responseEnum = goodsService.updateSpecInfo(req, ServletUtils.language());
         if (ApiResponseEnum.SUCCESS == responseEnum) {

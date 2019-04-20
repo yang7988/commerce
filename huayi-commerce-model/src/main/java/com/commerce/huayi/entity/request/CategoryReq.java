@@ -1,15 +1,11 @@
 package com.commerce.huayi.entity.request;
 
-import com.commerce.huayi.annotation.Dictionary;
-import com.commerce.huayi.annotation.Pretreatment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 
 @ApiModel(value = "商品分类的请求json对象")
-@Pretreatment
-@Dictionary
 public class CategoryReq  {
 
     //父级分类id
@@ -20,13 +16,11 @@ public class CategoryReq  {
     //分类名称
     @ApiModelProperty(value = "分类名",example = "big_earphone")
     @NotNull
-    @Pretreatment
     private String categoryName;
 
     //分类描述
     @ApiModelProperty(value = "分类描述",example = "big_earphone")
     @NotNull
-    @Pretreatment
     private String categoryDescription;
 
     public Long getParentId() {

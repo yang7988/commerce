@@ -1,6 +1,5 @@
 package com.commerce.huayi.service.impl;
 
-import com.commerce.huayi.annotation.Dictionary;
 import com.commerce.huayi.api.ApiResponseEnum;
 import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.cache.JedisTemplate;
@@ -91,7 +90,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    @Dictionary
     public ApiResponseEnum addCategory(CategoryReq categoryReq) {
         int count = goodsCategoryMapper.selectCountByName(categoryReq.getCategoryName());
         if (count > 0) {
@@ -143,7 +141,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    @Dictionary
     public GoodsSpuVo addGoods(AddGoodsReq addGoodsReq) {
         if (StringUtils.isBlank(addGoodsReq.getGoodsName())) {
             return null;
@@ -197,7 +194,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    @Dictionary
     public AddSpuSpecValueReq addSpecInfo(AddSpuSpecReq addSpuSpecReq) {
         int count = goodsSpecMapper.selectCountByName(addSpuSpecReq.getSpecName());
         GoodsSpec goodsSpec;
@@ -364,7 +360,8 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId) {
-        return goodsSpuSpecMapper.selectGoodsSpecDetails(id, specValueId);
+        List<GoodsSpuDetailsVo> spuDetailsVos = goodsSpuSpecMapper.selectGoodsSpecDetails(id, specValueId);
+        return CollectionUtils.isEmpty(spuDetailsVos) ? null : spuDetailsVos.get(0);
     }
 
     @Override

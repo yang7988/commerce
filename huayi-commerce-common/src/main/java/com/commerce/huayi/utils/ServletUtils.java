@@ -1,6 +1,5 @@
 package com.commerce.huayi.utils;
 
-import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.constant.RequestHeaderEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

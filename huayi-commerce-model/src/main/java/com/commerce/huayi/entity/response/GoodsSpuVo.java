@@ -1,6 +1,5 @@
 package com.commerce.huayi.entity.response;
 
-import com.commerce.huayi.annotation.Translate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,12 +16,10 @@ public class GoodsSpuVo {
     private String spuNo;
 
     //商品名称
-    @Translate(refTable = "tb_goods_spu",refColumn = "goods_name")
     @ApiModelProperty(value = "产品名称",required = true,example = "big_earphone")
     private String goodsName;
 
     //商品描述
-    @Translate(refTable = "tb_goods_spu",refColumn = "goods_description")
     @ApiModelProperty(value = "产品描述",required = true,example = "big_earphone")
     private String goodsDescription;
 

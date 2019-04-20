@@ -4,7 +4,6 @@ import com.commerce.huayi.api.ApiResponse;
 import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
-import com.commerce.huayi.cache.serializer.Serializer;
 import com.commerce.huayi.entity.response.CompanyInfoVo;
 import com.commerce.huayi.service.CompanyInfoService;
 import io.swagger.annotations.Api;

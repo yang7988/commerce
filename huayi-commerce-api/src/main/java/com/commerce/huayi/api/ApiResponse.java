@@ -1,50 +1,50 @@
 package com.commerce.huayi.api;
 
 import com.alibaba.fastjson.JSON;
-import com.commerce.huayi.annotation.Translate;
-import com.commerce.huayi.constant.Constant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
+
 @ApiModel(value = "接口返回的json对象")
 public class ApiResponse<T> implements Serializable {
 
-    @ApiModelProperty(value = "版本号",required = true)
+    @ApiModelProperty(value = "版本号", required = true)
     private final String version = "1.0.0";
 
-    @ApiModelProperty(value = "成功或失败标识",required = true)
+    @ApiModelProperty(value = "成功或失败标识", required = true)
     private boolean result;
 
-    @Translate(refTable = Constant.TRANSLATE_API_RESPONSE_TABLE_PREFIX,refColumn = Constant.TRANSLATE_API_RESPONSE_COLUMN)
-    @ApiModelProperty(value = "状态码描述",required = true)
+    @ApiModelProperty(value = "状态码简称", required = true)
     private String message = "";
 
-    @ApiModelProperty(value = "状态码",required = true)
+    @ApiModelProperty(value = "状态码描述", required = true)
+    private String description = "";
+
+    @ApiModelProperty(value = "状态码", required = true)
     private int code;
 
-    @ApiModelProperty(value = "服务端返回数据",required = true)
+    @ApiModelProperty(value = "服务端返回数据", required = true)
     private T data;
 
-    @ApiModelProperty(value = "服务端响应时间戳",required = true)
+    @ApiModelProperty(value = "服务端响应时间戳", required = true)
     private Long serverTime;
 
     public ApiResponse() {
-        setApiResponseEnum(ApiResponseEnum.SUCCESS);
+        this(ApiResponseEnum.SUCCESS);
     }
 
-    private ApiResponse(T t) {
-        this();
-        this.data = t;
-    }
-
-    private ApiResponse(ApiResponseEnum result) {
-        setApiResponseEnum(result);
+    private ApiResponse(ApiResponseEnum apiResponseEnum) {
+        this.result = apiResponseEnum.success();
+        this.code = apiResponseEnum.getId();
+        this.message = apiResponseEnum.getCode().toLowerCase();
+        this.description = apiResponseEnum.getLabel();
+        this.serverTime = new Date().getTime();
     }
 
     private ApiResponse(ApiResponseEnum result, T t) {
-        setApiResponseEnum(result);
+        this(result);
         this.data = t;
     }
 
@@ -54,86 +54,50 @@ public class ApiResponse<T> implements Serializable {
     }
 
     public static <T> ApiResponse<T> returnSuccess() {
-        return new ApiResponse();
+        return new ApiResponse<>();
     }
 
     public static <T> ApiResponse<T> returnSuccess(T data) {
-        return new ApiResponse(ApiResponseEnum.SUCCESS, data);
+        return new ApiResponse<>(ApiResponseEnum.SUCCESS, data);
     }
 
     public static <T> ApiResponse<T> returnSuccess(T data, ApiResponseEnum result) {
-        return new ApiResponse(result, data);
-    }
-
-    public static <T> ApiResponse<T> returnSuccess(T data, String errorMessage) {
-        return new ApiResponse(errorMessage, data);
-    }
-
-    public static <T> ApiResponse<T> returnSuccess(ApiResponseEnum result) {
-        return new ApiResponse(result);
-    }
-
-    public static <T> ApiResponse<T> returnFail(ApiResponseEnum result, String appendErrorMessage, T data) {
-        ApiResponse apiResponse = returnFail(result, appendErrorMessage);
-        apiResponse.setData(data);
-        return apiResponse;
+        return new ApiResponse<>(result, data);
     }
 
     public static <T> ApiResponse<T> returnFail(ApiResponseEnum result, String appendErrorMessage) {
-        ApiResponse apiResponse = returnFail(result);
+        ApiResponse<T> apiResponse = returnFail(result);
         if (appendErrorMessage != null) {
-            apiResponse.message = (apiResponse.message + "（" + appendErrorMessage + "）");
+            apiResponse.description = (apiResponse.message + "（" + appendErrorMessage + "）");
         }
         return apiResponse;
     }
 
     public static <T> ApiResponse<T> returnFail(ApiResponseEnum result) {
-        ApiResponse apiResponse = new ApiResponse();
+        ApiResponse<T> apiResponse = new ApiResponse<>();
         apiResponse.result = false;
-        apiResponse.message = result.getCode();
+        apiResponse.message = result.getCode().toLowerCase();
+        apiResponse.description = result.getLabel();
         apiResponse.code = result.getId();
         return apiResponse;
     }
 
     public static <T> ApiResponse<T> returnFail(String errorMessage) {
-        ApiResponse apiResponse = new ApiResponse();
+        ApiResponse<T> apiResponse = new ApiResponse<>();
         apiResponse.result = false;
-        apiResponse.message = errorMessage;
+        apiResponse.message = ApiResponseEnum.FAIL.getCode().toLowerCase();
+        apiResponse.description = errorMessage;
         apiResponse.code = ApiResponseEnum.FAIL.getId();
         return apiResponse;
     }
 
-    public static <T> ApiResponse<T> returnFail(T data, ApiResponseEnum result) {
-        return returnSuccess(data, result);
-    }
-
-    public static <T> ApiResponse<T> returnFail(T data, String errorMessage) {
-        return returnSuccess(data, errorMessage);
-    }
-
-    public static <T> ApiResponse<T> returnFail(int errorCode, String errorMessage) {
-        ApiResponse apiResponse = new ApiResponse();
-        apiResponse.code = errorCode;
-        apiResponse.message = errorMessage;
-        apiResponse.result = false;
-        return apiResponse;
-    }
-
-    public static <T> ApiResponse<T> returnSuccess(int errorCode, String errorMessage, T data) {
-        ApiResponse apiResponse = new ApiResponse();
-        apiResponse.code = errorCode;
-        apiResponse.message = errorMessage;
-        apiResponse.result = true;
-        apiResponse.setData(data);
-        return apiResponse;
-    }
 
     public Long getServerTime() {
         return this.serverTime;
     }
 
     public void setServerTime(Long serverTime) {
-        this.serverTime = Long.valueOf(new Date().getTime());
+        this.serverTime = new Date().getTime();
     }
 
     public String getVersion() {
@@ -149,7 +113,7 @@ public class ApiResponse<T> implements Serializable {
     }
 
     public T getData() {
-        return (T) this.data;
+        return this.data;
     }
 
     public void setData(T data) {
@@ -164,45 +128,12 @@ public class ApiResponse<T> implements Serializable {
         this.message = message;
     }
 
-    public void setApiResponseEnum(ApiResponseEnum apiResponseEnum) {
-        this.result = apiResponseEnum.success();
-        this.code = apiResponseEnum.getId();
-        this.message = apiResponseEnum.getCode();
-        this.serverTime = Long.valueOf(new Date().getTime());
+    public String getDescription() {
+        return description;
     }
 
-    public int hashCode() {
-        int prime = 31;
-        int result = 1;
-        result = 31 * result + (this.data == null ? 0 : this.data.hashCode());
-        result = 31 * result + ((this.message == null) || ("".equals(this.message.trim())) ? 0 : this.message.hashCode());
-        result = 31 * result + (this.result ? 1231 : 1237);
-        result = 31 * result + this.code;
-        result = 31 * result + ("1.0.0" == null ? 0 : "1.0.0".hashCode());
-        return result;
-    }
-
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if ((o == null) || (getClass() != o.getClass())) {
-            return false;
-        }
-        ApiResponse<?> that = (ApiResponse) o;
-        if (this.code != that.code) {
-            return false;
-        }
-        if (this.result != that.result) {
-            return false;
-        }
-        if (this.data != null ? !this.data.equals(that.data) : that.data != null) {
-            return false;
-        }
-        if (this.message != null ? !this.message.equals(that.message) : that.message != null) {
-            return false;
-        }
-        return false;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String toString() {

@@ -1,6 +1,5 @@
 package com.commerce.huayi.entity.response;
 
-import com.commerce.huayi.annotation.Translate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,12 +16,10 @@ public class GoodsSpuDetailsVo {
     private String spuNo;
 
     //商品名称
-    @Translate(refTable = "tb_goods_spu",refColumn = "goods_name")
     @ApiModelProperty(value = "产品名称",required = true,example = "big_earphone")
     private String goodsName;
 
     //商品描述
-    @Translate(refTable = "tb_goods_spu",refColumn = "goods_description")
     @ApiModelProperty(value = "产品描述",required = true,example = "big_earphone")
     private String goodsDescription;
 
@@ -51,12 +48,10 @@ public class GoodsSpuDetailsVo {
     private String specNo;
 
     //规格名称
-    @Translate(refTable = "tb_goods_spec",refColumn = "spec_name")
     @ApiModelProperty(value = "产品的规格名称",required = true,example = "color")
     private String specName;
 
     //规格描述
-    @Translate(refTable = "tb_goods_spec",refColumn = "spec_description")
     @ApiModelProperty(value = "产品的规格描述",required = true,example = "color")
     private String specDescription;
 
@@ -65,7 +60,6 @@ public class GoodsSpuDetailsVo {
     private Long specValueId;
 
     //规格值
-    @Translate(refTable = "tb_goods_spec_value",refColumn = "spec_value")
     @ApiModelProperty(value = "产品的规格具体值",required = true,example = "red")
     private String specValue;
 

@@ -15,7 +15,6 @@ public enum ApiResponseEnum implements Serializable {
     USERNAME_PASSWORD_ERROR(605, "USERNAME_PASSWORD_ERROR", "用户名或密码错误", false),
     USER_NOT_FOUND(606, "USER_NOT_FOUND", "不存在此用户", false),
     GOODS_NAME_EXISTS(607, "GOODS_NAME_EXISTS", "存在重复的商品名称", false),
-    PARAMETER_CANT_BE_EMPTY(608, "parameter_cant_be_empty", "缺少必要参数", false),
     GOODS_NOT_EXISTS(608, "GOODS_NOT_EXISTS", "产品不存在", false),
     GOODS_IMAGE_ABSENCE(609, "GOODS_IMAGE_ABSENCE", "产品图片缺失", false),
     GOODS_CATEGORY_EXISTS(610, "GOODS_CATEGORY_EXISTS", "商品分类已存在", false),
@@ -44,6 +43,10 @@ public enum ApiResponseEnum implements Serializable {
 
     public String getLabel() {
         return this.label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public boolean success() {
