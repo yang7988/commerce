@@ -230,37 +230,9 @@ public class GoodsServiceImpl implements GoodsService {
             return page;
         }
         List<GoodsSpecValueVo> goodsSpecValueVos = goodsSpecMapper.getSpecInfos(page.getOffset(), page.getPageMaxSize());
-        List<String> languages = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
-        goodsSpecValueVos.forEach(vo -> languages.forEach(language -> getSpecTranslate(vo, language)));
         page.setList(goodsSpecValueVos);
         return page;
 
-    }
-
-    private void getSpecTranslate(GoodsSpecValueVo goodsSpecValueVo, String language) {
-        String specTranslateTable = "tb_goods_spec_";
-        String specValTranslateTable = "tb_goods_spec_value_";
-        String specName = "spec_name";
-        String specDescription = "spec_description";
-        String specVal = "spec_value";
-        RedisKey specNameKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
-        String specNameTranslate = jedisTemplate.hget(specNameKey, specName.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
-                .concat(goodsSpecValueVo.getSpecName()), String.class);
-        if (StringUtils.isNotBlank(specNameTranslate)) {
-            goodsSpecValueVo.getTranslation().put(specName.concat("_").concat(language), specNameTranslate);
-        }
-        RedisKey specDescriptionKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specTranslateTable.concat(language));
-        String specDescriptionTranslate = jedisTemplate.hget(specDescriptionKey, specDescription.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
-                .concat(goodsSpecValueVo.getSpecDescription()), String.class);
-        if (StringUtils.isNotBlank(specDescriptionTranslate)) {
-            goodsSpecValueVo.getTranslation().put(specDescription.concat("_").concat(language), specDescriptionTranslate);
-        }
-        RedisKey specValKey = new RedisKey(RedisKeysPrefix.I18N_KEY, specValTranslateTable.concat(language));
-        String specValTranslate = jedisTemplate.hget(specValKey, specVal.concat(Constant.TRANSLATE_FIELD_SUFFIX).concat(":")
-                .concat(goodsSpecValueVo.getSpecValue()), String.class);
-        if (StringUtils.isNotBlank(specValTranslate)) {
-            goodsSpecValueVo.getTranslation().put(specVal.concat("_").concat(language), specValTranslate);
-        }
     }
 
     @Override
