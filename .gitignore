@@ -1,6 +1,11 @@
 HELP.md
 *.class
 /target/
+huayi-commerce-api/target/
+huayi-commerce-cache/target/
+huayi-commerce-common/target/
+huayi-commerce-model/target/
+huayi-commerce-website/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
