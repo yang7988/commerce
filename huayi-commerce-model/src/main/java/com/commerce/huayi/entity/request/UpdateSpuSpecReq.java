@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class UpdateSpuSpecReq {
     @NotNull
     @ApiModelProperty(value = "产品的规格id", required = true, example = "1")
-    private Long id;
+    private Long specId;
 
     @NotNull
     @ApiModelProperty(value = "产品的规格值id", required = true, example = "1")
@@ -27,12 +27,12 @@ public class UpdateSpuSpecReq {
     @ApiModelProperty(value = "产品的规格具体值", required = true, example = "red")
     private String specValue;
 
-    public Long getId() {
-        return id;
+    public Long getSpecId() {
+        return specId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSpecId(Long specId) {
+        this.specId = specId;
     }
 
     public Long getSpecValueId() {

@@ -368,7 +368,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language) {
-        GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(req.getId());
+        GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(req.getSpecId());
         if (goodsSpec == null) {
             return ApiResponseEnum.SUCCESS;
         }
