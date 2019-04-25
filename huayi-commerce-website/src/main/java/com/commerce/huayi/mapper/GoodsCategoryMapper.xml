@@ -120,7 +120,7 @@
         from tb_goods_category category
 
         where 1=1 and category.is_delete = 0
-        <if test="categoryId != null andcategoryId != 0">
+        <if test="categoryId != null and categoryId != 0">
             and category.id = #{categoryId}
         </if>
         <if test="categoryName != null and categoryName != ''">

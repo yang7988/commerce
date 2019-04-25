@@ -115,7 +115,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @Transactional
     public ApiResponseEnum updateCategory(UpdateCategoryReq req, String language) {
-        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getDictId());
+        GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getId());
         if (goodsCategory == null) {
             return ApiResponseEnum.SUCCESS;
         }
