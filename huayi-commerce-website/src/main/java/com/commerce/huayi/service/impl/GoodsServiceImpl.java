@@ -114,7 +114,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public ApiResponseEnum updateCategory(UpdateCategoryReq req, String language) {
+    public ApiResponseEnum updateCategory(UpdateCategoryReq req) {
         GoodsCategory goodsCategory = goodsCategoryMapper.selectByPrimaryKey(req.getId());
         if (goodsCategory == null) {
             return ApiResponseEnum.SUCCESS;
@@ -338,7 +338,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public ApiResponseEnum updateGoods(UpdateGoodsReq req, String language) {
+    public ApiResponseEnum updateGoods(UpdateGoodsReq req) {
         GoodsSpu goodsSpu = goodsSpuMapper.selectByPrimaryKey(req.getId());
         if (goodsSpu == null) {
             return ApiResponseEnum.SUCCESS;
@@ -367,7 +367,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language) {
+    public ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req) {
         GoodsSpec goodsSpec = goodsSpecMapper.selectByPrimaryKey(req.getSpecId());
         if (goodsSpec == null) {
             return ApiResponseEnum.SUCCESS;

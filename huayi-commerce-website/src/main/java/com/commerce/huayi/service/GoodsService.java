@@ -29,7 +29,7 @@ public interface GoodsService {
 
     Integer deleteCategory(Long id);
 
-    ApiResponseEnum updateCategory(UpdateCategoryReq req, String language);
+    ApiResponseEnum updateCategory(UpdateCategoryReq req);
 
     byte[] getGoodsImage(Long goodsId);
 
@@ -53,9 +53,9 @@ public interface GoodsService {
 
     GoodsSpuDetailsVo goodsSpecDetails(Long id, Long specValueId);
 
-    ApiResponseEnum updateGoods(UpdateGoodsReq req, String language);
+    ApiResponseEnum updateGoods(UpdateGoodsReq req);
 
-    ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req, String language);
+    ApiResponseEnum updateSpecInfo(UpdateSpuSpecReq req);
 
     ApiResponseEnum addGoodsSpec(AddGoodsSpecReq req);
 }
