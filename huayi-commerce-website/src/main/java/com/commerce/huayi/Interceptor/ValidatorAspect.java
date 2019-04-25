@@ -34,17 +34,15 @@ public class ValidatorAspect {
 
     @Around(value = "controller()")
     public Object validate(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (LOGGER.isWarnEnabled()) {
-            LOGGER.warn("====正在校验{}方法参数", joinPoint.toString());
-        }
         Object[] args = joinPoint.getArgs();
+        String joinPointString = joinPoint.toString();
         for (Object arg : args) {
-            validate(arg);
+            validate(arg,joinPointString);
         }
         return joinPoint.proceed();
     }
 
-    private void validate(Object arg) {
+    private void validate(Object arg,String joinPoint) {
         if (arg == null) {
             return;
         }
@@ -53,15 +51,15 @@ public class ValidatorAspect {
             return;
         }
         for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
-            validate(constraintViolation);
+            validate(constraintViolation,joinPoint);
         }
     }
 
-    private void validate(ConstraintViolation<Object> constraintViolation) {
+    private void validate(ConstraintViolation<Object> constraintViolation,String joinPoint) {
         Path property = constraintViolation.getPropertyPath();
         String name = property.iterator().next().getName();
         String errorMsg = "[" + name + "]" + constraintViolation.getMessage();
-        LOGGER.error(errorMsg);
+        LOGGER.error("{}---validator不符合规则校验----{}",joinPoint,errorMsg);
         throw new BusinessException(ApiResponseEnum.PARAMETER_INVALID, errorMsg);
     }
 

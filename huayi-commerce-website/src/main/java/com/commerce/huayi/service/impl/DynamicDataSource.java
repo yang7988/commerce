@@ -11,7 +11,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
-        String db = DataSourceContextHolder.getDB();
+        String db = DataSourceContext.get();
         String remark = "======当前数据源为=====";
         LOGGER.warn(StringUtils.isBlank(db) ? remark + "默认数据源====chineseDatasource" : db);
         return db;
