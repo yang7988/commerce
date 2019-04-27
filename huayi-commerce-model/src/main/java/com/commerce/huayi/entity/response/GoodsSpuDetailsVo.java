@@ -24,7 +24,7 @@ public class GoodsSpuDetailsVo {
     private String goodsDescription;
 
     //商品的图片地址
-    @ApiModelProperty(value = "产品图片key值", required = true, example = "FsdVQeZzIkAgoCpbvq81gGSeF3Y7")
+    @ApiModelProperty(value = "产品主图key值", required = true, example = "FsdVQeZzIkAgoCpbvq81gGSeF3Y7")
     private String goodsImageKey;
 
     //最低售价
@@ -62,6 +62,9 @@ public class GoodsSpuDetailsVo {
     //规格值
     @ApiModelProperty(value = "产品的规格具体值", required = true, example = "red")
     private String specValue;
+
+    @ApiModelProperty(value = "产品sku图片key", required = true, example = "FsdVQeZzIkAgoCpbvq81gGSeF3Y7")
+    private String goodsSkuImageKey;
 
     public Long getId() {
         return id;
@@ -173,5 +176,13 @@ public class GoodsSpuDetailsVo {
 
     public void setSpecValueId(Long specValueId) {
         this.specValueId = specValueId;
+    }
+
+    public String getGoodsSkuImageKey() {
+        return goodsSkuImageKey;
+    }
+
+    public void setGoodsSkuImageKey(String goodsSkuImageKey) {
+        this.goodsSkuImageKey = goodsSkuImageKey;
     }
 }

@@ -190,7 +190,8 @@
         spu.goods_image_key as goodsImageKey,
         spec.spec_description as specDescription,
         specValue.id as specValueId,
-        specValue.spec_value as specValue
+        specValue.spec_value as specValue,
+        tgss.spec_image_key as goodsSkuImageKey
         FROM
         tb_goods_spu_spec tgss
         JOIN tb_goods_spu spu ON tgss.spu_id = spu.id
