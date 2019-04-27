@@ -295,9 +295,17 @@ public class GoodsServiceImpl implements GoodsService {
     }*/
 
     @Override
-    public List<GoodsSpuVo> search(String keyWord) {
+    public Page<GoodsSpuVo> search(String keyWord,int pageIndex, int pageMaxSize) {
         keyWord = ObjectUtil.processsenseKeyword(keyWord);
-        return goodsSpuMapper.searchGoodsSpu(keyWord);
+
+        int count = goodsSpuMapper.searchCountGoodsSpu(keyWord);
+        Page<GoodsSpuVo> page = Page.create(pageIndex, pageMaxSize, count);
+        if (count <= 0) {
+            return page;
+        }
+        List<GoodsSpuVo> goodsSpuVos = goodsSpuMapper.searchGoodsSpu(keyWord,page.getOffset(),page.getPageMaxSize());
+        page.setList(goodsSpuVos);
+        return page;
     }
 
     @Override

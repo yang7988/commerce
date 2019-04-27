@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotNull;
 
 @ApiModel(value = "产品模糊搜索json对象")
-public class SearchGoodsReq {
+public class SearchGoodsReq extends PageRequest{
 
     @NotNull
     @ApiModelProperty(value = "搜索关键字", example = "蓝牙")

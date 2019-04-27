@@ -26,7 +26,10 @@ public interface GoodsSpuMapper {
 
     Integer getGoodsCountByBySpuId(@Param("spuId") Long spuId);
 
-    List<GoodsSpuVo> searchGoodsSpu(@Param("searchKeyWord") String searchKeyWord);
+    List<GoodsSpuVo> searchGoodsSpu(@Param("searchKeyWord") String searchKeyWord,@Param("offset") Integer offset,
+                                    @Param("rowSize") Integer rowSize);
 
     int selectCountByName(@Param("goodsName") String goodsName);
+
+    int searchCountGoodsSpu(@Param("searchKeyWord") String searchKeyWord);
 }

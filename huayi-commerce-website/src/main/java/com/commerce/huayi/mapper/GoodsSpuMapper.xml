@@ -250,9 +250,25 @@
             spu.goods_description like concat(concat('%',#{searchKeyWord}),'%')
             )
         </if>
+        limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
     </select>
+
     <select id="selectCountByName" resultType="int">
       select count(id) from tb_goods_spu where goods_name = #{goodsName}
+    </select>
+
+    <select id="searchCountGoodsSpu" resultType="int">
+        SELECT
+        count(*)
+        from tb_goods_spu spu
+        where 1=1
+        <if test="searchKeyWord != null and searchKeyWord != '' ">
+            and (
+            spu.goods_name like concat(concat('%',#{searchKeyWord}),'%')
+            or
+            spu.goods_description like concat(concat('%',#{searchKeyWord}),'%')
+            )
+        </if>
     </select>
 
 </mapper>
