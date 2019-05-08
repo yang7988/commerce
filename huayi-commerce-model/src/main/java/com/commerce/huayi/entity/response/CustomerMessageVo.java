@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 客户留言
@@ -14,7 +15,7 @@ import java.util.Date;
 public class CustomerMessageVo {
 
     @ApiModelProperty(value = "主键id", required = true)
-    private int id;
+    private String id;
 
     @ApiModelProperty(value = "姓名name", required = true)
     private String name;
@@ -55,11 +56,14 @@ public class CustomerMessageVo {
     @ApiModelProperty(value = "创建时间createDate", required = true)
     private Date createDate;
 
-    public int getId() {
+    @ApiModelProperty(value = "产品明细GoodsSpus", required = true)
+    private List<GoodsSpuVo> GoodsSpus;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -165,6 +169,14 @@ public class CustomerMessageVo {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public List<GoodsSpuVo> getGoodsSpus() {
+        return GoodsSpus;
+    }
+
+    public void setGoodsSpus(List<GoodsSpuVo> goodsSpus) {
+        GoodsSpus = goodsSpus;
     }
 
 }

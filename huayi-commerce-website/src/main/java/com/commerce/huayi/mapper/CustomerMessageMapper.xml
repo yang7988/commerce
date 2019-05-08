@@ -3,7 +3,7 @@
 <mapper namespace="com.commerce.huayi.mapper.CustomerMessageMapper">
     <resultMap id="BaseResultMap" type="com.commerce.huayi.entity.db.CustomerMessage">
         <!--@mbg.generated generated on Wed Apr 03 15:33:25 CST 2019.-->
-        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="company" jdbcType="VARCHAR" property="company"/>
         <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
@@ -40,7 +40,7 @@
              document_quality as documentQuality,
              create_date as createDate
         from tb_customer_message
-        order by id
+        order by createDate
         limit #{startLine, jdbcType=INTEGER},#{pageMaxSize, jdbcType=INTEGER}
     </select>
 
@@ -50,13 +50,39 @@
     </select>
 
     <insert id="addCustomerMessage">
-        insert into tb_customer_message (name,company,mobile_phone,mail_address,fax,
+        insert into tb_customer_message (id,name,company,mobile_phone,mail_address,fax,
             postal_code,address,opinion,access_purpose,purpose_flag,
             deal_flag,document_quality,create_date) values
-        (#{customerMessage.name, jdbcType=VARCHAR},#{customerMessage.company, jdbcType=VARCHAR},#{customerMessage.mobilePhone, jdbcType=VARCHAR},#{customerMessage.mailAddress, jdbcType=VARCHAR},#{customerMessage.fax, jdbcType=VARCHAR},
+        (#{customerMessage.id, jdbcType=VARCHAR}, #{customerMessage.name, jdbcType=VARCHAR},#{customerMessage.company, jdbcType=VARCHAR},#{customerMessage.mobilePhone, jdbcType=VARCHAR},#{customerMessage.mailAddress, jdbcType=VARCHAR},#{customerMessage.fax, jdbcType=VARCHAR},
         #{customerMessage.postalCode, jdbcType=VARCHAR},#{customerMessage.address, jdbcType=VARCHAR},#{customerMessage.opinion, jdbcType=VARCHAR},#{customerMessage.accessPurpose, jdbcType=VARCHAR},#{customerMessage.purposeFlag, jdbcType=VARCHAR},
         #{customerMessage.dealFlag, jdbcType=VARCHAR},#{customerMessage.documentQuality, jdbcType=VARCHAR},now())
     </insert>
 
+    <insert id="addCustomerMessageForGoods">
+        insert into tb_customer_message_goods (cm_id, goods_id)values(#{mId, jdbcType=VARCHAR},#{gId, jdbcType=BIGINT})
+    </insert>
+
+    <select id="getGoodIdsForCustomerMessagesId" resultType="Long">
+        SELECT goods_id from tb_customer_message_goods where cm_id = #{mId, jdbcType=VARCHAR}
+    </select>
+
+    <select id="getExportCustomerMessages" resultType="com.commerce.huayi.entity.db.CustomerMessage">
+        select id as id,
+             name as name,
+             company as company,
+             mobile_phone as mobilePhone,
+             mail_address as mailAddress,
+             fax as fax,
+             postal_code as postalCode,
+             address as address,
+             opinion as opinion,
+             access_purpose as accessPurpose,
+             purpose_flag as purposeFlag,
+             deal_flag as dealFlag,
+             document_quality as documentQuality,
+             create_date as createDate
+        from tb_customer_message
+        order by create_date
+    </select>
 
 </mapper>

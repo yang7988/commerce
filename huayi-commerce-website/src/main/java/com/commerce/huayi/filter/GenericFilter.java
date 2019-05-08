@@ -58,8 +58,9 @@ public class GenericFilter implements Filter {
         }
         String language = request.getHeader(RequestHeaderEnum.language.name());
         if (StringUtils.isBlank(language)) {
+            language = "chinese";
             LOGGER.error("requestURI===" + request.getRequestURI() + "======缺少请求头部参数language");
-            return ApiResponseEnum.ABSENCE_LANGUAGE_PARAM;
+            //return ApiResponseEnum.ABSENCE_LANGUAGE_PARAM;
         }
         List<String> list = Stream.of(LanguageEnum.values()).map(LanguageEnum::getLanguage).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(list)) {
@@ -70,6 +71,7 @@ public class GenericFilter implements Filter {
         }
         request.setAttribute("language", language);
         String contentType = request.getHeader("Content-Type");
+        contentType = "application/json";
         if (StringUtils.isBlank(contentType) || !contentType.startsWith("application/json")) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======Content-type:===" + contentType + "is not application/json");
             return ApiResponseEnum.CONTENT_TYPE_ILLEGAL;

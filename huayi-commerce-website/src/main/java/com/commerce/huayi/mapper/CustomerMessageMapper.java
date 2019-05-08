@@ -11,4 +11,11 @@ public interface CustomerMessageMapper {
     int getCustomerMessagesTotalCount();
 
     void addCustomerMessage(@Param("customerMessage") CustomerMessage customerMessage);
+
+    void addCustomerMessageForGoods(@Param("mId") String mId,@Param("gId") String gId);
+
+    List<Long> getGoodIdsForCustomerMessagesId(@Param("mId") String mId);
+
+    List<CustomerMessage> getExportCustomerMessages();
+
 }

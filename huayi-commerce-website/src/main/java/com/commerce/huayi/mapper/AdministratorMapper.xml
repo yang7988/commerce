@@ -17,7 +17,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Wed Apr 03 15:32:03 CST 2019.-->
-        id, login_name, `name`, mobile_phone, `password`, `status`, create_by, create_date,
+        id, login_name, `name`, mobile_phone, `password`, adminRole, `status`, create_by, create_date,
         update_date, is_delete, update_by
     </sql>
 
@@ -26,9 +26,9 @@
   </delete>
 
     <insert id="addAdmin">
-    insert into tb_administrator (login_name, name, mobile_phone, password,
+    insert into tb_administrator (login_name, name, mobile_phone, password, adminRole,
       create_by, create_date, is_delete)
-    values (#{administrator.loginName,jdbcType=VARCHAR}, #{administrator.name,jdbcType=VARCHAR}, #{administrator.mobilePhone,jdbcType=VARCHAR}, #{administrator.password,jdbcType=VARCHAR},
+    values (#{administrator.loginName,jdbcType=VARCHAR}, #{administrator.name,jdbcType=VARCHAR}, #{administrator.mobilePhone,jdbcType=VARCHAR}, #{administrator.password,jdbcType=VARCHAR},#{administrator.adminRole,jdbcType=VARCHAR},
     'admin', now(), '0')
   </insert>
 
@@ -39,6 +39,7 @@
          name as name,
          mobile_phone as mobilePhone,
          password as password,
+         adminRole as adminRole,
          status as status,
          create_by as createBy,
          create_date as createDate,
@@ -55,6 +56,7 @@
          name as name,
          mobile_phone as mobilePhone,
          password as password,
+         adminRole as adminRole,
          status as status,
          create_by as createBy,
          create_date as createDate,
@@ -67,7 +69,7 @@
   </select>
 
     <select id="loginNameIsUsed" resultType="int">
-     select count(*) from tb_administrator where login_name = #{loginName,jdbcType=VARCHAR}
+     select count(*) from tb_administrator where login_name = #{loginName,jdbcType=VARCHAR} and is_delete = '0'
   </select>
 
 </mapper>

@@ -44,6 +44,7 @@ public class AdminServiceImpl implements AdminService {
                 administratorVo.setName(administrator.getName());
                 administratorVo.setId(administrator.getId());
                 administratorVo.setIsDelete(administrator.getIsDelete());
+                administratorVo.setAdminRole(administrator.getAdminRole());
                 administratorVo.setStatus(administrator.getStatus());
                 RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, administratorVo.getLoginName());
                 jedisTemplate.setex(redisKey, 1800, token);
@@ -66,6 +67,7 @@ public class AdminServiceImpl implements AdminService {
         administrator.setName(administratorReq.getName());
         administrator.setMobilePhone(administratorReq.getMobilePhone());
         administrator.setPassword(administratorReq.getPassword());
+        administrator.setAdminRole(administratorReq.getAdminRole());
         administratorMapper.addAdmin(administrator);
     }
 

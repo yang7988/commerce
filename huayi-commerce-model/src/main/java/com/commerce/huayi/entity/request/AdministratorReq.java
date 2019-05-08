@@ -24,6 +24,11 @@ public class AdministratorReq implements Serializable {
     @ApiModelProperty(value = "登录密码password", example = "8E32C1D89CAA28A23F43E16001B44EB7", dataType = "String")
     private String password;
 
+
+    // 管理员权限(0:超级管理员 1:高级管理员 2：普通业务员）
+    @ApiModelProperty(value = "管理员权限adminRole(0:超级管理员 1:高级管理员 2：普通业务员）", example = "0", dataType = "String")
+    private String adminRole;
+
     static final long serialVersionUID = 1L;
 
     public String getLoginName() {
@@ -58,4 +63,11 @@ public class AdministratorReq implements Serializable {
         this.password = password;
     }
 
+    public String getAdminRole() {
+        return adminRole;
+    }
+
+    public void setAdminRole(String adminRole) {
+        this.adminRole = adminRole;
+    }
 }

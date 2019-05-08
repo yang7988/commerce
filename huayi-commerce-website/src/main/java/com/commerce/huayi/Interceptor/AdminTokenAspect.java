@@ -21,11 +21,11 @@ public class AdminTokenAspect {
     @Autowired
     private JedisTemplate jedisTemplate;
 
-    @Pointcut("execution(* com.commerce.huayi.controller.admin..*Controller.*(..))")
+    // @Pointcut("execution(* com.commerce.huayi.controller.admin..*Controller.*(..))")
     public void controller() {
     }
 
-    @Before("controller()")
+   // @Before("controller()")
     public void beforeAdminOperator(JoinPoint point) {
 
         String loginName = ServletUtils.loginName();

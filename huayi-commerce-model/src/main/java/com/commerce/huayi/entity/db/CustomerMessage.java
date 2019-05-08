@@ -1,13 +1,17 @@
 package com.commerce.huayi.entity.db;
 
+import com.commerce.huayi.entity.response.GoodsSpuVo;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class CustomerMessage implements Serializable {
     /**
      * 主键ID
      */
-    private Long id;
+    private String id;
 
     /**
      * 姓名
@@ -74,6 +78,11 @@ public class CustomerMessage implements Serializable {
      */
     private Date createDate;
 
+    /**
+     * 产品明细GoodsSpus
+     */
+    private List<GoodsSpuVo> GoodsSpus;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -81,7 +90,7 @@ public class CustomerMessage implements Serializable {
      *
      * @return id - 主键ID
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -90,7 +99,7 @@ public class CustomerMessage implements Serializable {
      *
      * @param id 主键ID
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -326,6 +335,14 @@ public class CustomerMessage implements Serializable {
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public List<GoodsSpuVo> getGoodsSpus() {
+        return GoodsSpus;
+    }
+
+    public void setGoodsSpus(List<GoodsSpuVo> goodsSpus) {
+        GoodsSpus = goodsSpus;
     }
 
     @Override

@@ -28,6 +28,11 @@ public class AdministratorVo implements Serializable {
     @ApiModelProperty(value = "用户状态(0:锁定 1:正常)status", required = true)
     private String status;
 
+
+    // 管理员权限(0:超级管理员 1:高级管理员 2：普通业务员）
+    @ApiModelProperty(value = "管理员权限(0:超级管理员 1:高级管理员 2：普通业务员）adminRole", required = true)
+    private String adminRole;
+
     //创建人
     @ApiModelProperty(value = "创建人createBy", required = true)
     private String createBy;
@@ -140,6 +145,14 @@ public class AdministratorVo implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getAdminRole() {
+        return adminRole;
+    }
+
+    public void setAdminRole(String adminRole) {
+        this.adminRole = adminRole;
     }
 
 }

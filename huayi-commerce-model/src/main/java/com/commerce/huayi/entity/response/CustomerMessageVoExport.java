@@ -1,9 +1,10 @@
-package com.commerce.huayi.entity.request;
+package com.commerce.huayi.entity.response;
 
-
+import com.commerce.huayi.utils.ExcelField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,48 +12,48 @@ import java.util.List;
  *
  * @date 2019-03-16
  */
-@ApiModel(value = "客户留言信息请求json对象")
-public class CustomerMessageReq {
+@ApiModel(value = "客户留言信息明细导出")
+public class CustomerMessageVoExport {
 
-    @ApiModelProperty(value = "姓名name", example = "张三", dataType = "String")
+    private String id;
+
     private String name;
 
-    @ApiModelProperty(value = "公司company", example = "HuaYi公司", dataType = "String")
     private String company;
 
-    @ApiModelProperty(value = "手机号mobilePhone", example = "18987655432", dataType = "String")
     private String mobilePhone;
 
-    @ApiModelProperty(value = "邮箱地址mailAddress", example = "nidebidb@163.com", dataType = "String")
     private String mailAddress;
 
-    @ApiModelProperty(value = "传真fax", example = "456789099", dataType = "String")
     private String fax;
 
-    @ApiModelProperty(value = "邮编postalCode", example = "580000", dataType = "String")
     private String postalCode;
 
-    @ApiModelProperty(value = "地址address", example = "广东省深圳市", dataType = "String")
     private String address;
 
-    @ApiModelProperty(value = "意见opinion", example = "十分完美，没有意见", dataType = "String")
     private String opinion;
 
-    @ApiModelProperty(value = "访问目的accessPurpose", example = "HuaYi公司", dataType = "String")
     private String accessPurpose;
 
-    @ApiModelProperty(value = "目的是否达到（否 0 ，是 1，一部分 2，仅浏览 3）purposeFlag", example = "2", dataType = "String")
     private String purposeFlag;
 
-    @ApiModelProperty(value = "是否提交服务解决问题 (是 1  否 0)dealFlag", example = "1", dataType = "String")
     private String dealFlag;
 
-    @ApiModelProperty(value = "文档质量（非常好 3，好 2，平均 1，差 0）documentQuality", example = "3", dataType = "String")
     private String documentQuality;
 
-    @ApiModelProperty(value = "浏览对应产品ID集合goodsIds", example = "['1','2']", dataType = "List")
-    private List<String> goodsIds;
+    private String createDate;
 
+    private String GoodsSpus;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @ExcelField(title = "姓名",align = 2, sort = 1)
     public String getName() {
         return name;
     }
@@ -61,6 +62,7 @@ public class CustomerMessageReq {
         this.name = name;
     }
 
+    @ExcelField(title = "公司",align = 2, sort = 2)
     public String getCompany() {
         return company;
     }
@@ -69,6 +71,7 @@ public class CustomerMessageReq {
         this.company = company;
     }
 
+    @ExcelField(title = "手机号",align = 2, sort = 3)
     public String getMobilePhone() {
         return mobilePhone;
     }
@@ -77,6 +80,7 @@ public class CustomerMessageReq {
         this.mobilePhone = mobilePhone;
     }
 
+    @ExcelField(title = "邮箱地址",align = 2, sort = 4)
     public String getMailAddress() {
         return mailAddress;
     }
@@ -85,6 +89,7 @@ public class CustomerMessageReq {
         this.mailAddress = mailAddress;
     }
 
+    @ExcelField(title = "传真",align = 2, sort = 5)
     public String getFax() {
         return fax;
     }
@@ -93,6 +98,7 @@ public class CustomerMessageReq {
         this.fax = fax;
     }
 
+    @ExcelField(title = "邮编",align = 2, sort = 6)
     public String getPostalCode() {
         return postalCode;
     }
@@ -101,6 +107,7 @@ public class CustomerMessageReq {
         this.postalCode = postalCode;
     }
 
+    @ExcelField(title = "地址",align = 2, sort = 7)
     public String getAddress() {
         return address;
     }
@@ -109,6 +116,7 @@ public class CustomerMessageReq {
         this.address = address;
     }
 
+    @ExcelField(title = "意见",align = 2, sort = 8)
     public String getOpinion() {
         return opinion;
     }
@@ -117,6 +125,7 @@ public class CustomerMessageReq {
         this.opinion = opinion;
     }
 
+    @ExcelField(title = "访问目的",align = 2, sort = 9)
     public String getAccessPurpose() {
         return accessPurpose;
     }
@@ -125,6 +134,7 @@ public class CustomerMessageReq {
         this.accessPurpose = accessPurpose;
     }
 
+    @ExcelField(title = "目的是否达到",align = 2, sort = 10)
     public String getPurposeFlag() {
         return purposeFlag;
     }
@@ -133,6 +143,7 @@ public class CustomerMessageReq {
         this.purposeFlag = purposeFlag;
     }
 
+    @ExcelField(title = "是否提交服务解决问题",align = 2, sort = 11)
     public String getDealFlag() {
         return dealFlag;
     }
@@ -141,6 +152,7 @@ public class CustomerMessageReq {
         this.dealFlag = dealFlag;
     }
 
+    @ExcelField(title = "文档质量",align = 2, sort = 12)
     public String getDocumentQuality() {
         return documentQuality;
     }
@@ -149,11 +161,22 @@ public class CustomerMessageReq {
         this.documentQuality = documentQuality;
     }
 
-    public List<String> getGoodsIds() {
-        return goodsIds;
+    @ExcelField(title = "创建时间",align = 2, sort = 13)
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setGoodsIds(List<String> goodsIds) {
-        this.goodsIds = goodsIds;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
+
+    @ExcelField(title = "产品明细",align = 2, sort = 14)
+    public String getGoodsSpus() {
+        return GoodsSpus;
+    }
+
+    public void setGoodsSpus(String goodsSpus) {
+        GoodsSpus = goodsSpus;
+    }
+
 }

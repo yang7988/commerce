@@ -5,6 +5,8 @@ import com.commerce.huayi.entity.request.PageRequest;
 import com.commerce.huayi.entity.response.CustomerMessageVo;
 import com.commerce.huayi.pagination.Page;
 
+import java.util.List;
+
 /**
  * 客户留言服务类
  *
@@ -15,5 +17,7 @@ public interface CustomerMessageService {
     Page<CustomerMessageVo> getCustomerMessages(PageRequest pageRequest);
 
     void addCustomerMessage(CustomerMessageReq customerMessageReq);
+
+    List<CustomerMessageVo> getExportCustomerMessages();
 
 }

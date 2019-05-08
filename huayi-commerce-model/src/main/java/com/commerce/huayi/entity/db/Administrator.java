@@ -35,6 +35,11 @@ public class Administrator implements Serializable {
     private String status;
 
     /**
+     * 管理员权限(0:超级管理员 1:高级管理员 2：普通业务员）
+     */
+    private String adminRole;
+
+    /**
      * 创建人
      */
     private String createBy;
@@ -257,6 +262,14 @@ public class Administrator implements Serializable {
      */
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
+    }
+
+    public String getAdminRole() {
+        return adminRole;
+    }
+
+    public void setAdminRole(String adminRole) {
+        this.adminRole = adminRole;
     }
 
     @Override
