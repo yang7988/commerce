@@ -11,6 +11,7 @@ import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.service.GoodsService;
 import com.commerce.huayi.utils.BeanCopyUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +104,13 @@ public class CustomerMessageServiceImpl implements CustomerMessageService {
             customerMessage.setGoodsSpus(GoodsSpus);
         }
         return BeanCopyUtil.copy(CustomerMessageVo.class, customerMessageList);
+    }
+
+    @Override
+    public void delCustomerMessage(String id) {
+        if(StringUtils.isNotBlank(id)) {
+            customerMessageMapper.delCustomerMessage(id);
+        }
     }
 
 }

@@ -1,7 +1,6 @@
 package com.commerce.huayi.entity.db;
 
 import com.commerce.huayi.entity.response.GoodsSpuVo;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;

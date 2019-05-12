@@ -20,4 +20,6 @@ public interface CustomerMessageService {
 
     List<CustomerMessageVo> getExportCustomerMessages();
 
+    void delCustomerMessage(String id);
+
 }

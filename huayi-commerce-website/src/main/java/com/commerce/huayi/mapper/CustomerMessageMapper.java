@@ -18,4 +18,7 @@ public interface CustomerMessageMapper {
 
     List<CustomerMessage> getExportCustomerMessages();
 
+    void delCustomerMessage(@Param("id") String id);
+
+
 }
