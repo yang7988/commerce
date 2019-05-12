@@ -1,16 +1,8 @@
 package com.commerce.huayi.Interceptor;
 
-import com.commerce.huayi.api.ApiResponseEnum;
-import com.commerce.huayi.api.BusinessException;
 import com.commerce.huayi.cache.JedisTemplate;
-import com.commerce.huayi.cache.key.RedisKey;
-import com.commerce.huayi.cache.key.RedisKeysPrefix;
-import com.commerce.huayi.utils.ServletUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +20,7 @@ public class AdminTokenAspect {
    // @Before("controller()")
     public void beforeAdminOperator(JoinPoint point) {
 
-        String loginName = ServletUtils.loginName();
+        /*String loginName = ServletUtils.loginName();
         String adminToken = ServletUtils.adminToken();
 
         if (StringUtils.isBlank(loginName)) {
@@ -48,7 +40,7 @@ public class AdminTokenAspect {
             jedisTemplate.setex(redisKey11, 1800, token);
         } else {
             throw new BusinessException(ApiResponseEnum.PARAMETER_INVALID);
-        }
+        }*/
 
 
     }
