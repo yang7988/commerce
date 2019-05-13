@@ -9,6 +9,8 @@ import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.pagination.Page;
 
+import java.util.List;
+
 /**
  * 产品服务类
  */
@@ -19,7 +21,7 @@ public interface GoodsService {
      * @return 返回ApiResponse接口响应对象
      * @throws BusinessException 抛出业务异常
      */
-    Page<CategoryVo> getCategories(Long id, String name, int pageIndex, int pageMaxSize) throws BusinessException;
+    List<CategoryVo> getCategories(Long id, String name) throws BusinessException;
 
     Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException;
 
@@ -38,12 +40,6 @@ public interface GoodsService {
     AddSpuSpecValueReq addSpecInfo(AddSpuSpecReq addSpuSpecReq);
 
     Page<GoodsSpecValueVo> getSpecInfoList(PageRequest pageRequest);
-
-    Page<GoodsSpuDetailsVo> populateGoods(Long id, int pageIndex, int pageMaxSize);
-
-    /*ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req);
-
-    ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req);*/
 
     Page<GoodsSpuVo> search(String keyWord,int pageIndex, int pageMaxSize);
 
