@@ -32,11 +32,11 @@ public class AdminTokenAspect {
         String adminToken = ServletUtils.adminToken();
 
         if (StringUtils.isBlank(loginName)) {
-            throw new BusinessException(ApiResponseEnum.PARAMETER_INVALID, "header param loginName can not be null");
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR, "header param loginName can not be null");
         }
 
         if (StringUtils.isBlank(adminToken)) {
-            throw new BusinessException(ApiResponseEnum.PARAMETER_INVALID, "header param adminToken can not be null");
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR, "header param adminToken can not be null");
         }
 
         RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
@@ -47,7 +47,7 @@ public class AdminTokenAspect {
             RedisKey redisKey11 = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
             jedisTemplate.setex(redisKey11, 1800, token);
         } else {
-            throw new BusinessException(ApiResponseEnum.PARAMETER_INVALID);
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
         }
 
 
