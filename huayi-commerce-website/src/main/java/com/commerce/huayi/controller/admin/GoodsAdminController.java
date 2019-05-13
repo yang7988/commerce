@@ -7,7 +7,6 @@ import com.commerce.huayi.entity.response.GoodsSpecValueVo;
 import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.pagination.Page;
 import com.commerce.huayi.service.GoodsService;
-import com.commerce.huayi.utils.ServletUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,6 +7,7 @@ import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.service.CustomerMessageService;
 import com.commerce.huayi.service.GoodsService;
+import com.commerce.huayi.service.ImageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class ApplicationTests {
     @Autowired
     private CustomerMessageService customerMessageService;
 
+    @Autowired
+    private ImageService imageService;
+
     @Test
     public void testI18n() throws Exception {
 
@@ -47,13 +51,7 @@ public class ApplicationTests {
 
     @Test
     public void testImage() throws Exception {
-        RedisKey redisKey = new RedisKey(RedisKeysPrefix.IMAGE_KEY, "big_bluetooth_earphone");
-        Path path = Paths.get("E:\\BaiduNetdiskDownload\\category\\big_bluetooth_earphone.jpg");
-        byte[] data = null;
-        data = Files.readAllBytes(path);
-        JedisStatus jedisStatus = jedisTemplate.hset(redisKey, "big_bluetooth_earphone_sample", data);
-        byte[] bytes = jedisTemplate.hget(redisKey, "big_bluetooth_earphone_sample");
-        System.out.println(jedisStatus);
+        imageService.upload(new byte[]{0,2});
     }
 
     @Test

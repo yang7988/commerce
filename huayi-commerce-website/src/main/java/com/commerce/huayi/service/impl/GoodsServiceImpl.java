@@ -6,7 +6,6 @@ import com.commerce.huayi.cache.JedisTemplate;
 import com.commerce.huayi.cache.key.RedisKey;
 import com.commerce.huayi.cache.key.RedisKeysPrefix;
 import com.commerce.huayi.constant.Constant;
-import com.commerce.huayi.constant.LanguageEnum;
 import com.commerce.huayi.entity.db.*;
 import com.commerce.huayi.entity.request.*;
 import com.commerce.huayi.entity.response.CategoryVo;
@@ -21,19 +20,14 @@ import com.commerce.huayi.utils.ObjectUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GoodsServiceImpl.class);
 
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
@@ -218,8 +212,7 @@ public class GoodsServiceImpl implements GoodsService {
         goodsSpecValue.setUpdateDate(new Date());
         goodsSpecValue.setIsDelete(Constant.NODELETE);
         goodsSpecValueMapper.insertSelective(goodsSpecValue);
-        AddSpuSpecValueReq specValueReq = BeanCopyUtil.copy(AddSpuSpecValueReq.class, addSpuSpecReq);
-        return specValueReq;
+        return BeanCopyUtil.copy(AddSpuSpecValueReq.class, addSpuSpecReq);
     }
 
     @Override

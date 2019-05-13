@@ -47,10 +47,12 @@ public class AdminTokenAspect {
             RedisKey redisKey11 = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
             jedisTemplate.setex(redisKey11, 1800, token);
         } else {
+
             throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
         }
-
 
     }
 
 }
+
+

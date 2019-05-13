@@ -9,8 +9,6 @@ import com.commerce.huayi.entity.response.GoodsSpuDetailsVo;
 import com.commerce.huayi.entity.response.GoodsSpuVo;
 import com.commerce.huayi.pagination.Page;
 
-import java.util.List;
-
 /**
  * 产品服务类
  */
