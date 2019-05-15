@@ -24,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -43,9 +45,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private GoodsSpecValueMapper goodsSpecValueMapper;
-
-    @Autowired
-    private GoodPopulateMapper goodPopulateMapper;
 
     @Autowired
     private JedisTemplate jedisTemplate;
