@@ -19,4 +19,6 @@ public interface AdminService {
 
     boolean loginNameIsUsed(String loginName);
 
+    AdministratorVo getAdminInfo(String loginName);
+
 }

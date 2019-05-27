@@ -90,6 +90,24 @@ public class AdminServiceImpl implements AdminService {
         return administratorMapper.loginNameIsUsed(loginName) > 0;
     }
 
+    @Override
+    public AdministratorVo getAdminInfo(String loginName) {
+        Administrator administrator = administratorMapper.getAdminByLoginName(loginName);
+        if (null != administrator) {
+                AdministratorVo administratorVo = new AdministratorVo();
+                administratorVo.setLoginName(loginName);
+                administratorVo.setMobilePhone(administrator.getMobilePhone());
+                administratorVo.setName(administrator.getName());
+                administratorVo.setId(administrator.getId());
+                administratorVo.setIsDelete(administrator.getIsDelete());
+                administratorVo.setAdminRole(administrator.getAdminRole());
+                administratorVo.setStatus(administrator.getStatus());
+                return administratorVo;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * 根据规则生成管理员登录token
      */
