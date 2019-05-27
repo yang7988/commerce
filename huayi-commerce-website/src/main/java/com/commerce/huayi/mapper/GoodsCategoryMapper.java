@@ -16,9 +16,7 @@ public interface GoodsCategoryMapper {
 
     int updateByPrimaryKeySelective(GoodsCategory record);
 
-    List<CategoryVo> selectCategoryByPage(Map<String, Object> criterion);
-
-    Integer selectCategoryCount(Map<String, Object> criterion);
+    List<CategoryVo> selectCategory(@Param("categoryId") Long categoryId,@Param("categoryName") String categoryName);
 
     int selectCountByName(@Param("categoryName") String categoryName);
 }

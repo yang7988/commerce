@@ -51,22 +51,9 @@ public class GoodsServiceImpl implements GoodsService {
     private JedisTemplate jedisTemplate;
 
     @Override
-    public Page<CategoryVo> getCategories(Long id, String name, int pageIndex, int pageMaxSize) throws BusinessException {
-        //查询数据库count
-        Map<String, Object> criterion = new HashMap<>();
-        criterion.put("categoryId", id);
-        criterion.put("categoryName", name);
-        Integer count = goodsCategoryMapper.selectCategoryCount(criterion);
-        Page<CategoryVo> page = Page.create(pageIndex, pageMaxSize, count);
-        if (count <= 0) {
-            return page;
-        }
-        //分页条件
-        criterion.put("offset", page.getOffset());
-        criterion.put("rowSize", page.getPageMaxSize());
-        List<CategoryVo> categoryVos = goodsCategoryMapper.selectCategoryByPage(criterion);
-        page.setList(categoryVos);
-        return page;
+    public List<CategoryVo> getCategories(Long id, String name) throws BusinessException {
+
+        return goodsCategoryMapper.selectCategory(id,name);
 
     }
 
@@ -228,64 +215,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
-    @Override
-    public Page<GoodsSpuDetailsVo> populateGoods(Long id, int pageIndex, int pageMaxSize) {
-        int count = goodPopulateMapper.selectPopulateGoodsCount(id);
-        Page<GoodsSpuDetailsVo> page = Page.create(pageIndex, pageMaxSize, count);
-        if (count <= 0) {
-            return page;
-        }
-        List<GoodsSpuDetailsVo> list = goodPopulateMapper.selectPopulateGoodsByPage(id, page.getOffset(), page.getPageMaxSize());
-        page.setList(list);
-        return page;
-
-    }
-
-    /*@Override
-    @Transactional
-    public ApiResponseEnum addPopulateGoods(AddPopulateGoodsReq req) {
-        Example example = new Example(GoodPopulate.class);
-        example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
-                .andEqualTo("spuId", req.getGoodsId())
-                .andEqualTo("specValueId", req.getSpecValueId())
-                .andEqualTo("isDelete",Constant.NODELETE);
-        int count = goodPopulateMapper.selectCountByExample(example);
-        if(count > 0) {
-            return ApiResponseEnum.SUCCESS;
-        }
-        GoodPopulate goodPopulate = new GoodPopulate();
-        goodPopulate.setCategoryId(req.getCategoryId());
-        goodPopulate.setSpuId(req.getGoodsId());
-        goodPopulate.setSpecValueId(req.getSpecValueId());
-        goodPopulate.setCreateDate(new Date());
-        goodPopulate.setUpdateDate(new Date());
-        goodPopulate.setIsDelete(Constant.NODELETE);
-        goodPopulateMapper.insertSelective(goodPopulate);
-        return ApiResponseEnum.SUCCESS;
-    }
-
-    @Override
-    @Transactional
-    public ApiResponseEnum delPopulateGoods(AddPopulateGoodsReq req) {
-        Example example = new Example(GoodPopulate.class);
-        example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
-                .andEqualTo("spuId", req.getGoodsId())
-                .andEqualTo("specValueId", req.getSpecValueId())
-                .andEqualTo("isDelete", Constant.DELETED);
-        int count = goodPopulateMapper.selectCountByExample(example);
-        if (count == 0) {
-            return ApiResponseEnum.SUCCESS;
-        }
-        example.clear();
-        example = new Example(GoodPopulate.class);
-        example.createCriteria().andEqualTo("categoryId", req.getCategoryId())
-                .andEqualTo("spuId", req.getGoodsId())
-                .andEqualTo("specValueId", req.getSpecValueId());
-        GoodPopulate goodPopulate = new GoodPopulate();
-        goodPopulate.setIsDelete(Constant.DELETED);
-        goodPopulateMapper.updateByExampleSelective(goodPopulate, example);
-        return ApiResponseEnum.SUCCESS;
-    }*/
 
     @Override
     public Page<GoodsSpuVo> search(String keyWord,int pageIndex, int pageMaxSize) {

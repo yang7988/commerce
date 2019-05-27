@@ -109,8 +109,7 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectCategoryByPage" parameterType="java.util.Map"
-            resultType="com.commerce.huayi.entity.response.CategoryVo">
+    <select id="selectCategory" resultType="com.commerce.huayi.entity.response.CategoryVo">
         select
         category.id as id,
         category.parent_id as parentId,
@@ -127,22 +126,9 @@
             and category.category_name = #{categoryName}
         </if>
         order by category.id
-        <if test="offset != null and rowSize != null">
-            limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
-        </if>
     </select>
 
-    <select id="selectCategoryCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        select count(category.id)
-        from tb_goods_category category
-        where 1=1 and category.is_delete = 0
-        <if test="categoryId != null and categoryId != 0">
-            and category.id = #{categoryId}
-        </if>
-        <if test="categoryName != null and categoryName != ''">
-            and category.category_name = #{categoryName}
-        </if>
-    </select>
+
     <select id="selectCountByName" resultType="int">
     select count(id) from tb_goods_category where category_name = #{categoryName}
   </select>

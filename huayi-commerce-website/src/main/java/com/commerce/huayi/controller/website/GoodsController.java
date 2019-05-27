@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/goods")
 @Api(tags = "前台商品及分类")
@@ -27,9 +29,9 @@ public class GoodsController {
 
     @PostMapping(value = "/categories")
     @ApiOperation(value = "产品分类管理", notes = "获取产品分类")
-    public ApiResponse<Page<CategoryVo>> categories(@RequestBody PageCategoryGoodsRequest req) {
-        Page<CategoryVo> page = goodsService.getCategories(req.getId(), req.getName(), req.getPageIndex(), req.getPageMaxSize());
-        return ApiResponse.returnSuccess(page);
+    public ApiResponse<List<CategoryVo>> categories(@RequestBody PageCategoryGoodsRequest req) {
+        List<CategoryVo> list = goodsService.getCategories(req.getId(), req.getName());
+        return ApiResponse.returnSuccess(list);
     }
 
     @PostMapping(value = "/categoryGoods")
@@ -52,19 +54,6 @@ public class GoodsController {
         GoodsSpuDetailsVo details = goodsService.goodsSpecDetails(req.getId(), req.getSpecValueId());
         return ApiResponse.returnSuccess(details);
     }
-
-    /*@RequestMapping(value = { "/image/{goodsId}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE )
-    @ResponseBody
-    @ApiOperation(value = "获取产品图片",notes = "获取产品单元图片GET请求")
-    public byte[] getImg(@PathVariable Long goodsId) throws IOException {
-        return goodsService.getGoodsImage(goodsId);
-    }*/
-
-    /*@PostMapping(value = "/category/populate/goods")
-    @ApiOperation(value = "获取分类的主推热门产品",notes = "获取分类的主推热门产品")
-    public ApiResponse<Page<GoodsSpuDetailsVo>> populateGoods(@RequestBody PageCategoryGoodsRequest req){
-        return ApiResponse.returnSuccess(goodsService.populateGoods(req.getDictId(),req.getPageIndex(),req.getPageMaxSize()));
-    }*/
 
     @PostMapping(value = "/search")
     @ApiOperation(value = "按产品名模糊搜索产品", notes = "按产品名模糊搜索产品")
