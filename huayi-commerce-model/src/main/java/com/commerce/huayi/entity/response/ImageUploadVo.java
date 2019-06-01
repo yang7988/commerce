@@ -12,7 +12,7 @@ public class ImageUploadVo {
 
     //分类名称
     @ApiModelProperty(value = "访问图片的host域名", example = "http://ppoltuvha.bkt.clouddn.com")
-    private String imageHost = "http://ppoltuvha.bkt.clouddn.com";
+    private String imageHost = "http://pseydjs3c.bkt.clouddn.com";
 
     @ApiModelProperty(value = "图片上传的时间戳")
     private Long imageUploadTime;
