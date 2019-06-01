@@ -56,6 +56,10 @@ public class GenericFilter implements Filter {
         if (request.getRequestURI().contains("/image")) {
             return ApiResponseEnum.SUCCESS;
         }
+        if(request.getRequestURI().contains("exportCustomerMessages")) {
+            // 暂时对导出操作放行，不进行任何校验
+            return ApiResponseEnum.SUCCESS;
+        }
         String language = request.getHeader(RequestHeaderEnum.language.name());
         if (StringUtils.isBlank(language)) {
             LOGGER.error("requestURI===" + request.getRequestURI() + "======缺少请求头部参数language");
