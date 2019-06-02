@@ -54,7 +54,7 @@ public class CustomerMessageVo {
     private String documentQuality;
 
     @ApiModelProperty(value = "创建时间createDate", required = true)
-    private Date createDate;
+    private String createDate;
 
     @ApiModelProperty(value = "产品明细GoodsSpus", required = true)
     private List<GoodsSpuVo> GoodsSpus;
@@ -163,11 +163,11 @@ public class CustomerMessageVo {
         this.documentQuality = documentQuality;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 

@@ -27,7 +27,7 @@ public class NewsInfo implements Serializable {
     /**
      * 生效时间
      */
-    private Date effectDate;
+    private String effectDate;
 
     /**
      * 删除标识
@@ -37,12 +37,12 @@ public class NewsInfo implements Serializable {
     /**
      * 创建时间
      */
-    private Date createDate;
+    private String createDate;
 
     /**
      * 更新时间
      */
-    private Date updateDate;
+    private String updateDate;
 
     private static final long serialVersionUID = 1L;
 
@@ -113,7 +113,7 @@ public class NewsInfo implements Serializable {
      *
      * @return effect_date - 生效时间
      */
-    public Date getEffectDate() {
+    public String getEffectDate() {
         return effectDate;
     }
 
@@ -122,7 +122,7 @@ public class NewsInfo implements Serializable {
      *
      * @param effectDate 生效时间
      */
-    public void setEffectDate(Date effectDate) {
+    public void setEffectDate(String effectDate) {
         this.effectDate = effectDate;
     }
 
@@ -149,7 +149,7 @@ public class NewsInfo implements Serializable {
      *
      * @return create_date - 创建时间
      */
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
@@ -158,7 +158,7 @@ public class NewsInfo implements Serializable {
      *
      * @param createDate 创建时间
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -167,7 +167,7 @@ public class NewsInfo implements Serializable {
      *
      * @return update_date - 更新时间
      */
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
@@ -176,7 +176,7 @@ public class NewsInfo implements Serializable {
      *
      * @param updateDate 更新时间
      */
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

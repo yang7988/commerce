@@ -75,7 +75,7 @@ public class CustomerMessage implements Serializable {
     /**
      * 创建时间
      */
-    private Date createDate;
+    private String createDate;
 
     /**
      * 产品明细GoodsSpus
@@ -323,7 +323,7 @@ public class CustomerMessage implements Serializable {
      *
      * @return create_date - 创建时间
      */
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
@@ -332,7 +332,7 @@ public class CustomerMessage implements Serializable {
      *
      * @param createDate 创建时间
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 

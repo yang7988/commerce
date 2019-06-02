@@ -7,10 +7,10 @@
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
-        <result column="effect_date" jdbcType="TIMESTAMP" property="effectDate"/>
+        <result column="effect_date" jdbcType="VARCHAR" property="effectDate"/>
         <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
+        <result column="update_date" jdbcType="VARCHAR" property="updateDate"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Wed Apr 03 15:29:37 CST 2019.-->
@@ -22,10 +22,10 @@
              title as title,
              type as type,
              content as content,
-             effect_date as effectDate,
+             date_format(effect_date, '%Y-%m-%d %H:%i:%s') as effectDate,
              del_flag as delFlag,
-             create_date as createDate,
-             update_date as updateDate
+             date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate,
+             date_format(update_date, '%Y-%m-%d %H:%i:%s') as updateDate
         from tb_news_info
         where del_flag = '0'
         and type = #{type, jdbcType=VARCHAR}
@@ -39,7 +39,7 @@
 
     <insert id="addNewsInfo">
         insert into tb_news_info (title, type, content, effect_date, del_flag, create_date) values
-            (#{newsInfo.title, jdbcType=VARCHAR},#{newsInfo.type, jdbcType=VARCHAR}, #{newsInfo.content, jdbcType=VARCHAR},#{newsInfo.effectDate, jdbcType=VARCHAR},#{newsInfo.delFlag, jdbcType=VARCHAR},now())
+            (#{newsInfo.title, jdbcType=VARCHAR},#{newsInfo.type, jdbcType=VARCHAR}, #{newsInfo.content, jdbcType=VARCHAR},now(),#{newsInfo.delFlag, jdbcType=VARCHAR},now())
     </insert>
 
     <update id="delNewsInfo">
@@ -51,10 +51,10 @@
              title as title,
              type as type,
              content as content,
-             effect_date as effectDate,
+             date_format(effect_date, '%Y-%m-%d %H:%i:%s') as effectDate,
              del_flag as delFlag,
-             create_date as createDate,
-             update_date as updateDate
+             date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate,
+             date_format(update_date, '%Y-%m-%d %H:%i:%s') as updateDate
         from tb_news_info
         where del_flag = '0'
         and id = #{id, jdbcType=INTEGER}

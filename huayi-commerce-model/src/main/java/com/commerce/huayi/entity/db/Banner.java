@@ -11,9 +11,9 @@ public class Banner implements Serializable {
 
     private String imageKey;
 
-    private Date createDate;
+    private String createDate;
 
-    private Date updateDate;
+    private String updateDate;
 
     private String delFlag;
 
@@ -41,19 +41,19 @@ public class Banner implements Serializable {
         this.imageKey = imageKey;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

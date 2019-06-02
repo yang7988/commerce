@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -57,11 +56,9 @@ public class NewsInfoServiceImpl implements NewsInfoService {
         LOGGER.info("NewsInfoServiceImpl->addNewsInfo newsInfoReq:{}", newsInfoReq);
         NewsInfo newsInfo = new NewsInfo();
         newsInfo.setDelFlag("0");
-        newsInfo.setCreateDate(new Date());
         newsInfo.setTitle(newsInfoReq.getTitle());
         newsInfo.setType(newsInfoReq.getType());
         newsInfo.setContent(newsInfoReq.getContent());
-        newsInfo.setEffectDate(new Date());
         newsInfoMapper.addNewsInfo(newsInfo);
     }
 

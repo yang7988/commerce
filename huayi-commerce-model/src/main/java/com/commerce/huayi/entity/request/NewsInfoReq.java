@@ -26,7 +26,7 @@ public class NewsInfoReq {
     private String content;
 
     @ApiModelProperty(value = "生效时间effectDate", example = "2019-03-22 22:00:00", dataType = "Date")
-    private Date effectDate;
+    private String effectDate;
 
 
     public String getTitle() {
@@ -53,11 +53,11 @@ public class NewsInfoReq {
         this.content = content;
     }
 
-    public Date getEffectDate() {
+    public String getEffectDate() {
         return effectDate;
     }
 
-    public void setEffectDate(Date effectDate) {
+    public void setEffectDate(String effectDate) {
         this.effectDate = effectDate;
     }
 

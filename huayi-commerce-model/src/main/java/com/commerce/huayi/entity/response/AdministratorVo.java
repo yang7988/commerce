@@ -39,11 +39,11 @@ public class AdministratorVo implements Serializable {
 
     //创建时间
     @ApiModelProperty(value = "创建时间createDate", required = true)
-    private Date createDate;
+    private String createDate;
 
     //更新时间
     @ApiModelProperty(value = "更新时间updateDate", required = false)
-    private Date updateDate;
+    private String updateDate;
 
     //删除标识(0未删除1已删除)
     @ApiModelProperty(value = "删除标识(0未删除1已删除)isDelete", required = true)
@@ -107,19 +107,19 @@ public class AdministratorVo implements Serializable {
         this.createBy = createBy;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

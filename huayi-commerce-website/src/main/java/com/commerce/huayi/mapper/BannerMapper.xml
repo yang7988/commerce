@@ -7,8 +7,8 @@
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="imageKey" jdbcType="VARCHAR" property="imageKey"/>
         <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
+        <result column="update_date" jdbcType="VARCHAR" property="updateDate"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Wed Apr 03 15:32:58 CST 2019.-->
@@ -20,8 +20,8 @@
              url as url,
              imageKey as imageKey,
              del_flag as delFlag,
-             create_date as createDate,
-             update_date as updateDate
+             date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate,
+             date_format(update_date, '%Y-%m-%d %H:%i:%s') as updateDate
         from tb_banner
         where del_flag = '0'
     </select>

@@ -10,8 +10,8 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="status" jdbcType="CHAR" property="status"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
+        <result column="update_date" jdbcType="VARCHAR" property="updateDate"/>
         <result column="is_delete" jdbcType="TINYINT" property="isDelete"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
     </resultMap>
@@ -42,8 +42,8 @@
          adminRole as adminRole,
          status as status,
          create_by as createBy,
-         create_date as createDate,
-         update_date as updateDate,
+         date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate,
+         date_format(update_date, '%Y-%m-%d %H:%i:%s') as updateDate,
          is_delete as isDelete,
          update_by as updateBy
      from tb_administrator
@@ -59,8 +59,8 @@
          adminRole as adminRole,
          status as status,
          create_by as createBy,
-         create_date as createDate,
-         update_date as updateDate,
+         date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate,
+         date_format(update_date, '%Y-%m-%d %H:%i:%s') as updateDate,
          is_delete as isDelete,
          update_by as updateBy
      from tb_administrator

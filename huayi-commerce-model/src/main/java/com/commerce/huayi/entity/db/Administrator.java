@@ -47,12 +47,12 @@ public class Administrator implements Serializable {
     /**
      * 创建时间
      */
-    private Date createDate;
+    private String createDate;
 
     /**
      * 更新时间
      */
-    private Date updateDate;
+    private String updateDate;
 
     /**
      * 删除标识(0未删除1已删除)
@@ -197,7 +197,7 @@ public class Administrator implements Serializable {
      *
      * @return create_date - 创建时间
      */
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
@@ -206,7 +206,7 @@ public class Administrator implements Serializable {
      *
      * @param createDate 创建时间
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -215,7 +215,7 @@ public class Administrator implements Serializable {
      *
      * @return update_date - 更新时间
      */
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
@@ -224,7 +224,7 @@ public class Administrator implements Serializable {
      *
      * @param updateDate 更新时间
      */
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

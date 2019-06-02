@@ -39,7 +39,6 @@ public class RecruitmentInfoServiceImpl implements RecruitmentInfoService {
         LOGGER.info("RecruitmentInfoServiceImpl->addRecruitmentInfo recruitmentInfoReq:{}", recruitmentInfoReq);
         RecruitmentInfo recruitmentInfo = new RecruitmentInfo();
         recruitmentInfo.setDelFlag("0");
-        recruitmentInfo.setCreateDate(new Date());
         recruitmentInfo.setTitle(recruitmentInfoReq.getTitle());
         recruitmentInfo.setContent(recruitmentInfoReq.getContent());
         recruitmentInfoMapper.addRecruitmentInfo(recruitmentInfo);

@@ -22,12 +22,12 @@ public class ContractInfo implements Serializable {
     /**
      * 创建标识
      */
-    private Date createDate;
+    private String createDate;
 
     /**
      * 更新时间
      */
-    private Date updateDate;
+    private String updateDate;
 
     private static final long serialVersionUID = 1L;
 
@@ -90,7 +90,7 @@ public class ContractInfo implements Serializable {
      *
      * @return create_date - 创建标识
      */
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
@@ -99,7 +99,7 @@ public class ContractInfo implements Serializable {
      *
      * @param createDate 创建标识
      */
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -108,7 +108,7 @@ public class ContractInfo implements Serializable {
      *
      * @return update_date - 更新时间
      */
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
@@ -117,7 +117,7 @@ public class ContractInfo implements Serializable {
      *
      * @param updateDate 更新时间
      */
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 

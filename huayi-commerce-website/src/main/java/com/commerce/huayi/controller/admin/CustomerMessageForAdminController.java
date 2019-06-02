@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +94,7 @@ public class CustomerMessageForAdminController {
                     customerMessageVoExport.setDocumentQuality("非常好");
                 }
             }
-            customerMessageVoExport.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(customerMessageVo.getCreateDate()));
+            customerMessageVoExport.setCreateDate(customerMessageVo.getCreateDate());
 
             String goodsDesc = "";
             if(null != customerMessageVo.getGoodsSpus() && customerMessageVo.getGoodsSpus().size() > 0) {

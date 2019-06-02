@@ -26,7 +26,7 @@ public class NewsInfoVo {
     private String content;
 
     @ApiModelProperty(value = "创建时间createDate", required = true)
-    private Date createDate;
+    private String createDate;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class NewsInfoVo {
         this.content = content;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 }

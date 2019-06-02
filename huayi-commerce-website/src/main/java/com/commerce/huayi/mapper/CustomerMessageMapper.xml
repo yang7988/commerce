@@ -16,7 +16,7 @@
         <result column="purpose_flag" jdbcType="CHAR" property="purposeFlag"/>
         <result column="deal_flag" jdbcType="CHAR" property="dealFlag"/>
         <result column="document_quality" jdbcType="CHAR" property="documentQuality"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="create_date" jdbcType="VARCHAR" property="createDate"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated generated on Wed Apr 03 15:33:25 CST 2019.-->
@@ -38,7 +38,7 @@
              purpose_flag as purposeFlag,
              deal_flag as dealFlag,
              document_quality as documentQuality,
-             create_date as createDate
+             date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate
         from tb_customer_message
         where del_flag = '0'
         order by createDate
@@ -81,7 +81,7 @@
              purpose_flag as purposeFlag,
              deal_flag as dealFlag,
              document_quality as documentQuality,
-             create_date as createDate
+             date_format(create_date, '%Y-%m-%d %H:%i:%s') as createDate
         from tb_customer_message
         where del_flag = '0'
         order by create_date

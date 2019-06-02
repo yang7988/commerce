@@ -39,7 +39,6 @@ public class ContractInfoServiceImpl implements ContractInfoService {
         LOGGER.info("ContractInfoServiceImpl->addContractInfo contractInfoReq:{}", contractInfoReq);
         ContractInfo contractInfo = new ContractInfo();
         contractInfo.setDelFlag("0");
-        contractInfo.setCreateDate(new Date());
         contractInfo.setContent(contractInfoReq.getContent());
         contractInfoMapper.addContractInfo(contractInfo);
     }
