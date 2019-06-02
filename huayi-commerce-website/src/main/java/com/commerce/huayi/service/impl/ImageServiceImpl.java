@@ -79,8 +79,6 @@ public class ImageServiceImpl implements ImageService {
                     return uploadBinaryFile(bytes,region,count++);
                 }
             }
-            return null;
-        } catch (Exception e) {
             throw new BusinessException(ApiResponseEnum.UPLOAD_IMAGE_ERROR);
         }
     }
