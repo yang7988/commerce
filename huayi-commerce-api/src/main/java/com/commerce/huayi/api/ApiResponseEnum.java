@@ -19,7 +19,9 @@ public enum ApiResponseEnum implements Serializable {
     GOODS_IMAGE_ABSENCE(609, "GOODS_IMAGE_ABSENCE", "产品图片缺失", false),
     GOODS_CATEGORY_EXISTS(610, "GOODS_CATEGORY_EXISTS", "商品分类已存在", false),
     FILE_CANT_BE_EMPTY(611, "FILE_CANT_BE_EMPTY", "缺少文件参数[file]", false),
-    DO_NOT_HAVE_ANY_MORE_RECORD(700, "DO_NOT_HAVE_ANY_MORE_RECORD", "没有更多记录", false);
+    DO_NOT_HAVE_ANY_MORE_RECORD(700, "DO_NOT_HAVE_ANY_MORE_RECORD", "没有更多记录", false),
+    UPLOAD_IMAGE_ERROR(701, "UPLOAD_IMAGE_ERROR", "上传文件失败", false),
+    UPLOAD_IMAGE_MAX_TRIES(702, "UPLOAD_IMAGE_MAX_TRIES", "上传文件超过最大重试次数", false);
 
     protected int id;
     protected String code;
