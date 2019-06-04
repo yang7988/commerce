@@ -446,7 +446,8 @@ public class ExportExcel {
      * @param fileName 输出文件名
      */
     public ExportExcel writeFile(String name) throws FileNotFoundException, IOException{
-        FileOutputStream os = new FileOutputStream(name);
+        String fileBasePath = "/download/";
+        FileOutputStream os = new FileOutputStream(fileBasePath + name);
         this.write(os);
         return this;
     }

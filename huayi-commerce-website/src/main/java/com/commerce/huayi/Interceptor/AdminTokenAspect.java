@@ -27,31 +27,28 @@ public class AdminTokenAspect {
 
     @Before("controller()")
     public void beforeAdminOperator(JoinPoint point) {
-        if(ServletUtils.getHttpServletRequest().getRequestURI().contains("exportCustomerMessages")) {
-            // 暂时对导出操作放行，不进行任何校验
+
+        String loginName = ServletUtils.loginName();
+        String adminToken = ServletUtils.adminToken();
+
+        if (StringUtils.isBlank(loginName)) {
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR, "header param loginName can not be null");
+        }
+
+        if (StringUtils.isBlank(adminToken)) {
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR, "header param adminToken can not be null");
+        }
+
+        RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
+        String token = jedisTemplate.get(redisKey, String.class);
+
+        if (adminToken.equals(token)) {
+            // 校验通过
+            RedisKey redisKey11 = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
+            jedisTemplate.setex(redisKey11, 1800, token);
         } else {
-            String loginName = ServletUtils.loginName();
-            String adminToken = ServletUtils.adminToken();
 
-            if (StringUtils.isBlank(loginName)) {
-                throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR, "header param loginName can not be null");
-            }
-
-            if (StringUtils.isBlank(adminToken)) {
-                throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR, "header param adminToken can not be null");
-            }
-
-            RedisKey redisKey = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
-            String token = jedisTemplate.get(redisKey, String.class);
-
-            if (adminToken.equals(token)) {
-                // 校验通过
-                RedisKey redisKey11 = new RedisKey(RedisKeysPrefix.USER_KEY, loginName);
-                jedisTemplate.setex(redisKey11, 1800, token);
-            } else {
-
-                throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
-            }
+            throw new BusinessException(ApiResponseEnum.USERNAME_PASSWORD_ERROR);
         }
 
     }
