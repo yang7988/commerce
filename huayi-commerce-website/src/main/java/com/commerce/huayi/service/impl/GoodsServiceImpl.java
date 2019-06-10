@@ -58,14 +58,25 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Page<GoodsSpuVo> categoryGoods(Long id, int pageIndex, int pageMaxSize) throws BusinessException {
-        Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
-        Page<GoodsSpuVo> page = Page.create(pageIndex, pageMaxSize, count);
-        if (count <= 0) {
+        if (id == null || id == 0L) {
+            Integer count = goodsSpuMapper.getGoodsCountByCategoryId(id);
+            Page<GoodsSpuVo> page = Page.create(pageIndex, pageMaxSize, count);
+            if (count <= 0) {
+                return page;
+            }
+            List<GoodsSpuVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
+            page.setList(list);
+            return page;
+        } else {
+            Integer count = goodsSpuMapper.getGoodsCountByAllCategoryId(id);
+            Page<GoodsSpuVo> page = Page.create(pageIndex, pageMaxSize, count);
+            if (count <= 0) {
+                return page;
+            }
+            List<GoodsSpuVo> list = goodsSpuMapper.getAllGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
+            page.setList(list);
             return page;
         }
-        List<GoodsSpuVo> list = goodsSpuMapper.getGoodsByCategoryId(id, page.getOffset(), page.getPageMaxSize());
-        page.setList(list);
-        return page;
     }
 
     @Override

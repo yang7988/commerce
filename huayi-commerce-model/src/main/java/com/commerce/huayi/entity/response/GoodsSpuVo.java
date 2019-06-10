@@ -35,6 +35,9 @@ public class GoodsSpuVo {
     @ApiModelProperty(value = "产品所属分类id", required = true, example = "10")
     private Long categoryId;
 
+    @ApiModelProperty(value = "产品所属分类名称", required = true, example = "真无线耳机")
+    private String categoryName;
+
     //品牌id
     @ApiModelProperty(value = "产品所属品牌id", required = true, example = "0")
     private Long brandId;
@@ -101,5 +104,13 @@ public class GoodsSpuVo {
 
     public void setBrandId(Long brandId) {
         this.brandId = brandId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

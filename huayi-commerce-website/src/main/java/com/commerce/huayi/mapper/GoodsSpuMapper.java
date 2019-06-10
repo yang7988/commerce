@@ -19,7 +19,12 @@ public interface GoodsSpuMapper {
     List<GoodsSpuVo> getGoodsByCategoryId(@Param("categoryId") Long categoryId, @Param("offset") Integer offset,
                                           @Param("rowSize") Integer rowSize);
 
+    List<GoodsSpuVo> getAllGoodsByCategoryId(@Param("categoryId") Long categoryId, @Param("offset") Integer offset,
+                                             @Param("rowSize") Integer rowSize);
+
     Integer getGoodsCountByCategoryId(@Param("categoryId") Long categoryId);
+
+    Integer getGoodsCountByAllCategoryId(@Param("categoryId") Long categoryId);
 
     List<GoodsSpuDetailsVo> getGoodsBySpuId(@Param("spuId") Long spuId, @Param("offset") Integer offset,
                                             @Param("rowSize") Integer rowSize);
