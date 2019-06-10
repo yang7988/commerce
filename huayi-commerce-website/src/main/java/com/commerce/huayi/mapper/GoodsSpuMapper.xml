@@ -276,16 +276,16 @@
         count(1)
         from tb_goods_spu spu join (SELECT id,category_name as categoryName
                                         FROM tb_goods_category
-                                        WHERE id = #{categoryId} and is_delete=0
+                                        WHERE id = #{categoryId} and is_delete = 0
                                         UNION
 	                                SELECT sub.id as id,sub.category_name as categoryName
 	                                    FROM tb_goods_category sub
 	                                JOIN tb_goods_category main ON sub.parent_id = main.id
 	                                WHERE
-		                            main.id = #{categoryId} and sub.is_delete=0 and main.is_delete=0
+		                            main.id = #{categoryId} and sub.is_delete = 0 and main.is_delete = 0
 		                            ) category
 		on spu.category_id = category.id
-        where spu.is_delete=0
+        where spu.is_delete = 0
     </select>
 
     <select id="getAllGoodsByCategoryId" resultType="com.commerce.huayi.entity.response.GoodsSpuVo">
@@ -303,17 +303,17 @@
                                         FROM
 	                                        tb_goods_category
                                         WHERE
-	                                    id = #{categoryId} and is_delete=0
+	                                    id = #{categoryId} and is_delete = 0
                                     UNION
 	                                SELECT sub.id as id,sub.category_name as categoryName
 	                                    FROM
 		                                    tb_goods_category sub
 	                                    JOIN tb_goods_category main ON sub.parent_id = main.id
 	                                    WHERE
-		                                main.id = #{categoryId} and sub.is_delete=0 and main.is_delete=0
+		                                main.id = #{categoryId} and sub.is_delete = 0 and main.is_delete = 0
 		                            ) category
 		on spu.category_id = category.id
-		where spu.is_delete=0
+		where spu.is_delete = 0
         ORDER BY
 	    spu.id
         limit #{offset, jdbcType=INTEGER},#{rowSize, jdbcType=INTEGER}
